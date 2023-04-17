@@ -1,8 +1,11 @@
 Foro 📖
+
 Objetivos 📋
+
 Desarrollar un sistema, que permita la administración general de un Foro (de cara a los administradores): Usuarios Miembros, Administradores, Pregunta, Respuesta, MeGusta, etc., como así también, permitir a los usuarios puedan navegar el foro y realizar preguntas y/o respuestas. Utilizar Visual Studio 2019 preferentemente y crear una aplicación utilizando ASP.NET MVC Core (versión a definir por el docente 3.1 o 6.0).
 
 Enunciado 📢
+
 La idea principal de este trabajo práctico, es que Uds. se comporten como un equipo de desarrollo. Este documento, les acerca, un equivalente al resultado de una primera entrevista entre el cliente y alguien del equipo, el cual relevó e identificó la información aquí contenida. A partir de este momento, deberán comprender lo que se está requiriendo y construir dicha aplicación,
 
 Deben recopilar todas las dudas que tengan y evacuarlas con su nexo (el docente) de cara al cliente. De esta manera, él nos ayudará a conseguir la información ya un poco más procesada. Es importante destacar, que este proceso, no debe esperar a ser en clase; es importante, que junten algunas consultas, sea de índole funcional o técnicas, en lugar de cada consulta enviarla de forma independiente.
