@@ -37,11 +37,15 @@ Crear las relaciones entre las entidades
 Crear una carpeta Data que dentro tendrá al menos la clase que representará el contexto de la base de datos DbContext.
 Crear el DbContext utilizando base de datos en memoria (con fines de testing inicial). DbContext, Database In-Memory.
 Agregar los DbSet para cada una de las entidades en el DbContext.
+
 Crear el Scaffolding para permitir los CRUD de las entidades al menos solicitadas en el enunciado.
+
 Aplicar las adecuaciones y validaciones necesarias en los controladores.
+
 Realizar un sistema de login con al menos los roles equivalentes a y (o con permisos elevados).
 Si el proyecto lo requiere, generar el proceso de registración.
 Un administrador podrá realizar todas tareas que impliquen interacción del lado del negocio (ABM "Alta-Baja-Modificación" de las entidades del sistema y configuraciones en caso de ser necesarias).
+
 El sólo podrá tomar acción en el sistema, en base al rol que tiene.
 Realizar todos los ajustes necesarios en los modelos y/o funcionalidades.
 Realizar los ajustes requeridos del lado de los permisos.
@@ -50,6 +54,7 @@ Nota: Para la pre-carga de datos, las cuentas creadas por este proceso, deben cu
 
 La contraseña por defecto para todas las cuentas pre-cargadas será: Password1!
 El UserName y el Email deben seguir la siguiente regla: ++@ort.edu.ar Ej.: cliente1@ort.edu.ar, empleado1@ort.edu.ar, empleadorrhh1@ort.edu.ar
+
 Entidades 📄
 Persona
 Miembro
@@ -64,20 +69,19 @@ Importante: Todas las entidades deben tener su identificador unico. Id
 Las propiedades descriptas a continuación, son las minimas que deben tener las entidades. Uds. pueden agregar las que consideren necesarias. De la misma manera Uds. deben definir los tipos de datos asociados a cada una de ellas, como así también las restricciones.
 
 Persona
-
 - UserName
 - Password
 - Email
 - FechaAlta
+  
 Administrador
-
 - Nombre
 - Apellido
 - Email
 - FechaAlta
 - Password
+  
 Miembro
-
 - Nombre
 - Apellido
 - Email
@@ -88,12 +92,12 @@ Miembro
 - Preguntas
 - Respuestas
 - PreguntasYRespuestasQueMeGustan
-Categoria
 
+Categoria
 - Nombre
 - Entradas
-Entrada
 
+Entrada
 - Titulo
 - Fecha
 - Categoria
@@ -101,23 +105,23 @@ Entrada
 - Preguntas
 - Privada
 - MiembrosHabilitados
+  
 Pregunta
-
 - Descripcion
 - Entrada
 - Respuestas
 - Miembro
 - Fecha
 - Activa
+  
 Respuesta
-
 - Descripcion
 - Pregunta
 - Miembro
 - Fecha
 - Reacciones (colección de Likes, "MeGusta")
+  
 Reaccion
-
 - Fecha
 - MeGusta
 - Respuesta
@@ -127,15 +131,14 @@ NOTA: aquí un link para refrescar el uso de los Data annotations.
 Caracteristicas y Funcionalidades ⌨️
 Todas las entidades, deben tener implementado su correspondiente ABM, a menos que sea implicito el no tener que soportar alguna de estas acciones.
 
-Administrador
-
+#Administrador
 Un administrador, solo puede crear nuevas categorias.
 Sacar un listado de cantidad de Entradas por categorias.
 Los administradores del Foro, deben ser agregados por otro Administrador.
 Al momento, del alta del Administradores, se le definirá un username y la password será definida por el sistema.
 También se le asignará a estas cuentas el rol de Administrador.
-Miembro
 
+#Miembro
 Puede auto registrarse.
 La autoregistración desde el sitio, es exclusiva para los usuarios miembros. Por lo cual, se le asignará dicho rol.
 Los miembros pueden navegar por el foro.
@@ -145,13 +148,13 @@ No se puede cargar una respuesta de una pregunta del mismo miembro. Esta acción
 Puede crear nuevas categorias.
 Antes de crearla, se le propondrá un listado de categorias ya existentes en orden alfabetico.
 A cualquier respuesta, un miembro (que no es el autor de la respuesta), puede poner Like (MeGusta), Dislike (NoMeGusta) o resetearlo (Quita la reacción a dicha respuesta).
-Reaccion
 
+#Reaccion
 La reacción a una respuesta será validandola con las 3 posibilidades.
 Al quitar la reacción, no se desea guardar registro previo de la misma.
 Un miembro, solo puede quitar las reacciones que uno mismo ha cargado.
-Entrada
 
+#Entrada
 Al generar una entrada por un miembro, quedarán los datos básicos asignados, como ser fecha, el miembro que la creó, etc.
 La categoria puede ser una existente o una nueva que quiera crear en el momento.
 La entrada, creará junto con está la primer pregunta, que también, será este miembro el dueño.
@@ -176,8 +179,8 @@ Podrán recibir reacciones.
 Reacciones
 
 Las reacciones, acerca de las respuestas, no pueden ser realizadas por los mismos autores de las respuestas.
-Aplicación General
 
+Aplicación General
 El foro, mostrará los encabezados en la home:
 Un listado de las ultimas 5 entradas cargadas más recientemente.
 Un top 5, de Entradas con más preguntas y respuestas.
