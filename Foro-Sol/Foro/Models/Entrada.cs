@@ -5,13 +5,22 @@ namespace Foro.Models
 {
     public class Entrada
     {
+        [Required(ErrorMessage = ErrorMsg.ErrMsgRequired)]
         public int EntradaId { get; set; }
 
-        public string Titulo { get; set; }
-        public DateTime Fecha { get; set; } = DateTime.Now;
+        [Display(Name = Alias.Titulo)]
+        [Required(ErrorMessage = ErrMsgs.Requerido)]
+        [StringLength(Restrictions.MaxTituloEntrada, MinimumLength = Restrictions.MinTituloEntrada, ErrorMessage = ErrMsgs.StrMaxMin)]
+        public string Titulo { get; set; [Display(Name = Alias.FechaDePublicacion)]
 
+            [DataType(DataType.DateTime, ErrorMessage = ErrorMsg.ErrMsgNotValid)]
+
+            public DateTime Fecha { get; set; } = DateTime.Now;
+
+        [Required(ErrorMessage = ErrorMsg.ErrMsgRequired)]
         public int CategoriaId { get; set; }
 
+        [Required(ErrorMessage = ErrorMsg.ErrMsgRequired)]
         public int MiembroId { get; set; }
 
        
