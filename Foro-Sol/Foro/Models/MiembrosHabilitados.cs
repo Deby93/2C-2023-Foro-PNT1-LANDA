@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Foro.Helpers;
+using System.ComponentModel.DataAnnotations;
 
 namespace Foro.Models
 {
@@ -7,8 +8,7 @@ namespace Foro.Models
         [Key]
         [Required(ErrorMessage = ErrorMsg.ErrMsgRequired)]
         public int EntradaId { get; set; }
-        [Key]
-        [Required(ErrorMessage = ErrorMsg.ErrMsgRequired)]
+
         public int MiembroId { get; set; }
 
         public Entrada Entrada { get; set; }

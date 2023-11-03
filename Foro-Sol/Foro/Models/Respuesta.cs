@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Foro.Helpers;
+using System.ComponentModel.DataAnnotations;
 
 namespace Foro.Models
 {

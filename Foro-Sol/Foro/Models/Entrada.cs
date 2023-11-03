@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Foro.Helpers;
+
 
 namespace Foro.Models
 {
@@ -13,17 +15,17 @@ namespace Foro.Models
         [StringLength(Restrictions.MaxTituloEntrada, MinimumLength = Restrictions.MinTituloEntrada, ErrorMessage = ErrMsgs.StrMaxMin)]
         public string Titulo { get; set; [Display(Name = Alias.FechaDePublicacion)]
 
-            [DataType(DataType.DateTime, ErrorMessage = ErrorMsg.ErrMsgNotValid)]
 
-            public DateTime Fecha { get; set; } = DateTime.Now;
+            //[Display(Name = Alias.FechaDePublicacion)]
+            //[DataType(DataType.DateTime, ErrorMessage = ErrorMsg.ErrMsgNotValid)]
+        public DateTime Fecha { get; set; } = DateTime.Now;
 
-        [Required(ErrorMessage = ErrorMsg.ErrMsgRequired)]
         public int CategoriaId { get; set; }
 
         [Required(ErrorMessage = ErrorMsg.ErrMsgRequired)]
         public int MiembroId { get; set; }
 
-       
+
         public Boolean Privada { get; set; } = false;
 
         public Miembro Miembro { get; set; }
@@ -49,4 +51,6 @@ namespace Foro.Models
                 return resultado;
             }
         }
+    }
 }
+        
