@@ -1,8 +1,7 @@
-﻿using Foro.Helpers;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
-namespace Foro.Models
+namespace Foro
 {
     public class Categoria
     {

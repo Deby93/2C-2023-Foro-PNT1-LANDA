@@ -1,8 +1,7 @@
-﻿using Foro.Models;
-using FORO_D.Models;
+﻿
 using Microsoft.EntityFrameworkCore;
 
-namespace Foro.Data
+namespace Foro
 {
     public class ForoContexto : DbContext
     {

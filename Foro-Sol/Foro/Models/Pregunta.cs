@@ -1,8 +1,9 @@
 ﻿
-using Foro.Helpers;
 using System.ComponentModel.DataAnnotations;
 
-namespace Foro.Models
+
+
+namespace Foro
 {
     public class Pregunta
     {

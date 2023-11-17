@@ -1,8 +1,7 @@
-﻿using Foro.Helpers;
-using FORO_D.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Foro.Models
+
+namespace Foro
 {
     public class Miembro : Usuario
     {

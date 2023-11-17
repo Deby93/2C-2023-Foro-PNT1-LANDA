@@ -1,8 +1,7 @@
-﻿using Foro.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace Foro.Controllers
+namespace Foro
 {
     public class HomeController : Controller
     {

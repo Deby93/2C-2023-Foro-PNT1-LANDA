@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using Foro.Helpers;
 
 
-namespace Foro.Models
+
+
+namespace Foro
 {
     public class Entrada
     {

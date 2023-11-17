@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Foro.Helpers
+namespace Foro
 {
     public static class ErrMsgs
     {
