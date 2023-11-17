@@ -1,4 +1,6 @@
-﻿namespace Foro
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Foro
 {
     public static class Startup
 
@@ -14,6 +16,7 @@
         }
         private static void ConfigureServices(WebApplicationBuilder builder)
         {
+            builder.Services.AddDbContext<ForoContexto>(options => options.UseInMemoryDatabase("ForoDb"));
             // Add services to the container.
               builder.Services.AddControllersWithViews();
         }
