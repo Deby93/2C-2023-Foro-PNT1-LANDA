@@ -6,7 +6,7 @@ namespace Foro.Models
 {
     public class Categoria
     {
-        #region
+        #region Propiedades
         public int CategoriaId { get; set; }
 
         [StringLength(Restrictions.MaxNomCat, MinimumLength = Restrictions.MinNomCat, ErrorMessage = ErrMsgs.StrMaxMin)]

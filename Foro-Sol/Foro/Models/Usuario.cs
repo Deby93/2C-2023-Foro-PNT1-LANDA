@@ -24,7 +24,7 @@ namespace FORO_D.Models
 
         [Display(Name = Alias.FechaAlta)]
         [DataType(DataType.DateTime, ErrorMessage = ErrMsgs.ErrMsgNotValid)]
-        public DateTime? FechaAlta { get; set; } =null;
+        public DateTime? FechaAlta { get; set; } = null;
 
         [Display(Name = Alias.NombreCompleto)]
         public string NombreCompleto
@@ -34,6 +34,16 @@ namespace FORO_D.Models
                 return $"{Apellido.ToUpper()}, {Nombre}";
             }
         }
+
+        [Display(Name = "Correo electronico")]
+        [DataType(DataType.EmailAddress, ErrorMessage = ErrMsgs.ErrMsgNotValid)]
+        [Required(ErrorMessage = ErrMsgs.Requerido)]
+        public string Email { get; set; }
+
+        [Display(Name = "Password")]
+        [DataType(DataType.Password, ErrorMessage = ErrMsgs.ErrMsgNotValid)]
+        [Required(ErrorMessage = ErrMsgs.Requerido)]
+        public string Password { get; set; }
         #endregion
     }
 }

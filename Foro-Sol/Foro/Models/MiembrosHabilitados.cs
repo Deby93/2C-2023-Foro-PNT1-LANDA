@@ -5,6 +5,7 @@ namespace Foro.Models
 {
     public class MiembrosHabilitados
     {
+        #region Propiedades
         [Key]
         [Required(ErrorMessage = ErrorMsg.ErrMsgRequired)]
         public int EntradaId { get; set; }
@@ -16,6 +17,7 @@ namespace Foro.Models
         public Miembro Miembro { get; set; }
 
         public Boolean Habilitado { get; set; }
-#endregion
+
     }
+    #endregion
 }

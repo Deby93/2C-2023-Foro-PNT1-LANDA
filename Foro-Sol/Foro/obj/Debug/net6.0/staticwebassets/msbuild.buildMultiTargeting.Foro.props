@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Foro.props" />
+</Project>
