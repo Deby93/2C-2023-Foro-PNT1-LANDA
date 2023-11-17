@@ -21,6 +21,8 @@ namespace Foro.Models
         public List<Pregunta> Preguntas { get; set; }
 
         public List<Respuesta> Respuestas { get; set; }
+
+        public List<MiembrosHabilitados>miembrosHabilitados { get; set; }
     }
     #endregion
 }
