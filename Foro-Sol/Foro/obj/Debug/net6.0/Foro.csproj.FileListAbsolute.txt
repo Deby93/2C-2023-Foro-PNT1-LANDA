@@ -1,3 +1,4 @@
+C:\Users\debyl\Source\Repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Users\debyl\Source\Repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\debyl\Source\Repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\appsettings.json
 C:\Users\debyl\Source\Repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\Foro.staticwebassets.runtime.json
@@ -150,7 +151,6 @@ C:\Users\debyl\Source\Repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6
 C:\Users\debyl\Source\Repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Users\debyl\Source\Repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Users\debyl\Source\Repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
-C:\Users\debyl\Source\Repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Users\debyl\Source\Repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Users\debyl\Source\Repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Users\debyl\Source\Repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\cs\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
