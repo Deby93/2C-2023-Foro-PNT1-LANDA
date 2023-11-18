@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Foro;
 
 namespace Foro
 {
@@ -22,6 +23,17 @@ namespace Foro
                 .WithMany(e => e.MiembrosHabilitados)
                 .HasForeignKey(mh => mh.EntradaId);
 
+
+            modelBuilder.Entity<Reaccion>().HasKey(r => new { r.MiembroId,r.RespuestaId });
+            modelBuilder.Entity<Reaccion>().HasOne(r => r.Miembro)
+                .WithMany(m => m.PreguntasYRespuestasQueMeGustan)
+                .HasForeignKey(pyr => pyr.MiembroId);
+
+
+            modelBuilder.Entity<Reaccion>().HasOne(r => r.Respuesta)
+                .WithMany(res => res.Reacciones)
+                .HasForeignKey(r => r.RespuestaId);
+
         }
 
 
@@ -30,7 +42,9 @@ namespace Foro
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Entrada> Entradas { get; set; }
         public DbSet<Respuesta> Respuestas { get; set; }
-        public DbSet<Reaccion> Reacciones { get; set; }
+        public DbSet<Foro.MiembrosHabilitados>? MiembrosHabilitados { get; set; }
+        public DbSet<Foro.Reaccion>? Reaccion { get; set; }
+        public DbSet<Foro.Pregunta>? Pregunta { get; set; }
 
 
 

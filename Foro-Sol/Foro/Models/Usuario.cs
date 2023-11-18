@@ -12,6 +12,9 @@ namespace Foro
     public class Usuario
     {
         #region Propiedades
+  
+        public int id { get; set; }
+
         [Display(Name = Alias.Nombre)]
         [Required(ErrorMessage = ErrMsgs.Requerido)]
         [StringLength(Restrictions.MaxNom, MinimumLength = Restrictions.MinNom, ErrorMessage = ErrMsgs.StrMaxMin)]
