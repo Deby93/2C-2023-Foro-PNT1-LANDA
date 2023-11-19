@@ -1,4 +1,4 @@
-﻿@model Foro.Usuario
+﻿@model Usuario
 
 @{
     ViewData["Title"] = "Editar";
@@ -49,6 +49,7 @@
     <a asp-action="Index">Volver a lista</a>
 </div>
 
+@* //referencias a librerias de script *@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

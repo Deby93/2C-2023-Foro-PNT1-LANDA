@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Foro;
+using Microsoft.AspNetCore.Identity;
 
 namespace Foro.Controllers
 {
@@ -56,26 +57,30 @@ namespace Foro.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost] //resuelve ambiguedad en el metodo create que es sobrecargado
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,Nombre,Apellido,FechaAlta,Email,Password")] Usuario usuario)
+        //Bind indicar que atributos  necesito
+        public IActionResult Create([Bind("id,Nombre,Apellido,FechaAlta,Email,Password")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(usuario);
-                await _context.SaveChangesAsync();
+                // se pone Usuarios para que la variable sea del mismo tipo la que viene x parametro
+
+                _context.Usuarios.Add(usuario);
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
+                //redireccion al index 302
             }
             return View(usuario);
         }
 
         // GET: Usuarios/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null || _context.Usuarios == null)
             {
                 return NotFound();
             }
 
-            var usuario = await _context.Usuarios.FindAsync(id);
+            var usuario =  _context.Usuarios.Find(id);
             if (usuario == null)
             {
                 return NotFound();
@@ -99,8 +104,27 @@ namespace Foro.Controllers
             {
                 try
                 {
-                    _context.Update(usuario);
-                    await _context.SaveChangesAsync();
+                    var usuarioDB = _context.Usuarios.Find(id);
+                    if (usuarioDB !=null)
+                    {
+                        //Actualizamos
+                       
+                        usuarioDB.Nombre =usuario.Nombre;
+                        usuarioDB.Apellido =usuario.Apellido;
+                        usuario.Email =usuario.Email;
+                        usuario.FechaAlta =usuario.FechaAlta;
+                        usuarioDB.Password =usuario.Password;
+
+                        _context.Usuarios.Update(usuarioDB);
+                        _context.SaveChanges();
+
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                   
+                   
                 }
                 catch (DbUpdateConcurrencyException)
                 {
