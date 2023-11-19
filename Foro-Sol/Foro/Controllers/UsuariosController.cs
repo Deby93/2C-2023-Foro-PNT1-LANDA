@@ -19,23 +19,23 @@ namespace Foro.Controllers
         }
 
         // GET: Usuarios
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
               return _context.Usuarios != null ? 
-                          View(await _context.Usuarios.ToListAsync()) :
+                          View(_context.Usuarios.ToList()) :
                           Problem("Entity set 'ForoContexto.Usuarios'  is null.");
         }
 
         // GET: Usuarios/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null || _context.Usuarios == null)
             {
                 return NotFound();
             }
 
-            var usuario = await _context.Usuarios
-                .FirstOrDefaultAsync(m => m.id == id);
+            var usuario = _context.Usuarios
+                .FirstOrDefault(u => u.id == id);
             if (usuario == null)
             {
                 return NotFound();
@@ -45,6 +45,7 @@ namespace Foro.Controllers
         }
 
         // GET: Usuarios/Create
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
@@ -53,7 +54,7 @@ namespace Foro.Controllers
         // POST: Usuarios/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost] //resuelve ambiguedad en el metodo create que es sobrecargado
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("id,Nombre,Apellido,FechaAlta,Email,Password")] Usuario usuario)
         {

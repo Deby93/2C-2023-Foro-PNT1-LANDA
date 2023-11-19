@@ -43,7 +43,7 @@ namespace Foro
         [Required(ErrorMessage = ErrMsgs.Requerido)]
         public string Email { get; set; }
 
-        [Display(Name = "Password")]
+        [Display(Name = "Contraseña")]
         [DataType(DataType.Password, ErrorMessage = ErrMsgs.ErrMsgNotValid)]
         [Required(ErrorMessage = ErrMsgs.Requerido)]
         public string Password { get; set; }
