@@ -59,7 +59,7 @@ namespace Foro.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(categoria);
+                _context.Categorias.Add(categoria);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

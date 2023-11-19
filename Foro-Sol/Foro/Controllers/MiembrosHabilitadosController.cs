@@ -62,7 +62,7 @@ namespace Foro.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(miembrosHabilitados);
+                _context.MiembrosHabilitados.Add(miembrosHabilitados);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

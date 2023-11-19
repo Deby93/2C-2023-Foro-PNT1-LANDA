@@ -62,7 +62,7 @@ namespace Foro.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(entrada);
+                _context.Entradas.Add(entrada);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
