@@ -9,197 +9,197 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Foro
 build_property.RootNamespace = Foro
-build_property.ProjectDir = C:\Users\debyl\Source\Repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\
+build_property.ProjectDir = C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\debyl\Source\Repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro
+build_property.MSBuildProjectDirectory = C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Categorias/Create.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Categorias/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmlhc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Categorias/Delete.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Categorias/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmlhc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Categorias/Details.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Categorias/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmlhc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Categorias/Edit.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Categorias/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmlhc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Categorias/Index.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Categorias/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmlhc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Entradas/Create.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Entradas/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cmFkYXNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Entradas/Delete.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Entradas/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cmFkYXNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Entradas/Details.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Entradas/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cmFkYXNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Entradas/Edit.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Entradas/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cmFkYXNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Entradas/Index.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Entradas/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50cmFkYXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Home/Index.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Home/Privacy.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/MiembrosHabilitados/Create.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/MiembrosHabilitados/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWllbWJyb3NIYWJpbGl0YWRvc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/MiembrosHabilitados/Delete.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/MiembrosHabilitados/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWllbWJyb3NIYWJpbGl0YWRvc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/MiembrosHabilitados/Details.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/MiembrosHabilitados/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWllbWJyb3NIYWJpbGl0YWRvc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/MiembrosHabilitados/Edit.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/MiembrosHabilitados/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWllbWJyb3NIYWJpbGl0YWRvc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/MiembrosHabilitados/Index.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/MiembrosHabilitados/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWllbWJyb3NIYWJpbGl0YWRvc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Miembros/Create.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Miembros/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWllbWJyb3NcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Miembros/Delete.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Miembros/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWllbWJyb3NcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Miembros/Details.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Miembros/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWllbWJyb3NcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Miembros/Edit.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Miembros/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWllbWJyb3NcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Miembros/Index.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Miembros/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWllbWJyb3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Preguntas/Create.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Preguntas/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJlZ3VudGFzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Preguntas/Delete.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Preguntas/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJlZ3VudGFzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Preguntas/Details.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Preguntas/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJlZ3VudGFzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Preguntas/Edit.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Preguntas/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJlZ3VudGFzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Preguntas/Index.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Preguntas/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJlZ3VudGFzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Reacciones/Create.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Reacciones/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVhY2Npb25lc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Reacciones/Delete.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Reacciones/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVhY2Npb25lc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Reacciones/Details.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Reacciones/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVhY2Npb25lc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Reacciones/Edit.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Reacciones/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVhY2Npb25lc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Reacciones/Index.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Reacciones/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVhY2Npb25lc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Respuestas/Create.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Respuestas/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzcHVlc3Rhc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Respuestas/Delete.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Respuestas/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzcHVlc3Rhc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Respuestas/Details.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Respuestas/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzcHVlc3Rhc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Respuestas/Edit.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Respuestas/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzcHVlc3Rhc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Respuestas/Index.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Respuestas/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzcHVlc3Rhc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Shared/Error.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Usuarios/Create.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Usuarios/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Usuarios/Delete.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Usuarios/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Usuarios/Details.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Usuarios/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Usuarios/Edit.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Usuarios/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Usuarios/Index.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Usuarios/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/_ViewImports.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/_ViewStart.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/debyl/Source/Repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Shared/_Layout.cshtml]
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-mf5tz47aux

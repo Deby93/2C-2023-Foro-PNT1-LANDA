@@ -1,12 +1,12 @@
-﻿@model Foro.Pregunta
+﻿@model Pregunta
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Borrar";
 }
 
-<h1>Delete</h1>
+<h1>Borrar</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>¿Quieres borrar a esta pregunta?</h3>
 <div>
     <h4>Pregunta</h4>
     <hr />
@@ -45,7 +45,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="PreguntaId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Borrar" class="btn btn-danger" /> |
+        <a asp-action="Index">Volver a la lista</a>
     </form>
 </div>
