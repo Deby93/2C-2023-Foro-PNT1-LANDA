@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Foro;
-using Microsoft.AspNetCore.Identity;
 
-namespace Foro.Controllers
+
+namespace Foro
 {
     public class UsuariosController : Controller
     {
@@ -93,7 +87,7 @@ namespace Foro.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,Nombre,Apellido,FechaAlta,Email,Password")] Usuario usuario)
+        public IActionResult Edit(int id, [Bind("id,Nombre,Apellido,FechaAlta,Email,Password")] Usuario usuario)
         {
             if (id != usuario.id)
             {
@@ -111,8 +105,8 @@ namespace Foro.Controllers
                        
                         usuarioDB.Nombre =usuario.Nombre;
                         usuarioDB.Apellido =usuario.Apellido;
-                        usuario.Email =usuario.Email;
-                        usuario.FechaAlta =usuario.FechaAlta;
+                        usuarioDB.Email =usuario.Email;
+                        usuarioDB.FechaAlta =usuario.FechaAlta;
                         usuarioDB.Password =usuario.Password;
 
                         _context.Usuarios.Update(usuarioDB);
@@ -163,19 +157,19 @@ namespace Foro.Controllers
         // POST: Usuarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
             if (_context.Usuarios == null)
             {
                 return Problem("Entity set 'ForoContexto.Usuarios'  is null.");
             }
-            var usuario = await _context.Usuarios.FindAsync(id);
+            var usuario =  _context.Usuarios.Find(id);
             if (usuario != null)
             {
                 _context.Usuarios.Remove(usuario);
             }
             
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
 

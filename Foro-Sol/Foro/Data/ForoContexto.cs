@@ -45,10 +45,6 @@ namespace Foro
         public DbSet<Foro.MiembrosHabilitados>? MiembrosHabilitados { get; set; }
         public DbSet<Foro.Reaccion>? Reaccion { get; set; }
         public DbSet<Foro.Pregunta>? Pregunta { get; set; }
-
-
-
-
-
+        public object Reacciones { get; internal set; }
     }
 }

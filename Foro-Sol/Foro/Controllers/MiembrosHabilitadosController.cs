@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Foro;
 
-namespace Foro.Controllers
+
+namespace Foro
 {
     public class MiembrosHabilitadosController : Controller
     {
@@ -26,17 +22,17 @@ namespace Foro.Controllers
         }
 
         // GET: MiembrosHabilitados/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public  IActionResult Details(int? id)
         {
             if (id == null || _context.MiembrosHabilitados == null)
             {
                 return NotFound();
             }
 
-            var miembrosHabilitados = await _context.MiembrosHabilitados
+            var miembrosHabilitados =  _context.MiembrosHabilitados
                 .Include(m => m.Entrada)
                 .Include(m => m.Miembro)
-                .FirstOrDefaultAsync(m => m.MiembroId == id);
+                .FirstOrDefault(m => m.MiembroId == id);
             if (miembrosHabilitados == null)
             {
                 return NotFound();
@@ -58,12 +54,12 @@ namespace Foro.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EntradaId,MiembroId,Habilitado")] MiembrosHabilitados miembrosHabilitados)
+        public  IActionResult Create([Bind("EntradaId,MiembroId,Habilitado")] MiembrosHabilitados miembrosHabilitados)
         {
             if (ModelState.IsValid)
             {
                 _context.MiembrosHabilitados.Add(miembrosHabilitados);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["EntradaId"] = new SelectList(_context.Entradas, "Id", "Titulo", miembrosHabilitados.EntradaId);
@@ -72,14 +68,14 @@ namespace Foro.Controllers
         }
 
         // GET: MiembrosHabilitados/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public  IActionResult Edit(int? id)
         {
             if (id == null || _context.MiembrosHabilitados == null)
             {
                 return NotFound();
             }
 
-            var miembrosHabilitados = await _context.MiembrosHabilitados.FindAsync(id);
+            var miembrosHabilitados = _context.MiembrosHabilitados.Find(id);
             if (miembrosHabilitados == null)
             {
                 return NotFound();
@@ -94,7 +90,7 @@ namespace Foro.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EntradaId,MiembroId,Habilitado")] MiembrosHabilitados miembrosHabilitados)
+        public  IActionResult Edit(int id, [Bind("EntradaId,MiembroId,Habilitado")] MiembrosHabilitados miembrosHabilitados)
         {
             if (id != miembrosHabilitados.MiembroId)
             {
@@ -106,7 +102,7 @@ namespace Foro.Controllers
                 try
                 {
                     _context.Update(miembrosHabilitados);
-                    await _context.SaveChangesAsync();
+                    _context.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -127,14 +123,14 @@ namespace Foro.Controllers
         }
 
         // GET: MiembrosHabilitados/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public  IActionResult Delete(int? id)
         {
             if (id == null || _context.MiembrosHabilitados == null)
             {
                 return NotFound();
             }
 
-            var miembrosHabilitados = await _context.MiembrosHabilitados
+            var miembrosHabilitados =  _context.MiembrosHabilitados
                 .Include(m => m.Entrada)
                 .Include(m => m.Miembro)
                 .FirstOrDefaultAsync(m => m.MiembroId == id);
@@ -149,19 +145,19 @@ namespace Foro.Controllers
         // POST: MiembrosHabilitados/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public  IActionResult DeleteConfirmed(int id)
         {
             if (_context.MiembrosHabilitados == null)
             {
                 return Problem("Entity set 'ForoContexto.MiembrosHabilitados'  is null.");
             }
-            var miembrosHabilitados = await _context.MiembrosHabilitados.FindAsync(id);
+            var miembrosHabilitados = _context.MiembrosHabilitados.Find(id);
             if (miembrosHabilitados != null)
             {
                 _context.MiembrosHabilitados.Remove(miembrosHabilitados);
             }
             
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
 

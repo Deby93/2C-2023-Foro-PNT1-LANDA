@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,24 +16,24 @@ namespace Foro
         }
 
         // GET: Preguntas
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             var foroContexto = _context.Pregunta.Include(p => p.Entrada).Include(p => p.Miembro);
-            return View(await foroContexto.ToListAsync());
+            return View( foroContexto.ToList());
         }
 
         // GET: Preguntas/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public  IActionResult Details(int? id)
         {
             if (id == null || _context.Pregunta == null)
             {
                 return NotFound();
             }
 
-            var pregunta = await _context.Pregunta
+            var pregunta =  _context.Pregunta
                 .Include(p => p.Entrada)
                 .Include(p => p.Miembro)
-                .FirstOrDefaultAsync(m => m.PreguntaId == id);
+                .FirstOrDefault(m => m.PreguntaId == id);
             if (pregunta == null)
             {
                 return NotFound();
@@ -58,12 +55,12 @@ namespace Foro
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PreguntaId,MiembroId,EntradaId,Descripcion,Fecha,Activa")] Pregunta pregunta)
+        public  IActionResult Create([Bind("PreguntaId,MiembroId,EntradaId,Descripcion,Fecha,Activa")] Pregunta pregunta)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(pregunta);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["EntradaId"] = new SelectList(_context.Entradas, "Id", "Titulo", pregunta.EntradaId);
@@ -72,14 +69,14 @@ namespace Foro
         }
 
         // GET: Preguntas/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public  IActionResult Edit(int? id)
         {
             if (id == null || _context.Pregunta == null)
             {
                 return NotFound();
             }
 
-            var pregunta = await _context.Pregunta.FindAsync(id);
+            var pregunta =  _context.Pregunta.Find(id);
             if (pregunta == null)
             {
                 return NotFound();
@@ -94,7 +91,7 @@ namespace Foro
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PreguntaId,MiembroId,EntradaId,Descripcion,Fecha,Activa")] Pregunta pregunta)
+        public IActionResult Edit(int id, [Bind("PreguntaId,MiembroId,EntradaId,Descripcion,Fecha,Activa")] Pregunta pregunta)
         {
             if (id != pregunta.PreguntaId)
             {
@@ -106,7 +103,7 @@ namespace Foro
                 try
                 {
                     _context.Update(pregunta);
-                    await _context.SaveChangesAsync();
+                    _context.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -127,14 +124,14 @@ namespace Foro
         }
 
         // GET: Preguntas/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public  IActionResult Delete(int? id)
         {
             if (id == null || _context.Pregunta == null)
             {
                 return NotFound();
             }
 
-            var pregunta = await _context.Pregunta
+            var pregunta =  _context.Pregunta
                 .Include(p => p.Entrada)
                 .Include(p => p.Miembro)
                 .FirstOrDefaultAsync(m => m.PreguntaId == id);
@@ -149,19 +146,19 @@ namespace Foro
         // POST: Preguntas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public  IActionResult DeleteConfirmed(int id)
         {
             if (_context.Pregunta == null)
             {
                 return Problem("Entity set 'ForoContexto.Pregunta'  is null.");
             }
-            var pregunta = await _context.Pregunta.FindAsync(id);
+            var pregunta = _context.Pregunta.Find(id);
             if (pregunta != null)
             {
                 _context.Pregunta.Remove(pregunta);
             }
             
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
 
