@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-
-
 namespace Foro
 {
     public class ReaccionesController : Controller
@@ -15,24 +17,25 @@ namespace Foro
         }
 
         // GET: Reacciones
-        public  IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var foroContexto = _context.Reaccion.Include(r => r.Miembro).Include(r => r.Respuesta);
-            return View( foroContexto.ToList());
+            var foroContexto = _context.Reaccion.Include(r => r.Miembro)
+                .Include(r => r.Respuesta);
+            return View(await foroContexto.ToListAsync());
         }
 
         // GET: Reacciones/Details/5
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Reaccion == null)
             {
                 return NotFound();
             }
 
-            var reaccion =  _context.Reaccion
+            var reaccion = await _context.Reaccion
                 .Include(r => r.Miembro)
                 .Include(r => r.Respuesta)
-                .FirstOrDefault(m => m.MiembroId == id);
+                .FirstOrDefaultAsync(m => m.MiembroId == id);
             if (reaccion == null)
             {
                 return NotFound();
@@ -54,12 +57,12 @@ namespace Foro
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("RespuestaId,MiembroId,Fecha,MeGusta")] Reaccion reaccion)
+        public async Task<IActionResult> Create([Bind("RespuestaId,MiembroId,Fecha,MeGusta")] Reaccion reaccion)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(reaccion);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["MiembroId"] = new SelectList(_context.Miembros, "id", "Apellido", reaccion.MiembroId);
@@ -68,14 +71,14 @@ namespace Foro
         }
 
         // GET: Reacciones/Edit/5
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Reaccion == null)
             {
                 return NotFound();
             }
 
-            var reaccion =  _context.Reaccion.Find(id);
+            var reaccion = await _context.Reaccion.FindAsync(id);
             if (reaccion == null)
             {
                 return NotFound();
@@ -90,7 +93,7 @@ namespace Foro
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public  IActionResult Edit(int id, [Bind("RespuestaId,MiembroId,Fecha,MeGusta")] Reaccion reaccion)
+        public async Task<IActionResult> Edit(int id, [Bind("RespuestaId,MiembroId,Fecha,MeGusta")] Reaccion reaccion)
         {
             if (id != reaccion.MiembroId)
             {
@@ -102,7 +105,7 @@ namespace Foro
                 try
                 {
                     _context.Update(reaccion);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -123,17 +126,17 @@ namespace Foro
         }
 
         // GET: Reacciones/Delete/5
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Reaccion == null)
             {
                 return NotFound();
             }
 
-            var reaccion =  _context.Reaccion
+            var reaccion = await _context.Reaccion
                 .Include(r => r.Miembro)
                 .Include(r => r.Respuesta)
-                .FirstOrDefault(m => m.MiembroId == id);
+                .FirstOrDefaultAsync(m => m.MiembroId == id);
             if (reaccion == null)
             {
                 return NotFound();
@@ -145,19 +148,19 @@ namespace Foro
         // POST: Reacciones/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public  IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Reaccion == null)
             {
                 return Problem("Entity set 'ForoContexto.Reaccion'  is null.");
             }
-            var reaccion = _context.Reaccion.Find(id);
+            var reaccion = await _context.Reaccion.FindAsync(id);
             if (reaccion != null)
             {
                 _context.Reaccion.Remove(reaccion);
             }
             
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

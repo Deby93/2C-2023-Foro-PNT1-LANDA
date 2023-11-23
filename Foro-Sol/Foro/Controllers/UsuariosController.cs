@@ -14,23 +14,23 @@ namespace Foro
         }
 
         // GET: Usuarios
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
               return _context.Usuarios != null ? 
-                          View(_context.Usuarios.ToList()) :
+                          View(await _context.Usuarios.ToListAsync()) :
                           Problem("Entity set 'ForoContexto.Usuarios'  is null.");
         }
 
         // GET: Usuarios/Details/5
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Usuarios == null)
             {
                 return NotFound();
             }
 
-            var usuario = _context.Usuarios
-                .FirstOrDefault(u => u.id == id);
+            var usuario = await _context.Usuarios
+                .FirstOrDefaultAsync(u => u.id == id);
             if (usuario == null)
             {
                 return NotFound();
@@ -52,14 +52,14 @@ namespace Foro
         [HttpPost] //resuelve ambiguedad en el metodo create que es sobrecargado
         [ValidateAntiForgeryToken]
         //Bind indicar que atributos  necesito
-        public IActionResult Create([Bind("id,Nombre,Apellido,FechaAlta,Email,Password")] Usuario usuario)
+        public async Task<IActionResult> Create([Bind("id,Nombre,Apellido,FechaAlta,Email,Password")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
                 // se pone Usuarios para que la variable sea del mismo tipo la que viene x parametro
 
                 _context.Usuarios.Add(usuario);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
                 //redireccion al index 302
             }
@@ -67,14 +67,14 @@ namespace Foro
         }
 
         // GET: Usuarios/Edit/5
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Usuarios == null)
             {
                 return NotFound();
             }
 
-            var usuario =  _context.Usuarios.Find(id);
+            var usuario = await _context.Usuarios.FindAsync(id);
             if (usuario == null)
             {
                 return NotFound();
@@ -87,7 +87,7 @@ namespace Foro
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("id,Nombre,Apellido,FechaAlta,Email,Password")] Usuario usuario)
+        public async Task<IActionResult> Edit(int id, [Bind("id,Nombre,Apellido,FechaAlta,Email,Password")] Usuario usuario)
         {
             if (id != usuario.id)
             {
@@ -98,7 +98,7 @@ namespace Foro
             {
                 try
                 {
-                    var usuarioDB = _context.Usuarios.Find(id);
+                    var usuarioDB = await _context.Usuarios.FindAsync(id);
                     if (usuarioDB !=null)
                     {
                         //Actualizamos
@@ -110,7 +110,7 @@ namespace Foro
                         usuarioDB.Password =usuario.Password;
 
                         _context.Usuarios.Update(usuarioDB);
-                        _context.SaveChanges();
+                        await _context.SaveChangesAsync();
 
                     }
                     else
@@ -157,13 +157,13 @@ namespace Foro
         // POST: Usuarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Usuarios == null)
             {
                 return Problem("Entity set 'ForoContexto.Usuarios'  is null.");
             }
-            var usuario =  _context.Usuarios.Find(id);
+            var usuario = await _context.Usuarios.FindAsync(id);
             if (usuario != null)
             {
                 _context.Usuarios.Remove(usuario);

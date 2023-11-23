@@ -22,17 +22,17 @@ namespace Foro
         }
 
         // GET: MiembrosHabilitados/Details/5
-        public  IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.MiembrosHabilitados == null)
             {
                 return NotFound();
             }
 
-            var miembrosHabilitados =  _context.MiembrosHabilitados
+            var miembrosHabilitados = await _context.MiembrosHabilitados
                 .Include(m => m.Entrada)
                 .Include(m => m.Miembro)
-                .FirstOrDefault(m => m.MiembroId == id);
+                .FirstOrDefaultAsync(m => m.MiembroId == id);
             if (miembrosHabilitados == null)
             {
                 return NotFound();
@@ -54,12 +54,12 @@ namespace Foro
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public  IActionResult Create([Bind("EntradaId,MiembroId,Habilitado")] MiembrosHabilitados miembrosHabilitados)
+        public async Task<IActionResult> Create([Bind("EntradaId,MiembroId,Habilitado")] MiembrosHabilitados miembrosHabilitados)
         {
             if (ModelState.IsValid)
             {
                 _context.MiembrosHabilitados.Add(miembrosHabilitados);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["EntradaId"] = new SelectList(_context.Entradas, "Id", "Titulo", miembrosHabilitados.EntradaId);
@@ -68,14 +68,14 @@ namespace Foro
         }
 
         // GET: MiembrosHabilitados/Edit/5
-        public  IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.MiembrosHabilitados == null)
             {
                 return NotFound();
             }
 
-            var miembrosHabilitados = _context.MiembrosHabilitados.Find(id);
+            var miembrosHabilitados = await _context.MiembrosHabilitados.FindAsync(id);
             if (miembrosHabilitados == null)
             {
                 return NotFound();
@@ -90,7 +90,7 @@ namespace Foro
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public  IActionResult Edit(int id, [Bind("EntradaId,MiembroId,Habilitado")] MiembrosHabilitados miembrosHabilitados)
+        public async Task<IActionResult> Edit(int id, [Bind("EntradaId,MiembroId,Habilitado")] MiembrosHabilitados miembrosHabilitados)
         {
             if (id != miembrosHabilitados.MiembroId)
             {
@@ -102,7 +102,7 @@ namespace Foro
                 try
                 {
                     _context.Update(miembrosHabilitados);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -123,14 +123,14 @@ namespace Foro
         }
 
         // GET: MiembrosHabilitados/Delete/5
-        public  IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.MiembrosHabilitados == null)
             {
                 return NotFound();
             }
 
-            var miembrosHabilitados =  _context.MiembrosHabilitados
+            var miembrosHabilitados = await _context.MiembrosHabilitados
                 .Include(m => m.Entrada)
                 .Include(m => m.Miembro)
                 .FirstOrDefaultAsync(m => m.MiembroId == id);
@@ -145,19 +145,19 @@ namespace Foro
         // POST: MiembrosHabilitados/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public  IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.MiembrosHabilitados == null)
             {
                 return Problem("Entity set 'ForoContexto.MiembrosHabilitados'  is null.");
             }
-            var miembrosHabilitados = _context.MiembrosHabilitados.Find(id);
+            var miembrosHabilitados = await _context.MiembrosHabilitados.FindAsync(id);
             if (miembrosHabilitados != null)
             {
                 _context.MiembrosHabilitados.Remove(miembrosHabilitados);
             }
             
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

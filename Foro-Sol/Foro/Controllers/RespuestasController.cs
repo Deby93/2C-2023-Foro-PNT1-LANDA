@@ -15,24 +15,24 @@ namespace Foro
         }
 
         // GET: Respuestas
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var foroContexto = _context.Respuestas.Include(r => r.Miembro).Include(r => r.Pregunta);
-            return View( foroContexto.ToList());
+            return View(await foroContexto.ToListAsync());
         }
 
         // GET: Respuestas/Details/5
-        public  IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Respuestas == null)
             {
                 return NotFound();
             }
 
-            var respuesta =  _context.Respuestas
+            var respuesta = await _context.Respuestas
                 .Include(r => r.Miembro)
                 .Include(r => r.Pregunta)
-                .FirstOrDefault(m => m.RespuestaId == id);
+                .FirstOrDefaultAsync(m => m.RespuestaId == id);
             if (respuesta == null)
             {
                 return NotFound();
@@ -54,12 +54,12 @@ namespace Foro
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("RespuestaId,PreguntaId,MiembroId,Descripcion,Fecha")] Respuesta respuesta)
+        public async Task<IActionResult> Create([Bind("RespuestaId,PreguntaId,MiembroId,Descripcion,Fecha")] Respuesta respuesta)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(respuesta);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["MiembroId"] = new SelectList(_context.Miembros, "id", "Apellido", respuesta.MiembroId);
@@ -68,14 +68,14 @@ namespace Foro
         }
 
         // GET: Respuestas/Edit/5
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Respuestas == null)
             {
                 return NotFound();
             }
 
-            var respuesta = _context.Respuestas.Find(id);
+            var respuesta = await _context.Respuestas.FindAsync(id);
             if (respuesta == null)
             {
                 return NotFound();
@@ -90,7 +90,7 @@ namespace Foro
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("RespuestaId,PreguntaId,MiembroId,Descripcion,Fecha")] Respuesta respuesta)
+        public async Task<IActionResult> Edit(int id, [Bind("RespuestaId,PreguntaId,MiembroId,Descripcion,Fecha")] Respuesta respuesta)
         {
             if (id != respuesta.RespuestaId)
             {
@@ -102,7 +102,7 @@ namespace Foro
                 try
                 {
                     _context.Update(respuesta);
-                     _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -123,17 +123,17 @@ namespace Foro
         }
 
         // GET: Respuestas/Delete/5
-        public  IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Respuestas == null)
             {
                 return NotFound();
             }
 
-            var respuesta =  _context.Respuestas
+            var respuesta = await _context.Respuestas
                 .Include(r => r.Miembro)
                 .Include(r => r.Pregunta)
-                .FirstOrDefault(m => m.RespuestaId == id);
+                .FirstOrDefaultAsync(m => m.RespuestaId == id);
             if (respuesta == null)
             {
                 return NotFound();
@@ -151,7 +151,7 @@ namespace Foro
             {
                 return Problem("Entity set 'ForoContexto.Respuestas'  is null.");
             }
-            var respuesta = _context.Respuestas.Find(id);
+            var respuesta = await _context.Respuestas.FindAsync(id);
             if (respuesta != null)
             {
                 _context.Respuestas.Remove(respuesta);
