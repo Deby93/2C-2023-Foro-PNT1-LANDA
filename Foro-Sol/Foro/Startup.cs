@@ -16,10 +16,11 @@ namespace Foro
         }
         private static void ConfigureServices(WebApplicationBuilder builder)
         {
-            builder.Services.AddDbContext<ForoContexto>(options => options.UseInMemoryDatabase("ForoDb"));
-            // Add services to the container.
-              builder.Services.AddControllersWithViews();
+            // builder.Services.AddDbContext<ForoContexto>(options => options.UseInMemoryDatabase("ForoDb"));
+            builder.Services.AddDbContext<ForoContexto>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ForoDBCS")));
+            builder.Services.AddControllersWithViews();
         }
+        
 
         private static void Configure(WebApplication app)
         {

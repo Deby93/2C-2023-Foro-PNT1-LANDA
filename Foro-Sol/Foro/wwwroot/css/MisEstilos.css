@@ -1,0 +1,7 @@
+﻿.navbar-brand {
+    background: url(../img/logo-nero.png)no-repeat;
+    background-size: 120px 120px;
+    height: 120px;
+    width: 120px;
+    margin: 40px;
+}
