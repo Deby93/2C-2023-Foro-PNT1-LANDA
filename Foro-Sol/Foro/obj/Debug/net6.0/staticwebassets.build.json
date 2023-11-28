@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "minlOroSbdyT6O6+Qc9m80A/DE0YO6yZ0I8nuIkz72c=",
+  "Hash": "qaOsQ+01X0bA91/Pr5q96rXFV7gM2PJfOCLROZVfk6c=",
   "Source": "Foro",
   "BasePath": "_content/Foro",
   "Mode": "Default",
@@ -185,6 +185,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\ddec2c87561709.5dc226430d47b.png"
+    },
+    {
+      "Identity": "C:\\Users\\debyl\\source\\repos\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\logo-azul.png",
+      "SourceId": "Foro",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\debyl\\source\\repos\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\",
+      "BasePath": "_content/Foro",
+      "RelativePath": "img/logo-azul.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\logo-azul.png"
     },
     {
       "Identity": "C:\\Users\\debyl\\source\\repos\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\logo-nero.png",
