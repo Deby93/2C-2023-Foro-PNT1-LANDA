@@ -45,7 +45,7 @@ namespace Foro
         public IActionResult Create()
         {
             ViewData["MiembroId"] = new SelectList(_context.Miembros, "id", "Apellido");
-            ViewData["PreguntaId"] = new SelectList(_context.Pregunta, "PreguntaId", "Descripcion");
+            ViewData["PreguntaId"] = new SelectList(_context.Preguntas, "PreguntaId", "Descripcion");
             return View();
         }
 
@@ -63,7 +63,7 @@ namespace Foro
                 return RedirectToAction(nameof(Index));
             }
             ViewData["MiembroId"] = new SelectList(_context.Miembros, "id", "Apellido", respuesta.MiembroId);
-            ViewData["PreguntaId"] = new SelectList(_context.Pregunta, "PreguntaId", "Descripcion", respuesta.PreguntaId);
+            ViewData["PreguntaId"] = new SelectList(_context.Preguntas, "PreguntaId", "Descripcion", respuesta.PreguntaId);
             return View(respuesta);
         }
 
@@ -81,7 +81,7 @@ namespace Foro
                 return NotFound();
             }
             ViewData["MiembroId"] = new SelectList(_context.Miembros, "id", "Apellido", respuesta.MiembroId);
-            ViewData["PreguntaId"] = new SelectList(_context.Pregunta, "PreguntaId", "Descripcion", respuesta.PreguntaId);
+            ViewData["PreguntaId"] = new SelectList(_context.Preguntas, "PreguntaId", "Descripcion", respuesta.PreguntaId);
             return View(respuesta);
         }
 
@@ -118,7 +118,7 @@ namespace Foro
                 return RedirectToAction(nameof(Index));
             }
             ViewData["MiembroId"] = new SelectList(_context.Miembros, "id", "Apellido", respuesta.MiembroId);
-            ViewData["PreguntaId"] = new SelectList(_context.Pregunta, "PreguntaId", "Descripcion", respuesta.PreguntaId);
+            ViewData["PreguntaId"] = new SelectList(_context.Preguntas, "PreguntaId", "Descripcion", respuesta.PreguntaId);
             return View(respuesta);
         }
 

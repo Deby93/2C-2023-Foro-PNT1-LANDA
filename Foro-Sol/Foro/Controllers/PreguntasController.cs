@@ -17,19 +17,19 @@ namespace Foro
         // GET: Preguntas
         public async Task<IActionResult> Index()
         {
-            var foroContexto = _context.Pregunta.Include(p => p.Entrada).Include(p => p.Miembro);
+            var foroContexto = _context.Preguntas.Include(p => p.Entrada).Include(p => p.Miembro);
             return View(await foroContexto.ToListAsync());
         }
 
         // GET: Preguntas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Pregunta == null)
+            if (id == null || _context.Preguntas == null)
             {
                 return NotFound();
             }
 
-            var pregunta = await _context.Pregunta
+            var pregunta = await _context.Preguntas
                 .Include(p => p.Entrada)
                 .Include(p => p.Miembro)
                 .FirstOrDefaultAsync(m => m.PreguntaId == id);
@@ -70,12 +70,12 @@ namespace Foro
         // GET: Preguntas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Pregunta == null)
+            if (id == null || _context.Preguntas == null)
             {
                 return NotFound();
             }
 
-            var pregunta = await _context.Pregunta.FindAsync(id);
+            var pregunta = await _context.Preguntas.FindAsync(id);
             if (pregunta == null)
             {
                 return NotFound();
@@ -125,12 +125,12 @@ namespace Foro
         // GET: Preguntas/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Pregunta == null)
+            if (id == null || _context.Preguntas == null)
             {
                 return NotFound();
             }
 
-            var pregunta = await _context.Pregunta
+            var pregunta = await _context.Preguntas
                 .Include(p => p.Entrada)
                 .Include(p => p.Miembro)
                 .FirstOrDefaultAsync(m => m.PreguntaId == id);
@@ -147,14 +147,14 @@ namespace Foro
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Pregunta == null)
+            if (_context.Preguntas == null)
             {
                 return Problem("Entity set 'ForoContexto.Pregunta'  is null.");
             }
-            var pregunta = await _context.Pregunta.FindAsync(id);
+            var pregunta = await _context.Preguntas.FindAsync(id);
             if (pregunta != null)
             {
-                _context.Pregunta.Remove(pregunta);
+                _context.Preguntas.Remove(pregunta);
             }
             
             await _context.SaveChangesAsync();
@@ -163,7 +163,7 @@ namespace Foro
 
         private bool PreguntaExists(int id)
         {
-          return (_context.Pregunta?.Any(e => e.PreguntaId == id)).GetValueOrDefault();
+          return (_context.Preguntas?.Any(e => e.PreguntaId == id)).GetValueOrDefault();
         }
     }
 }

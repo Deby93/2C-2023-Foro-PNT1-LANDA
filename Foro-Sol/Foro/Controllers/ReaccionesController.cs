@@ -19,7 +19,7 @@ namespace Foro
         // GET: Reacciones
         public async Task<IActionResult> Index()
         {
-            var foroContexto = _context.Reaccion.Include(r => r.Miembro)
+            var foroContexto = _context.Reacciones.Include(r => r.Miembro)
                 .Include(r => r.Respuesta);
             return View(await foroContexto.ToListAsync());
         }
@@ -27,12 +27,12 @@ namespace Foro
         // GET: Reacciones/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Reaccion == null)
+            if (id == null || _context.Reacciones == null)
             {
                 return NotFound();
             }
 
-            var reaccion = await _context.Reaccion
+            var reaccion = await _context.Reacciones
                 .Include(r => r.Miembro)
                 .Include(r => r.Respuesta)
                 .FirstOrDefaultAsync(m => m.MiembroId == id);
@@ -73,12 +73,12 @@ namespace Foro
         // GET: Reacciones/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Reaccion == null)
+            if (id == null || _context.Reacciones == null)
             {
                 return NotFound();
             }
 
-            var reaccion = await _context.Reaccion.FindAsync(id);
+            var reaccion = await _context.Reacciones.FindAsync(id);
             if (reaccion == null)
             {
                 return NotFound();
@@ -128,12 +128,12 @@ namespace Foro
         // GET: Reacciones/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Reaccion == null)
+            if (id == null || _context.Reacciones == null)
             {
                 return NotFound();
             }
 
-            var reaccion = await _context.Reaccion
+            var reaccion = await _context.Reacciones
                 .Include(r => r.Miembro)
                 .Include(r => r.Respuesta)
                 .FirstOrDefaultAsync(m => m.MiembroId == id);
@@ -150,14 +150,14 @@ namespace Foro
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Reaccion == null)
+            if (_context.Reacciones == null)
             {
                 return Problem("Entity set 'ForoContexto.Reaccion'  is null.");
             }
-            var reaccion = await _context.Reaccion.FindAsync(id);
+            var reaccion = await _context.Reacciones.FindAsync(id);
             if (reaccion != null)
             {
-                _context.Reaccion.Remove(reaccion);
+                _context.Reacciones.Remove(reaccion);
             }
             
             await _context.SaveChangesAsync();
@@ -166,7 +166,7 @@ namespace Foro
 
         private bool ReaccionExists(int id)
         {
-          return (_context.Reaccion?.Any(e => e.MiembroId == id)).GetValueOrDefault();
+          return (_context.Reacciones?.Any(e => e.MiembroId == id)).GetValueOrDefault();
         }
     }
 }
