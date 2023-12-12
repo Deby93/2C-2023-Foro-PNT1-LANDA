@@ -30,7 +30,7 @@ namespace Foro
             }
 
             var usuario = await _context.Usuarios
-                .FirstOrDefaultAsync(u => u.id == id);
+                .FirstOrDefaultAsync(u => u.Id == id);
             if (usuario == null)
             {
                 return NotFound();
@@ -89,7 +89,7 @@ namespace Foro
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("id,Nombre,Apellido,FechaAlta,Email,Password")] Usuario usuario)
         {
-            if (id != usuario.id)
+            if (id != usuario.Id)
             {
                 return NotFound();
             }
@@ -122,7 +122,7 @@ namespace Foro
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UsuarioExists(usuario.id))
+                    if (!UsuarioExists(usuario.Id))
                     {
                         return NotFound();
                     }
@@ -145,7 +145,7 @@ namespace Foro
             }
 
             var usuario = await _context.Usuarios
-                .FirstOrDefaultAsync(m => m.id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (usuario == null)
             {
                 return NotFound();
@@ -175,7 +175,7 @@ namespace Foro
 
         private bool UsuarioExists(int id)
         {
-          return (_context.Usuarios?.Any(e => e.id == id)).GetValueOrDefault();
+          return (_context.Usuarios?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

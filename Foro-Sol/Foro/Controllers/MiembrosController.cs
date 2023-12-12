@@ -1,36 +1,36 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 
 namespace Foro.Controllers
 {
+    [Authorize]
     public class MiembrosController : Controller
     {
-        private readonly ForoContexto _context;
+        private readonly ForoContexto _foroContexto;
 
         public MiembrosController(ForoContexto context)
         {
-            _context = context;
+           _foroContexto = context;
         }
 
-        // GET: Miembros
+       [Authorize(Roles = Config.AuthMiembroOrAdm)]
         public async Task<IActionResult> Index()
         {
-              return _context.Miembros != null ? 
-                          View(await _context.Miembros.ToListAsync()) :
-                          Problem("Entity set 'ForoContexto.Miembros'  is null.");
+            return View(await _foroContexto.Miembros.ToListAsync());
         }
 
-        // GET: Miembros/Details/5
+      [Authorize(Roles = Config.AuthMiembroOrAdm)]
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Miembros == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var miembro = await _context.Miembros
-                .FirstOrDefaultAsync(m => m.id == id);
+            var miembro = await _foroContexto.Miembros.Include(m => m.Apellido).Include(m => m.FechaAlta)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (miembro == null)
             {
                 return NotFound();
@@ -39,66 +39,84 @@ namespace Foro.Controllers
             return View(miembro);
         }
 
-        // GET: Miembros/Create
+        [Authorize(Roles = Config.MiembroRolName)]
+        public IActionResult CheckIn()
+        {
+            return RedirectToAction("Create", "Preguntas");
+        }
+
+        [Authorize(Roles = Config.AuthMiembroOrAdm)]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Miembros/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = Config.AuthMiembroOrAdm)]
+        public IActionResult DeleteAll()
+        {
+            return View();
+        }
+
+       [Authorize(Roles = Config.AuthMiembroOrAdm)]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Telefono,id,Nombre,Apellido,FechaAlta,Email,Password")] Miembro miembro)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Apellido,Email, Telefono")] Miembro miembro)
         {
             if (ModelState.IsValid)
             {
-                _context.Miembros.Add(miembro);
-                await _context.SaveChangesAsync();
+                _foroContexto.Add(miembro);
+                await _foroContexto.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(miembro);
         }
 
-        // GET: Miembros/Edit/5
+
+        [Authorize(Roles = Config.AuthMiembroOrAdm)]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Miembros == null)
+            Miembro miembro;
+            if (id == null)
             {
-                return NotFound();
+                miembro = _foroContexto.Miembros.FirstOrDefault(m => m.NormalizedEmail == User.Identity.Name.ToUpper());
             }
-
-            var miembro = await _context.Miembros.FindAsync(id);
-            if (miembro == null)
+            else
+            {
+                miembro = await _foroContexto.Miembros.FindAsync(id);
+            }
+                if (miembro == null)
             {
                 return NotFound();
             }
             return View(miembro);
         }
 
-        // POST: Miembros/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = Config.AuthMiembroOrAdm)]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Telefono,id,Nombre,Apellido,FechaAlta,Email,Password")] Miembro miembro)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,Email, Telefono")] Miembro miembro)
         {
-            if (id != miembro.id)
+            if (id != miembro.Id)
             {
                 return NotFound();
             }
+
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(miembro);
-                    await _context.SaveChangesAsync();
+                    var mbEnDb = _foroContexto.Miembros.Find(miembro.Id);
+                    mbEnDb.FechaAlta= miembro.FechaAlta;
+                    mbEnDb.Nombre = miembro.Nombre;
+                    mbEnDb.Apellido = miembro.Apellido;
+
+                    _foroContexto.Update(mbEnDb);
+                    await _foroContexto.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MiembroExists(miembro.id))
+                    if (!MiembroExists(miembro.Id))
                     {
                         return NotFound();
                     }
@@ -107,51 +125,49 @@ namespace Foro.Controllers
                         throw;
                     }
                 }
+                if (User.IsInRole("Cliente"))
+                {
+                    return RedirectToAction(nameof(CheckIn));
+                }
                 return RedirectToAction(nameof(Index));
             }
             return View(miembro);
         }
 
-        // GET: Miembros/Delete/5
+
+       [Authorize(Roles = Config.AdminRolName)]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Miembros == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var miembro = await _context.Miembros
-                .FirstOrDefaultAsync(m => m.id == id);
-            if (miembro == null)
+            var cliente = await _foroContexto.Miembros
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (cliente == null)
             {
                 return NotFound();
             }
 
-            return View(miembro);
+            return View(cliente);
         }
 
-        // POST: Miembros/Delete/5
+
+        [Authorize(Roles = Config.AdminRolName)]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Miembros == null)
-            {
-                return Problem("Entity set 'ForoContexto.Miembros'  is null.");
-            }
-            var miembro = await _context.Miembros.FindAsync(id);
-            if (miembro != null)
-            {
-                _context.Miembros.Remove(miembro);
-            }
-            
-            await _context.SaveChangesAsync();
+            var miembro = await _foroContexto.Miembros.FindAsync(id);
+            _foroContexto.Miembros.Remove(miembro);
+            await _foroContexto.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool MiembroExists(int id)
         {
-          return (_context.Miembros?.Any(e => e.id == id)).GetValueOrDefault();
+            return _foroContexto.Miembros.Any(e => e.Id == id);
         }
     }
 }

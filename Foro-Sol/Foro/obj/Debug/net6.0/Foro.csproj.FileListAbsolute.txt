@@ -1,3 +1,5 @@
+C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\runtimes\linux-armel\native\libe_sqlite3.so
+C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\runtimes\linux-musl-arm\native\libe_sqlite3.so
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\appsettings.json
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\Foro.staticwebassets.runtime.json
@@ -9,6 +11,9 @@ C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\Humanizer.dll
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\MessagePack.dll
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\MessagePack.Annotations.dll
+C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\Microsoft.AspNetCore.Razor.Language.dll
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\Microsoft.Build.dll
@@ -36,6 +41,8 @@ C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\Microsoft.Identity.Client.dll
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
@@ -231,9 +238,7 @@ C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\runtimes\browser-wasm\nativeassets\net6.0\e_sqlite3.a
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\runtimes\linux-arm\native\libe_sqlite3.so
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\runtimes\linux-arm64\native\libe_sqlite3.so
-C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\runtimes\linux-armel\native\libe_sqlite3.so
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\runtimes\linux-mips64\native\libe_sqlite3.so
-C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\runtimes\linux-musl-arm\native\libe_sqlite3.so
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\runtimes\linux-musl-arm64\native\libe_sqlite3.so
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\runtimes\linux-musl-x64\native\libe_sqlite3.so
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\runtimes\linux-s390x\native\libe_sqlite3.so

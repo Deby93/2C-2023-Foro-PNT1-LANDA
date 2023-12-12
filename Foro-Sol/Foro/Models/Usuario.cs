@@ -1,14 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 
 
 namespace Foro
 {
-    public class Usuario
+    public class Usuario : IdentityUser<int>
     {
         #region Propiedades
   
-        public int id { get; set; }
+    //    public int Id { get; set; }
 
         [Display(Name = Alias.Nombre)]
         [Required(ErrorMessage = ErrMsgs.Requerido)]
@@ -36,7 +37,9 @@ namespace Foro
         [Display(Name = "Correo electronico")]
         [DataType(DataType.EmailAddress, ErrorMessage = ErrMsgs.ErrMsgNotValid)]
         [Required(ErrorMessage = ErrMsgs.Requerido)]
-        public string Email { get; set; }
+        public override string Email {
+            get { return base.Email; }
+            set { base.Email = value; } }
 
         [Display(Name = "Contraseña")]
         [DataType(DataType.Password, ErrorMessage = ErrMsgs.ErrMsgNotValid)]

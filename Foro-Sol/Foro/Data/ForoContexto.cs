@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Foro
 {
-    public class ForoContexto : DbContext
+    public class ForoContexto : IdentityDbContext<IdentityUser<int>, IdentityRole<int>, int>
     {
         public ForoContexto(DbContextOptions options) : base(options)
         {
@@ -36,6 +38,12 @@ namespace Foro
             modelBuilder.Entity<Reaccion>().HasOne(r => r.Respuesta)
                 .WithMany(res => res.Reacciones)
                 .HasForeignKey(r => r.RespuestaId);
+
+            #region Establecer nombres para el Identity Store
+            modelBuilder.Entity<IdentityUser<int>>().ToTable("Usuarios");
+            modelBuilder.Entity<IdentityUserRole<int>>().ToTable("UsuariosRoles");
+            #endregion
+
         }
 
         public DbSet<Usuario> Usuarios { get; set; }
@@ -46,5 +54,7 @@ namespace Foro
         public DbSet<MiembrosHabilitados> MiembrosHabilitados { get; set; }
         public DbSet<Reaccion> Reacciones { get; set; }
         public DbSet<Pregunta> Preguntas { get; set; }
+        public DbSet<Rol> Roles { get; set; }
+
     }
 }

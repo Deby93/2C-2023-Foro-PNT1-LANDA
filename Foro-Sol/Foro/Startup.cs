@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Foro
 {
@@ -18,9 +20,31 @@ namespace Foro
         {
             // builder.Services.AddDbContext<ForoContexto>(options => options.UseInMemoryDatabase("ForoDb"));
             builder.Services.AddDbContext<ForoContexto>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ForoDBCS")));
+
+            #region Identity
+
+           builder.Services.AddIdentity<Usuario, Rol>().AddEntityFrameworkStores<ForoContexto>();
+            builder.Services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 5;
+            });
+
+            #endregion
+
+            builder.Services.PostConfigure<CookieAuthenticationOptions>(IdentityConstants.ApplicationScheme,
+               opciones =>
+               {
+                   opciones.LoginPath = "/Account/IniciarSesion";
+                   opciones.AccessDeniedPath = "/Account/AccesoDenegado";
+               });
             builder.Services.AddControllersWithViews();
         }
         
+        //Password por defecto en pre-carga: Password1!
 
         private static void Configure(WebApplication app)
         {
@@ -39,6 +63,8 @@ namespace Foro
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

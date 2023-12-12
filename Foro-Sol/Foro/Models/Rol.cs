@@ -1,29 +1,23 @@
-﻿//using Microsoft.AspNetCore.Identity;
-//using System;
-//using System.Collections.Generic;
-//using System.ComponentModel.DataAnnotations;
-//using System.Linq;
-//using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
-//namespace Foro
-////{
-////    public class Rol : IdentityRole<int>
-////    { 
-////  public Rol() : base()
-////        {
-             
-////        }
+namespace Foro
+{
+    public class Rol : IdentityRole<int>
+    {
+        #region Constructores
+        public Rol() : base(){ }
 
-////        public Rol(String rolName) : base(rolName)
-////        {
-
-////        }
-
-////        [Display(Name=Alias.RolName)]
-////       public override string Name
-////        {
-////            get { return base.Name; }
-////            set { base.Name = value; }
-////        }
-////    }
-////}
+        public Rol(string name): base(name){ }
+        #endregion
+        #region Propiedades
+        [Display(Name = Alias.RolName)]
+        public override string Name
+        {
+            get { return base.Name; }
+            set { base.Name = value; }
+        }
+        public override string NormalizedName { get => NormalizedName; set => NormalizedName = value; }
+    }
+    #endregion
+}
