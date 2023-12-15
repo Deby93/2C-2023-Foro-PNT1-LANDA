@@ -57,7 +57,7 @@ El UserName y el Email deben seguir la siguiente regla: ++@ort.edu.ar Ej.: clien
 
 **Entidades** 📄
 ```
-Persona
+Persona-->Usuario
 Miembro
 Administrador
 Categoria
@@ -69,7 +69,7 @@ Importante: Todas las entidades deben tener su identificador unico. Id
 
 Las propiedades descriptas a continuación, son las minimas que deben tener las entidades. Uds. pueden agregar las que consideren necesarias. De la misma manera Uds. deben definir los tipos de datos asociados a cada una de ellas, como así también las restricciones.
 ```
-**Persona**
+**Persona**-->lo cambie a Usuario
 ```
 - UserName
 - Password
