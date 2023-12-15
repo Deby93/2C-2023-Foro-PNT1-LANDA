@@ -69,7 +69,7 @@ Importante: Todas las entidades deben tener su identificador unico. Id
 
 Las propiedades descriptas a continuación, son las minimas que deben tener las entidades. Uds. pueden agregar las que consideren necesarias. De la misma manera Uds. deben definir los tipos de datos asociados a cada una de ellas, como así también las restricciones.
 ```
-**Persona**-->lo cambie a Usuario
+**Persona**-->lo cambie a Usuario 👩‍💻
 ```
 - UserName
 - Password
@@ -77,7 +77,7 @@ Las propiedades descriptas a continuación, son las minimas que deben tener las 
 - FechaAlta
 ```
   
-**Administrador**
+**Administrador** 👑
 ```
 - Nombre
 - Apellido
@@ -86,7 +86,7 @@ Las propiedades descriptas a continuación, son las minimas que deben tener las 
 - Password
 ```
   
-**Miembro**
+**Miembro**  🥸
 ```
 - Nombre
 - Apellido
@@ -100,13 +100,13 @@ Las propiedades descriptas a continuación, son las minimas que deben tener las 
 - PreguntasYRespuestasQueMeGustan
 ```
 
-**Categoria**
+**Categoria**  🚀
 ```
 - Nombre
 - Entradas
 ```
 
-**Entrada**
+**Entrada** 🚪
 ```
 - Titulo
 - Fecha
@@ -117,7 +117,7 @@ Las propiedades descriptas a continuación, son las minimas que deben tener las 
 - MiembrosHabilitados
   ```
 
-**Pregunta**
+**Pregunta**  🦜
 ```
 - Descripcion
 - Entrada
@@ -127,7 +127,7 @@ Las propiedades descriptas a continuación, son las minimas que deben tener las 
 - Activa
 ```
   
-**Respuesta**
+**Respuesta**  🙊
 ```
 - Descripcion
 - Pregunta
@@ -135,7 +135,7 @@ Las propiedades descriptas a continuación, son las minimas que deben tener las 
 - Fecha
 - Reacciones (colección de Likes, "MeGusta")
   ```
-**Reaccion**
+**Reaccion**  🫶
 ```
 - Fecha
 - MeGusta
@@ -147,14 +147,14 @@ NOTA: aquí un link para refrescar el uso de los Data annotations.
 Caracteristicas y Funcionalidades ⌨️
 Todas las entidades, deben tener implementado su correspondiente ABM, a menos que sea implicito el no tener que soportar alguna de estas acciones.
 
-**Administrador**
+**Administrador** 👑
 Un administrador, solo puede crear nuevas categorias.
 Sacar un listado de cantidad de Entradas por categorias.
 Los administradores del Foro, deben ser agregados por otro Administrador.
 Al momento, del alta del Administradores, se le definirá un username y la password será definida por el sistema.
 También se le asignará a estas cuentas el rol de Administrador.
 
-**Miembro**
+**Miembro** 🥸
 Puede auto registrarse.
 La autoregistración desde el sitio, es exclusiva para los usuarios miembros. Por lo cual, se le asignará dicho rol.
 Los miembros pueden navegar por el foro.
@@ -165,12 +165,12 @@ Puede crear nuevas categorias.
 Antes de crearla, se le propondrá un listado de categorias ya existentes en orden alfabetico.
 A cualquier respuesta, un miembro (que no es el autor de la respuesta), puede poner Like (MeGusta), Dislike (NoMeGusta) o resetearlo (Quita la reacción a dicha respuesta).
 
-**Reaccion**
+**Reaccion**  🫶
 La reacción a una respuesta será validandola con las 3 posibilidades.
 Al quitar la reacción, no se desea guardar registro previo de la misma.
 Un miembro, solo puede quitar las reacciones que uno mismo ha cargado.
 
-**Entrada**
+**Entrada**  🚪
 Al generar una entrada por un miembro, quedarán los datos básicos asignados, como ser fecha, el miembro que la creó, etc.
 La categoria puede ser una existente o una nueva que quiera crear en el momento.
 La entrada, creará junto con está la primer pregunta, que también, será este miembro el dueño.
@@ -182,21 +182,21 @@ Los miembros no habilitados pueden solitiar que se los habilite.
 Un miembro autor de la entrada, podrá ver un listado de miembros que quieren ser habilitados, y habilitarlos uno por uno.
 Al acceder a una entrada, se deberá mostrar las preguntas, en orden descendente por cantidad de likes recibidos.
 
-**Pregunta**
+**Pregunta** 🦜
 Mientras que una pregunta esté activa, otros miembros, podrán dar respuestas a las preguntas.
 La entrada, puede tener más preguntas del mismo miembro, como asi también, recibir más preguntas de otros miembros.
 Se visualizará las respuestas en orden cronológico ascendente, al acceder a cada pregunta.
 La respuesta con más likes, se deberá destacar visualmente. Ejemplo, en un recuadro verde.
 La respuesta con más dislikes, se deberá destacar visualmente. Ejemplo, en un recuadro rojo.
-Respuesta
 
+**Respuesta**   🙊
 Las respuestas será cargadas por miembros, que no son los creadores de la pregunta.
 Podrán recibir reacciones.
-Reacciones
 
+**Reacciones**  🫶
 Las reacciones, acerca de las respuestas, no pueden ser realizadas por los mismos autores de las respuestas.
 
-**Aplicación General**
+**Aplicación General**  ✨
 El foro, mostrará los encabezados en la home:
 Un listado de las ultimas 5 entradas cargadas más recientemente.
 Un top 5, de Entradas con más preguntas y respuestas.
@@ -207,6 +207,6 @@ Solo los administradores pueden eliminar entradas, con sus preguntas y respuesta
 Los accesos a las funcionalidades y/o capacidades, debe estar basada en los roles que tenga cada individuo.
 
 ----
-**Diagrama de clases:**🏞️
+**Diagrama de clases:** 🏞️
 ![Foro-2023](https://github.com/Deby93/2C-2023-Foro-PNT1-LANDA/assets/92892665/983e0d80-9689-405c-b15e-296da8aea16b)
 
