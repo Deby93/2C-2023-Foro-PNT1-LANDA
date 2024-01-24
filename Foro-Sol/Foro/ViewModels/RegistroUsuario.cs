@@ -7,6 +7,7 @@ namespace Foro
     {
         [Required(ErrorMessage = ErrMsgs.Requerido)]
         [EmailAddress(ErrorMessage = ErrMsgs.NoValido)]
+        [Display(Name = "Correo Electronico")]
         public string Email { get; set; }
 
 
@@ -16,10 +17,10 @@ namespace Foro
         public string Password { get; set; }
 
 
-        [Required(ErrorMessage = ErrMsgs.Requerido)]
-        [Display(Name = "Confirmación de contraseña")]
-        [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "La contraseña no coincide")]
+       [Required(ErrorMessage = ErrMsgs.Requerido)]
+       [Display(Name = "Confirmación de contraseña")]
+       [DataType(DataType.Password)]
+       [Compare("Password", ErrorMessage = "La contraseña no coincide")]
         public string ConfirmPassword { get; set; }
 
     }

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "qaOsQ+01X0bA91/Pr5q96rXFV7gM2PJfOCLROZVfk6c=",
+  "Hash": "upgaOiKtZU/iHQMYD4aZvozWyUvHW3QP652PSi6iyRE=",
   "Source": "Foro",
   "BasePath": "_content/Foro",
   "Mode": "Default",
@@ -100,6 +100,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\debyl\\source\\repos\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\acesoDenegado.png",
+      "SourceId": "Foro",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\debyl\\source\\repos\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\",
+      "BasePath": "_content/Foro",
+      "RelativePath": "img/acesoDenegado.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\acesoDenegado.png"
     },
     {
       "Identity": "C:\\Users\\debyl\\source\\repos\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\AZUCAAr-blanco-01.png",

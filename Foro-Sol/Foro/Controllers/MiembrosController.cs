@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Foro.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class MiembrosController : Controller
     {
         private readonly ForoContexto _foroContexto;
@@ -15,13 +15,31 @@ namespace Foro.Controllers
            _foroContexto = context;
         }
 
-       [Authorize(Roles = Config.AuthMiembroOrAdm)]
+        //// [Authorize(Roles = "Admin","Miembro")] administrador o miembro
+        ////administrador y miembro
+        //[Authorize(Roles = "Miembro")]
+        //[Authorize(Roles = "Admin")]
+
+     //  [Authorize(Roles = Config.AuthMiembroOrAdm)]
         public async Task<IActionResult> Index()
         {
+            if (!string.IsNullOrEmpty(User.Identity.Name))
+            {
+                User.IsInRole("Miembro");
+                Miembro miembroDb = _foroContexto.Miembros.FirstOrDefault(m=>m.NormalizedUserName==User.Identity.Name.ToUpper());
+               
+                if(miembroDb != null)
+                {
+
+                    ViewBag.Miembro = miembroDb.NombreCompleto;
+
+                }
+
+            }
             return View(await _foroContexto.Miembros.ToListAsync());
         }
 
-      [Authorize(Roles = Config.AuthMiembroOrAdm)]
+      //[Authorize(Roles = Config.AuthMiembroOrAdm)]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -39,19 +57,18 @@ namespace Foro.Controllers
             return View(miembro);
         }
 
-        [Authorize(Roles = Config.MiembroRolName)]
+       // [Authorize(Roles = Config.MiembroRolName)]
         public IActionResult CheckIn()
         {
             return RedirectToAction("Create", "Preguntas");
         }
 
-        [Authorize(Roles = Config.AuthMiembroOrAdm)]
+        
         public IActionResult Create()
         {
             return View();
         }
 
-        [Authorize(Roles = Config.AuthMiembroOrAdm)]
         public IActionResult DeleteAll()
         {
             return View();
@@ -71,8 +88,6 @@ namespace Foro.Controllers
             return View(miembro);
         }
 
-
-        [Authorize(Roles = Config.AuthMiembroOrAdm)]
         public async Task<IActionResult> Edit(int? id)
         {
             Miembro miembro;

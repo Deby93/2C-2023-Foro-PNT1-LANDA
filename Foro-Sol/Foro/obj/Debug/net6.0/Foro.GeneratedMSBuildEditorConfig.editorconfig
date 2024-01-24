@@ -16,6 +16,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Account/AccesoDenegado.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxBY2Nlc29EZW5lZ2Fkby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/debyl/source/repos/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Account/IniciarSesion.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxJbmljaWFyU2VzaW9uLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

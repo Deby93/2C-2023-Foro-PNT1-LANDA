@@ -40,6 +40,7 @@ namespace Foro
                {
                    opciones.LoginPath = "/Account/IniciarSesion";
                    opciones.AccessDeniedPath = "/Account/AccesoDenegado";
+                   opciones.Cookie.Name = "IdentidadForoApp";
                });
             builder.Services.AddControllersWithViews();
         }

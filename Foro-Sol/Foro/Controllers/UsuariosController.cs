@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -7,6 +9,8 @@ namespace Foro
     public class UsuariosController : Controller
     {
         private readonly ForoContexto _context;
+        private readonly UserManager<Usuario> _userManager;
+
 
         public UsuariosController(ForoContexto context)
         {
@@ -16,9 +20,9 @@ namespace Foro
         // GET: Usuarios
         public async Task<IActionResult> Index()
         {
-              return _context.Usuarios != null ? 
-                          View(await _context.Usuarios.ToListAsync()) :
-                          Problem("Entity set 'ForoContexto.Usuarios'  is null.");
+            return _context.Usuarios != null ?
+                        View(await _context.Usuarios.ToListAsync()) :
+                        Problem("Entity set 'ForoContexto.Usuarios'  is null.");
         }
 
         // GET: Usuarios/Details/5
@@ -52,19 +56,53 @@ namespace Foro
         [HttpPost] //resuelve ambiguedad en el metodo create que es sobrecargado
         [ValidateAntiForgeryToken]
         //Bind indicar que atributos  necesito
-        public async Task<IActionResult> Create([Bind("id,Nombre,Apellido,FechaAlta,Email,Password")] Usuario usuario)
+        public async Task<IActionResult> Create(bool EsAdmin, [Bind("id,Nombre,Apellido,FechaAlta,Email,Password")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
-                // se pone Usuarios para que la variable sea del mismo tipo la que viene x parametro
 
-                _context.Usuarios.Add(usuario);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-                //redireccion al index 302
+                usuario.UserName= usuario.Email;
+                var resultadoNewPersona = await _userManager.CreateAsync(usuario, Config.GenericPass);
+                // se pone Usuarios para que la variable sea del mismo tipo la que viene x parametro
+                if (resultadoNewPersona.Succeeded)
+                {
+                    IdentityResult resultadoAddRol;
+                    string rolDefinido;
+
+                    if (EsAdmin)
+                    {
+                        rolDefinido = Config.AdminRolName;
+                    }
+                    else
+                    {
+                        rolDefinido = Config.MiembroRolName;
+                    }
+                    resultadoAddRol = await _userManager.AddToRoleAsync(usuario, rolDefinido);
+
+                    if (resultadoAddRol.Succeeded)
+                    {
+                        return RedirectToAction("Index", "Usuarios");
+                    }
+                    else
+                    {
+                        return Content($"No se ha podido agregar el rol {rolDefinido}");
+
+                      }
+                }
+
+
             }
+            //_context.Usuarios.Add(usuario);
+            //await _context.SaveChangesAsync();
+            //return RedirectToAction(nameof(Index));
+            //redireccion al index 302
+
             return View(usuario);
         }
+
+    
+
+
 
         // GET: Usuarios/Edit/5
         public async Task<IActionResult> Edit(int? id)

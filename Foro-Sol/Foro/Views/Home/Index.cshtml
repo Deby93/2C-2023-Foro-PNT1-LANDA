@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Foro";
 }
+
  <div class="text-center">
   @* <h1 class="display-4">BIENVENIDO A</h1> *@ 
         <img src="~/img/logo-azul.png" width="500" height="500" />
@@ -8,7 +9,13 @@
 </div>
 <h1 class="text-center">EL VERDADERO SABOR DE LA INFORMACIÓN</h1>
   
- 
+@if(ViewBag.Mensaje != null)
+{
+    <div>
+        <p class="text-info">@ViewBag.Mensaje</p>
+    </div>
+}
+
 <@* div class="card-deck">
     <div class="card text-center border-primary">
         <div class="card-body">

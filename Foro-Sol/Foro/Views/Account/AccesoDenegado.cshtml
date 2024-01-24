@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewData["Title"] = "AccesoDenegado";
+    bool hayReturnUrl = !string.IsNullOrEmpty(ViewBag.returnUrl);
+}
+
+<div>
+    <h1>
+        Su usuario no tiene permisos suficientes  @if (hayReturnUrl)
+        {
+            <span> para  acceder @ViewBag.returnUrl</span>
+        }
+    </h1>
+    <img src="~/img/acesoDenegado.png" />
+    </div>

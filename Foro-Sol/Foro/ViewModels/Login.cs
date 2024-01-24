@@ -11,13 +11,14 @@ namespace Foro
     public class Login
     {
         [Required(ErrorMessage = ErrMsgs.Requerido)]
-        public string Username { get; set; }
+        public string Email { get; set; }
 
         [Required(ErrorMessage = ErrMsgs.Requerido)]
         [DataType(DataType.Password)]
         //[MinLength(9, ErrorMessage = ErrMsgs.StrMaxMin)]
         public string Password { get; set; }
 
+        [Display(Name = "Recordarme")]
         public bool RememberMe { get; set; }
 
     }
