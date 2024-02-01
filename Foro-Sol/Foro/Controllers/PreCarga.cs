@@ -9,7 +9,7 @@ namespace Foro.Controllers
         private readonly UserManager<Usuario> _userManager;
         private readonly RoleManager<Rol> _roleManager;
         private readonly ForoContexto _contexto;
-        private readonly List<string> roles = new List<string>() { "Admin", "Miembro", "Usuario" };
+        private readonly List<string> roles = new List<string>() { "Administrador".ToUpper(), "Miembro".ToUpper(), "Usuario".ToUpper() };
         public PreCarga(UserManager<Usuario> userManager, RoleManager<Rol> roleManager, ForoContexto contexto)
         {
             this._userManager = userManager;
@@ -23,7 +23,7 @@ namespace Foro.Controllers
                 _contexto.Database.EnsureDeleted();
                 _contexto.Database.Migrate();
                 CrearRoles().Wait();
-                CrearAdmin().Wait();
+                CrearAdministrador().Wait();
                 CrearMiembro().Wait();
                 CrearEntrada().Wait();
                 AsignoEntrada().Wait();
@@ -33,7 +33,7 @@ namespace Foro.Controllers
                 CrearRespuesta().Wait();
                 AsignoRespuesta().Wait();
 
-                TempData["Mensaje"] = $"Puede iniciar sesión con {Config.MiembroEmail}{Config.Dominio},  o {Config.AdminEmail},  \n siempre todos con la pass {Config.LoginPath}";
+                TempData["Mensaje"] = $"Puede iniciar sesión con {Config.MiembroEmail}{Config.Dominio},  o {Config.AdministradorEmail}{Config.Dominio},  \n siempre todos con la pass {Config.LoginPath}";
             }
             catch (Exception e)
             {
@@ -68,11 +68,6 @@ namespace Foro.Controllers
             throw new NotImplementedException();
         }
 
-        private async Task AsignoRespuest()
-        {
-            throw new NotImplementedException();
-        }
-
         private async Task CrearRespuesta()
         {
             throw new NotImplementedException();
@@ -91,8 +86,8 @@ namespace Foro.Controllers
                 {
                     Email = Config.MiembroEmail + indice.ToString() + Config.Dominio,
                     UserName = Config.MiembroEmail + indice.ToString() + Config.Dominio,
-                    Apellido = Config.MiembroRolName,
-                    Nombre = (Config.NombreBase + indice).ToString(),
+                    Apellido = Config.MiembroRolName.ToUpper(),
+                    Nombre = (Config.NombreBase.ToUpper() + indice).ToString(),
 
                 };
                 var resultadoCreacion = await _userManager.CreateAsync(miembro1, Config.GenericPass);
@@ -103,21 +98,21 @@ namespace Foro.Controllers
                 }
             }
         }
-        private async Task CrearAdmin()
+        private async Task CrearAdministrador()
         {
-            var hayAdmin = _contexto.Usuarios.IgnoreQueryFilters().Any(p => p.NormalizedEmail == Config.AdminEmail.ToUpper());
-            if (!hayAdmin)
+            var hayAdministrador = _contexto.Usuarios.IgnoreQueryFilters().Any(p => p.NormalizedEmail == Config.AdministradorEmail.ToUpper());
+            if (!hayAdministrador)
             {
                 Usuario usuario = new Usuario();
-                usuario.UserName = Config.AdminEmail;
-                usuario.Email = Config.AdminEmail;
+                usuario.UserName = Config.AdministradorEmail.ToUpper();
+                usuario.Email = Config.AdministradorEmail+ Config.Dominio;
                 
 
-                var resultadoCreacion = await _userManager.CreateAsync(usuario, Config.AdminPass);
+                var resultadoCreacion = await _userManager.CreateAsync(usuario, Config.GenericPass);
 
                 if (resultadoCreacion.Succeeded)
                 {
-                    await AgregarARoles(usuario, Config.RolesParaAdmin);
+                    await AgregarARoles(usuario, Config.RolesParaAdministrador);
                 }
             }
         }
@@ -131,8 +126,8 @@ namespace Foro.Controllers
         {
             foreach (var rolName in roles)
             {
-                if (!await _roleManager.RoleExistsAsync(rolName)) { 
-                    await _roleManager.CreateAsync(new Rol(rolName)); }
+                if (!await _roleManager.RoleExistsAsync(rolName.ToUpper())) { 
+                    await _roleManager.CreateAsync(new Rol(rolName.ToUpper())); }
             }
 
             }

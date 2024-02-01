@@ -61,7 +61,7 @@ namespace Foro
             if (ModelState.IsValid)
             {
 
-                usuario.UserName= usuario.Email;
+                usuario.UserName = usuario.Email;
                 var resultadoNewPersona = await _userManager.CreateAsync(usuario, Config.GenericPass);
                 // se pone Usuarios para que la variable sea del mismo tipo la que viene x parametro
                 if (resultadoNewPersona.Succeeded)
@@ -71,7 +71,7 @@ namespace Foro
 
                     if (EsAdmin)
                     {
-                        rolDefinido = Config.AdminRolName;
+                        rolDefinido = Config.AdministradorRolName;
                     }
                     else
                     {
@@ -87,7 +87,7 @@ namespace Foro
                     {
                         return Content($"No se ha podido agregar el rol {rolDefinido}");
 
-                      }
+                    }
                 }
 
 
@@ -99,9 +99,6 @@ namespace Foro
 
             return View(usuario);
         }
-
-    
-
 
 
         // GET: Usuarios/Edit/5

@@ -11,18 +11,14 @@ namespace Foro
         public const int MaxApe = 15;
         public const int MinPassword = 8;
         public const int MaxPassword = 20;
-
         public const int MinNomCat = 3;
         public const int MaxNomCat = 20;
-
         public const int MinTituloEntrada = 4;
         public const int MaxTituloEntrada = 50;
         public const int MinDescEntrada = 4;
         public const int MaxDescEntrada = 500;
-
         public const int MinDescPregunta = 4;
         public const int MaxDescPregunta = 100;
-
         public const int MinDescRespuesta = 4;
         public const int MaxDescRespuesta = 100;
     }

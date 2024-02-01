@@ -10,9 +10,11 @@ namespace Foro
     
     public class Login
     {
+        [Display(Name = Alias.Email)]
         [Required(ErrorMessage = ErrMsgs.Requerido)]
         public string Email { get; set; }
 
+        [Display(Name = Alias.Contraseña)]
         [Required(ErrorMessage = ErrMsgs.Requerido)]
         [DataType(DataType.Password)]
         //[MinLength(9, ErrorMessage = ErrMsgs.StrMaxMin)]

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Humanizer;
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -30,7 +31,15 @@ namespace Foro
         {
             get
             {
-                return $"{Apellido.ToUpper()}, {Nombre}";
+                if ((Nombre != null && Nombre.Length > 0) && (Apellido != null && Apellido.Length > 0))
+                {
+                    
+                }
+                else if(Nombre !=null && Nombre.Length >0)
+                {
+                    return $"{Nombre}";
+                }
+                return "error";
             }
         }
 
@@ -41,7 +50,7 @@ namespace Foro
             get { return base.Email; }
             set { base.Email = value; } }
 
-        [Display(Name = "Contraseña")]
+        [Display(Name = Alias.Contraseña)]
         [DataType(DataType.Password, ErrorMessage = ErrMsgs.ErrMsgNotValid)]
         [Required(ErrorMessage = ErrMsgs.Requerido)]
         public string Password { get; set; }
