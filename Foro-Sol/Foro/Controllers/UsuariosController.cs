@@ -10,11 +10,12 @@ namespace Foro
     {
         private readonly ForoContexto _context;
         private readonly UserManager<Usuario> _userManager;
+        //inyectar el usermanager
 
-
-        public UsuariosController(ForoContexto context)
+        public UsuariosController(ForoContexto context, UserManager<Usuario> usermanager)
         {
             _context = context;
+            _userManager = usermanager;//inyectado
         }
 
         // GET: Usuarios

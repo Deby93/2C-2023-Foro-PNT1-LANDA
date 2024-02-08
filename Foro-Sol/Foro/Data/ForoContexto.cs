@@ -20,7 +20,7 @@ namespace Foro
 
             modelBuilder.Entity<MiembrosHabilitados>()
                 .HasOne(mh => mh.Miembro)
-                .WithMany(m => m.miembrosHabilitados)
+                .WithMany(m => m.MiembrosHabilitados)
                 .HasForeignKey(mh => mh.MiembroId)
                 .OnDelete(DeleteBehavior.Cascade);
 

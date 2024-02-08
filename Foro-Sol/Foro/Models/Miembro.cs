@@ -21,7 +21,17 @@ namespace Foro
 
         public List<Respuesta> Respuestas { get; set; }
 
-        public List<MiembrosHabilitados>miembrosHabilitados { get; set; }
+        public List<MiembrosHabilitados>MiembrosHabilitados { get; set; }
+
+        //listas inicializadas
+        public Miembro()
+        {
+            PreguntasYRespuestasQueMeGustan = new List<Reaccion>();
+            Entradas = new List<Entrada>();
+            Preguntas = new List<Pregunta>();
+            Respuestas = new List<Respuesta>();
+            MiembrosHabilitados = new List<MiembrosHabilitados>();
+        }
     }
     #endregion
 }
