@@ -16,7 +16,7 @@ namespace Foro
         public List<Reaccion> PreguntasYRespuestasQueMeGustan { get; set; }
 
         public List<Entrada> Entradas { get; set; }
-
+       
         public List<Pregunta> Preguntas { get; set; }
 
         public List<Respuesta> Respuestas { get; set; }
