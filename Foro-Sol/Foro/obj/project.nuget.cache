@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "x3FDISaMmN4AIS9fL8mgscuLwnTNphj5OU0FB5SAXtmpnQpIPU3S+YODlmrtejLqHmfAOGZac9xad4sUmDOdlQ==",
+  "dgSpecHash": "Eb8ciX/4/PXnqlNFEnGx/CV0SOC37NY/6BBPRPneXqkfSSZ2+EXXoEsmlCurzRnb20biSaoM3JB63gPUwKaKew==",
   "success": true,
-  "projectFilePath": "C:\\Users\\debyl\\Source\\Repos\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Foro.csproj",
+  "projectFilePath": "C:\\Users\\debyl\\source\\repos\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Foro.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\debyl\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\debyl\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

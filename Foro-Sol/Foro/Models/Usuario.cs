@@ -33,7 +33,7 @@ namespace Foro
             {
                 if ((Nombre != null && Nombre.Length > 0) && (Apellido != null && Apellido.Length > 0))
                 {
-                    
+                    return $"{Nombre} {Apellido}";
                 }
                 else if(Nombre !=null && Nombre.Length >0)
                 {

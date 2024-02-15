@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\debyl\\Source\\Repos\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Foro.csproj": {}
+    "C:\\Users\\debyl\\source\\repos\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Foro.csproj": {}
   },
   "projects": {
-    "C:\\Users\\debyl\\Source\\Repos\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Foro.csproj": {
+    "C:\\Users\\debyl\\source\\repos\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Foro.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\debyl\\Source\\Repos\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Foro.csproj",
+        "projectUniqueName": "C:\\Users\\debyl\\source\\repos\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Foro.csproj",
         "projectName": "Foro",
-        "projectPath": "C:\\Users\\debyl\\Source\\Repos\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Foro.csproj",
+        "projectPath": "C:\\Users\\debyl\\source\\repos\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Foro.csproj",
         "packagesPath": "C:\\Users\\debyl\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\debyl\\Source\\Repos\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\obj\\",
+        "outputPath": "C:\\Users\\debyl\\source\\repos\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\debyl\\AppData\\Roaming\\NuGet\\NuGet.Config",

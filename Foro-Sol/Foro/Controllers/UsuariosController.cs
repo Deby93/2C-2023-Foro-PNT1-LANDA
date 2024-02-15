@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,8 @@ namespace Foro
             _userManager = usermanager;//inyectado
         }
 
+
+        [AllowAnonymous] // Permite que los usuarios no autenticados puedan ver la lista de usuarios.
         // GET: Usuarios
         public async Task<IActionResult> Index()
         {
@@ -44,6 +47,7 @@ namespace Foro
             return View(usuario);
         }
 
+
         // GET: Usuarios/Create
         [HttpGet]
         public IActionResult Create()
@@ -51,21 +55,24 @@ namespace Foro
             return View();
         }
 
+
         // POST: Usuarios/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost] //resuelve ambiguedad en el metodo create que es sobrecargado
         [ValidateAntiForgeryToken]
         //Bind indicar que atributos  necesito
+
+        [Authorize(Roles = Config.AdministradorRolName)] // Requiere que el usuario esté autenticado y tenga el rol de "Administrador" para crear usuarios.
         public async Task<IActionResult> Create(bool EsAdmin, [Bind("id,Nombre,Apellido,FechaAlta,Email,Password")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
 
                 usuario.UserName = usuario.Email;
-                var resultadoNewPersona = await _userManager.CreateAsync(usuario, Config.GenericPass);
+                var resultadoCreacionUsuario = await _userManager.CreateAsync(usuario, Config.GenericPass);
                 // se pone Usuarios para que la variable sea del mismo tipo la que viene x parametro
-                if (resultadoNewPersona.Succeeded)
+                if (resultadoCreacionUsuario.Succeeded)
                 {
                     IdentityResult resultadoAddRol;
                     string rolDefinido;
@@ -101,7 +108,7 @@ namespace Foro
             return View(usuario);
         }
 
-
+        [Authorize(Roles =Config.AuthMiembroOrAdmistrador)]
         // GET: Usuarios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -118,6 +125,7 @@ namespace Foro
             return View(usuario);
         }
 
+        [Authorize(Roles = Config.AuthMiembroOrAdmistrador)]
         // POST: Usuarios/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -190,6 +198,7 @@ namespace Foro
             return View(usuario);
         }
 
+        [Authorize(Roles = Config.AdministradorRolName)]
         // POST: Usuarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
