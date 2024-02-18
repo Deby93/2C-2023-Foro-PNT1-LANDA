@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "upgaOiKtZU/iHQMYD4aZvozWyUvHW3QP652PSi6iyRE=",
+  "Hash": "AbEcwEcvkfRjFeG4tXj+mC4B87Ho5ojY0cOpKIEXNUw=",
   "Source": "Foro",
   "BasePath": "_content/Foro",
   "Mode": "Default",
@@ -253,6 +253,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\portada behance.png"
+    },
+    {
+      "Identity": "C:\\Users\\debyl\\source\\repos\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\Z.png",
+      "SourceId": "Foro",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\debyl\\source\\repos\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\",
+      "BasePath": "_content/Foro",
+      "RelativePath": "img/Z.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\Z.png"
     },
     {
       "Identity": "C:\\Users\\debyl\\source\\repos\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\js\\site.js",

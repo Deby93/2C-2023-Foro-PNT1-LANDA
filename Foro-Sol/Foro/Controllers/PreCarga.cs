@@ -125,7 +125,7 @@ namespace Foro.Controllers
         private async Task CrearRoles()
         {
             foreach (var rolName in roles)
-            {
+           {
                 if (!await _roleManager.RoleExistsAsync(rolName.ToUpper())) { 
                     await _roleManager.CreateAsync(new Rol(rolName.ToUpper())); }
             }
