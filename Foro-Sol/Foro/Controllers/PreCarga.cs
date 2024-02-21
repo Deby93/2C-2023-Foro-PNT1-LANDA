@@ -86,7 +86,7 @@ namespace Foro.Controllers
             if (!_contexto.Usuarios.Any())
             {
                 int indice = 1;
-                Usuario usuario1 = new Miembro()
+                Usuario usuario1 = new Usuario()
                 {
                     Email = Config.UsuarioEmail + indice.ToString() + Config.Dominio,
                     UserName = Config.UsuarioEmail + indice.ToString() + Config.Dominio,
