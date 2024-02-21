@@ -17,7 +17,9 @@ namespace Foro
             get { return base.Name; }
             set { base.Name = value; }
         }
-        public override string NormalizedName { get => NormalizedName; set => NormalizedName = value; }
+        public override string NormalizedName {
+            get => base.NormalizedName;
+            set => base.NormalizedName = value; }
     }
     #endregion
 }

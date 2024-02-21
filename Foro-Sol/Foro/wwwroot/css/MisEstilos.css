@@ -11,7 +11,9 @@
     width: 50px;
     margin: 50px;
 }
-
+.navbar .nav-link:hover {
+    color: purple; /* Cambia el color del texto a púrpura cuando se pasa el mouse sobre el enlace */
+}
 a {
     color: #0366d6;
 }
@@ -22,10 +24,10 @@ a {
     border-color: #800080; /* Puedes ajustar esto según tus preferencias */
 }
 
-    .btn-purple:hover {
-        background-color: #6a006a; /* Color de fondo cuando se pasa el mouse */
-        border-color: #6a006a; /* Color del borde al pasar el mouse */
-    }
+ .btn-purple:hover {
+     background-color: #6a006a; /* Color de fondo cuando se pasa el mouse */
+     border-color: #6a006a; /* Color del borde al pasar el mouse */
+  }
 
 
 .btn-primary {

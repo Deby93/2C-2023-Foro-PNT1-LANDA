@@ -32,6 +32,7 @@ namespace Foro.Controllers
                 AsignoPregunta().Wait();
                 CrearRespuesta().Wait();
                 AsignoRespuesta().Wait();
+                CrearReaccion().Wait();
 
                 TempData["Mensaje"] = $"Puede iniciar sesión con {Config.MiembroEmail}{Config.Dominio},  o {Config.AdministradorEmail}{Config.Dominio},  \n siempre todos con la pass {Config.LoginPath}";
             }
@@ -42,6 +43,12 @@ namespace Foro.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        private async Task CrearReaccion()
+        {
+            throw new NotImplementedException();
+        }
+
 
         private async Task AsignoRespuesta()
         {
@@ -66,17 +73,36 @@ namespace Foro.Controllers
         private async Task CrearPregunta()
         {
             throw new NotImplementedException();
+
         }
 
-        private async Task CrearRespuesta()
+    private async Task CrearRespuesta()
         {
             throw new NotImplementedException();
         }
 
         private async Task CrearUsuario()
         {
-        }
+            if (!_contexto.Usuarios.Any())
+            {
+                int indice = 1;
+                Usuario usuario1 = new Miembro()
+                {
+                    Email = Config.UsuarioEmail + indice.ToString() + Config.Dominio,
+                    UserName = Config.UsuarioEmail + indice.ToString() + Config.Dominio,
+                    Apellido = Config.UsuarioRolName.ToUpper(),
+                    Nombre = (Config.UsuarioRolName.ToUpper() + indice).ToString(),
 
+                };
+                var resultadoCreacion = await _userManager.CreateAsync(usuario1, Config.GenericPass);
+
+                if (resultadoCreacion.Succeeded)
+                {
+                    await AgregarARoles(usuario1, Config.RolesParaUsuario);
+                }
+            }
+        }
+    
         private async Task CrearMiembro()
         {
             if (!_contexto.Miembros.Any())
@@ -87,7 +113,7 @@ namespace Foro.Controllers
                     Email = Config.MiembroEmail + indice.ToString() + Config.Dominio,
                     UserName = Config.MiembroEmail + indice.ToString() + Config.Dominio,
                     Apellido = Config.MiembroRolName.ToUpper(),
-                    Nombre = (Config.NombreBase.ToUpper() + indice).ToString(),
+                    Nombre = (Config.NombreBaseMiembro.ToUpper() + indice).ToString(),
 
                 };
                 var resultadoCreacion = await _userManager.CreateAsync(miembro1, Config.GenericPass);

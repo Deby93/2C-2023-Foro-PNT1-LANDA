@@ -14,8 +14,10 @@
         public const string MiembroRolName = "Miembro";
         public const string UsuarioRolName = "Usuario";
         public const string AdministradorRolName = "Administrador";
-        public const string NombreBase = "Miembro";
+        public const string NombreBaseMiembro = "Miembro";
+        public const string UsuarioEmail = "usuario";
         public static readonly List<string> RolesParaAdministrador = new List<string>() { AdministradorRolName,MiembroRolName, UsuarioRolName };
         public static readonly List<string> RolesParaMiembro= new List<string>() { MiembroRolName, UsuarioRolName };
+        public static readonly List<string> RolesParaUsuario = new List<string>() {UsuarioRolName };
     }
 }
