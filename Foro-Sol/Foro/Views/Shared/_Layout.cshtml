@@ -22,12 +22,6 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">Sobre nosotros</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
                         </li>
                         <li class="nav-item">
@@ -75,8 +69,16 @@
         <div class="container">
             <span id="mensaje" style="color: purple; display: none;">Clickea el botón para cargar la base de datos.</span>
             <a id="botonPrecarga" asp-action="Seed" asp-controller="PreCarga" class="btn btn-stm btn-purple">PRECARGA</a>
-        </div>
 
+            <a id="botonContact" asp-action="Contact" asp-controller="Home" style="color: purple; text-align: right;">Contacto</a>
+            <a id="botonAbout" asp-action="AboutUs" asp-controller="Home" style="color: purple; text-align: right;">Sobre nosotros</a>
+           
+        </div>
+        @* <div class="azucar-group"> *@
+           @*  <div> *@
+          @*    <h3 style="color: purple;  text-align: right;">AZÚCAR GROUP</h3> *@ 
+            
+    @*     </div> *@
         <script>
             // Obtener referencia al botón de precarga
             var botonPrecarga = document.getElementById("botonPrecarga");
@@ -94,7 +96,11 @@
                 // Ocultar el mensaje cuando el cursor sale del botón
                 mensaje.style.display = "none";
             });
+
         </script>
+
+   
+            
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

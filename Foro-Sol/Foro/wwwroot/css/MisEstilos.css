@@ -60,6 +60,21 @@ html {
     font-size: 14px;
 }
 
+
+.azucar-group {
+    margin-top: 20px; /* Ajusta el margen superior según sea necesario */
+    text-align: center; /* Alinea el texto al centro */
+}
+
+.buttons {
+    margin-top: 10px; /* Espacio entre el título y los botones */
+}
+
+    .buttons a {
+        display: block; /* Hace que los botones se muestren como bloques para ocupar todo el ancho disponible */
+        margin-bottom: 10px; /* Espacio entre los botones */
+    }
+
 @media (min-width: 768px) {
     html {
         font-size: 16px;
