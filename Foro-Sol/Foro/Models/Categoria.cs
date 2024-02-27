@@ -12,8 +12,8 @@ namespace Foro
         [Display(Name = Alias.NomCat)]
         [Required(ErrorMessage = ErrMsgs.Requerido)]
         [Remote(action: "nombreDeCategoriaDisponible", controller: "Categorias")]
-        public string Nombre { get; set; }
-        public List<Entrada> Entradas { get; set; }
+        public string? Nombre { get; set; }
+        public List<Entrada>? Entradas { get; set; }
 
         #endregion
     }

@@ -15,12 +15,12 @@ namespace Foro
         [Display(Name = Alias.Nombre)]
         [Required(ErrorMessage = ErrMsgs.Requerido)]
         [StringLength(Restrictions.MaxNom, MinimumLength = Restrictions.MinNom, ErrorMessage = ErrMsgs.StrMaxMin)]
-        public string Nombre { get; set; }
+        public string? Nombre { get; set; }
 
         [Display(Name = Alias.Apellido)]
         [Required(ErrorMessage = ErrMsgs.Requerido)]
         [StringLength(Restrictions.MaxApe, MinimumLength = Restrictions.MinApe, ErrorMessage = ErrMsgs.StrMaxMin)]
-        public string Apellido { get; set; }
+        public string? Apellido { get; set; }
 
         [Display(Name = Alias.FechaAlta)]
         [DataType(DataType.DateTime, ErrorMessage = ErrMsgs.ErrMsgNotValid)]

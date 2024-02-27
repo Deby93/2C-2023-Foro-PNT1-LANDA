@@ -3,24 +3,28 @@
 }
 
 <div class="text-center mt-5 mb-4">
-        <img src="~/img/azucar-logo-blanco-cuadrado.png" width="300" height="200" />
- 
-</div>
-<h6 class="text-center" style="color: white">EL VERDADERO SABOR DE LA INFORMACIÓN</h6>
-  
-@if(ViewBag.Mensaje != null)
-{
-    <div>
-        <p class="text-info">@ViewBag.Mensaje</p>
-    </div>
-}
+        <img src="~/img/NARANJA-03 (1).png" width="400" height="500" />
+  @*   <img src="~/img/NEGRO OCTOGONO SIN FONDO-04-06.png" width="400" height="500" /> *@
 
-<@* div class="card-deck">
+
+</div>
+ <h6 class="text-center" style="color: white">EL VERDADERO SABOR DE LA INFORMACIÓN</h6>
+
+@*  <div class="card-deck">
     <div class="card text-center border-primary">
         <div class="card-body">
             <h5 class="card-title">Conocenos</h5>
             <p class="card-text">Datos reales 24/7</p>
             <a asp-controller="Home" asp-action="Informacion" class="btn btn-primary">SUSCRIBITE</a>
         </div>
+    </div>
+   </div>  *@
+
+@if(ViewBag.Mensaje != null)
+{
+    <div>
+        <p class="text-info">@ViewBag.Mensaje</p>
     </div> 
-   </div> *@ 
+}
+
+

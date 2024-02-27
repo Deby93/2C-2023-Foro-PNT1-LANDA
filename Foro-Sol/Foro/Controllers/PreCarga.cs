@@ -9,7 +9,7 @@ namespace Foro.Controllers
         private readonly UserManager<Usuario> _userManager;
         private readonly RoleManager<Rol> _roleManager;
         private readonly ForoContexto _contexto;
-        private readonly List<string> roles = new List<string>() { "Administrador".ToUpper(), "Miembro".ToUpper(), "Usuario".ToUpper() };
+        private readonly List<string> roles = new() { "Administrador".ToUpper(), "Miembro".ToUpper(), "Usuario".ToUpper() };
         public PreCarga(UserManager<Usuario> userManager, RoleManager<Rol> roleManager, ForoContexto contexto)
         {
             this._userManager = userManager;
@@ -31,7 +31,7 @@ namespace Foro.Controllers
                 CrearPregunta().Wait();
                 AsignoPregunta().Wait();
                 CrearRespuesta().Wait();
-                AsignoRespuesta().Wait();
+                //AsignoRespuesta().Wait();
                 CrearReaccion().Wait();
 
                 TempData["Mensaje"] = $"Puede iniciar sesión con {Config.MiembroEmail}{Config.Dominio},  o {Config.AdministradorEmail}{Config.Dominio},  \n siempre todos con la pass {Config.LoginPath}";
@@ -46,14 +46,59 @@ namespace Foro.Controllers
 
         private async Task CrearReaccion()
         {
-            throw new NotImplementedException();
+            if (!_contexto.Reacciones.Any())
+            {
+                Reaccion reaccion1 = new();
+                {
+                    reaccion1.MeGusta = false;
+                    reaccion1.Respuesta = DameRespuesta();
+                    reaccion1.Fecha = DateTime.Now;
+                    reaccion1.Miembro = DameMiembro();
+
+                };
+
+                await _contexto.AddAsync(reaccion1);
+                await _contexto.SaveChangesAsync();
+            }
         }
 
-
-        private async Task AsignoRespuesta()
+        private Miembro DameMiembro()
         {
-            throw new NotImplementedException();
+            Miembro miembroDeseado = new();
+            foreach (Miembro miembro in _contexto.Miembros)
+            {
+                miembroDeseado = miembro;
+            }
+            return miembroDeseado;
         }
+
+        private Respuesta DameRespuesta()
+        {
+            Respuesta respuestaDeseada = new();
+            foreach (Respuesta respuesta in _contexto.Respuestas)
+            {
+                respuestaDeseada =respuesta;
+            }
+            return respuestaDeseada;
+        }
+        private Categoria DameCategoria()
+        {
+            Categoria categoriaDeseada = new();
+            foreach (Categoria categoria in _contexto.Categorias)
+            {
+                categoriaDeseada = categoria;
+            }
+            return categoriaDeseada;
+        }
+
+        
+        //private async Task AsignoRespuesta()
+        //{
+        //    Respuesta respuesta = new();
+
+        //   // Miembros.add(respuesta);
+
+        //}
 
         private async Task AsignoPregunta()
         {
@@ -62,7 +107,20 @@ namespace Foro.Controllers
 
         private async Task CrearEntrada()
         {
-            throw new NotImplementedException();
+            if (!_contexto.Entradas.Any())
+            {
+                Entrada entrada1 = new();
+                {
+                    entrada1.Privada = false;
+                    entrada1.Fecha = DateTime.Now;
+                    entrada1.Categoria =DameCategoria();
+                    //entrada1.CantidadDePreguntasYRespuestas = 0;
+
+                }
+
+                await _contexto.AddAsync(entrada1);
+                await _contexto.SaveChangesAsync();
+            }
         }
 
         private async Task AsignoEntrada()
@@ -72,21 +130,44 @@ namespace Foro.Controllers
 
         private async Task CrearPregunta()
         {
-            throw new NotImplementedException();
+            if (!_contexto.Preguntas.Any())
+            {
+                int indice = _contexto.Preguntas.Count() + 1;
+                Pregunta pregunta1 = new();
+                {
+                    pregunta1.MiembroId = indice + 1;
+                    pregunta1.Descripcion = "Cual es el color de Pantone del 2024?";
+                    CrearRespuesta();
+                    //pregunta1.Entrada = "Tendencia";
+                    pregunta1.Fecha = DateTime.Now;
+                    
+                };
 
+                await _contexto.AddAsync(pregunta1);
+                await _contexto.SaveChangesAsync();
+            }
         }
 
-    private async Task CrearRespuesta()
+        private async Task CrearRespuesta()
         {
-            throw new NotImplementedException();
+            if (!_contexto.Respuestas.Any())
+            {
+                Respuesta respuesta1 = new();
+                {
+                    ;
+                };
+
+                await _contexto.AddAsync(respuesta1);
+                await _contexto.SaveChangesAsync();
+            }
         }
 
         private async Task CrearUsuario()
         {
             if (!_contexto.Usuarios.Any())
             {
-                int indice = 1;
-                Usuario usuario1 = new Usuario()
+                int indice = _contexto.Usuarios.Count() + 1;
+                Usuario usuario1 = new()
                 {
                     Email = Config.UsuarioEmail + indice.ToString() + Config.Dominio,
                     UserName = Config.UsuarioEmail + indice.ToString() + Config.Dominio,
@@ -99,16 +180,18 @@ namespace Foro.Controllers
                 if (resultadoCreacion.Succeeded)
                 {
                     await AgregarARoles(usuario1, Config.RolesParaUsuario);
+                    usuario1.Id = indice + 1;
                 }
+
             }
         }
-    
+
         private async Task CrearMiembro()
         {
             if (!_contexto.Miembros.Any())
             {
-                int indice = 1;
-                Miembro miembro1 = new Miembro()
+                int indice = _contexto.Miembros.Count() + 1;
+                Miembro miembro1 = new()
                 {
                     Email = Config.MiembroEmail + indice.ToString() + Config.Dominio,
                     UserName = Config.MiembroEmail + indice.ToString() + Config.Dominio,
@@ -121,24 +204,30 @@ namespace Foro.Controllers
                 if (resultadoCreacion.Succeeded)
                 {
                     await AgregarARoles(miembro1, Config.RolesParaMiembro);
+                    miembro1.Id = indice + 1;
                 }
             }
         }
         private async Task CrearAdministrador()
         {
             var hayAdministrador = _contexto.Usuarios.IgnoreQueryFilters().Any(p => p.NormalizedEmail == Config.AdministradorEmail.ToUpper());
+
             if (!hayAdministrador)
             {
-                Usuario usuario = new Usuario();
-                usuario.UserName = Config.AdministradorEmail.ToUpper();
-                usuario.Email = Config.AdministradorEmail+ Config.Dominio;
-                
+               
+                Usuario usuario = new()
+                {
+                    UserName = Config.AdministradorEmail.ToUpper(),
+                    Email = Config.AdministradorEmail + Config.Dominio
+                };
+
 
                 var resultadoCreacion = await _userManager.CreateAsync(usuario, Config.GenericPass);
 
                 if (resultadoCreacion.Succeeded)
                 {
                     await AgregarARoles(usuario, Config.RolesParaAdministrador);
+                    
                 }
             }
         }
@@ -151,11 +240,13 @@ namespace Foro.Controllers
         private async Task CrearRoles()
         {
             foreach (var rolName in roles)
-           {
-                if (!await _roleManager.RoleExistsAsync(rolName.ToUpper())) { 
-                    await _roleManager.CreateAsync(new Rol(rolName.ToUpper())); }
+            {
+                if (!await _roleManager.RoleExistsAsync(rolName.ToUpper()))
+                {
+                    await _roleManager.CreateAsync(new Rol(rolName.ToUpper()));
+                }
             }
 
-            }
         }
     }
+}

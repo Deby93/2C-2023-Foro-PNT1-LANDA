@@ -1,3 +1,5 @@
+C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\obj\Debug\net6.0\staticwebassets\msbuild.Foro.Microsoft.AspNetCore.StaticWebAssets.props
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\appsettings.json
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\Foro.staticwebassets.runtime.json
@@ -227,7 +229,6 @@ C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
-C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\runtimes\alpine-arm\native\libe_sqlite3.so
@@ -265,7 +266,6 @@ C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\obj\Debug\net6
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\obj\Debug\net6.0\Foro.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\obj\Debug\net6.0\Foro.RazorAssemblyInfo.cache
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\obj\Debug\net6.0\Foro.RazorAssemblyInfo.cs
-C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\obj\Debug\net6.0\staticwebassets\msbuild.Foro.Microsoft.AspNetCore.StaticWebAssets.props
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\obj\Debug\net6.0\staticwebassets\msbuild.build.Foro.props
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.Foro.props
 C:\Users\debyl\source\repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.Foro.props

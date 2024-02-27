@@ -73,8 +73,28 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            <span style="color: purple;">&copy; Foro -</span> <a asp-action="Seed" asp-controller="PreCarga" class="btn btn-stm btn-purple">Pre Carga DB</a>
+            <span id="mensaje" style="color: purple; display: none;">Clickea el botón para cargar la base de datos.</span>
+            <a id="botonPrecarga" asp-action="Seed" asp-controller="PreCarga" class="btn btn-stm btn-purple">PRECARGA</a>
         </div>
+
+        <script>
+            // Obtener referencia al botón de precarga
+            var botonPrecarga = document.getElementById("botonPrecarga");
+            // Obtener referencia al mensaje
+            var mensaje = document.getElementById("mensaje");
+
+            // Agregar un evento mouseover al botón de precarga
+            botonPrecarga.addEventListener("mouseover", function () {
+                // Mostrar el mensaje
+                mensaje.style.display = "block"; // "block" es para bloquear el mensaje mientras se pasa por arriba del boton
+            });
+
+            // Agregar un evento mouseout al botón de precarga
+            botonPrecarga.addEventListener("mouseout", function () {
+                // Ocultar el mensaje cuando el cursor sale del botón
+                mensaje.style.display = "none";
+            });
+        </script>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

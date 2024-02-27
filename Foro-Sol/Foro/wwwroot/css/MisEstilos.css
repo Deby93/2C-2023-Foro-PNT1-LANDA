@@ -5,8 +5,8 @@
 
 
 .navbar-brand {
-    background: url('../img/AZUCAAr-blanco-01.png') no-repeat;
-    background-size: 50px 50px;
+    background: url('../img/NARANJA-03.png') no-repeat;
+    background-size: 40px 50px;
     height: 50PX;
     width: 50px;
     margin: 50px;
@@ -16,6 +16,20 @@
 }
 a {
     color: #0366d6;
+}
+.peach-button {
+  background-color: peachpuff; /* Seleccionamos un tono de peach */
+  color: #333; /* Color del texto */
+  padding: 10px 20px; /* Espaciado interno del botón */
+  font-size: 16px; /* Tamaño del texto */
+  border: none; /* Quitamos el borde del botón */
+  border-radius: 5px; /* Borde redondeado */
+  cursor: pointer; /* Cambiamos el cursor al pasar por encima */
+  transition: background-color 0.3s ease; /* Agregamos una transición suave al color de fondo */
+}
+
+.peach-button:hover {
+  background-color: #ffa07a; /* Cambiamos el color de fondo al pasar el mouse */
 }
 
 .btn-purple {

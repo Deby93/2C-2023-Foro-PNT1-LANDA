@@ -13,15 +13,15 @@ namespace Foro
         [RegularExpression(@"[0-9]{2}[0-9]{4}[0-9]{4}", ErrorMessage = ErrorMsg.FormatoCelularInvalido)]
         public string Telefono { get; set; }
 
-        public List<Reaccion> PreguntasYRespuestasQueMeGustan { get; set; }
+        public List<Reaccion>? PreguntasYRespuestasQueMeGustan { get; set; }
 
-        public List<Entrada> Entradas { get; set; }
+        public List<Entrada>? Entradas { get; set; }
        
-        public List<Pregunta> Preguntas { get; set; }
+        public List<Pregunta>? Preguntas { get; set; }
 
-        public List<Respuesta> Respuestas { get; set; }
+        public List<Respuesta>? Respuestas { get; set; }
 
-        public List<MiembrosHabilitados>MiembrosHabilitados { get; set; }
+        public List<MiembrosHabilitados>? MiembrosHabilitados { get; set; }
 
         //listas inicializadas
         public Miembro()

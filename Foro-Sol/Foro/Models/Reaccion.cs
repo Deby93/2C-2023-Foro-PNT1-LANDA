@@ -16,14 +16,14 @@ namespace Foro
         [Required(ErrorMessage = ErrorMsg.ErrMsgRequired)]
         public int MiembroId { get; set; }
 
-        public Respuesta Respuesta { get; set; }
+        public Respuesta? Respuesta { get; set; }
 
-        public Miembro Miembro { get; set; }
+        public Miembro? Miembro { get; set; }
 
         [DataType(DataType.DateTime, ErrorMessage = ErrorMsg.ErrMsgNotValid)]
         public DateTime Fecha { get; set; } = DateTime.Now;
 
-        public Boolean MeGusta { get; set; }
+        public bool? MeGusta { get; set; }
         #endregion
     }
 }

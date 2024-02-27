@@ -18,7 +18,7 @@ namespace Foro
         [Required(ErrorMessage = ErrMsgs.Requerido)]
         [StringLength(Restrictions.MaxDescPregunta, MinimumLength = Restrictions.MinDescPregunta, ErrorMessage = ErrMsgs.StrMaxMin)]
         [DataType(DataType.MultilineText)]
-        public string Descripcion { get; set; }
+        public string? Descripcion { get; set; }
 
 
 
@@ -26,13 +26,13 @@ namespace Foro
         [DataType(DataType.DateTime, ErrorMessage = ErrMsgs.ErrMsgNotValid)]
         public DateTime Fecha { get; set; } = DateTime.UtcNow;
 
-        public Boolean Activa { get; set; } = true;
+        public bool? Activa { get; set; } = true;
 
-        public Entrada Entrada { get; set; }
+        public Entrada? Entrada { get; set; }
 
-        public Miembro Miembro { get; set; }
+        public Miembro? Miembro { get; set; }
 
-        public List<Respuesta> Respuestas { get; set; }
+        public List<Respuesta>? Respuestas { get; set; }
 
         public int CantidadDeRespuestas
         {
