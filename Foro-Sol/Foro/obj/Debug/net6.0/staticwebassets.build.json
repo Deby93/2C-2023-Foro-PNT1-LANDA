@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "XZTpJ59I1MEHJ4s6NEbTXWJZ7eVLRNXbJrS4DPRADQQ=",
+  "Hash": "RDOMd2RVB60h+CO+coclmzolzfw48TweFozHO9hc5fc=",
   "Source": "Foro",
   "BasePath": "_content/Foro",
   "Mode": "Default",
@@ -185,6 +185,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\AZUCAR-REDONDO-BLANCO-01.png"
+    },
+    {
+      "Identity": "C:\\Users\\debyl\\source\\repos\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\cab y juramento.png",
+      "SourceId": "Foro",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\debyl\\source\\repos\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\",
+      "BasePath": "_content/Foro",
+      "RelativePath": "img/cab y juramento.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\cab y juramento.png"
     },
     {
       "Identity": "C:\\Users\\debyl\\source\\repos\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\NARANJA-03 (1).png",

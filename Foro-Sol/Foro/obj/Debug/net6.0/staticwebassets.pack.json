@@ -53,6 +53,10 @@
       "PackagePath": "staticwebassets\\img\\azucar-logo-blanco-cuadrado.png"
     },
     {
+      "Id": "C:\\Users\\debyl\\source\\repos\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\cab y juramento.png",
+      "PackagePath": "staticwebassets\\img\\cab y juramento.png"
+    },
+    {
       "Id": "C:\\Users\\debyl\\source\\repos\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
