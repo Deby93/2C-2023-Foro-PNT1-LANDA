@@ -130,6 +130,10 @@ namespace Foro.Controllers
 
         private async Task CrearPregunta()
         {
+
+            Entrada entrada = new();
+            Miembro miembro=new();
+
             if (!_contexto.Preguntas.Any())
             {
                 int indice = _contexto.Preguntas.Count() + 1;

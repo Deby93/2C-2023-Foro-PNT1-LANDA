@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Foro</title>
+    <title>@ViewData["Title"] | Azucar</title>
                   
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -13,7 +13,7 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid" style="background-color:#e4d5b7">
+            <div class="container-fluid" style="background-color:#F2D4C2">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -67,13 +67,23 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
+            <span id="mensaje" style="color: #A65341; display: none;">Clickea el botón para cargar la base de datos.</span>
+            <a id="botonPrecarga" asp-action="Seed" asp-controller="PreCarga" class="btn btn-stm btn-bordo">PRECARGA</a>
+            <a id="botonAbout" asp-action="AboutUs" asp-controller="Home" style="color: #A65341; text-align: right;">Sobre nosotros</a>
+            <a id="botonContact" asp-action="Contact" asp-controller="Home" style="color: #A65341; text-align: right;">Contacto</a>
+
+
+        </div>
+
+    @* <footer class="border-top footer text-muted">
+        <div class="container">
             <span id="mensaje" style="color: purple; display: none;">Clickea el botón para cargar la base de datos.</span>
             <a id="botonPrecarga" asp-action="Seed" asp-controller="PreCarga" class="btn btn-stm btn-purple">PRECARGA</a>
-
-            <a id="botonContact" asp-action="Contact" asp-controller="Home" style="color: purple; text-align: right;">Contacto</a>
             <a id="botonAbout" asp-action="AboutUs" asp-controller="Home" style="color: purple; text-align: right;">Sobre nosotros</a>
+            <a id="botonContact" asp-action="Contact" asp-controller="Home" style="color: purple; text-align: right;">Contacto</a>
            
-        </div>
+           
+        </div> *@
         @* <div class="azucar-group"> *@
            @*  <div> *@
           @*    <h3 style="color: purple;  text-align: right;">AZÚCAR GROUP</h3> *@ 
