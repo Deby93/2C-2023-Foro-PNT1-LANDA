@@ -12,7 +12,7 @@ namespace Foro
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder); ;
+            base.OnModelCreating(modelBuilder); 
 
             modelBuilder.Entity<MiembrosHabilitados>().HasKey(mh => new { mh.MiembroId, mh.EntradaId });
             modelBuilder.Entity<MiembrosHabilitados>()
