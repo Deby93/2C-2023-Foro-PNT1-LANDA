@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Threading.Tasks;
 
 namespace Foro.Controllers
@@ -79,6 +80,49 @@ namespace Foro.Controllers
             return View(viewModel);
         }
 
+        //[Authorize(Roles = "Miembro,Administrador")]
+        [HttpPost]
+        public async Task<ActionResult> RegistrarAdministrador(RegistroUsuario viewModel)
+        {
+            //Hago con model lo que necesito.
+
+            if (ModelState.IsValid)
+            {
+                var administradorACrear = new Usuario
+                {
+                    UserName = viewModel.Email,
+                    Email = viewModel.Email
+                };
+
+                var resultadoCreacion = await _userManager.CreateAsync(administradorACrear, viewModel.Password);
+
+                if (resultadoCreacion.Succeeded)
+                {
+                    var resultado = await _userManager.AddToRoleAsync(administradorACrear, "Administrador");
+
+                    if (resultado.Succeeded)
+                    {
+                        //pudo crear - le hago sign-in directamente.
+                        await _signinManager.SignInAsync(administradorACrear, isPersistent: false);
+                        //TODO - Actualizar los models y vistas para sacar password por consigna
+
+
+                        return RedirectToAction("Edit", "Usuarios", new { id = administradorACrear.Id });
+                    }
+
+                }
+
+                //no pudo
+                //tratamiento de errores
+                foreach (var error in resultadoCreacion.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            return View(viewModel);
+        }
+
         [HttpGet]
         public async Task<IActionResult> EmailDisponible(string email)
         {
@@ -106,7 +150,7 @@ namespace Foro.Controllers
         }
         private async Task CrearRolesBase()
         {
-            List<string> roles = new List<string>() { "Miembro", "Administrador" };
+            List<string> roles = new() {"Miembro", "Administrador"};
 
             foreach (string rol in roles)
             {
@@ -122,46 +166,7 @@ namespace Foro.Controllers
             }
         }
 
-        //Empleado por defecto
-        public async Task<IActionResult> CrearMiembroGod()
-        {
-            var miembroGod = await _userManager.FindByNameAsync("God");
-
-            if (miembroGod != null)
-            {
-                await _signinManager.SignOutAsync();
-                await _userManager.DeleteAsync(miembroGod);
-            }
-
-            Miembro account = new Miembro()
-            {
-                Nombre = "Sr",
-                Apellido = "God",
-                Email = "miembrogod@ort.edu.ar",
-                UserName = "God"
-            };
-
-
-            var resuAdm = await _userManager.CreateAsync(account, passDefault);
-
-            if (resuAdm.Succeeded)
-            {
-                await CrearRolesBase();
-
-                
-                var resultadoRolGod = await _userManager.AddToRoleAsync(account, "Administrador");
-
-                if (resultadoRolGod.Succeeded)
-                {
-                    await _signinManager.SignInAsync(account, isPersistent: true);
-                    TempData["Mensaje"] = $"Miembro creado {account.Email} y {passDefault}";
-
-                }
-
-            }
-
-            return RedirectToAction("Index", "Miembros");
-        }
+        
         public ActionResult IniciarSesion(string returnurl)
         {
             TempData["returnUrl"] = returnurl;
@@ -174,18 +179,41 @@ namespace Foro.Controllers
             string returnUrl = TempData["returnUrl"] as string;
             if (ModelState.IsValid)
             {
-                var user = await _signinManager.PasswordSignInAsync(ViewModel.Email, ViewModel.Password, ViewModel.RememberMe, false);
-
-                if (user.Succeeded)
+                //var user = await _signinManager.PasswordSignInAsync(ViewModel.Email, ViewModel.Password, ViewModel.RememberMe, false);
+                var usuario = _context.Usuarios.FirstOrDefault(p => p.Email == ViewModel.Email || p.UserName == ViewModel.Email);
+                if (usuario == null)
                 {
-                    if (!string.IsNullOrWhiteSpace(returnUrl))
-                        return Redirect(returnUrl);
+                    ModelState.AddModelError(string.Empty, "Inicio de sesión inválido");
+                }
+                else
+                {
+                    var resultadoSignIn = await _signinManager.PasswordSignInAsync(usuario, ViewModel.Password, ViewModel.RememberMe, false);
+                    if (resultadoSignIn.Succeeded)
+                    {
+                        if (!string.IsNullOrEmpty(returnUrl))
+                        {
+                            return Redirect(returnUrl);
+                        }
 
-                    if (User.IsInRole("Miembro")) { return RedirectToAction("CheckIn", "Miembros"); }
-                    return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "Inicio de sesión inválido");
+                    }
                 }
 
-                ModelState.AddModelError(string.Empty, "Inicio de sesión inválido.");
+                ////if (usuario.Succeeded)
+                ////{
+                ////    if (!string.IsNullOrWhiteSpace(returnUrl))
+                ////        return Redirect(returnUrl);
+
+                ////    if (User.IsInRole("Miembro") || User.IsInRole("Administrador")) { }
+                ////    return RedirectToAction("Index", "Home");
+
+                ////}
+
+                //ModelState.AddModelError(string.Empty, "Inicio de sesión inválido.");
             }
             return View(ViewModel);
         }

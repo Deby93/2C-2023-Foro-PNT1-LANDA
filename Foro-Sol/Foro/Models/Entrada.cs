@@ -14,11 +14,11 @@ namespace Foro
         [Display(Name = Alias.Titulo)]
         [Required(ErrorMessage = ErrMsgs.Requerido)]
         [StringLength(Restrictions.MaxTituloEntrada, MinimumLength = Restrictions.MinTituloEntrada, ErrorMessage = ErrMsgs.StrMaxMin)]
-        public string Titulo { get; set; }
+        public string? Titulo { get; set; }
 
         [Display(Name = Alias.FechaDePublicacion)]
         [DataType(DataType.DateTime, ErrorMessage = ErrorMsg.ErrMsgNotValid)]
-        public DateTime Fecha { get; set; }
+        public DateTime? Fecha { get; set; }
 
         [Required(ErrorMessage = ErrorMsg.ErrMsgRequired)]
         public int CategoriaId { get; set; }
@@ -26,14 +26,14 @@ namespace Foro
         [Required(ErrorMessage = ErrorMsg.ErrMsgRequired)]
         public int MiembroId { get; set; }
 
-        public Boolean Privada { get; set; } = false;
+        public bool? Privada { get; set; } = false;
 
-        public Miembro Miembro { get; set; }
+        public Miembro? Miembro { get; set; }
 
-        public Categoria Categoria { get; set; }
-        public List<MiembrosHabilitados> MiembrosHabilitados { get; set; }
+        public Categoria? Categoria { get; set; }
+        public List<MiembrosHabilitados>? MiembrosHabilitados { get; set; }
 
-        public List<Pregunta> Preguntas { get; set; }
+        public List<Pregunta>? Preguntas { get; set; }
 
         public int CantidadDePreguntasYRespuestas
         {
@@ -42,7 +42,7 @@ namespace Foro
                 int resultado = 0;
                 if (Preguntas != null)
                 {
-                    resultado = Preguntas.Count();
+                    resultado = Preguntas.Count;
                     foreach (Pregunta preg in Preguntas)
                     {
                         resultado += preg.CantidadDeRespuestas;

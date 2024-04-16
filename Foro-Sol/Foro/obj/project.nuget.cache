@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ADE9gw8I8Ia8+qvuNz9wTszvA3yo3qj2fjz2wE699gxJsaytQBG5s3eWBsEb0obpvLGbHzJNURN6mK3YNTR1Sw==",
+  "dgSpecHash": "FzAB+ky3wRzAHv2SgIO/0GYwxUKbgdc8ozEcL15NT86mcLrWBQMnRyCg0HjxSN53uoONSWiVq+HZssAJRwUrxg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\twatd\\Source\\Repos\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Foro.csproj",
+  "projectFilePath": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Foro.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\twatd\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\twatd\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

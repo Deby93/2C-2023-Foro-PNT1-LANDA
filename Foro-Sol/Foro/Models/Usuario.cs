@@ -43,17 +43,17 @@ namespace Foro
             }
         }
 
-        [Display(Name = "Correo electronico")]
-        [DataType(DataType.EmailAddress, ErrorMessage = ErrMsgs.ErrMsgNotValid)]
-        [Required(ErrorMessage = ErrMsgs.Requerido)]
-        public override string Email {
-            get { return base.Email; }
-            set { base.Email = value; } }
+        //[Display(Name = "Correo electronico")]
+        //[DataType(DataType.EmailAddress, ErrorMessage = ErrMsgs.ErrMsgNotValid)]
+        //[Required(ErrorMessage = ErrMsgs.Requerido)]
+        //public override string Email {
+        //    get { return base.Email; }
+        //    set { base.Email = value; } }
 
-        [Display(Name = Alias.Contraseña)]
-        [DataType(DataType.Password, ErrorMessage = ErrMsgs.ErrMsgNotValid)]
-        [Required(ErrorMessage = ErrMsgs.Requerido)]
-        public string Password { get; set; }
+        //[Display(Name = Alias.Contraseña)]
+        //[DataType(DataType.Password, ErrorMessage = ErrMsgs.ErrMsgNotValid)]
+        //[Required(ErrorMessage = ErrMsgs.Requerido)]
+        //public string Password { get; set; }
         #endregion
     }
 }

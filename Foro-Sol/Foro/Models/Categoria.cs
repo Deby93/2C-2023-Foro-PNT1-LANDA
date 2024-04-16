@@ -15,6 +15,8 @@ namespace Foro
         public string? Nombre { get; set; }
         public List<Entrada>? Entradas { get; set; }
 
+       
+
         #endregion
     }
 }

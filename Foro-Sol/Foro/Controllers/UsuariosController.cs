@@ -151,7 +151,7 @@ namespace Foro
                         usuarioDB.Apellido =usuario.Apellido;
                         usuarioDB.Email =usuario.Email;
                         usuarioDB.FechaAlta =usuario.FechaAlta;
-                        usuarioDB.Password =usuario.Password;
+                        //usuarioDB.Password =usuario.Password;
 
                         _context.Usuarios.Update(usuarioDB);
                         await _context.SaveChangesAsync();

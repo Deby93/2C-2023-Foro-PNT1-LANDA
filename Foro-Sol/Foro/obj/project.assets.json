@@ -11266,11 +11266,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\twatd\\Source\\Repos\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Foro.csproj",
+      "projectUniqueName": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Foro.csproj",
       "projectName": "Foro",
-      "projectPath": "C:\\Users\\twatd\\Source\\Repos\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Foro.csproj",
+      "projectPath": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Foro.csproj",
       "packagesPath": "C:\\Users\\twatd\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\twatd\\Source\\Repos\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\obj\\",
+      "outputPath": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
