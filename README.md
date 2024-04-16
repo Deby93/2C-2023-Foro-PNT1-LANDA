@@ -198,12 +198,19 @@ Las reacciones, acerca de las respuestas, no pueden ser realizadas por los mismo
 
 **Aplicación General**  ✨
 El foro, mostrará los encabezados en la home:
+
 -Un listado de las ultimas 5 entradas cargadas más recientemente.
+
 -Un top 5, de Entradas con más preguntas y respuestas.
+
 -Un top 3, de los miembros con más entradas cargadas en el ultimo mes.
+
 -Se debe ofrecer también, navegación por categorias.
+
 -Los miembros no pueden eliminar las entradas, ni deshabilitarse.
+
 -Solo los administradores pueden eliminar entradas, con sus preguntas y respuestas, en caso de que estas tengan contenido inapropiado.
+
 -Los accesos a las funcionalidades y/o capacidades, debe estar basada en los roles que tenga cada individuo.
 
 ----
