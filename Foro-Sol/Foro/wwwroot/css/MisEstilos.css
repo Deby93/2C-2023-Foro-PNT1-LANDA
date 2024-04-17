@@ -32,7 +32,23 @@ a {
 }
 
 .peach-button:hover {
-  background-color: #ffa07a; /* Cambiamos el color de fondo al pasar el mouse */
+  background-color: rosybrown; /* Cambiamos el color de fondo al pasar el mouse */
+}
+
+.pink-button {
+    background-color:#ffa07a;
+    ; /* Seleccionamos un tono de peach */
+    color: #333; /* Color del texto */
+    padding: 10px 20px; /* Espaciado interno del botón */
+    font-size: 16px; /* Tamaño del texto */
+    border: none; /* Quitamos el borde del botón */
+    border-radius: 5px; /* Borde redondeado */
+    cursor: pointer; /* Cambiamos el cursor al pasar por encima */
+    transition: background-color 0.3s ease; /* Agregamos una transición suave al color de fondo */
+}
+
+.pink-button:hover {
+    background-color:rosybrown; /* Cambiamos el color de fondo al pasar el mouse */
 }
 
 .btn-orange {

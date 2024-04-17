@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] | Azucar</title>
-                  
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
@@ -21,39 +21,72 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Categorias" asp-action="Index">Categorias</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Preguntas" asp-action="Index">Preguntas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Entradas" asp-action="Index">Entradas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Reacciones" asp-action="Index">Reacciones</a>
-                        </li>
-                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Miembros" asp-action="Index">Miembros</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="MiembrosHabilitados" asp-action="Index">Miembros Habilitados</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Respuestas" asp-action="Index">Respuestas</a>
-                        </li>
-                       <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Registrar">Registrate</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="IniciarSesion">Iniciar sesion</a>
-                        </li>
-                       <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="CerrarSesion">Cerrar sesion</a>
-                        </li>
+                        @if (singInManager.IsSignedIn(User))
+                        {
+                             <li class="nav-item">
+                               <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Categorias" asp-action="Index">Categorias</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Preguntas" asp-action="Index">Preguntas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Entradas" asp-action="Index">Entradas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Reacciones" asp-action="Index">Reacciones</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Miembros" asp-action="Index">Miembros</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="MiembrosHabilitados" asp-action="Index">Miembros Habilitados</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Respuestas" asp-action="Index">Respuestas</a>
+                            </li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                            <div class="container">
+                                <div class="row justify-content-start">
+                                    <div class="col-md-12">
+                                        <div class="btn-group" role="group" aria-label="Boton cerrar de sesión">
+                                                   <form asp-area="" asp-controller="Account" asp-action="CerrarSesion" method="get">
+                                                <button type="submit" class="btn pink-button btn-sm">Cerrar sesión</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                <li class="nav-item">
+                                    <span class="nav-link text-dark">Usuario: @User.Identity.Name</span>
+                                </li>
+                          }
+                        }
+                        else
+                        {
+                            <div class="container">
+                                <div class="row justify-content-start">
+                                    <div class="col-md-12">
+                                        <div class="btn-group" role="group" aria-label="Botones de registro e inicio de sesión">
+                                            <!-- Botón de registro -->
+                                            <form asp-area="" asp-controller="Account" asp-action="Registrar" method="get">
+                                                <button type="submit" class="btn peach-button btn-sm">Registrate</button>
+                                            </form>
+                                            <!-- Botón de inicio de sesión -->
+                                            <form asp-area="" asp-controller="Account" asp-action="IniciarSesion" method="get">
+                                                <button type="submit" class="btn pink-button btn-sm">Iniciar sesión</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        }
+
                     </ul>
                 </div>
             </div>
@@ -70,26 +103,12 @@
             <span id="mensaje" style="color: #A65341; display: none;">Clickea el botón para cargar la base de datos.</span>
             <a id="botonPrecarga" asp-action="Seed" asp-controller="PreCarga" class="btn btn-stm btn-bordo">PRECARGA</a>
             <a id="botonAbout" asp-action="AboutUs" asp-controller="Home" style="color: #A65341; text-align: right;">Sobre nosotros</a>
-            <a id="botonContact" asp-action="Contact" asp-controller="Home" style="color: #A65341; text-align: right;">Contacto</a>
+            <a id="botonContact" asp-action="Contact" asp-controller="Home" style="color: #A65341; text-align: right;">Contactan</a>
 
 
         </div>
 
-    @* <footer class="border-top footer text-muted">
-        <div class="container">
-            <span id="mensaje" style="color: purple; display: none;">Clickea el botón para cargar la base de datos.</span>
-            <a id="botonPrecarga" asp-action="Seed" asp-controller="PreCarga" class="btn btn-stm btn-purple">PRECARGA</a>
-            <a id="botonAbout" asp-action="AboutUs" asp-controller="Home" style="color: purple; text-align: right;">Sobre nosotros</a>
-            <a id="botonContact" asp-action="Contact" asp-controller="Home" style="color: purple; text-align: right;">Contacto</a>
-           
-           
-        </div> *@
-        @* <div class="azucar-group"> *@
-           @*  <div> *@
-          @*    <h3 style="color: purple;  text-align: right;">AZÚCAR GROUP</h3> *@ 
-            
-    @*     </div> *@
-        <script>
+            <script>
             // Obtener referencia al botón de precarga
             var botonPrecarga = document.getElementById("botonPrecarga");
             // Obtener referencia al mensaje
@@ -109,8 +128,8 @@
 
         </script>
 
-   
-            
+
+
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

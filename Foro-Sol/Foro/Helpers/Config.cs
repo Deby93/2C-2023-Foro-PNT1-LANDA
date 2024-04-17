@@ -10,7 +10,9 @@
         public const string Dominio = "@ort.edu.ar";
         public const string MiembroEmail = "miembro";
         public const string GenericPass = "Password1!";
-        public const string AuthMiembroOrAdmistrador = "Miembro,Administrador";
+        public const string Administrador = "ADMINISTRADOR";
+        public const string Miembro = "MIEMBRO";
+        public const string AuthMiembroOrAdmistrador = "MIEMBRO,ADMINISTRADOR";
         public const string MiembroRolName = "Miembro";
         public const string AdministradorRolName = "Administrador";
         public const string NombreBaseMiembro = "Miembro";

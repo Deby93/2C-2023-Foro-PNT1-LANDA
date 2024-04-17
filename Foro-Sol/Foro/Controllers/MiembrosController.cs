@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Foro.Controllers
 {
-    //[Authorize]
     public class MiembrosController : Controller
     {
         private readonly ForoContexto _foroContexto;
@@ -74,7 +73,7 @@ namespace Foro.Controllers
             return View();
         }
 
-       [Authorize(Roles = Config.AuthMiembroOrAdmistrador)]
+       [Authorize(Roles = Config.Administrador)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nombre,Apellido,Email, Telefono")] Miembro miembro)
@@ -106,7 +105,7 @@ namespace Foro.Controllers
             return View(miembro);
         }
 
-        [Authorize(Roles = Config.AuthMiembroOrAdmistrador)]
+        [Authorize(Roles = Config.Administrador)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,Email, Telefono")] Miembro miembro)
@@ -140,7 +139,7 @@ namespace Foro.Controllers
                         throw;
                     }
                 }
-                if (User.IsInRole("Cliente"))
+                if (User.IsInRole("Miembro"))
                 {
                     return RedirectToAction(nameof(CheckIn));
                 }
@@ -150,7 +149,7 @@ namespace Foro.Controllers
         }
 
 
-       [Authorize(Roles = Config.AdministradorRolName)]
+      // [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -169,7 +168,7 @@ namespace Foro.Controllers
         }
 
 
-        [Authorize(Roles = Config.AdministradorRolName)]
+        [Authorize(Roles = Config.Miembro)]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
