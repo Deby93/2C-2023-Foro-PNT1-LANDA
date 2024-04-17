@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <None Include="wwwroot\css\MisEstilos.css" />
-    <None Include="wwwroot\img\azucar-logo-blanco-cuadrado.png" />
   </ItemGroup>
 
   <ItemGroup>

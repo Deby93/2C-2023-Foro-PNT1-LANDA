@@ -17,18 +17,6 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\.png",
-      "PackagePath": "staticwebassets\\img\\.png"
-    },
-    {
-      "Id": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\AZUCAAr-blanco-01.png",
-      "PackagePath": "staticwebassets\\img\\AZUCAAr-blanco-01.png"
-    },
-    {
-      "Id": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\AZUCAR-REDONDO-BLANCO-01.png",
-      "PackagePath": "staticwebassets\\img\\AZUCAR-REDONDO-BLANCO-01.png"
-    },
-    {
       "Id": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\NARANJA-03 (1).png",
       "PackagePath": "staticwebassets\\img\\NARANJA-03 (1).png"
     },
@@ -37,16 +25,8 @@
       "PackagePath": "staticwebassets\\img\\NARANJA-03.png"
     },
     {
-      "Id": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\NEGRO OCTOGONO SIN FONDO-04-06.png",
-      "PackagePath": "staticwebassets\\img\\NEGRO OCTOGONO SIN FONDO-04-06.png"
-    },
-    {
       "Id": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\WhatsApp Image 2024-02-23 at 13.40.01 (1).jpeg",
       "PackagePath": "staticwebassets\\img\\WhatsApp Image 2024-02-23 at 13.40.01 (1).jpeg"
-    },
-    {
-      "Id": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\WhatsApp Image 2024-02-27 at 22.44.27.jpeg",
-      "PackagePath": "staticwebassets\\img\\WhatsApp Image 2024-02-27 at 22.44.27.jpeg"
     },
     {
       "Id": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\acesoDenegado.png",
@@ -55,14 +35,6 @@
     {
       "Id": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\azucar-logo-blanco-cuadrado.png",
       "PackagePath": "staticwebassets\\img\\azucar-logo-blanco-cuadrado.png"
-    },
-    {
-      "Id": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\azul.jpeg",
-      "PackagePath": "staticwebassets\\img\\azul.jpeg"
-    },
-    {
-      "Id": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\blanc-08.png",
-      "PackagePath": "staticwebassets\\img\\blanc-08.png"
     },
     {
       "Id": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\cab y juramento.png",
@@ -75,10 +47,6 @@
     {
       "Id": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\naranjaa-16.png",
       "PackagePath": "staticwebassets\\img\\naranjaa-16.png"
-    },
-    {
-      "Id": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\verde-10.png",
-      "PackagePath": "staticwebassets\\img\\verde-10.png"
     },
     {
       "Id": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\js\\site.js",

@@ -4,15 +4,19 @@
     /*background-image: linear-gradient(to bottom right, #02735E, #02735E );*/ /* Cambia los colores según tu preferencia */
 }
 
-
+.text-durazno {
+    color: #FFB347; /* Este es un tono de color durazno */
+}
 
 .navbar-brand {
-    background: url('../img/naranjaa-11.png') no-repeat;
-/**/   /* background: url('../img/verde-10.png') no-repeat;*/
-    background-size: 40px 50px;
-    height: 50PX;
-    width: 50px;
-    margin: 50px;
+    /*    background: url('../img/naranjaa-11.png') no-repeat;
+*/ /*//background-color: pink;*/
+    background-image: url('../img/home.png');
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+    height: 30px;
+    width: 30px;
+    margin: 30px;
 }
 .navbar .nav-link:hover {
     color: whitesmoke; /* Cambia el color del texto a púrpura cuando se pasa el mouse sobre el enlace */
