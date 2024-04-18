@@ -10,7 +10,7 @@ namespace Foro.Controllers
         private readonly UserManager<Usuario> _userManager;
         private readonly RoleManager<Rol> _roleManager;
         private readonly ForoContexto _contexto;
-        private readonly List<string> roles = new() { "Administrador".ToUpper(), "Miembro".ToUpper(), "Usuario".ToUpper() };
+        private readonly List<string> roles = new() { "Administrador".ToUpper(), "Miembro".ToUpper() };
         public PreCarga(UserManager<Usuario> userManager, RoleManager<Rol> roleManager, ForoContexto contexto)
         {
             _userManager = userManager;
@@ -89,7 +89,6 @@ namespace Foro.Controllers
             }
         }
  
-
         private Miembro CrearMiembro()
         {
             Miembro miembro = new();
@@ -103,9 +102,7 @@ namespace Foro.Controllers
                     Apellido = Config.MiembroRolName.ToUpper(),
                     Nombre = (Config.NombreBaseMiembro.ToUpper() + indice).ToString(),
                                         FechaAlta= DateTime.Now,
-
-
-                };
+               };
                 var resultadoCreacion = _userManager.CreateAsync(miembro1, Config.GenericPass);
 
                 if (resultadoCreacion != null)

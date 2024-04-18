@@ -19,7 +19,6 @@ namespace Foro.Controllers
         //[Authorize(Roles = "Miembro")]
         //[Authorize(Roles = "Admin")]
 
-     //  [Authorize(Roles = Config.AuthMiembroOrAdmistrador)]
         public async Task<IActionResult> Index()
         {
             if (!string.IsNullOrEmpty(User.Identity.Name))
@@ -38,7 +37,6 @@ namespace Foro.Controllers
             return View(await _foroContexto.Miembros.ToListAsync());
         }
 
-      //[Authorize(Roles = Config.AuthMiembroOrAdmistrador)]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,8 +44,8 @@ namespace Foro.Controllers
                 return NotFound();
             }
 
-            var miembro = await _foroContexto.Miembros.Include(m => m.Apellido).Include(m => m.FechaAlta)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var miembro = await _foroContexto.Miembros.FirstOrDefaultAsync(m => m.Id == id);
+            Console.WriteLine(miembro);
             if (miembro == null)
             {
                 return NotFound();
@@ -168,7 +166,7 @@ namespace Foro.Controllers
         }
 
 
-        [Authorize(Roles = Config.Miembro)]
+    //    [Authorize(Roles = Config.Miembro)]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] | Azucar</title>
+    <title>@ViewData["Title"] | Azúcar</title>
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -62,9 +62,12 @@
                         }
                         else
                         {
+                            <img src="~/img/azucar-logo-blanco-cuadrado.png" alt="Logo Azucar" style="width: 100px; height: 50px;" />
+
                             <div class="container">
                                 <div class="row justify-content-start">
                                     <div class="col-md-12">
+
                                         <div class="btn-group" role="group" aria-label="Botones de registro e inicio de sesión">
                                             <!-- Botón de registro -->
                                             <form asp-area="" asp-controller="Account" asp-action="Registrar" method="get">
@@ -98,7 +101,7 @@
             <span id="mensaje" style="color: #A65341; display: none;">Clickea el botón para cargar la base de datos.</span>
             <a id="botonPrecarga" asp-action="Seed" asp-controller="PreCarga" class="btn btn-stm btn-bordo">PRECARGA</a>
             <a id="botonAbout" asp-action="AboutUs" asp-controller="Home" style="color: #A65341; text-align: right;">Sobre nosotros</a>
-            <a id="botonContact" asp-action="Contact" asp-controller="Home" style="color: #A65341; text-align: right;">Contactan</a>
+            <a id="botonContact" asp-action="Contact" asp-controller="Home" style="color: #A65341; text-align: right;">Contacto</a>
 
 
         </div>

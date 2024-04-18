@@ -17,20 +17,8 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\NARANJA-03 (1).png",
-      "PackagePath": "staticwebassets\\img\\NARANJA-03 (1).png"
-    },
-    {
-      "Id": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\NARANJA-03.png",
-      "PackagePath": "staticwebassets\\img\\NARANJA-03.png"
-    },
-    {
-      "Id": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\WhatsApp Image 2024-02-23 at 13.40.01 (1).jpeg",
-      "PackagePath": "staticwebassets\\img\\WhatsApp Image 2024-02-23 at 13.40.01 (1).jpeg"
-    },
-    {
-      "Id": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\acesoDenegado.png",
-      "PackagePath": "staticwebassets\\img\\acesoDenegado.png"
+      "Id": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\acceso-denegado.png",
+      "PackagePath": "staticwebassets\\img\\acceso-denegado.png"
     },
     {
       "Id": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\azucar-logo-blanco-cuadrado.png",
@@ -41,12 +29,20 @@
       "PackagePath": "staticwebassets\\img\\cab y juramento.png"
     },
     {
-      "Id": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\naranjaa-11.png",
-      "PackagePath": "staticwebassets\\img\\naranjaa-11.png"
+      "Id": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\casa-01.png",
+      "PackagePath": "staticwebassets\\img\\casa-01.png"
     },
     {
-      "Id": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\naranjaa-16.png",
-      "PackagePath": "staticwebassets\\img\\naranjaa-16.png"
+      "Id": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\foto-r.jpeg",
+      "PackagePath": "staticwebassets\\img\\foto-r.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\loco.jpg",
+      "PackagePath": "staticwebassets\\img\\loco.jpg"
+    },
+    {
+      "Id": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\naranjaa-11.png",
+      "PackagePath": "staticwebassets\\img\\naranjaa-11.png"
     },
     {
       "Id": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\js\\site.js",

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "kHYhHV5mW9wFv+2cgoNEdd02Uws+fxa7UX+V66g6lPs=",
+  "Hash": "50nTacaIwtc9xYSvcfmg83A89CLixvG3S3fR+sASW5k=",
   "Source": "Foro",
   "BasePath": "_content/Foro",
   "Mode": "Default",
@@ -112,12 +112,12 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\acesoDenegado.png",
+      "Identity": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\acceso-denegado.png",
       "SourceId": "Foro",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\",
       "BasePath": "_content/Foro",
-      "RelativePath": "img/acesoDenegado.png",
+      "RelativePath": "img/acceso-denegado.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -128,7 +128,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\acesoDenegado.png"
+      "OriginalItemSpec": "wwwroot\\img\\acceso-denegado.png"
     },
     {
       "Identity": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\azucar-logo-blanco-cuadrado.png",
@@ -169,12 +169,12 @@
       "OriginalItemSpec": "wwwroot\\img\\cab y juramento.png"
     },
     {
-      "Identity": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\NARANJA-03 (1).png",
+      "Identity": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\casa-01.png",
       "SourceId": "Foro",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\",
       "BasePath": "_content/Foro",
-      "RelativePath": "img/NARANJA-03 (1).png",
+      "RelativePath": "img/casa-01.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -185,15 +185,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\NARANJA-03 (1).png"
+      "OriginalItemSpec": "wwwroot\\img\\casa-01.png"
     },
     {
-      "Identity": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\NARANJA-03.png",
+      "Identity": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\foto-r.jpeg",
       "SourceId": "Foro",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\",
       "BasePath": "_content/Foro",
-      "RelativePath": "img/NARANJA-03.png",
+      "RelativePath": "img/foto-r.jpeg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -204,7 +204,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\NARANJA-03.png"
+      "OriginalItemSpec": "wwwroot\\img\\foto-r.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\loco.jpg",
+      "SourceId": "Foro",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\",
+      "BasePath": "_content/Foro",
+      "RelativePath": "img/loco.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\loco.jpg"
     },
     {
       "Identity": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\naranjaa-11.png",
@@ -224,44 +243,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\naranjaa-11.png"
-    },
-    {
-      "Identity": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\naranjaa-16.png",
-      "SourceId": "Foro",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\",
-      "BasePath": "_content/Foro",
-      "RelativePath": "img/naranjaa-16.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\naranjaa-16.png"
-    },
-    {
-      "Identity": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\WhatsApp Image 2024-02-23 at 13.40.01 (1).jpeg",
-      "SourceId": "Foro",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\",
-      "BasePath": "_content/Foro",
-      "RelativePath": "img/WhatsApp Image 2024-02-23 at 13.40.01 (1).jpeg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\WhatsApp Image 2024-02-23 at 13.40.01 (1).jpeg"
     },
     {
       "Identity": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\js\\site.js",
