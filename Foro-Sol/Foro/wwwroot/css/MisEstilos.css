@@ -8,6 +8,8 @@
     color: #FFB347; /* Este es un tono de color durazno */
 }
 
+
+
 .navbar-brand {
     /*    background: url('../img/naranjaa-11.png') no-repeat;
 */ /*//background-color: pink;*/
@@ -40,41 +42,32 @@ a {
 }
 
 .pink-button {
-    background-color:#ffa07a;
-    ; /* Seleccionamos un tono de peach */
-    color: #333; /* Color del texto */
+    background-color: white;
+    border-color: white; /* Puedes ajustar esto según tus preferencias */
     padding: 10px 20px; /* Espaciado interno del botón */
+    color: #333; /* Color del texto */
     font-size: 16px; /* Tamaño del texto */
     border: none; /* Quitamos el borde del botón */
     border-radius: 5px; /* Borde redondeado */
     cursor: pointer; /* Cambiamos el cursor al pasar por encima */
     transition: background-color 0.3s ease; /* Agregamos una transición suave al color de fondo */
 }
+}
 
 .pink-button:hover {
     background-color:rosybrown; /* Cambiamos el color de fondo al pasar el mouse */
 }
 
-.btn-orange {
-    color: #fff;
-    background-color: #D93D04; /* Código hexadecimal para el color púrpura */
-    border-color: #D93D04; /* Puedes ajustar esto según tus preferencias */
-}
 
-    .btn-orange:hover {
-        background-color: #FF6A48; /* Color de fondo cuando se pasa el mouse */
-        border-color: #FF6A48; /* Color del borde al pasar el mouse */
-    }
 
 .btn-bordo {
     color: white;
-    background-color: #592C2C; /* Código hexadecimal para el color púrpura */
+    background-color: #592C2C;
     border-color: #592C2C; /* Puedes ajustar esto según tus preferencias */
 }
 
     .btn-bordo:hover {
-        background-color: #BF9288; /* Color de fondo cuando se pasa el mouse */
-        border-color: #BF9288; /* Color del borde al pasar el mouse */
+        background-color: rosybrown;
     }
 
 .btn-purple {
@@ -91,13 +84,12 @@ a {
 
 .btn-primary {
     color: white;
-    background-color: #D93D04;
-    border-color: #D93D04;
+    background-color: #592C2C;
+    border-color: #592C2C; /* Puedes ajustar esto según tus preferencias */
 }
-.btn-primary:hover {
-    background-color: lightgray; /* Color de fondo cuando se pasa el mouse */
-    border-color: lightgray; /* Color del borde al pasar el mouse */
-}
+    .btn-primary:hover {
+        background-color: rosybrown;
+    }
 
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {

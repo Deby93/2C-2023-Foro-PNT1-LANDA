@@ -3,7 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title> @ViewData["Title"] | Azúcar</title>
+    <title style="font-family: 'Bebas Neue', sans-serif; color: white;">
+        @ViewData["Title"] | Azúcar
+    </title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
@@ -12,7 +14,7 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid" style="background-color:#F2D4C2">
+            <div class="container-fluid" style="background-color:#ffa07a">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -22,42 +24,69 @@
                     <ul class="navbar-nav flex-grow-1">
                         @if (singInManager.IsSignedIn(User))
                         {
+                            <style>
+                                .nav-item.dropdown:hover .dropdown-menu,
+                                .nav-item.dropdown:focus .dropdown-menu {
+                                    display: block;
+                                }
+
+                                .nav-item.dropdown:hover .nav-link,
+                                .nav-item.dropdown:focus .nav-link {
+                                    background-color: #A65341; /* Cambia a tu color de fondo deseado */
+                                    border-color: #ffa07a; /* Cambia a tu color de borde deseado */
+                                }
+
+                                .nav-item.dropdown .dropdown-menu .dropdown-item:hover,
+                                .nav-item.dropdown .dropdown-menu .dropdown-item:focus {
+                                    background-color: #ffa07a; /* Cambia a tu color de fondo deseado */
+                                    border-color: #ffa07a0; /* Cambia a tu color de borde deseado */
+                                }
+
+                                .nav-item.dropdown .dropdown-menu .dropdown-item.active {
+                                    background-color: #ffa07a; /* Cambia a tu color de fondo deseado */
+                                    border-color: #ffa07a; /* Cambia a tu color de borde deseado */
+                                }
+                            </style>
+
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <img src="~/img/azucar-logo-blanco-cuadrado.png" alt="Logo Azucar" style="width: 100px; height: 50px;" />
                                 </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="Categorias" asp-action="Index">Categorías</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="Preguntas" asp-action="Index">Preguntas</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="Entradas" asp-action="Index">Entradas</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="Reacciones" asp-action="Index">Reacciones</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="Miembros" asp-action="Index">Miembros</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="MiembrosHabilitados" asp-action="Index">Miembros Habilitados</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="Respuestas" asp-action="Index">Respuestas</a></li>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: #A65341;">
+                                    <li><a class="dropdown-item text-white" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a></li>
+                                    <li><a class="dropdown-item text-white" asp-area="" asp-controller="Categorias" asp-action="Index">Categorías</a></li>
+                                    <li><a class="dropdown-item text-white" asp-area="" asp-controller="Preguntas" asp-action="Index">Preguntas</a></li>
+                                    <li><a class="dropdown-item text-white" asp-area="" asp-controller="Entradas" asp-action="Index">Entradas</a></li>
+                                    <li><a class="dropdown-item text-white" asp-area="" asp-controller="Reacciones" asp-action="Index">Reacciones</a></li>
+                                    <li><a class="dropdown-item text-white" asp-area="" asp-controller="Miembros" asp-action="Index">Miembros</a></li>
+                                    <li><a class="dropdown-item text-white" asp-area="" asp-controller="MiembrosHabilitados" asp-action="Index">Miembros Habilitados</a></li>
+                                    <li><a class="dropdown-item text-white" asp-area="" asp-controller="Respuestas" asp-action="Index">Respuestas</a></li>
                                 </ul>
                             </li>
 
 
+
+
+
                             @if (User.Identity.IsAuthenticated)
                             {
-                            <div class="container">
-                                <div class="row justify-content-start">
-                                    <div class="col-md-12">
-                                        <div class="btn-group" role="group" aria-label="Boton cerrar de sesión">
-                                                   <form asp-area="" asp-controller="Account" asp-action="CerrarSesion" method="get">
-                                                <button type="submit" class="btn pink-button btn-sm">Cerrar sesión</button>
-                                            </form>
+                                <div class="container">
+                                    <div class="row justify-content-start">
+                                        <div class="col-md-12">
+                                            <div class="btn-group" role="group" aria-label="Boton cerrar de sesión">
+                                                <form asp-area="" asp-controller="Account" asp-action="CerrarSesion" method="get">
+                                                    <button type="submit" class="btn pink-button btn-sm">Cerrar sesión</button>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                                 <li class="nav-item">
                                     <span class="nav-link text-white-50">
                                         <small class="align-text-top">Usuario: @User.Identity.Name</small>
                                     </span>
                                 </li>
-                          }
+                            }
                         }
                         else
                         {
@@ -105,7 +134,7 @@
 
         </div>
 
-            <script>
+        <script>
             // Obtener referencia al botón de precarga
             var botonPrecarga = document.getElementById("botonPrecarga");
             // Obtener referencia al mensaje
