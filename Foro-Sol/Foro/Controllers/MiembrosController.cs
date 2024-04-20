@@ -71,7 +71,7 @@ namespace Foro.Controllers
             return View();
         }
 
-       [Authorize(Roles = Config.Administrador)]
+       [Authorize(Roles = Config.Miembro)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nombre,Apellido,Email, Telefono")] Miembro miembro)
@@ -103,7 +103,6 @@ namespace Foro.Controllers
             return View(miembro);
         }
 
-        [Authorize(Roles = Config.Administrador)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,Email, Telefono")] Miembro miembro)
@@ -146,8 +145,7 @@ namespace Foro.Controllers
             return View(miembro);
         }
 
-
-      // [Authorize(Roles = "Administrador")]
+        [Authorize(Roles = Config.Miembro)]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -166,7 +164,7 @@ namespace Foro.Controllers
         }
 
 
-    //    [Authorize(Roles = Config.Miembro)]
+        [Authorize(Roles = Config.Miembro)]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

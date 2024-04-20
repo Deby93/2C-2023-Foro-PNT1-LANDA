@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "50nTacaIwtc9xYSvcfmg83A89CLixvG3S3fR+sASW5k=",
+  "Hash": "7owLtqWh/70/ynSsjEc/Eq64Vo82kZ3VJ+uZaKZB8l4=",
   "Source": "Foro",
   "BasePath": "_content/Foro",
   "Mode": "Default",
@@ -112,12 +112,12 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\acceso-denegado.png",
+      "Identity": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\acceso denegado-01.png",
       "SourceId": "Foro",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\",
       "BasePath": "_content/Foro",
-      "RelativePath": "img/acceso-denegado.png",
+      "RelativePath": "img/acceso denegado-01.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -128,7 +128,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\acceso-denegado.png"
+      "OriginalItemSpec": "wwwroot\\img\\acceso denegado-01.png"
     },
     {
       "Identity": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\azucar-logo-blanco-cuadrado.png",
@@ -205,25 +205,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\foto-r.jpeg"
-    },
-    {
-      "Identity": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\loco.jpg",
-      "SourceId": "Foro",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\",
-      "BasePath": "_content/Foro",
-      "RelativePath": "img/loco.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\loco.jpg"
     },
     {
       "Identity": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\img\\naranjaa-11.png",

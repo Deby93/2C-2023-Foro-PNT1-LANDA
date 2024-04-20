@@ -63,13 +63,14 @@ namespace Foro
         [ValidateAntiForgeryToken]
         //Bind indicar que atributos  necesito
 
-        [Authorize(Roles = Config.AdministradorRolName)] // Requiere que el usuario esté autenticado y tenga el rol de "Administrador" para crear usuarios.
-        public async Task<IActionResult> Create(bool EsAdmin, [Bind("id,Nombre,Apellido,FechaAlta,Email,Password")] Usuario usuario)
+        [Authorize(Roles = Config.Administrador)] // Requiere que el usuario esté autenticado y tenga el rol de "Administrador" para crear usuarios.
+        public async Task<IActionResult> Create([Bind("id,Nombre,Apellido,FechaAltail,Password")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
-
-                usuario.UserName = usuario.Email;
+                usuario.UserName = usuario.Nombre;
+                usuario.Email = usuario.Nombre +Config.Dominio;
+                usuario.FechaAlta = DateTime.Now;
                 var resultadoCreacionUsuario = await _userManager.CreateAsync(usuario, Config.GenericPass);
                 // se pone Usuarios para que la variable sea del mismo tipo la que viene x parametro
                 if (resultadoCreacionUsuario.Succeeded)
@@ -77,14 +78,9 @@ namespace Foro
                     IdentityResult resultadoAddRol;
                     string rolDefinido;
 
-                    if (EsAdmin)
-                    {
-                        rolDefinido = Config.AdministradorRolName;
-                    }
-                    else
-                    {
-                        rolDefinido = Config.MiembroRolName;
-                    }
+                        rolDefinido = Config.Administrador;
+                   
+                   
                     resultadoAddRol = await _userManager.AddToRoleAsync(usuario, rolDefinido);
 
                     if (resultadoAddRol.Succeeded)
@@ -108,7 +104,7 @@ namespace Foro
             return View(usuario);
         }
 
-        [Authorize(Roles =Config.AuthMiembroOrAdmistrador)]
+        [Authorize(Roles =Config.Administrador)]
         // GET: Usuarios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -125,7 +121,7 @@ namespace Foro
             return View(usuario);
         }
 
-        [Authorize(Roles = Config.AuthMiembroOrAdmistrador)]
+        [Authorize(Roles = Config.Administrador)]
         // POST: Usuarios/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -198,7 +194,7 @@ namespace Foro
             return View(usuario);
         }
 
-        [Authorize(Roles = Config.AdministradorRolName)]
+        [Authorize(Roles = Config.Miembro)]
         // POST: Usuarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -209,7 +205,7 @@ namespace Foro
                 return Problem("Entity set 'ForoContexto.Usuarios'  is null.");
             }
             var usuario = await _context.Usuarios.FindAsync(id);
-            if (usuario != null)
+            if (usuario != null )
             {
                 _context.Usuarios.Remove(usuario);
             }

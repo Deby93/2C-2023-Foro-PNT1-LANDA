@@ -24,7 +24,7 @@ namespace Foro
 
         [Display(Name = Alias.FechaAlta)]
         [DataType(DataType.DateTime, ErrorMessage = ErrMsgs.ErrMsgNotValid)]
-        public DateTime? FechaAlta { get; set; } = null;
+        public DateTime? FechaAlta { get; set; } =  DateTime.Now;
 
         [Display(Name = Alias.NombreCompleto)]
         public string NombreCompleto
