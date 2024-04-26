@@ -215,6 +215,5 @@ El foro, mostrará los encabezados en la home:
 
 ----
 **Diagrama de clases:** 🏞️
-![Foro-2023](https://github.com/Deby93/2C-2023-Foro-PNT1-LANDA/assets/92892665/983e0d80-9689-405c-b15e-296da8aea16b)
 
 
