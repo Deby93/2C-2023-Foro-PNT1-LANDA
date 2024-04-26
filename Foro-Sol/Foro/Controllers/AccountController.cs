@@ -76,15 +76,17 @@ namespace Foro.Controllers
             return View(viewModel);
         }
 
-
+        [HttpGet]
+        public ActionResult CrearAdmin()
+        {
+            return View();
+        }
 
         //[Authorize(Roles = "Miembro,Administrador")]
 
         [HttpPost]
         public async Task<ActionResult> CrearAdmin(CrearAdmin viewModel)
         {
-            //Hago con model lo que necesito.
-
             if (ModelState.IsValid)
             {
                 var administradorACrear = new Usuario
@@ -92,8 +94,9 @@ namespace Foro.Controllers
                     Nombre=viewModel.Nombre,
                     Apellido= viewModel.Apellido,
                     UserName = viewModel.UserName,
-                    FechaAlta=DateTime.Now,
                     Email = viewModel.UserName+Config.Dominio,
+                    FechaAlta = DateTime.Now,
+
                 };
 
                 var resultadoCreacion = await _userManager.CreateAsync(administradorACrear, viewModel.Password);
@@ -104,13 +107,10 @@ namespace Foro.Controllers
 
                     if (resultado.Succeeded)
                     {
-                        //pudo crear - le hago sign-in directamente.
                         await _signinManager.SignInAsync(administradorACrear, isPersistent: false);
-                        //TODO - Actualizar los models y vistas para sacar password por consigna
-                        return RedirectToAction("Home", "Index");
+                        return RedirectToAction("Index", "Home");
                     }
                 }
-                //no pudo
                 //tratamiento de errores
                 foreach (var error in resultadoCreacion.Errors)
                 {

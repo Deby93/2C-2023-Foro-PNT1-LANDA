@@ -1,12 +1,10 @@
 ﻿
-using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
 namespace Foro
 {
     public class CrearAdmin
     {
-
         [Display(Name = Alias.Nombre)]
         [Required(ErrorMessage = ErrMsgs.Requerido)]
         [StringLength(Restrictions.MaxNom, MinimumLength = Restrictions.MinNom, ErrorMessage = ErrMsgs.StrMaxMin)]
@@ -19,23 +17,25 @@ namespace Foro
 
         [Required(ErrorMessage = ErrMsgs.Requerido)]
         [StringLength(Restrictions.MaxNomUser, MinimumLength = Restrictions.MinNomUser, ErrorMessage = ErrMsgs.StrMaxMin)]
-        [Remote(action: "UsuarioDisponible", controller: "Account")]
         [Display(Name = Alias.UserName)]
         public string? UserName { get; set; }
 
         [Required(ErrorMessage = ErrMsgs.Requerido)]
         [EmailAddress(ErrorMessage = ErrMsgs.NoValido)]
-        [Remote(action: "EmailDisponible", controller: "Account")]
         [Display(Name = "Correo Electronico")]
         public string? Email { get; set; }
 
         [Required(ErrorMessage = ErrMsgs.Requerido)]
         [DataType(DataType.Password)]
         [Display(Name = "Contraseña")]
-        public string? Password { get; set; } = Config.GenericPass;
-        public string? Rol { get; set; } = Config.AdministradorRolName;
+        public string? Password { get; set; } 
 
-       
+        [Required(ErrorMessage = ErrMsgs.Requerido)]
+        [Display(Name = "Confirmación de contraseña")]
+        [DataType(DataType.Password)]
+        [Compare("Password", ErrorMessage = "La contraseña no coincide")]
+        public string? ConfirmPassword { get; set; }
+
 
     }
 }

@@ -43,7 +43,6 @@ namespace Foro
         [Compare("Password", ErrorMessage = "La contraseña no coincide")]
         public string? ConfirmPassword { get; set; }
 
-        public string? Rol { get; set; } = Config.MiembroRolName;
 
      
 
