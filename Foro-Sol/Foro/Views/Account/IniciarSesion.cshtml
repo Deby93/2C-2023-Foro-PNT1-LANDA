@@ -21,9 +21,7 @@
                 <label asp-for="Password" class="control-label"></label>
                 <div class="input-group">
                     <input asp-for="Password" type="password" class="form-control form-control-sm" id="Password" name="Password" />
-                    <div class="input-group-append">
-                        <button type="button" class="btn btn-outline-secondary btn-sm" id="togglePassword">Mostrar</button>
-                    </div>
+                    </>
                 </div>
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
@@ -44,21 +42,4 @@
 
 </div>
 
-@section Scripts {
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const togglePassword = document.getElementById("togglePassword");
-            const passwordField = document.getElementById("Password");
 
-            togglePassword.addEventListener("click", function () {
-                if (passwordField.type === "password") {
-                    passwordField.type = "text";
-                    togglePassword.textContent = "Ocultar";
-                } else {
-                    passwordField.type = "password";
-                    togglePassword.textContent = "Mostrar";
-                }
-            });
-        });
-    </script>
-}

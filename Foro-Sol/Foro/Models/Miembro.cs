@@ -10,7 +10,6 @@ namespace Foro
         [Required(ErrorMessage = ErrMsgs.Requerido)]
         [StringLength(15, MinimumLength = 8, ErrorMessage = ErrMsgs.StrMaxMin)]
         [DataType(DataType.PhoneNumber, ErrorMessage = ErrMsgs.NoValido)]
-        [RegularExpression(@"[0-9]{2}[0-9]{4}[0-9]{4}", ErrorMessage = ErrorMsg.FormatoCelularInvalido)]
         public string? Telefono { get; set; }
 
         public List<Reaccion>? PreguntasYRespuestasQueMeGustan { get; set; }

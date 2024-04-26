@@ -71,6 +71,7 @@ namespace Foro
                 usuario.UserName = usuario.Nombre;
                 usuario.Email = usuario.Nombre +Config.Dominio;
                 usuario.FechaAlta = DateTime.Now;
+                
                 var resultadoCreacionUsuario = await _userManager.CreateAsync(usuario, Config.GenericPass);
                 // se pone Usuarios para que la variable sea del mismo tipo la que viene x parametro
                 if (resultadoCreacionUsuario.Succeeded)
@@ -93,13 +94,7 @@ namespace Foro
 
                     }
                 }
-
-
             }
-            //_context.Usuarios.Add(usuario);
-            //await _context.SaveChangesAsync();
-            //return RedirectToAction(nameof(Index));
-            //redireccion al index 302
 
             return View(usuario);
         }
@@ -157,7 +152,6 @@ namespace Foro
                     {
                         return NotFound();
                     }
-                   
                    
                 }
                 catch (DbUpdateConcurrencyException)

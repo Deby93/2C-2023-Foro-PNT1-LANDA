@@ -1,23 +1,14 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.ConstrainedExecution;
-using System.Threading.Tasks;
 
 namespace Foro.Controllers
 {
-    //[Authorize] autorizacion minima sesion iniciada
     public class AccountController : Controller
     {
         private readonly ForoContexto _context;
         private readonly UserManager<Usuario> _userManager;
         private readonly SignInManager<Usuario> _signinManager;
         private readonly RoleManager<Rol> _rolManager;
-        private const string passDefault = "Password1!";
 
         public AccountController(
             ForoContexto context,
@@ -39,7 +30,7 @@ namespace Foro.Controllers
 
         //[Authorize(Roles = "Miembro,Administrador")]
         [HttpPost]
-        public async Task<ActionResult> Registrar(RegistroUsuario viewModel)
+        public async Task<ActionResult> Registrar(Registrar viewModel)
         {
             //Hago con model lo que necesito.
 
@@ -47,8 +38,13 @@ namespace Foro.Controllers
             {
                 var miembroACrear = new Miembro
                 {
-                    UserName = viewModel.Email,
-                    Email = viewModel.Email
+                    Telefono = viewModel.Telefono,
+                    Nombre = viewModel.Nombre,
+                    Apellido = viewModel.Apellido,
+                    UserName = viewModel.UserName,
+                    Email = viewModel.Email,
+                    FechaAlta = DateTime.Now
+
                 };
 
                 var resultadoCreacion = await _userManager.CreateAsync(miembroACrear, viewModel.Password);
@@ -64,7 +60,7 @@ namespace Foro.Controllers
                         //TODO - Actualizar los models y vistas para sacar password por consigna
 
 
-                        return RedirectToAction("Edit", "Miembros", new { id = miembroACrear.Id });
+                        return RedirectToAction("Index", "Home");
                     }
 
                 }
@@ -80,9 +76,12 @@ namespace Foro.Controllers
             return View(viewModel);
         }
 
+
+
         //[Authorize(Roles = "Miembro,Administrador")]
+
         [HttpPost]
-        public async Task<ActionResult> RegistrarAdministrador(RegistroUsuario viewModel)
+        public async Task<ActionResult> CrearAdmin(CrearAdmin viewModel)
         {
             //Hago con model lo que necesito.
 
@@ -90,8 +89,11 @@ namespace Foro.Controllers
             {
                 var administradorACrear = new Usuario
                 {
-                    UserName = viewModel.Email,
-                    Email = viewModel.Email
+                    Nombre=viewModel.Nombre,
+                    Apellido= viewModel.Apellido,
+                    UserName = viewModel.UserName,
+                    FechaAlta=DateTime.Now,
+                    Email = viewModel.UserName+Config.Dominio,
                 };
 
                 var resultadoCreacion = await _userManager.CreateAsync(administradorACrear, viewModel.Password);
@@ -105,13 +107,9 @@ namespace Foro.Controllers
                         //pudo crear - le hago sign-in directamente.
                         await _signinManager.SignInAsync(administradorACrear, isPersistent: false);
                         //TODO - Actualizar los models y vistas para sacar password por consigna
-
-
-                        return RedirectToAction("Edit", "Usuarios", new { id = administradorACrear.Id });
+                        return RedirectToAction("Home", "Index");
                     }
-
                 }
-
                 //no pudo
                 //tratamiento de errores
                 foreach (var error in resultadoCreacion.Errors)
@@ -119,7 +117,6 @@ namespace Foro.Controllers
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
-
             return View(viewModel);
         }
 
@@ -166,7 +163,6 @@ namespace Foro.Controllers
             }
         }
 
-        
         public ActionResult IniciarSesion(string returnurl)
         {
             TempData["returnUrl"] = returnurl;
@@ -202,18 +198,6 @@ namespace Foro.Controllers
                         ModelState.AddModelError(string.Empty, "Inicio de sesión inválido");
                     }
                 }
-
-                ////if (usuario.Succeeded)
-                ////{
-                ////    if (!string.IsNullOrWhiteSpace(returnUrl))
-                ////        return Redirect(returnUrl);
-
-                ////    if (User.IsInRole("Miembro") || User.IsInRole("Administrador")) { }
-                ////    return RedirectToAction("Index", "Home");
-
-                ////}
-
-                //ModelState.AddModelError(string.Empty, "Inicio de sesión inválido.");
             }
             return View(ViewModel);
         }
