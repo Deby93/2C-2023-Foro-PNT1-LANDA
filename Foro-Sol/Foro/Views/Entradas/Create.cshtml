@@ -14,6 +14,7 @@
             <div class="form-group">
                 <label asp-for="Categoria" class="control-label"></label>
                 <select asp-for="CategoriaId" class="form-control" asp-items="ViewBag.CategoriaId"></select>
+                <span asp-validation-for="CategoriaId" class="text-danger"></span>
                 @Html.ActionLink("Crear nueva categoría", "Create", "Categorias")
 
             </div>

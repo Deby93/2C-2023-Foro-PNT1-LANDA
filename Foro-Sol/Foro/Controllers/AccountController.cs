@@ -91,15 +91,13 @@ namespace Foro.Controllers
             {
                 var administradorACrear = new Usuario
                 {
-                    Nombre=viewModel.Nombre,
-                    Apellido= viewModel.Apellido,
+                    Nombre = viewModel.Nombre,
+                    Apellido = viewModel.Apellido,
                     UserName = viewModel.UserName,
-                    Email = viewModel.UserName+Config.Dominio,
-                    FechaAlta = DateTime.Now,
-
+                    Email = viewModel.UserName + Config.Dominio,
+                    FechaAlta = DateTime.Now
                 };
-
-                var resultadoCreacion = await _userManager.CreateAsync(administradorACrear, viewModel.Password);
+                    var resultadoCreacion = await _userManager.CreateAsync(administradorACrear, viewModel.Password);
 
                 if (resultadoCreacion.Succeeded)
                 {

@@ -49,7 +49,7 @@ namespace Foro
             return View(usuario);
         }
 
-        [Authorize(Roles = Config.Administrador)]
+      //  [Authorize(Roles = Config.Administrador)]
 
         // GET: Usuarios/Create
         [HttpGet]
@@ -66,7 +66,7 @@ namespace Foro
         [ValidateAntiForgeryToken]
         //Bind indicar que atributos  necesito
 
-        [Authorize(Roles = Config.Administrador)] // Requiere que el usuario esté autenticado y tenga el rol de "Administrador" para crear usuarios.
+       // [Authorize(Roles = Config.Administrador)] // Requiere que el usuario esté autenticado y tenga el rol de "Administrador" para crear usuarios.
         public async Task<IActionResult> Create([Bind("id,Nombre,Apellido,FechaAltail,Password")] Usuario usuario)
         {
             if (ModelState.IsValid)
@@ -102,8 +102,9 @@ namespace Foro
             return View(usuario);
         }
 
-        [Authorize(Roles =Config.Administrador)]
+        // [Authorize(Roles =Config.Administrador)]
         // GET: Usuarios/Edit/5
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -119,7 +120,7 @@ namespace Foro
             return View(usuario);
         }
 
-        [Authorize(Roles = Config.Administrador)]
+       // [Authorize(Roles = Config.Administrador)]
         // POST: Usuarios/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -155,7 +156,7 @@ namespace Foro
             }
             return View(usuario);
         }
-        [Authorize(Roles = Config.Administrador)]
+      //  [Authorize(Roles = Config.Administrador)]
 
 
         // GET: Usuarios/Delete/5
@@ -176,7 +177,7 @@ namespace Foro
             return View(usuario);
         }
 
-        [Authorize(Roles = Config.Administrador)]
+        //[Authorize(Roles = Config.Administrador)]
         // POST: Usuarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

@@ -52,7 +52,7 @@ namespace Foro
         }
 
         // GET: Entradas/Create
-        public async Task<IActionResult> Create([Bind("EntradaId,Titulo,Descripcion,CategoriaId, Fecha,Privada,Categoria,Miembro")] Entrada entrada)
+        public async Task<IActionResult> Create([Bind("EntradaId,Titulo,Descripcion,CategoriaId, Fecha,Privada,Categoria")] Entrada entrada)
         {
             var MiembroId = Int32.Parse(_userManager.GetUserId(User));
             if (ModelState.IsValid)
