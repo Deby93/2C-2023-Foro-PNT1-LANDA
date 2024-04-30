@@ -30,6 +30,8 @@ namespace Foro
         }
 
         // GET: Usuarios/Details/5
+        [Authorize(Roles = Config.Administrador)]
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Usuarios == null)
@@ -47,6 +49,7 @@ namespace Foro
             return View(usuario);
         }
 
+        [Authorize(Roles = Config.Administrador)]
 
         // GET: Usuarios/Create
         [HttpGet]
@@ -103,7 +106,7 @@ namespace Foro
         // GET: Usuarios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Usuarios == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -118,11 +121,9 @@ namespace Foro
 
         [Authorize(Roles = Config.Administrador)]
         // POST: Usuarios/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,Nombre,Apellido,FechaAlta,Email,Password")] Usuario usuario)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,Email")] Usuario usuario)
         {
             if (id != usuario.Id)
             {
@@ -133,26 +134,11 @@ namespace Foro
             {
                 try
                 {
-                    var usuarioDB = await _context.Usuarios.FindAsync(id);
-                    if (usuarioDB !=null)
-                    {
-                        //Actualizamos
-                       
-                        usuarioDB.Nombre =usuario.Nombre;
-                        usuarioDB.Apellido =usuario.Apellido;
-                        usuarioDB.Email =usuario.Email;
-                        usuarioDB.FechaAlta =usuario.FechaAlta;
-                        //usuarioDB.Password =usuario.Password;
-
-                        _context.Usuarios.Update(usuarioDB);
-                        await _context.SaveChangesAsync();
-
-                    }
-                    else
-                    {
-                        return NotFound();
-                    }
-                   
+                    Usuario usuarioEnDb = _context.Usuarios.Find(usuario.Id);
+                    usuarioEnDb.Nombre = usuario.Nombre;
+                    usuarioEnDb.Apellido = usuario.Apellido;
+                    _context.Update(usuarioEnDb);
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -169,6 +155,8 @@ namespace Foro
             }
             return View(usuario);
         }
+        [Authorize(Roles = Config.Administrador)]
+
 
         // GET: Usuarios/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -188,7 +176,7 @@ namespace Foro
             return View(usuario);
         }
 
-        [Authorize(Roles = Config.Miembro)]
+        [Authorize(Roles = Config.Administrador)]
         // POST: Usuarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

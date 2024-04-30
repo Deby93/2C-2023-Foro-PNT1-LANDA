@@ -16,6 +16,11 @@ namespace Foro
         [StringLength(Restrictions.MaxTituloEntrada, MinimumLength = Restrictions.MinTituloEntrada, ErrorMessage = ErrMsgs.StrMaxMin)]
         public string? Titulo { get; set; }
 
+        [Required(ErrorMessage = ErrorMsg.ErrMsgRequired)]
+        [StringLength(Restrictions.MaxDescEntrada, MinimumLength = Restrictions.MinDescEntrada, ErrorMessage = ErrMsgs.StrMaxMin)]
+        [DataType(DataType.MultilineText)]
+        public string? Descripcion { get; set; }
+
         [Display(Name = Alias.FechaDePublicacion)]
         [DataType(DataType.DateTime, ErrorMessage = ErrorMsg.ErrMsgNotValid)]
         public DateTime? Fecha { get; set; }
