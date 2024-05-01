@@ -13,12 +13,12 @@ namespace Foro
         [Key]
 
         public int EntradaId { get; set; }
-            public bool Habilitado { get; set; }
+        public bool Habilitado { get; set; }
 
-            public Miembro? Miembro { get; set; }
-            public Entrada? Entrada { get; set; }
-        }
-
+        public Miembro? Miembro { get; set; }
+        public Entrada? Entrada { get; set; }
     }
-    #endregion
+
+}
+#endregion
 

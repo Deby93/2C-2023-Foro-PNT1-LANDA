@@ -48,33 +48,42 @@ namespace Foro
         [HttpGet]
         public IActionResult Create()
         {
+          
+            ViewData["CategoriaId"] = new SelectList(_contexto.Categorias.OrderBy(p => p.Nombre), "CategoriaId", "Nombre");
             return View();
         }
 
         // GET: Entradas/Create
-        public async Task<IActionResult> Create([Bind("EntradaId,Titulo,Descripcion,CategoriaId, Fecha,Privada,Categoria")] Entrada entrada)
+        public async Task<IActionResult> Create([Bind("EntradaId,Titulo,Descripcion,CategoriaId, Fecha,Privada,Categoria,")] Entrada entrada)
         {
-            var MiembroId = Int32.Parse(_userManager.GetUserId(User));
+            var MiembroIdEncontrado = Int32.Parse(_userManager.GetUserId(User));
             if (ModelState.IsValid)
             {
-                entrada = new Entrada()
+                if (MiembroIdEncontrado != null)
                 {
-                    Titulo = entrada.Titulo,
-                    Descripcion = entrada.Descripcion,
-                    MiembroId = entrada.MiembroId,
-                    CategoriaId = entrada.CategoriaId,
-                    Fecha = DateTime.Now,
-                    Privada = entrada.Privada,
-                    Miembro=entrada.Miembro,
-                    Categoria=entrada.Categoria
-                };
+                    entrada = new Entrada()
+                    {
+                        Titulo = entrada.Titulo,
+                        Descripcion = entrada.Descripcion,
+                        MiembroId = MiembroIdEncontrado,
+                        CategoriaId = entrada.CategoriaId,
+                        Fecha = DateTime.Now,
+                        Privada = entrada.Privada,
+                        Miembro = entrada.Miembro,
+                        Categoria = entrada.Categoria
+                    };
+                }
+                else
+                {
+                    NotFound();
+                }
                 _contexto.Add(entrada);
                 await _contexto.SaveChangesAsync();
                 return RedirectToAction("Create", "Preguntas", new { id = entrada.Id });
 
             }
             ViewData["CategoriaId"] = new SelectList(_contexto.Categorias, "CategoriaId", "Nombre", entrada.CategoriaId);
-            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "Id", "Apellido", entrada.MiembroId);
+            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "Id", "Apellido", MiembroIdEncontrado);
             return View(entrada);
         }
         

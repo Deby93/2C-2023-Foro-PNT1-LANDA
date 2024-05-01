@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,17 +10,21 @@ namespace Foro
 {
     public class ReaccionesController : Controller
     {
-        private readonly ForoContexto _context;
-
-        public ReaccionesController(ForoContexto context)
+        private readonly ForoContexto _contexto;
+        private readonly UserManager<Usuario> _userManager;
+        private readonly SignInManager<Usuario> _signinManager;
+        public ReaccionesController(ForoContexto context, UserManager<Usuario> userManager, SignInManager<Usuario> signinManager)
         {
-            _context = context;
+            _contexto = context;
+            _userManager = userManager;
+            _signinManager = signinManager;
+
         }
 
         // GET: Reacciones
         public async Task<IActionResult> Index()
         {
-            var foroContexto = _context.Reacciones.Include(r => r.Miembro)
+            var foroContexto = _contexto.Reacciones.Include(r => r.Miembro)
                 .Include(r => r.Respuesta);
             return View(await foroContexto.ToListAsync());
         }
@@ -27,12 +32,12 @@ namespace Foro
         // GET: Reacciones/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Reacciones == null)
+            if (id == null || _contexto.Reacciones == null)
             {
                 return NotFound();
             }
 
-            var reaccion = await _context.Reacciones
+            var reaccion = await _contexto.Reacciones
                 .Include(r => r.Miembro)
                 .Include(r => r.Respuesta)
                 .FirstOrDefaultAsync(m => m.MiembroId == id);
@@ -47,8 +52,8 @@ namespace Foro
         // GET: Reacciones/Create
         public IActionResult Create()
         {
-            ViewData["MiembroId"] = new SelectList(_context.Miembros, "id", "Apellido");
-            ViewData["RespuestaId"] = new SelectList(_context.Respuestas, "RespuestaId", "Descripcion");
+            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido");
+            ViewData["RespuestaId"] = new SelectList(_contexto.Respuestas, "RespuestaId", "Descripcion");
             return View();
         }
 
@@ -57,34 +62,50 @@ namespace Foro
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RespuestaId,MiembroId,Fecha,MeGusta")] Reaccion reaccion)
+        public async Task<IActionResult> Create([Bind("RespuestaId,Fecha,MeGusta")] Reaccion reaccion)
         {
+            var MiembroIdEncontrado = Int32.Parse(_userManager.GetUserId(User));
             if (ModelState.IsValid)
             {
-                _context.Add(reaccion);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (MiembroIdEncontrado != null)
+                {
+                    reaccion = new Reaccion()
+                    {
+                        RespuestaId = reaccion.RespuestaId,
+                        MiembroId = MiembroIdEncontrado,
+                        Fecha = DateTime.Now,
+                        MeGusta=reaccion.MeGusta,
+                    };
+                }
+                else
+                {
+                    NotFound();
+                }
+                _contexto.Add(reaccion);
+                await _contexto.SaveChangesAsync();
+                return RedirectToAction("Index", "Respuestas");
+
             }
-            ViewData["MiembroId"] = new SelectList(_context.Miembros, "id", "Apellido", reaccion.MiembroId);
-            ViewData["RespuestaId"] = new SelectList(_context.Respuestas, "RespuestaId", "Descripcion", reaccion.RespuestaId);
+            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido", MiembroIdEncontrado);
+            ViewData["RespuestaId"] = new SelectList(_contexto.Respuestas, "RespuestaId", "Descripcion", reaccion.RespuestaId);
             return View(reaccion);
         }
 
         // GET: Reacciones/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Reacciones == null)
+            if (id == null || _contexto.Reacciones == null)
             {
                 return NotFound();
             }
 
-            var reaccion = await _context.Reacciones.FindAsync(id);
+            var reaccion = await _contexto.Reacciones.FindAsync(id);
             if (reaccion == null)
             {
                 return NotFound();
             }
-            ViewData["MiembroId"] = new SelectList(_context.Miembros, "id", "Apellido", reaccion.MiembroId);
-            ViewData["RespuestaId"] = new SelectList(_context.Respuestas, "RespuestaId", "Descripcion", reaccion.RespuestaId);
+            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido", reaccion.MiembroId);
+            ViewData["RespuestaId"] = new SelectList(_contexto.Respuestas, "RespuestaId", "Descripcion", reaccion.RespuestaId);
             return View(reaccion);
         }
 
@@ -104,8 +125,8 @@ namespace Foro
             {
                 try
                 {
-                    _context.Update(reaccion);
-                    await _context.SaveChangesAsync();
+                    _contexto.Update(reaccion);
+                    await _contexto.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -120,20 +141,20 @@ namespace Foro
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MiembroId"] = new SelectList(_context.Miembros, "id", "Apellido", reaccion.MiembroId);
-            ViewData["RespuestaId"] = new SelectList(_context.Respuestas, "RespuestaId", "Descripcion", reaccion.RespuestaId);
+            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido", reaccion.MiembroId);
+            ViewData["RespuestaId"] = new SelectList(_contexto.Respuestas, "RespuestaId", "Descripcion", reaccion.RespuestaId);
             return View(reaccion);
         }
 
         // GET: Reacciones/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Reacciones == null)
+            if (id == null || _contexto.Reacciones == null)
             {
                 return NotFound();
             }
 
-            var reaccion = await _context.Reacciones
+            var reaccion = await _contexto.Reacciones
                 .Include(r => r.Miembro)
                 .Include(r => r.Respuesta)
                 .FirstOrDefaultAsync(m => m.MiembroId == id);
@@ -150,23 +171,23 @@ namespace Foro
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Reacciones == null)
+            if (_contexto.Reacciones == null)
             {
                 return Problem("Entity set 'ForoContexto.Reaccion'  is null.");
             }
-            var reaccion = await _context.Reacciones.FindAsync(id);
+            var reaccion = await _contexto.Reacciones.FindAsync(id);
             if (reaccion != null)
             {
-                _context.Reacciones.Remove(reaccion);
+                _contexto.Reacciones.Remove(reaccion);
             }
             
-            await _context.SaveChangesAsync();
+            await _contexto.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ReaccionExists(int id)
         {
-          return (_context.Reacciones?.Any(e => e.MiembroId == id)).GetValueOrDefault();
+          return (_contexto.Reacciones?.Any(e => e.MiembroId == id)).GetValueOrDefault();
         }
     }
 }
