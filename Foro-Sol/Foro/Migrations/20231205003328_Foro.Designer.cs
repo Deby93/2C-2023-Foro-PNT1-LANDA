@@ -125,7 +125,7 @@ namespace Foro.Migrations
 
                     b.HasIndex("MiembroId");
 
-                    b.ToTable("Preguntas");
+                    b.ToTable("Respuestas");
                 });
 
             modelBuilder.Entity("Foro.Reaccion", b =>
@@ -273,13 +273,13 @@ namespace Foro.Migrations
             modelBuilder.Entity("Foro.Pregunta", b =>
                 {
                     b.HasOne("Foro.Entrada", "Entrada")
-                        .WithMany("Preguntas")
+                        .WithMany("Respuestas")
                         .HasForeignKey("EntradaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Foro.Miembro", "Miembro")
-                        .WithMany("Preguntas")
+                        .WithMany("Respuestas")
                         .HasForeignKey("MiembroId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -336,7 +336,7 @@ namespace Foro.Migrations
                 {
                     b.Navigation("MiembrosHabilitados");
 
-                    b.Navigation("Preguntas");
+                    b.Navigation("Respuestas");
                 });
 
             modelBuilder.Entity("Foro.Pregunta", b =>
@@ -353,7 +353,7 @@ namespace Foro.Migrations
                 {
                     b.Navigation("Entradas");
 
-                    b.Navigation("Preguntas");
+                    b.Navigation("Respuestas");
 
                     b.Navigation("PreguntasYRespuestasQueMeGustan");
 

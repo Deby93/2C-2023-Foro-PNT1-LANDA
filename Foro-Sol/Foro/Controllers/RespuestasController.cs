@@ -92,6 +92,8 @@ namespace Foro
         // GET: Respuestas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var MiembroIdEncontrado = Int32.Parse(_userManager.GetUserId(User));
+
             if (id == null || _contexto.Respuestas == null)
             {
                 return NotFound();
@@ -102,7 +104,7 @@ namespace Foro
             {
                 return NotFound();
             }
-            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido", respuesta.MiembroId);
+            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido", MiembroIdEncontrado);
             ViewData["PreguntaId"] = new SelectList(_contexto.Preguntas, "PreguntaId", "Descripcion", respuesta.PreguntaId);
             return View(respuesta);
         }
@@ -112,8 +114,10 @@ namespace Foro
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RespuestaId,PreguntaId,MiembroId,Descripcion,Fecha")] Respuesta respuesta)
+        public async Task<IActionResult> Edit(int id, [Bind("RespuestaId,PreguntaId,Descripcion,Fecha")] Respuesta respuesta)
         {
+            var MiembroIdEncontrado = Int32.Parse(_userManager.GetUserId(User));
+
             if (id != respuesta.RespuestaId)
             {
                 return NotFound();
@@ -123,8 +127,21 @@ namespace Foro
             {
                 try
                 {
-                    _contexto.Update(respuesta);
+                    var respuestaEnDb = await _contexto.Respuestas.FindAsync(id);
+                    if (respuestaEnDb == null)
+                    {
+                        return NotFound();
+                    }
+
+                    respuestaEnDb.MiembroId = MiembroIdEncontrado;
+                    respuestaEnDb.Miembro = respuesta.Miembro;
+                    respuestaEnDb.Descripcion = respuesta.Descripcion;
+                    respuestaEnDb.Fecha = respuesta.Fecha;
+                    respuestaEnDb.Reacciones = respuesta.Reacciones;
+                     _contexto.Respuestas.Update(respuestaEnDb);
                     await _contexto.SaveChangesAsync();
+
+                    return RedirectToAction("Details", "Respuestas", new { id = respuesta.RespuestaId });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -139,7 +156,7 @@ namespace Foro
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido", respuesta.MiembroId);
+            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido", MiembroIdEncontrado);
             ViewData["PreguntaId"] = new SelectList(_contexto.Preguntas, "PreguntaId", "Descripcion", respuesta.PreguntaId);
             return View(respuesta);
         }
