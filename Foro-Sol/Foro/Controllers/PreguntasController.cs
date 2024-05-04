@@ -137,7 +137,6 @@ namespace Foro
                     }
 
                     preguntaEnDb.MiembroId = MiembroIdEncontrado;
-                    ;
                     preguntaEnDb.EntradaId = pregunta.EntradaId;
                     preguntaEnDb.Descripcion = pregunta.Descripcion;
                     preguntaEnDb.Fecha = pregunta.Fecha;

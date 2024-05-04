@@ -91,6 +91,7 @@ namespace Foro
         // GET: Entradas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var MiembroIdEncontrado = Int32.Parse(_userManager.GetUserId(User));
             if (id == null || _contexto.Entradas == null)
             {
                 return NotFound();
@@ -102,7 +103,7 @@ namespace Foro
                 return NotFound();
             }
             ViewData["CategoriaId"] = new SelectList(_contexto.Categorias, "CategoriaId", "Nombre", entrada.CategoriaId);
-            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido", entrada.MiembroId);
+            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido", MiembroIdEncontrado);
             return View(entrada);
         }
 
@@ -111,8 +112,9 @@ namespace Foro
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Titulo,Fecha,CategoriaId,MiembroId,Privada")] Entrada entrada)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Titulo,Fecha,Descripcion,CategoriaId,Privada")] Entrada entrada)
         {
+            var MiembroIdEncontrado = Int32.Parse(_userManager.GetUserId(User));
             if (id != entrada.Id)
             {
                 return NotFound();
@@ -122,8 +124,23 @@ namespace Foro
             {
                 try
                 {
-                    _contexto.Update(entrada);
+                    var entradaEnDb = await _contexto.Entradas.FindAsync(id);
+                    if (entradaEnDb == null)
+                    {
+                        return NotFound();
+                    }
+
+                    entradaEnDb.MiembroId = MiembroIdEncontrado;
+                    entradaEnDb.Titulo = entrada.Titulo;
+                    entradaEnDb.Privada = entrada.Privada;
+                    entradaEnDb.Descripcion = entrada.Descripcion;
+                    entradaEnDb.Fecha = entrada.Fecha;
+                  
+
+                    _contexto.Entradas.Update(entradaEnDb);
                     await _contexto.SaveChangesAsync();
+
+                    return RedirectToAction("Details", "Entradas", new { id = entradaEnDb.Id});
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -136,10 +153,9 @@ namespace Foro
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
             ViewData["CategoriaId"] = new SelectList(_contexto.Categorias, "CategoriaId", "Nombre", entrada.CategoriaId);
-            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido", entrada.MiembroId);
+            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido", MiembroIdEncontrado);
             return View(entrada);
         }
 
