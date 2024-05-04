@@ -94,6 +94,8 @@ namespace Foro
         // GET: Reacciones/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var MiembroIdEncontrado = Int32.Parse(_userManager.GetUserId(User));
+
             if (id == null || _contexto.Reacciones == null)
             {
                 return NotFound();
@@ -104,7 +106,7 @@ namespace Foro
             {
                 return NotFound();
             }
-            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido", reaccion.MiembroId);
+            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido", MiembroIdEncontrado);
             ViewData["RespuestaId"] = new SelectList(_contexto.Respuestas, "RespuestaId", "Descripcion", reaccion.RespuestaId);
             return View(reaccion);
         }
@@ -114,8 +116,9 @@ namespace Foro
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RespuestaId,MiembroId,Fecha,MeGusta")] Reaccion reaccion)
+        public async Task<IActionResult> Edit(int id, [Bind("RespuestaId,Fecha,MeGusta")] Reaccion reaccion)
         {
+            var MiembroIdEncontrado = Int32.Parse(_userManager.GetUserId(User));
             if (id != reaccion.MiembroId)
             {
                 return NotFound();
@@ -130,7 +133,7 @@ namespace Foro
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ReaccionExists(reaccion.MiembroId))
+                    if (!ReaccionExists(MiembroIdEncontrado))
                     {
                         return NotFound();
                     }
@@ -141,7 +144,7 @@ namespace Foro
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido", reaccion.MiembroId);
+            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido", MiembroIdEncontrado);
             ViewData["RespuestaId"] = new SelectList(_contexto.Respuestas, "RespuestaId", "Descripcion", reaccion.RespuestaId);
             return View(reaccion);
         }

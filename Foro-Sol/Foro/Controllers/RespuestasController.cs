@@ -154,7 +154,6 @@ namespace Foro
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
             ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido", MiembroIdEncontrado);
             ViewData["PreguntaId"] = new SelectList(_contexto.Preguntas, "PreguntaId", "Descripcion", respuesta.PreguntaId);

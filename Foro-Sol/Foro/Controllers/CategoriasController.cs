@@ -54,6 +54,14 @@ namespace Foro
         {
             if (ModelState.IsValid)
             {
+
+                var existingCategoria = await _context.Categorias.FirstOrDefaultAsync(c => c.Nombre == categoria.Nombre && c.CategoriaId != categoria.CategoriaId);
+                if (existingCategoria != null)
+                {
+                    ModelState.AddModelError("categoria.Nombre", "Ya existe una categoría con este nombre.");
+                    return View(categoria);
+                }
+
                 _context.Categorias.Add(categoria);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -93,6 +101,7 @@ namespace Foro
             {
                 try
                 {
+                   
                     _context.Update(categoria);
                     await _context.SaveChangesAsync();
                 }

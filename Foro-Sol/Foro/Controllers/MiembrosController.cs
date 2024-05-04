@@ -74,9 +74,12 @@ namespace Foro.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Telefono,Nombre,Apellido,Email")] Miembro miembro)
+        public async Task<IActionResult> Edit(int id, [Bind("Telefono,Nombre,Apellido,Email")] Miembro miembro)
         {
-            if (id != miembro.Id)
+            var MiembroIdEncontrado = Int32.Parse(_userManager.GetUserId(User));
+
+
+            if (id != MiembroIdEncontrado)
             {
                 return NotFound();
             }
@@ -91,6 +94,7 @@ namespace Foro.Controllers
                         return NotFound();
                     }
 
+                    miembroEnDb.Id = MiembroIdEncontrado;
                     miembroEnDb.Telefono = miembro.Telefono;
                     miembroEnDb.Nombre = miembro.Nombre;
                     miembroEnDb.Apellido = miembro.Apellido;
@@ -103,7 +107,7 @@ namespace Foro.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MiembroExists(miembro.Id))
+                    if (!MiembroExists(MiembroIdEncontrado))
                     {
                         return NotFound();
                     }
