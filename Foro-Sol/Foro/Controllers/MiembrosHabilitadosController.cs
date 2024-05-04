@@ -88,6 +88,7 @@ namespace Foro
         // GET: MiembrosHabilitados/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var MiembroIdEncontrado = Int32.Parse(_userManager.GetUserId(User));
             if (id == null || _contexto.MiembrosHabilitados == null)
             {
                 return NotFound();
@@ -99,7 +100,7 @@ namespace Foro
                 return NotFound();
             }
             ViewData["EntradaId"] = new SelectList(_contexto.Entradas, "Id", "Titulo", miembrosHabilitados.EntradaId);
-            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido", miembrosHabilitados.MiembroId);
+            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido",MiembroIdEncontrado);
             return View(miembrosHabilitados);
         }
 

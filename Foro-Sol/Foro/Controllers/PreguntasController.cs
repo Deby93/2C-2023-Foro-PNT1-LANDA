@@ -72,11 +72,11 @@ namespace Foro
                     pregunta = new Pregunta()
                     {
 
-                        MiembroId=MiembroIdEncontrado,
-                        EntradaId=pregunta.EntradaId,
-                        Descripcion=pregunta.Descripcion,
-                        Fecha=DateTime.Now,
-                        Activa=pregunta.Activa,
+                        MiembroId = MiembroIdEncontrado,
+                        EntradaId = pregunta.EntradaId,
+                        Descripcion = pregunta.Descripcion,
+                        Fecha = DateTime.Now,
+                        Activa = pregunta.Activa,
                     };
                 }
                 else
@@ -116,8 +116,11 @@ namespace Foro
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PreguntaId,MiembroId,EntradaId,Descripcion,Fecha,Activa")] Pregunta pregunta)
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, [Bind("PreguntaId,EntradaId,Descripcion,Fecha,Activa")] Pregunta pregunta)
         {
+
+            var MiembroIdEncontrado = Int32.Parse(_userManager.GetUserId(User));
             if (id != pregunta.PreguntaId)
             {
                 return NotFound();
@@ -127,8 +130,23 @@ namespace Foro
             {
                 try
                 {
-                    _contexto.Update(pregunta);
+                    var preguntaEnDb = await _contexto.Preguntas.FindAsync(id);
+                    if (preguntaEnDb == null)
+                    {
+                        return NotFound();
+                    }
+
+                    preguntaEnDb.MiembroId = MiembroIdEncontrado;
+                    ;
+                    preguntaEnDb.EntradaId = pregunta.EntradaId;
+                    preguntaEnDb.Descripcion = pregunta.Descripcion;
+                    preguntaEnDb.Fecha = pregunta.Fecha;
+                    preguntaEnDb.Activa = pregunta.Activa;
+
+                    _contexto.Preguntas.Update(preguntaEnDb);
                     await _contexto.SaveChangesAsync();
+
+                    return RedirectToAction("Details", "Preguntas", new { id = pregunta.PreguntaId });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -141,13 +159,15 @@ namespace Foro
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
-            ViewData["EntradaId"] = new SelectList(_contexto.Entradas, "Id", "Titulo", pregunta.EntradaId);
-            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido", pregunta.MiembroId);
+
+            ViewData["EntradaId"] = new SelectList(_contexto.Entradas, "EntradaId", "Descripcion", pregunta.EntradaId);
+            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "Id", "Apellido", MiembroIdEncontrado);
             return View(pregunta);
         }
+    
 
+        
         // GET: Preguntas/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

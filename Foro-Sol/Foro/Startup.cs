@@ -60,6 +60,8 @@ namespace Foro
                 }
             }
 
+
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
