@@ -3,8 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|c:\\users\\twatd\\onedrive\\escritorio\\proyecto\\2c-2023-foro-pnt1-landa\\foro-sol\\foro\\controllers\\respuestascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|solutionrelative:foro\\controllers\\respuestascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|c:\\users\\twatd\\onedrive\\escritorio\\proyecto\\2c-2023-foro-pnt1-landa\\foro-sol\\foro\\controllers\\preguntascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|solutionrelative:foro\\controllers\\preguntascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|c:\\users\\twatd\\onedrive\\escritorio\\proyecto\\2c-2023-foro-pnt1-landa\\foro-sol\\foro\\views\\preguntas\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|solutionrelative:foro\\views\\preguntas\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|c:\\users\\twatd\\onedrive\\escritorio\\proyecto\\2c-2023-foro-pnt1-landa\\foro-sol\\foro\\models\\respuesta.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|solutionrelative:foro\\models\\respuesta.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|c:\\users\\twatd\\onedrive\\escritorio\\proyecto\\2c-2023-foro-pnt1-landa\\foro-sol\\foro\\views\\preguntas\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -15,16 +27,8 @@
       "RelativeMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|solutionrelative:foro\\views\\preguntas\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|c:\\users\\twatd\\onedrive\\escritorio\\proyecto\\2c-2023-foro-pnt1-landa\\foro-sol\\foro\\controllers\\preguntascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|solutionrelative:foro\\controllers\\preguntascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|c:\\users\\twatd\\onedrive\\escritorio\\proyecto\\2c-2023-foro-pnt1-landa\\foro-sol\\foro\\views\\categorias\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|solutionrelative:foro\\views\\categorias\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|c:\\users\\twatd\\onedrive\\escritorio\\proyecto\\2c-2023-foro-pnt1-landa\\foro-sol\\foro\\controllers\\categoriascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|solutionrelative:foro\\controllers\\categoriascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|c:\\users\\twatd\\onedrive\\escritorio\\proyecto\\2c-2023-foro-pnt1-landa\\foro-sol\\foro\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -47,10 +51,6 @@
       "RelativeMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|solutionrelative:foro\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|c:\\users\\twatd\\onedrive\\escritorio\\proyecto\\2c-2023-foro-pnt1-landa\\foro-sol\\foro\\controllers\\respuestascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|solutionrelative:foro\\controllers\\respuestascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|c:\\users\\twatd\\onedrive\\escritorio\\proyecto\\2c-2023-foro-pnt1-landa\\foro-sol\\foro\\controllers\\miembroscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|solutionrelative:foro\\controllers\\miembroscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -70,16 +70,29 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
+              "Title": "Respuesta.cs",
+              "DocumentMoniker": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Models\\Respuesta.cs",
+              "RelativeDocumentMoniker": "Foro\\Models\\Respuesta.cs",
+              "ToolTip": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Models\\Respuesta.cs",
+              "RelativeToolTip": "Foro\\Models\\Respuesta.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-04T22:50:30.891Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Details.cshtml",
               "DocumentMoniker": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Views\\Preguntas\\Details.cshtml",
               "RelativeDocumentMoniker": "Foro\\Views\\Preguntas\\Details.cshtml",
-              "ToolTip": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Views\\Preguntas\\Details.cshtml*",
-              "RelativeToolTip": "Foro\\Views\\Preguntas\\Details.cshtml*",
+              "ToolTip": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Views\\Preguntas\\Details.cshtml",
+              "RelativeToolTip": "Foro\\Views\\Preguntas\\Details.cshtml",
               "ViewState": "AQIAABsAAAAAAAAAAAAiwDEAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-05-04T22:36:08.447Z",
@@ -88,19 +101,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Edit.cshtml",
-              "DocumentMoniker": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Views\\Preguntas\\Edit.cshtml",
-              "RelativeDocumentMoniker": "Foro\\Views\\Preguntas\\Edit.cshtml",
-              "ToolTip": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Views\\Preguntas\\Edit.cshtml*",
-              "RelativeToolTip": "Foro\\Views\\Preguntas\\Edit.cshtml*",
-              "ViewState": "AQIAABEAAAAAAAAAAAAiwCEAAAAOAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-05-04T22:30:00.314Z",
+              "Title": "PreguntasController.cs",
+              "DocumentMoniker": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Controllers\\PreguntasController.cs",
+              "RelativeDocumentMoniker": "Foro\\Controllers\\PreguntasController.cs",
+              "ToolTip": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Controllers\\PreguntasController.cs",
+              "RelativeToolTip": "Foro\\Controllers\\PreguntasController.cs",
+              "ViewState": "AQIAABsAAAAAAAAAAAAcwB0AAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-04T22:24:09.461Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
+              "Title": "RespuestasController.cs",
+              "DocumentMoniker": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Controllers\\RespuestasController.cs",
+              "RelativeDocumentMoniker": "Foro\\Controllers\\RespuestasController.cs",
+              "ToolTip": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Controllers\\RespuestasController.cs*",
+              "RelativeToolTip": "Foro\\Controllers\\RespuestasController.cs*",
+              "ViewState": "AQIAAEEAAAAAAAAAAAAAAEgAAAAwAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-04T19:16:19.801Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Views\\Preguntas\\Index.cshtml",
               "RelativeDocumentMoniker": "Foro\\Views\\Preguntas\\Index.cshtml",
@@ -113,33 +139,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "PreguntasController.cs",
-              "DocumentMoniker": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Controllers\\PreguntasController.cs",
-              "RelativeDocumentMoniker": "Foro\\Controllers\\PreguntasController.cs",
-              "ToolTip": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Controllers\\PreguntasController.cs",
-              "RelativeToolTip": "Foro\\Controllers\\PreguntasController.cs",
-              "ViewState": "AQIAABsAAAAAAAAAAAAcwB4AAAAFAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-04T22:24:09.461Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "CategoriasController.cs",
-              "DocumentMoniker": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Controllers\\CategoriasController.cs",
-              "RelativeDocumentMoniker": "Foro\\Controllers\\CategoriasController.cs",
-              "ToolTip": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Controllers\\CategoriasController.cs",
-              "RelativeToolTip": "Foro\\Controllers\\CategoriasController.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAxwBQAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-04T21:21:44.372Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 4,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Views\\Preguntas\\Edit.cshtml",
+              "RelativeDocumentMoniker": "Foro\\Views\\Preguntas\\Edit.cshtml",
+              "ToolTip": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Views\\Preguntas\\Edit.cshtml",
+              "RelativeToolTip": "Foro\\Views\\Preguntas\\Edit.cshtml",
+              "ViewState": "AQIAABEAAAAAAAAAAAAiwCEAAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-04T22:30:00.314Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Views\\Categorias\\Index.cshtml",
               "RelativeDocumentMoniker": "Foro\\Views\\Categorias\\Index.cshtml",
@@ -152,7 +165,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "Usuario.cs",
               "DocumentMoniker": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Models\\Usuario.cs",
               "RelativeDocumentMoniker": "Foro\\Models\\Usuario.cs",
@@ -165,7 +178,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "CrearAdmin.cshtml",
               "DocumentMoniker": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Views\\Account\\CrearAdmin.cshtml",
               "RelativeDocumentMoniker": "Foro\\Views\\Account\\CrearAdmin.cshtml",
@@ -178,7 +191,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "CrearAdmin.cs",
               "DocumentMoniker": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\ViewModels\\CrearAdmin.cs",
               "RelativeDocumentMoniker": "Foro\\ViewModels\\CrearAdmin.cs",
@@ -191,7 +204,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "AccountController.cs",
               "DocumentMoniker": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Controllers\\AccountController.cs",
               "RelativeDocumentMoniker": "Foro\\Controllers\\AccountController.cs",
@@ -204,7 +217,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "UsuariosController.cs",
               "DocumentMoniker": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Controllers\\UsuariosController.cs",
               "RelativeDocumentMoniker": "Foro\\Controllers\\UsuariosController.cs",
@@ -213,19 +226,6 @@
               "ViewState": "AQIAAEEAAAAAAAAAAAAcwEwAAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-04T21:14:22.059Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "RespuestasController.cs",
-              "DocumentMoniker": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Controllers\\RespuestasController.cs",
-              "RelativeDocumentMoniker": "Foro\\Controllers\\RespuestasController.cs",
-              "ToolTip": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Controllers\\RespuestasController.cs",
-              "RelativeToolTip": "Foro\\Controllers\\RespuestasController.cs",
-              "ViewState": "AQIAAIYAAAAAAAAAAAAcwJEAAAAmAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-04T19:16:19.801Z",
               "EditorCaption": ""
             },
             {

@@ -67,13 +67,25 @@ namespace Foro
             {
                 if (MiembroIdEncontrado != null)
                 {
-                    respuesta = new Respuesta()
+                    var preguntaAsociada = await _contexto.Preguntas.FindAsync(respuesta.PreguntaId);
+                    if (preguntaAsociada == null || (bool) !preguntaAsociada.Activa)
                     {
-                        PreguntaId=respuesta.PreguntaId,
-                        MiembroId = MiembroIdEncontrado,
-                        Descripcion=respuesta.Descripcion,
-                        Fecha = DateTime.Now,
-                    };
+                        ModelState.AddModelError(string.Empty, "No se puede crear una respuesta para una pregunta inactiva.");
+                        ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "Id", "Apellido", MiembroIdEncontrado);
+                        ViewData["PreguntaId"] = new SelectList(_contexto.Preguntas, "PreguntaId", "Descripcion", respuesta.PreguntaId);
+                        return View(respuesta);
+                    }
+                    else
+                    {
+                        respuesta = new Respuesta()
+                        {
+                            PreguntaId = respuesta.PreguntaId,
+                            MiembroId = MiembroIdEncontrado,
+                            Descripcion = respuesta.Descripcion,
+                            Fecha = DateTime.Now,
+                        };
+                    }
+                   
                 }
                 else
                 {
