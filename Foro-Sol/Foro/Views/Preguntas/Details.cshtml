@@ -41,6 +41,13 @@
             @Html.DisplayFor(model => model.Miembro.Apellido)
         </dd>
     </dl>
+    <h4>Respuestas</h4>
+    <ul>
+        @foreach (var respuesta in Model.Respuestas.OrderBy(r => r.Fecha))
+        {
+            <li>@respuesta.Descripcion - Fecha: @respuesta.Fecha</li>
+        }
+    </ul>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.PreguntaId">Editar</a> |

@@ -16,9 +16,7 @@ namespace Foro
         // GET: Categorias
         public async Task<IActionResult> Index()
         {
-              return _context.Categorias != null ? 
-                          View(await _context.Categorias.ToListAsync()) :
-                          Problem("Entity set 'ForoContexto.Categorias'  is null.");
+            return View(await _context.Categorias.OrderBy(c => c.Nombre).ToListAsync());
         }
 
         // GET: Categorias/Details/5

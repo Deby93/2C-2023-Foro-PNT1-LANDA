@@ -38,14 +38,20 @@ namespace Foro
             var pregunta = await _contexto.Preguntas
                 .Include(p => p.Entrada)
                 .Include(p => p.Miembro)
+                .Include(p => p.Respuestas)  // Incluir las respuestas asociadas a la pregunta
                 .FirstOrDefaultAsync(m => m.PreguntaId == id);
+
             if (pregunta == null)
             {
                 return NotFound();
             }
 
+            // Ordenar las respuestas por fecha de creación en orden ascendente
+            pregunta.Respuestas = pregunta.Respuestas.OrderBy(r => r.Fecha).ToList();
+
             return View(pregunta);
         }
+
 
         // GET: Preguntas/Create
         public IActionResult Create()
