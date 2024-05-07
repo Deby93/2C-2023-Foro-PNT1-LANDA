@@ -23,14 +23,14 @@ namespace Foro
         // GET: Preguntas
         public async Task<IActionResult> Index()
         {
-            var foroContexto = _contexto.Preguntas.Include(p => p.Entrada).Include(p => p.Miembro);
-            return View(await foroContexto.ToListAsync());
+            var preguntas = await _contexto.Preguntas.ToListAsync();
+            return View(preguntas);
         }
 
         // GET: Preguntas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _contexto.Preguntas == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -38,20 +38,29 @@ namespace Foro
             var pregunta = await _contexto.Preguntas
                 .Include(p => p.Entrada)
                 .Include(p => p.Miembro)
-                .Include(p => p.Respuestas)  // Incluir las respuestas asociadas a la pregunta
+                .Include(p => p.Respuestas)
                 .FirstOrDefaultAsync(m => m.PreguntaId == id);
 
+            List<Respuesta> respuestas = new();
+            respuestas = await _contexto.Respuestas
+             .Include(p => p.Miembro)
+             .Include(p => p.Pregunta)
+             .Include(p => p.Reacciones)
+             .OrderBy(p => p.Fecha)
+             .Where(m => m.PreguntaId == id).ToListAsync();
+           _= respuestas.Count;
             if (pregunta == null)
             {
                 return NotFound();
             }
+            var preguntas = _contexto.Preguntas.Where(p => p.PreguntaId== id).ToList();
+            return View(preguntas);
+            // ViewBag.idMasLikes = ObtenerMasLikes(pregunta);
+            // ViewBag.idMasDisLikes = ObtenerMasDislike(pregunta);
 
-            // Ordenar las respuestas por fecha de creación en orden ascendente
-            pregunta.Respuestas = pregunta.Respuestas.OrderBy(r => r.Fecha).ToList();
-
-            return View(pregunta);
+            
         }
-
+       
 
         // GET: Preguntas/Create
         public IActionResult Create()

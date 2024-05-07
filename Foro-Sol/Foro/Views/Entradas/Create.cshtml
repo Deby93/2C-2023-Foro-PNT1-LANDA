@@ -18,16 +18,16 @@
                 @Html.ActionLink("Crear nueva categoría", "Create", "Categorias")
 
             </div>
-          
+
             <div class="form-group">
                 <label asp-for="Titulo" class="control-label"></label>
                 <input asp-for="Titulo" class="form-control" />
                 <span asp-validation-for="Titulo" class="text-danger"></span>
             </div>
             <div class="form-group">
-               <label asp-for="Descripcion" class="control-label"></label>
+                <label asp-for="Descripcion" class="control-label"></label>
                 <textarea asp-for="Descripcion" class="form-control"></textarea>
-                <span asp-validation-for="Descripcion" class="text-danger"></span> 
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
@@ -46,5 +46,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

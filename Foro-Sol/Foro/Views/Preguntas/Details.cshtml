@@ -1,4 +1,4 @@
-﻿@model Foro.Pregunta
+﻿@model IEnumerable<Foro.Pregunta>
 
 @{
     ViewData["Title"] = "Detalles";
@@ -7,49 +7,40 @@
 <h1>Detalles</h1>
 
 <div>
-    <h4>Pregunta</h4>
+    <h4>Preguntas</h4>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Fecha)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Fecha)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Activa)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Activa)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Entrada)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Entrada.Titulo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Miembro)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Miembro.Apellido)
-        </dd>
-    </dl>
-    <h4>Respuestas</h4>
-    <ul>
-        @foreach (var respuesta in Model.Respuestas.OrderBy(r => r.Fecha))
-        {
-            <li>@respuesta.Descripcion - Fecha: @respuesta.Fecha</li>
-        }
-    </ul>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Descripcion)</th>
+                <th>Cantidad de Respuestas</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pregunta in Model)
+            {
+                <tr>
+                    <td>@pregunta.Descripcion</td>
+                    <td>@pregunta.Respuestas.Count()</td> <!-- Aquí se cuenta la cantidad de respuestas -->
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
+
+@foreach (var pregunta in Model)
+{
+    <div>
+        <h5>Respuestas</h5>
+        <ul>
+            @foreach (var respuesta in pregunta.Respuestas.OrderBy(r => r.Fecha))
+            {
+                <li>@respuesta.Descripcion - Fecha: @respuesta.Fecha</li>
+            }
+        </ul>
+    </div>
+}
+
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.PreguntaId">Editar</a> |
     <a asp-action="Index">Volver a la lista</a>
 </div>

@@ -18,179 +18,72 @@ namespace Foro
             _contexto = context;
             _userManager = userManager;
             _signinManager = signinManager;
-
         }
 
-        // GET: Reacciones
-        public async Task<IActionResult> Index()
+        // Acción para dar like a una respuesta
+        public async Task<IActionResult> Like(int respuestaId)
         {
-            var foroContexto = _contexto.Reacciones.Include(r => r.Miembro)
-                .Include(r => r.Respuesta);
-            return View(await foroContexto.ToListAsync());
-        }
-
-        // GET: Reacciones/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _contexto.Reacciones == null)
+            // Lógica para dar like a la respuesta con el ID proporcionado
+            // Por ejemplo:
+            var respuesta = await _contexto.Respuestas.FindAsync(respuestaId);
+            if (respuesta != null)
             {
-                return NotFound();
-            }
-
-            var reaccion = await _contexto.Reacciones
-                .Include(r => r.Miembro)
-                .Include(r => r.Respuesta)
-                .FirstOrDefaultAsync(m => m.MiembroId == id);
-            if (reaccion == null)
-            {
-                return NotFound();
-            }
-
-            return View(reaccion);
-        }
-
-        // GET: Reacciones/Create
-        public IActionResult Create()
-        {
-            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido");
-            ViewData["RespuestaId"] = new SelectList(_contexto.Respuestas, "RespuestaId", "Descripcion");
-            return View();
-        }
-
-        // POST: Reacciones/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RespuestaId,Fecha,MeGusta")] Reaccion reaccion)
-        {
-            var MiembroIdEncontrado = Int32.Parse(_userManager.GetUserId(User));
-            if (ModelState.IsValid)
-            {
-                if (MiembroIdEncontrado != null)
-                {
-                    reaccion = new Reaccion()
-                    {
-                        RespuestaId = reaccion.RespuestaId,
-                        MiembroId = MiembroIdEncontrado,
-                        Fecha = DateTime.Now,
-                        MeGusta=reaccion.MeGusta,
-                    };
-                }
-                else
-                {
-                    NotFound();
-                }
-                _contexto.Add(reaccion);
+                //respuesta.Likes++;
                 await _contexto.SaveChangesAsync();
-                return RedirectToAction("Index", "Respuestas");
-
+                TempData["Mensaje"] = "Has dado like a la respuesta.";
             }
-            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido", MiembroIdEncontrado);
-            ViewData["RespuestaId"] = new SelectList(_contexto.Respuestas, "RespuestaId", "Descripcion", reaccion.RespuestaId);
-            return View(reaccion);
+            else
+            {
+                TempData["Mensaje"] = "La respuesta no se encontró.";
+            }
+
+            return RedirectToAction("Index", "Home"); // Redirige a la página principal u otra vista
         }
 
-        // GET: Reacciones/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // Acción para dar dislike a una respuesta
+        public async Task<IActionResult> Dislike(int respuestaId)
         {
-            var MiembroIdEncontrado = Int32.Parse(_userManager.GetUserId(User));
-
-            if (id == null || _contexto.Reacciones == null)
+            // Lógica para dar dislike a la respuesta con el ID proporcionado
+            // Por ejemplo:
+            var respuesta = await _contexto.Respuestas.FindAsync(respuestaId);
+            if (respuesta != null)
             {
-                return NotFound();
+               // respuesta.Dislikes++;
+                await _contexto.SaveChangesAsync();
+                TempData["Mensaje"] = "Has dado dislike a la respuesta.";
+            }
+            else
+            {
+                TempData["Mensaje"] = "La respuesta no se encontró.";
             }
 
-            var reaccion = await _contexto.Reacciones.FindAsync(id);
-            if (reaccion == null)
-            {
-                return NotFound();
-            }
-            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido", MiembroIdEncontrado);
-            ViewData["RespuestaId"] = new SelectList(_contexto.Respuestas, "RespuestaId", "Descripcion", reaccion.RespuestaId);
-            return View(reaccion);
+            return RedirectToAction("Index", "Home"); // Redirige a la página principal u otra vista
         }
 
-        // POST: Reacciones/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RespuestaId,Fecha,MeGusta")] Reaccion reaccion)
+        // Acción para resetear las reacciones de una respuesta
+        public async Task<IActionResult> ResetReactions(int respuestaId)
         {
-            var MiembroIdEncontrado = Int32.Parse(_userManager.GetUserId(User));
-            if (id != reaccion.MiembroId)
+            // Lógica para resetear las reacciones de la respuesta con el ID proporcionado
+            // Por ejemplo:
+            var respuesta = await _contexto.Respuestas.FindAsync(respuestaId);
+            if (respuesta != null)
             {
-                return NotFound();
+              //  respuesta.Likes = 0;
+               // respuesta.Dislikes = 0;
+                await _contexto.SaveChangesAsync();
+                TempData["Mensaje"] = "Se han reseteado las reacciones de la respuesta.";
+            }
+            else
+            {
+                TempData["Mensaje"] = "La respuesta no se encontró.";
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _contexto.Update(reaccion);
-                    await _contexto.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ReaccionExists(MiembroIdEncontrado))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido", MiembroIdEncontrado);
-            ViewData["RespuestaId"] = new SelectList(_contexto.Respuestas, "RespuestaId", "Descripcion", reaccion.RespuestaId);
-            return View(reaccion);
+            return RedirectToAction("Index", "Home"); // Redirige a la página principal u otra vista
         }
 
-        // GET: Reacciones/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _contexto.Reacciones == null)
-            {
-                return NotFound();
-            }
+        // Otras acciones relacionadas con las reacciones
 
-            var reaccion = await _contexto.Reacciones
-                .Include(r => r.Miembro)
-                .Include(r => r.Respuesta)
-                .FirstOrDefaultAsync(m => m.MiembroId == id);
-            if (reaccion == null)
-            {
-                return NotFound();
-            }
-
-            return View(reaccion);
-        }
-
-        // POST: Reacciones/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_contexto.Reacciones == null)
-            {
-                return Problem("Entity set 'ForoContexto.Reaccion'  is null.");
-            }
-            var reaccion = await _contexto.Reacciones.FindAsync(id);
-            if (reaccion != null)
-            {
-                _contexto.Reacciones.Remove(reaccion);
-            }
-            
-            await _contexto.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool ReaccionExists(int id)
-        {
-          return (_contexto.Reacciones?.Any(e => e.MiembroId == id)).GetValueOrDefault();
-        }
     }
 }
+
+

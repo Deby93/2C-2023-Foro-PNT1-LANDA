@@ -18,32 +18,44 @@ namespace Foro
             _signinManager = signinManager;
 
         }
-            // GET: Entradas
-            public async Task<IActionResult> Index()
+        // GET: Entradas
+        public async Task<IActionResult> Index()
         {
             var foroContexto = _contexto.Entradas.Include(e => e.Categoria).Include(e => e.Miembro);
+
+            foreach (var entrada in foroContexto)
+            {
+                if (entrada.Preguntas != null && entrada.Preguntas.Any())
+                {
+                    entrada.Preguntas = entrada.Preguntas.OrderByDescending(p => p.Respuestas.Sum(r => r.Reacciones.Count(re => re.MeGusta == true))).ToList();
+                }
+            }
+
             return View(await foroContexto.ToListAsync());
         }
+
+
 
         // GET: Entradas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _contexto.Entradas == null)
-            {
-                return NotFound();
-            }
-
             var entrada = await _contexto.Entradas
-                .Include(e => e.Categoria)
-                .Include(e => e.Miembro)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(e => e.Preguntas)
+                    .ThenInclude(p => p.Respuestas)
+                .FirstOrDefaultAsync(e => e.Id == id);
+
             if (entrada == null)
             {
                 return NotFound();
             }
 
+
+
+
+
             return View(entrada);
         }
+
 
         [HttpGet]
         public IActionResult Create()
@@ -197,7 +209,31 @@ namespace Foro
             await _contexto.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        public async Task<IActionResult> MisEntradas()
+        {
+            var idMiembro = Int32.Parse(_userManager.GetUserId(User));
+            if (idMiembro == 0)
+            {
+                return NotFound();
+            }
+            List<Entrada> misEntradas = new();
 
+            misEntradas = await _contexto.Entradas.
+            Include(e => e.Categoria).
+            Include(e => e.Miembro).
+            OrderByDescending(e => e.Fecha).
+              Where(e => e.MiembroId == idMiembro).
+            ToListAsync();
+
+            var listaDeCategorias = await _contexto.Categorias.
+                Include(c => c.Entradas).
+                OrderBy(c => c.Nombre).
+                ToListAsync();
+
+
+            ViewBag.Categorias = listaDeCategorias;
+            return View(misEntradas);
+        }
         private bool EntradaExists(int id)
         {
           return (_contexto.Entradas?.Any(e => e.Id == id)).GetValueOrDefault();
