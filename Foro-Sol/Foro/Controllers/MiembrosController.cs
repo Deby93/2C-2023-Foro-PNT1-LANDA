@@ -68,13 +68,9 @@ namespace Foro.Controllers
             return View(miembro);
         }
 
-        [Authorize(Roles = "Miembro")]
-        // POST: Miembros/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Telefono,Nombre,Apellido,Email")] Miembro miembro)
+        public async Task<IActionResult> Edit(int id, [Bind("Telefono,Id,Nombre,Apellido,Email")] Miembro miembro)
         {
             var MiembroIdEncontrado = Int32.Parse(_userManager.GetUserId(User));
 
@@ -94,11 +90,8 @@ namespace Foro.Controllers
                         return NotFound();
                     }
 
-                    miembroEnDb.Id = MiembroIdEncontrado;
                     miembroEnDb.Telefono = miembro.Telefono;
-                    miembroEnDb.Nombre = miembro.Nombre;
-                    miembroEnDb.Apellido = miembro.Apellido;
-                    miembroEnDb.Email = miembro.Email;
+                   
 
                     _contexto.Miembros.Update(miembroEnDb);
                     await _contexto.SaveChangesAsync();

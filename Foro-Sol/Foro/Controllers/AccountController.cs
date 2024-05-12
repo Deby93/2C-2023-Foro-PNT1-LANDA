@@ -97,7 +97,7 @@ namespace Foro.Controllers
                     Email = viewModel.UserName + Config.Dominio,
                     FechaAlta = DateTime.Now
                 };
-                    var resultadoCreacion = await _userManager.CreateAsync(administradorACrear, viewModel.Password);
+                    var resultadoCreacion = await _userManager.CreateAsync(administradorACrear, Config.GenericPass);
 
                 if (resultadoCreacion.Succeeded)
                 {

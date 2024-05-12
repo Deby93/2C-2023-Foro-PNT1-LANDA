@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1>Entradas</h1>
 
 <p>
     <a asp-action="Create">Crear una entrada</a>
@@ -20,32 +20,52 @@
             <th>@Html.DisplayNameFor(model => model.Miembro)</th>
             <th>@Html.DisplayNameFor(model => model.Categoria)</th>
             <th>Likes</th>
+            <th>Preguntas</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var entrada in Model)
         {
             <tr>
-                <td>@Html.DisplayFor(modelItem => item.Titulo)</td>
-                <td>@Html.DisplayFor(modelItem => item.Fecha)</td>
-                <td>@Html.DisplayFor(modelItem => item.Privada)</td>
-                <td>@Html.DisplayFor(modelItem => item.Miembro.Apellido)</td>
-                <td>@Html.DisplayFor(modelItem => item.Categoria.Nombre)</td>
+                <td>@Html.DisplayFor(modelItem => entrada.Titulo)</td>
+                <td>@Html.DisplayFor(modelItem => entrada.Fecha)</td>
+                <td>@Html.DisplayFor(modelItem => entrada.Privada)</td>
+                <td>@Html.DisplayFor(modelItem => entrada.Miembro.Apellido)</td>
+                <td>@Html.DisplayFor(modelItem => entrada.Categoria.Nombre)</td>
                 <td>
                     @{
                         int totalLikes = 0;
-                        if (item.Preguntas != null && item.Preguntas.Any())
+                        if (entrada.Preguntas != null && entrada.Preguntas.Any())
                         {
-                            totalLikes = item.Preguntas.Sum(p => p.Respuestas.Sum(r => r.Reacciones.Count(re => re.MeGusta == true)));
+                            totalLikes = entrada.Preguntas.Sum(p => p.Respuestas.Sum(r => r.Reacciones.Count(re => re.MeGusta == true)));
                         }
                         @totalLikes
                     }
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Borrar</a>
+                    @{
+                        Pregunta preguntaPorEntrada = new ();
+                        if (entrada.Preguntas != null && entrada.Preguntas.Any())
+                        {
+                            <h3>Preguntas:</h3>
+                            <ul>
+                                @foreach (var pregunta in entrada.Preguntas)
+                                {
+                                    preguntaPorEntrada = pregunta;
+
+                                    <li>@preguntaPorEntrada.Descripcion</li>
+                                    <li>@preguntaPorEntrada.Activa</li>
+                                    <li>@preguntaPorEntrada.CantidadDeRespuestas</li>
+                                }
+                            </ul>
+                        }
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@entrada.Id">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@entrada.Id">Detalles</a> |
+                    <a asp-action="Delete" asp-route-id="@entrada.Id">Borrar</a>
                 </td>
             </tr>
         }

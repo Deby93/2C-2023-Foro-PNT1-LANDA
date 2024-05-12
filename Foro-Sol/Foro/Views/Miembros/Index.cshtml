@@ -6,9 +6,7 @@
 
 <h1>Miembro</h1>
 
-@* <p>
-    <a asp-action="Create">Crear un nuevo miembro</a>
-</p> *@
+
 <table class="table">
     <thead>
         <tr>
@@ -28,8 +26,7 @@
                 @Html.DisplayNameFor(model => model.Email)
             </th>
             <th>
-@*               //  @Html.DisplayNameFor(model => model.Password)
- *@            </th>
+          </th>
             <th></th>
         </tr>
     </thead>
@@ -52,8 +49,7 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-@*                 @Html.DisplayFor(modelItem => item.Password)
- *@            </td>
+             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |

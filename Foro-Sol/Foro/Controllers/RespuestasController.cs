@@ -68,7 +68,7 @@ namespace Foro
                 if (MiembroIdEncontrado != null)
                 {
                     var preguntaAsociada = await _contexto.Preguntas.FindAsync(respuesta.PreguntaId);
-                    if (preguntaAsociada == null || (bool) !preguntaAsociada.Activa)
+                    if (preguntaAsociada == null || (bool) !preguntaAsociada.Activa )
                     {
                         ModelState.AddModelError(string.Empty, "No se puede crear una respuesta para una pregunta inactiva.");
                         ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "Id", "Apellido", MiembroIdEncontrado);
@@ -77,13 +77,15 @@ namespace Foro
                     }
                     else
                     {
-                        respuesta = new Respuesta()
-                        {
-                            PreguntaId = respuesta.PreguntaId,
-                            MiembroId = MiembroIdEncontrado,
-                            Descripcion = respuesta.Descripcion,
-                            Fecha = DateTime.Now,
-                        };
+                       
+                            respuesta = new Respuesta()
+                            {
+                                PreguntaId = respuesta.PreguntaId,
+                                MiembroId = MiembroIdEncontrado,
+                                Descripcion = respuesta.Descripcion,
+                                Fecha = DateTime.Now,
+                            };
+
                     }
                    
                 }

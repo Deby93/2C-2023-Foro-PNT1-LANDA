@@ -13,9 +13,9 @@
         public const string Administrador = "ADMINISTRADOR";
         public const string Miembro = "MIEMBRO";
         public const string AuthMiembroOrAdmistrador = "MIEMBRO,ADMINISTRADOR";
-        public const string MiembroRolName = "Miembro";
-        public const string AdministradorRolName = "Administrador";
-        public const string NombreBaseMiembro = "Miembro";
+        public const string MiembroRolName = "MIEMBRO";
+        public const string AdministradorRolName = "ADMINISTRADOR";
+        public const string NombreBaseMiembro = "MIEMBRO";
         public static readonly List<string> RolesParaAdministrador = new() { AdministradorRolName };
         public static readonly List<string> RolesParaMiembro= new() { MiembroRolName };
 
