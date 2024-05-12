@@ -214,6 +214,5 @@ El foro, mostrará los encabezados en la home:
 -Los accesos a las funcionalidades y/o capacidades, debe estar basada en los roles que tenga cada individuo.
 
 ----
-**Diagrama de clases:** 🏞️
 
 
