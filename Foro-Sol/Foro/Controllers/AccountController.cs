@@ -94,7 +94,7 @@ namespace Foro.Controllers
                     Nombre = viewModel.Nombre,
                     Apellido = viewModel.Apellido,
                     UserName = viewModel.UserName,
-                    Email = viewModel.UserName + Config.Dominio,
+                    Email = (viewModel.UserName + Config.Dominio).ToLower(),
                     FechaAlta = DateTime.Now
                 };
                     var resultadoCreacion = await _userManager.CreateAsync(administradorACrear, Config.GenericPass);

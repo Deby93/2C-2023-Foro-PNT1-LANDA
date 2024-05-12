@@ -44,23 +44,6 @@
                     }
                 </td>
                 <td>
-                    @{
-                        Pregunta preguntaPorEntrada = new ();
-                        if (entrada.Preguntas != null && entrada.Preguntas.Any())
-                        {
-                            <h3>Preguntas:</h3>
-                            <ul>
-                                @foreach (var pregunta in entrada.Preguntas)
-                                {
-                                    preguntaPorEntrada = pregunta;
-
-                                    <li>@preguntaPorEntrada.Descripcion</li>
-                                    <li>@preguntaPorEntrada.Activa</li>
-                                    <li>@preguntaPorEntrada.CantidadDeRespuestas</li>
-                                }
-                            </ul>
-                        }
-                    }
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@entrada.Id">Editar</a> |
