@@ -36,7 +36,7 @@ namespace Foro.Controllers
 
             if (ModelState.IsValid)
             {
-                var miembroACrear = new Miembro
+                Miembro miembroACrear = new ()
                 {
                     Telefono = viewModel.Telefono,
                     Nombre = viewModel.Nombre,
@@ -51,7 +51,7 @@ namespace Foro.Controllers
 
                 if (resultadoCreacion.Succeeded)
                 {
-                    var resultado = await _userManager.AddToRoleAsync(miembroACrear, "Miembro");
+                    var resultado = await _userManager.AddToRoleAsync(miembroACrear, Config.MiembroRolName);
 
                     if (resultado.Succeeded)
                     {
@@ -89,19 +89,19 @@ namespace Foro.Controllers
         {
             if (ModelState.IsValid)
             {
-                var administradorACrear = new Usuario
+                Usuario administradorACrear =  new()
                 {
                     Nombre = viewModel.Nombre,
                     Apellido = viewModel.Apellido,
                     UserName = viewModel.UserName,
                     Email = (viewModel.UserName + Config.Dominio).ToLower(),
-                    FechaAlta = DateTime.Now
+                    FechaAlta = DateTime.Now,
                 };
                     var resultadoCreacion = await _userManager.CreateAsync(administradorACrear, Config.GenericPass);
 
                 if (resultadoCreacion.Succeeded)
                 {
-                    var resultado = await _userManager.AddToRoleAsync(administradorACrear, "Administrador");
+                    var resultado = await _userManager.AddToRoleAsync(administradorACrear, Config.AdministradorRolName);
 
                     if (resultado.Succeeded)
                     {
@@ -175,6 +175,7 @@ namespace Foro.Controllers
             {
                 //var user = await _signinManager.PasswordSignInAsync(ViewModel.Email, ViewModel.Password, ViewModel.RememberMe, false);
                 var usuario = _context.Usuarios.FirstOrDefault(p => p.Email == ViewModel.Email || p.UserName == ViewModel.Email);
+       
                 if (usuario == null)
                 {
                     ModelState.AddModelError(string.Empty, "Inicio de sesión inválido");

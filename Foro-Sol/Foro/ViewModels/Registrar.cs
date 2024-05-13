@@ -6,7 +6,6 @@ namespace Foro
 {
     public class Registrar
     {
-  //     [RegularExpression(@"[0-9]{2}[0-9]{4}[0-9]{4}", ErrorMessage = ErrorMsg.FormatoCelularInvalido)]
 
         public string? Telefono { get; set; }
 

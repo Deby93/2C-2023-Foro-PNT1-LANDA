@@ -11,12 +11,11 @@ namespace Foro
     {
         private readonly ForoContexto _context;
         private readonly UserManager<Usuario> _userManager;
-        //inyectar el usermanager
 
         public UsuariosController(ForoContexto context, UserManager<Usuario> usermanager)
         {
             _context = context;
-            _userManager = usermanager;//inyectado
+            _userManager = usermanager;
         }
 
 
@@ -24,9 +23,8 @@ namespace Foro
         // GET: Usuarios
         public async Task<IActionResult> Index()
         {
-            return _context.Usuarios != null ?
-                        View(await _context.Usuarios.ToListAsync()) :
-                        Problem("Entity set 'ForoContexto.Usuarios'  is null.");
+            var administradores = _userManager.GetUsersInRoleAsync("ADMINISTRADOR").Result;
+            return View(administradores);
         }
 
         // GET: Usuarios/Details/5
@@ -59,15 +57,11 @@ namespace Foro
         }
 
 
-        // POST: Usuarios/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost] //resuelve ambiguedad en el metodo create que es sobrecargado
+       
+        [HttpPost] 
         [ValidateAntiForgeryToken]
-        //Bind indicar que atributos  necesito
-
-       // [Authorize(Roles = Config.Administrador)] // Requiere que el usuario esté autenticado y tenga el rol de "Administrador" para crear usuarios.
-        public async Task<IActionResult> Create([Bind("id,Nombre,Apellido,FechaAltail,Password")] Usuario usuario)
+       
+        public async Task<IActionResult> Create([Bind("id,Nombre,Apellido,FechaAlta,Password")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
@@ -102,8 +96,7 @@ namespace Foro
             return View(usuario);
         }
 
-        // [Authorize(Roles =Config.Administrador)]
-        // GET: Usuarios/Edit/5
+       
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -156,10 +149,8 @@ namespace Foro
             }
             return View(usuario);
         }
-      //  [Authorize(Roles = Config.Administrador)]
 
 
-        // GET: Usuarios/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Usuarios == null)
