@@ -6,9 +6,12 @@
 
 <h1>Categoría</h1>
 
-<p>
+@if (User.Identity.IsAuthenticated)
+{
     <a asp-action="Create">Crear una categoría</a>
-</p>
+}
+
+
 <table class="table">
     <thead>
         <tr>
@@ -19,17 +22,24 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.CategoriaId">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.CategoriaId">Detalles</a> |
-                <a asp-action="Delete" asp-route-id="@item.CategoriaId">Borrar</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.CategoriaId">Detalles</a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.CategoriaId">Editar</a>
+                        <a asp-action="Delete" asp-route-id="@item.CategoriaId">Borrar</a>
+                    }
+
+
+
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

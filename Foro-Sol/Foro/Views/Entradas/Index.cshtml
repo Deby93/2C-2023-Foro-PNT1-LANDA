@@ -7,9 +7,11 @@
 <h1>Entradas</h1>
 
 <p>
-    <a asp-action="Create">Crear una entrada</a>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <a asp-action="Create">Crear una entrada</a>
+    }
 </p>
-<h3>Lista de Entradas con Preguntas Ordenadas por Likes</h3>
 
 <table class="table">
     <thead>
@@ -19,9 +21,8 @@
             <th>@Html.DisplayNameFor(model => model.Privada)</th>
             <th>@Html.DisplayNameFor(model => model.Miembro)</th>
             <th>@Html.DisplayNameFor(model => model.Categoria)</th>
-            <th>Likes</th>
-            <th>Preguntas</th>
-            <th></th>
+            <th>Me gustas</th>
+            <a asp-action="MisEntradas">Mis entradas</a>
         </tr>
     </thead>
     <tbody>
@@ -46,9 +47,13 @@
                 <td>
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@entrada.Id">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@entrada.Id">Detalles</a> |
-                    <a asp-action="Delete" asp-route-id="@entrada.Id">Borrar</a>
+                    <a asp-action="Details" asp-route-id="@entrada.Id">Detalles</a>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a asp-action="Edit" asp-route-id="@entrada.Id">Editar</a>
+                        <a asp-action="Delete" asp-route-id="@entrada.Id">Borrar</a>
+                    }
                 </td>
             </tr>
         }

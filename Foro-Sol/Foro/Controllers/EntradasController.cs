@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -47,13 +48,10 @@ namespace Foro
                 return NotFound();
             }
 
-
-
-
-
             return View(entrada);
         }
 
+      //  [Authorize(Roles = Config.Miembro)]
 
         [HttpGet]
         public IActionResult Create()
@@ -62,6 +60,7 @@ namespace Foro
             ViewData["CategoriaId"] = new SelectList(_contexto.Categorias.OrderBy(p => p.Nombre), "CategoriaId", "Nombre");
             return View();
         }
+        [Authorize(Roles = Config.Miembro)]
 
         // GET: Entradas/Create
         public async Task<IActionResult> Create([Bind("EntradaId,Titulo,Descripcion,CategoriaId, Fecha,Privada,Categoria,")] Entrada entrada)
@@ -96,9 +95,9 @@ namespace Foro
             ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "Id", "Apellido", MiembroIdEncontrado);
             return View(entrada);
         }
-        
-       
-        // GET: Entradas/Edit/5
+
+        [Authorize(Roles = Config.Miembro)]
+
         public async Task<IActionResult> Edit(int? id)
         {
             var MiembroIdEncontrado = Int32.Parse(_userManager.GetUserId(User));
@@ -117,9 +116,7 @@ namespace Foro
             return View(entrada);
         }
 
-        // POST: Entradas/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = Config.Miembro)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Titulo,Fecha,Descripcion,CategoriaId,Privada")] Entrada entrada)

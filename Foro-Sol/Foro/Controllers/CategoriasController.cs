@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -38,6 +39,7 @@ namespace Foro
         }
 
         // GET: Categorias/Create
+
         public IActionResult Create()
         {
             return View();
@@ -46,6 +48,8 @@ namespace Foro
         // POST: Categorias/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+       // [Authorize(Roles = Config.Miembro)]
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CategoriaId,Nombre")] Categoria categoria)
@@ -68,6 +72,8 @@ namespace Foro
         }
 
         // GET: Categorias/Edit/5
+       // [Authorize(Roles = Config.Miembro)]
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Categorias == null)
@@ -83,9 +89,8 @@ namespace Foro
             return View(categoria);
         }
 
-        // POST: Categorias/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+       // [Authorize(Roles = Config.Miembro)]
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("CategoriaId,Nombre")] Categoria categoria)
@@ -119,7 +124,7 @@ namespace Foro
             return View(categoria);
         }
 
-        // GET: Categorias/Delete/5
+      //  [Authorize(Roles = Config.Miembro)]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Categorias == null)
@@ -137,7 +142,7 @@ namespace Foro
             return View(categoria);
         }
 
-        // POST: Categorias/Delete/5
+     //   [Authorize(Roles = Config.Miembro)]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

@@ -9,17 +9,17 @@
     }
 }
 
-<h1 class="btn-info text-center text-white">Entradas</h1>
+<h1 class="text-white">Entradas</h1>
 
 <p>
     @if (User.IsInRole("Miembro"))
     {
-        <a class="btn btn-success text-white" asp-controller="Entradas" asp-action="Create">Crear Nueva Entrada</a>
+        <a  asp-controller="Entradas" asp-action="Create">Crear Nueva Entrada</a>
     }
 </p>
 
 <table class="table">
-    <thead class="alert-secondary text-black-50">
+    <thead class="text-black">
         <tr>
             <th>
                 Categoría
@@ -27,11 +27,7 @@
             <th>
                 Título
             </th>
-
-            @if (User.IsInRole("Usuario"))
-            {
-                <th></th>
-            }
+          
             <th></th>
         </tr>
     </thead>
@@ -48,15 +44,15 @@
                 @if (User.IsInRole("Usuario"))
                 {
                     <td>
-                        <a class="btn btn-info" href="@Url.Action("Details", "Entradas", new { id = item.Id })">Detalles</a>
-                        <a class="btn btn-danger" href="@Url.Action("Delete", "Entradas", new { id = item.Id })">Eliminar</a>
+                        <a  href="@Url.Action("Details", "Entradas", new { id = item.Id })">Detalles</a>
+                        <a  href="@Url.Action("Delete", "Entradas", new { id = item.Id })">Eliminar</a>
                     </td>
                 }
                 else if (item.MiembroId == UsuarioId)
                 {
                     <td>
-                        <a class="btn btn-info" href="@Url.Action("Details", "Entradas", new { id = item.Id })">Detalles</a>
-                        <a class="btn btn-danger" href="@Url.Action("Delete", "Entradas", new { id = item.Id })">Eliminar</a>
+                        <a  href="@Url.Action("Details", "Entradas", new { id = item.Id })">Detalles</a>
+                        <a  href="@Url.Action("Delete", "Entradas", new { id = item.Id })">Eliminar</a>
                     </td>
                 }
             </tr>
@@ -64,3 +60,4 @@
     </tbody>
 </table>
 <p class="">Se encontraron: @Model.Count() Entradas en esta categoría</p>
+<a asp-action="Index">Volver a la  lista</a>

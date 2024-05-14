@@ -19,6 +19,11 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.CategoriaId">Editar</a> |
+    @if (User.Identity.IsAuthenticated)
+    {
+        <a asp-action="Edit" asp-route-id="@Model?.CategoriaId">Editar</a>
+ 
+    }
+  
     <a asp-action="Index">Volver a la lista</a>
 </div>

@@ -3,6 +3,7 @@ using System.Diagnostics;
 
 namespace Foro
 {
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
