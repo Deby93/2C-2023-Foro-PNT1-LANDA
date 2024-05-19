@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
+
 
 
 namespace Foro
@@ -68,7 +70,7 @@ namespace Foro
             var MiembroIdEncontrado = Int32.Parse(_userManager.GetUserId(User));
             if (ModelState.IsValid)
             {
-                var existingEntrada = await _contexto.Entradas.FirstOrDefaultAsync(e => e.Titulo == entrada.Titulo && e.Id != entrada.Id);
+                var existingEntrada = await _contexto.Entradas.FirstOrDefaultAsync(e => e.Titulo.ToLower() == entrada.Titulo.ToLower() && e.Id != entrada.Id);
                 if (existingEntrada != null)
                 {
                     ModelState.AddModelError("entrada.Titulo", "Ya existe una entrada con ese titulo.");

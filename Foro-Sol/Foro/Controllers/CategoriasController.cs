@@ -55,7 +55,7 @@ namespace Foro
             if (ModelState.IsValid)
             {
 
-                var existingCategoria = await _contexto.Categorias.FirstOrDefaultAsync(c => c.Nombre == categoria.Nombre && c.CategoriaId != categoria.CategoriaId);
+                var existingCategoria = await _contexto.Categorias.FirstOrDefaultAsync(c => c.Nombre.ToLower() == categoria.Nombre.ToLower() && c.CategoriaId != categoria.CategoriaId);
                 if (existingCategoria != null)
                 {
                     ModelState.AddModelError("categoria.Nombre", "Ya existe una categoría con este nombre.");
