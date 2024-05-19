@@ -73,6 +73,13 @@ namespace Foro
 
             if (ModelState.IsValid)
             {
+                //var existingRespuesta = await _contexto.Respuestas.FirstOrDefaultAsync(r => r.Descripcion == respuesta.Descripcion && r.RespuestaId != respuesta.RespuestaId);
+                //if (existingRespuesta != null)
+                {
+                    ModelState.AddModelError("respuesta.Descripcion", "Ya existe una respuesta con esa descripcion.");
+                    return View(respuesta);
+                }
+
                 if (MiembroIdEncontrado != 0)
                 {
                     var preguntaAsociada = await _contexto.Preguntas.FindAsync(respuesta.PreguntaId);

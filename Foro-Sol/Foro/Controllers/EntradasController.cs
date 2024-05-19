@@ -60,7 +60,7 @@ namespace Foro
             ViewData["CategoriaId"] = new SelectList(_contexto.Categorias.OrderBy(p => p.Nombre), "CategoriaId", "Nombre");
             return View();
         }
-        [Authorize(Roles = Config.Miembro)]
+       // [Authorize(Roles = Config.Miembro)]
 
         // GET: Entradas/Create
         public async Task<IActionResult> Create([Bind("EntradaId,Titulo,Descripcion,CategoriaId, Fecha,Privada,Categoria,")] Entrada entrada)
@@ -68,6 +68,15 @@ namespace Foro
             var MiembroIdEncontrado = Int32.Parse(_userManager.GetUserId(User));
             if (ModelState.IsValid)
             {
+                var existingEntrada = await _contexto.Entradas.FirstOrDefaultAsync(e => e.Titulo == entrada.Titulo && e.Id != entrada.Id);
+                if (existingEntrada != null)
+                {
+                    ModelState.AddModelError("entrada.Titulo", "Ya existe una entrada con ese titulo.");
+
+                    return RedirectToAction("Create", "Entradas");
+                }
+
+
                 if (MiembroIdEncontrado != null)
                 {
                     entrada = new Entrada()

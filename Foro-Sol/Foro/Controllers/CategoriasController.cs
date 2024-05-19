@@ -7,28 +7,28 @@ namespace Foro
 {
     public class CategoriasController : Controller
     {
-        private readonly ForoContexto _context;
+        private readonly ForoContexto _contexto;
 
         public CategoriasController(ForoContexto context)
         {
-            _context = context;
+            _contexto = context;
         }
 
         // GET: Categorias
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Categorias.OrderBy(c => c.Nombre).ToListAsync());
+            return View(await _contexto.Categorias.OrderBy(c => c.Nombre).ToListAsync());
         }
 
         // GET: Categorias/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Categorias == null)
+            if (id == null || _contexto.Categorias == null)
             {
                 return NotFound();
             }
 
-            var categoria = await _context.Categorias
+            var categoria = await _contexto.Categorias
                 .FirstOrDefaultAsync(m => m.CategoriaId == id);
             if (categoria == null)
             {
@@ -45,9 +45,7 @@ namespace Foro
             return View();
         }
 
-        // POST: Categorias/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+      
        // [Authorize(Roles = Config.Miembro)]
 
         [HttpPost]
@@ -57,15 +55,15 @@ namespace Foro
             if (ModelState.IsValid)
             {
 
-                var existingCategoria = await _context.Categorias.FirstOrDefaultAsync(c => c.Nombre == categoria.Nombre && c.CategoriaId != categoria.CategoriaId);
+                var existingCategoria = await _contexto.Categorias.FirstOrDefaultAsync(c => c.Nombre == categoria.Nombre && c.CategoriaId != categoria.CategoriaId);
                 if (existingCategoria != null)
                 {
                     ModelState.AddModelError("categoria.Nombre", "Ya existe una categoría con este nombre.");
                     return View(categoria);
                 }
 
-                _context.Categorias.Add(categoria);
-                await _context.SaveChangesAsync();
+                _contexto.Categorias.Add(categoria);
+                await _contexto.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(categoria);
@@ -76,12 +74,12 @@ namespace Foro
 
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Categorias == null)
+            if (id == null || _contexto.Categorias == null)
             {
                 return NotFound();
             }
 
-            var categoria = await _context.Categorias.FindAsync(id);
+            var categoria = await _contexto.Categorias.FindAsync(id);
             if (categoria == null)
             {
                 return NotFound();
@@ -105,8 +103,8 @@ namespace Foro
                 try
                 {
                    
-                    _context.Update(categoria);
-                    await _context.SaveChangesAsync();
+                    _contexto.Update(categoria);
+                    await _contexto.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -127,12 +125,12 @@ namespace Foro
       //  [Authorize(Roles = Config.Miembro)]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Categorias == null)
+            if (id == null || _contexto.Categorias == null)
             {
                 return NotFound();
             }
 
-            var categoria = await _context.Categorias
+            var categoria = await _contexto.Categorias
                 .FirstOrDefaultAsync(m => m.CategoriaId == id);
             if (categoria == null)
             {
@@ -147,23 +145,23 @@ namespace Foro
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Categorias == null)
+            if (_contexto.Categorias == null)
             {
                 return Problem("Entity set 'ForoContexto.Categorias'  is null.");
             }
-            var categoria = await _context.Categorias.FindAsync(id);
+            var categoria = await _contexto.Categorias.FindAsync(id);
             if (categoria != null)
             {
-                _context.Categorias.Remove(categoria);
+                _contexto.Categorias.Remove(categoria);
             }
             
-            await _context.SaveChangesAsync();
+            await _contexto.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CategoriaExists(int id)
         {
-          return (_context.Categorias?.Any(e => e.CategoriaId == id)).GetValueOrDefault();
+          return (_contexto.Categorias?.Any(e => e.CategoriaId == id)).GetValueOrDefault();
         }
     }
 }
