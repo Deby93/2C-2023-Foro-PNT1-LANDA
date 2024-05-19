@@ -3,9 +3,6 @@
     ViewData["Title"] = "Foro";
 }
 
-@{
-    ViewData["Title"] = "Home Page";
-}
 <div class="text-center mt-5 mb-4">
     <img src="~/img/naranjaa-11.png" width="400" height="500" />
 </div>
@@ -17,39 +14,5 @@
         <p class="text-info">@ViewBag.Mensaje</p>
     </div>
 }
-@* 
-<div class="container d-flex justify-content-center">
-    <div class="card">
-        <div class="card-header">
-            <h1 class="btn-primary text-center text-white"> @Html.DisplayNameFor(model => model.Top3MiembrosConMasEtradasUltimoMes)</h1>
-        </div>
-        <div class="card-body">
-            <table class="table">
-                <tbody>
-                    @if (Model.Top3MiembrosConMasEtradasUltimoMes != null)
-                    {
-                        @foreach (var item in Model.Top3MiembrosConMasEtradasUltimoMes)
-                        {
-                            <tr>
-                                <th>
-                                    <p class="alert-info">@item.NombreCompleto</p>
-                                </th>
-                            </tr>
-                        }
-                    }
-                    else
-                    {
-                        <tr>
-                            <th>
-                                <h3 class="alert-info">No hay registros dentro del ultimo mes</h3>
-                            </th>
-                        </tr>
-                    }
-                </tbody> *@
-@*             </table>
-        </div>
-    </div>
-</div>
- *@
 
 

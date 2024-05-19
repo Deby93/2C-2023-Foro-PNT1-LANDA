@@ -88,7 +88,7 @@ namespace Foro.Controllers
                 }
             }
         }
- 
+
         private Miembro CrearMiembro()
         {
             Miembro miembro = new();
