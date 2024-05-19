@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 
 namespace Foro
@@ -58,53 +59,64 @@ namespace Foro
             return View();
         }
 
-        // POST: Respuestas/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("RespuestaId,PreguntaId,Descripcion,Fecha")] Respuesta respuesta)
         {
-            var MiembroIdEncontrado = Int32.Parse(_userManager.GetUserId(User));
+            // Obtiene el MiembroId del usuario autenticado
+            int MiembroIdEncontrado = 0;
+            var userClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+            if (userClaim != null)
+            {
+                MiembroIdEncontrado = Int32.Parse(userClaim.Value);
+            }
+
             if (ModelState.IsValid)
             {
-                if (MiembroIdEncontrado != null)
+                if (MiembroIdEncontrado != 0)
                 {
                     var preguntaAsociada = await _contexto.Preguntas.FindAsync(respuesta.PreguntaId);
-                    if (preguntaAsociada == null || (bool) !preguntaAsociada.Activa )
+                    if (preguntaAsociada == null || (bool)!preguntaAsociada.Activa)
                     {
                         ModelState.AddModelError(string.Empty, "No se puede crear una respuesta para una pregunta inactiva.");
                         ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "Id", "Apellido", MiembroIdEncontrado);
                         ViewData["PreguntaId"] = new SelectList(_contexto.Preguntas, "PreguntaId", "Descripcion", respuesta.PreguntaId);
                         return View(respuesta);
                     }
+
+                    // Verifica que el miembro que responde no sea el mismo que hizo la pregunta
+                    if (preguntaAsociada.MiembroId != MiembroIdEncontrado)
+                    {
+                        respuesta = new Respuesta
+                        {
+                            PreguntaId = respuesta.PreguntaId,
+                            MiembroId = MiembroIdEncontrado,
+                            Descripcion = respuesta.Descripcion,
+                            Fecha = DateTime.Now,
+                        };
+
+                        _contexto.Add(respuesta);
+                        await _contexto.SaveChangesAsync();
+                        return RedirectToAction("Index", "Preguntas");
+                    }
                     else
                     {
-                       
-                            respuesta = new Respuesta()
-                            {
-                                PreguntaId = respuesta.PreguntaId,
-                                MiembroId = MiembroIdEncontrado,
-                                Descripcion = respuesta.Descripcion,
-                                Fecha = DateTime.Now,
-                            };
-
+                        ModelState.AddModelError(string.Empty, "No puedes responder a tu propia pregunta.");
                     }
-                   
                 }
                 else
                 {
-                    NotFound();
+                    return NotFound();
                 }
-                _contexto.Add(respuesta);
-                await _contexto.SaveChangesAsync();
-                return RedirectToAction("Index", "Preguntas");
-
             }
-            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido",MiembroIdEncontrado);
+
+            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "Id", "Apellido", MiembroIdEncontrado);
             ViewData["PreguntaId"] = new SelectList(_contexto.Preguntas, "PreguntaId", "Descripcion", respuesta.PreguntaId);
             return View(respuesta);
         }
+
+
+
 
         // GET: Respuestas/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -126,9 +138,6 @@ namespace Foro
             return View(respuesta);
         }
 
-        // POST: Respuestas/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("RespuestaId,PreguntaId,Descripcion,Fecha")] Respuesta respuesta)
@@ -197,7 +206,6 @@ namespace Foro
             return View(respuesta);
         }
 
-        // POST: Respuestas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

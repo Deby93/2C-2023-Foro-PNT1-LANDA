@@ -63,9 +63,9 @@ namespace Foro
 
             
         }
-       
 
-        // GET: Preguntas/Create
+
+        [HttpGet]
         public IActionResult Create()
         {
 
@@ -74,9 +74,6 @@ namespace Foro
             return View();
         }
 
-        // POST: Preguntas/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("PreguntaId,EntradaId,Descripcion,Fecha,Activa")] Pregunta pregunta)
@@ -89,7 +86,6 @@ namespace Foro
                 {
                     pregunta = new Pregunta()
                     {
-
                         MiembroId = MiembroIdEncontrado,
                         EntradaId = pregunta.EntradaId,
                         Descripcion = pregunta.Descripcion,
@@ -129,9 +125,6 @@ namespace Foro
             return View(pregunta);
         }
 
-        // POST: Preguntas/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [HttpPost]
@@ -205,7 +198,6 @@ namespace Foro
             return View(pregunta);
         }
 
-        // POST: Preguntas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
