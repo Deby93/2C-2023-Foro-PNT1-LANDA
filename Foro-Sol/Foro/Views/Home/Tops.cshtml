@@ -3,124 +3,43 @@
     ViewData["Title"] = "Foro";
 }
 
-<div class="card col-md-12 mt-3 p-3">
+<style>
+    /* Elimina el subrayado de los títulos */
+    .card-title {
+        text-decoration: none !important;
+        color: inherit !important; /* Mantener el color de texto predeterminado */
+    }
+
+    /* Estilo para tarjetas con fondo durazno */
+    .peach-bg {
+        background-color: #FFDAB9; /* Código de color durazno */
+        border-radius: 10px; /* Ajusta la esquina redondeada de la tarjeta */
+        margin-bottom: 20px; /* Espacio entre las tarjetas */
+    }
+
+    /* Elimina el fondo de la tabla */
+    .table {
+        background-color: transparent !important;
+    }
+</style>
+
+<div class="container-fluid mt-3 p-3">
     <div class="row">
         <div class="col-md-6 mb-4">
-            <div class="card">
+            <div class="card peach-bg">
                 <div class="card-header btn-primary">
-                    <h3 class="text-center text-white">@Html.DisplayNameFor(model => model.Top5EntradasConMasPreguntaYRespuestas)</h3>
+                    <h3 class="text-center text-white">Top 5 de entradas con más preguntas y respuestas</h3>
                 </div>
                 <div class="card-body">
                     <table class="table">
                         <tbody>
                             @foreach (var item in Model.Top5EntradasConMasPreguntaYRespuestas.Take(5))
                             {
-                                <div class="card mb-3">
-                                    @if (User.IsInRole("Miembro"))
-                                    {
-                                        if (!item.MiembrosHabilitados.Any(am => am.MiembroId == Model.SesionUserId && am.EntradaId == item.Id) && (item.Privada ?? false) && item.MiembroId != Model.SesionUserId)
-                                        {
-                                            <div class="card-header">
-                                                <p class="alert-success text-white">
-                                                    Publicado por: @item.Miembro.NombreCompleto el: @item.Fecha
-                                                    <a class="btn btn-danger btn-sm m-1 text-white" asp-controller="MiembrosHabilitados" asp-action="Create" asp-route-entradaId="@item.Id">privado</a>
-                                                </p>
-                                            </div>
-                                            <h5 class="card-title">@item.Titulo</h5>
-                                            <p class="card-text">@item.Descripcion</p>
-                                        }
-                                        else if (item.MiembrosHabilitados.Any(am => am.MiembroId == Model.SesionUserId && am.EntradaId == item.Id && !am.Habilitado) && (item.Privada ?? false) && item.MiembroId != Model.SesionUserId)
-                                        {
-                                            <div class="card-header">
-                                                <p class="alert-info">
-                                                    Publicado por: @item.Miembro.NombreCompleto el: @item.Fecha
-                                                    <span><a class="btn btn-warning btn-sm m-1 text-white">privado: Autorización pendiente</a></span>
-                                                </p>
-                                            </div>
-                                            <h5 class="card-title">@item.Titulo</h5>
-                                            <p class="card-text">@item.Descripcion</p>
-                                        }
-                                        else if (item.MiembrosHabilitados.Any(am => am.MiembroId == Model.SesionUserId && am.EntradaId == item.Id && am.Habilitado) && (item.Privada ?? false) && item.MiembroId != Model.SesionUserId)
-                                        {
-                                            <div class="card-header">
-                                                <p class=" text-white">
-                                                    Publicado por: @item.Miembro.NombreCompleto el: @item.Fecha
-                                                    <span><a class="btn btn-success btn-sm m-1 text-white">privado: autorizado</a></span>
-                                                </p>
-                                            </div>
-                                            <a asp-controller="Entradas" asp-action="Details" asp-route-id="@item.Id">
-                                                <h5 class="card-title">@item.Titulo</h5>
-                                            </a>
-                                            <p class="card-text">@item.Descripcion</p>
-                                        }
-                                        else if (User.IsInRole("Miembro") && item.MiembroId == Model.SesionUserId)
-                                        {
-                                            <div class="card-header">
-                                                <p class="alert-info">
-                                                    Publicado por: @item.Miembro.NombreCompleto el: @item.Fecha
-                                                    <span><a class="btn btn-info btn-sm m-1 text-white">Mis entradas</a></span>
-                                                </p>
-                                            </div>
-                                            <a asp-controller="Entradas" asp-action="Details" asp-route-id="@item.Id">
-                                                <h5 class="card-title">@item.Titulo</h5>
-                                            </a>
-                                            <p class="card-text">@item.Descripcion</p>
-                                        }
-                                        else
-                                        {
-                                            if (User.IsInRole("Miembro") && item.MiembroId != Model.SesionUserId && !(item.Privada ?? false))
-                                            {
-                                                <div class="card-header">
-                                                    <p class="alert-info">Publicado por: @item.Miembro.NombreCompleto el: @item.Fecha</p>
-                                                </div>
-                                                <a asp-controller="Entradas" asp-action="Details" asp-route-id="@item.Id">
-                                                    <h5 class="card-title">@item.Titulo</h5>
-                                                </a>
-                                                <p class="card-text">@item.Descripcion</p>
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        if (!(item.Privada ?? false))
-                                        {
-                                            <div class="card-header alert-info py-2">
-                                                <a asp-controller="Entradas" asp-action="Details" asp-route-id="@item.Id">
-                                                    <h4 class="card-title mt-1">@item.Titulo</h4>
-                                                </a>
-                                            </div>
-                                            <p class="card-text ml-3 mt-2">@item.Descripcion</p>
-                                            <div class="card-footer text-muted py-0">
-                                                <small class="card-text">Publicado por: @item.Miembro.NombreCompleto el: @item.Fecha</small>
-                                            </div>
-                                        }
-                                        else if (User.IsInRole("Usuario"))
-                                        {
-                                            <div class="card-header">
-                                                <p class="alert-info">
-                                                    Publicado por: @item.Miembro.NombreCompleto el: @item.Fecha
-                                                    <a class="btn btn-danger btn-sm m-1 text-white">privado</a>
-                                                </p>
-                                            </div>
-                                            <a asp-controller="Entradas" asp-action="Details" asp-route-id="@item.Id">
-                                                <h5 class="card-title">@item.Titulo</h5>
-                                            </a>
-                                            <p class="card-text">@item.Descripcion</p>
-                                        }
-                                        else
-                                        {
-                                            <div class="card-header">
-                                                <p class="alert-info">
-                                                    Publicado por: @item.Miembro.NombreCompleto el: @item.Fecha
-                                                    <a class="btn btn-danger btn-sm m-1 text-white" asp-controller="MiembrosHabilitados" asp-action="Create" asp-route-entradaId="@item.Id">privado</a>
-                                                </p>
-                                            </div>
-                                            <a asp-controller="Entradas" asp-action="Details" asp-route-id="@item.Id">
-                                                <h5 class="card-title">@item.Titulo</h5>
-                                            </a>
-                                            <p class="card-text">@item.Descripcion</p>
-                                        }
-                                    }
+                                <div class="card mb-3 peach-bg">
+                                    <!-- Agrega la clase peach-bg aquí también -->
+                                    <!-- Tu contenido de la tarjeta aquí -->
+                                    <h5 class="card-title">@item.Titulo</h5>
+                                    <p class="card-text">@item.Descripcion</p>
                                 </div>
                             }
                         </tbody>
@@ -130,103 +49,21 @@
         </div>
 
         <div class="col-md-6 mb-4">
-            <div class="card">
-                <div class="card-header">
-                    <h1 class="btn-primary text-center text-white">@Html.DisplayNameFor(model => model.Top5EntradasMasRecientes)</h1>
+            <div class="card peach-bg">
+                <div class="card-header btn-primary">
+                    <h3 class="text-center text-white">Top 5 de entradas más recientes</h3>
                 </div>
                 <div class="card-body">
                     <table class="table">
                         <tbody>
                             @foreach (var item in Model.Top5EntradasMasRecientes)
                             {
-                                <tr>
-                                    <td>
-                                        @if (User.IsInRole("Miembro"))
-                                        {
-                                            if (!item.MiembrosHabilitados.Any(am => am.MiembroId == Model.SesionUserId && am.EntradaId == item.Id) && (item.Privada ?? false) && item.MiembroId != Model.SesionUserId)
-                                            {
-                                                <p class="alert-info">Publicado por: @item.Miembro.NombreCompleto el: @item.Fecha  privado</p>
-                                                <h2 class="post-title">@item.Titulo</h2>
-                                                <p>@item.Descripcion</p>
-                                            }
-                                            else if (item.MiembrosHabilitados.Any(am => am.MiembroId == Model.SesionUserId && am.EntradaId == item.Id && !am.Habilitado) && (item.Privada ?? false) && item.MiembroId != Model.SesionUserId)
-                                            {
-                                                <p class="alert-info">
-                                                    Publicado por: @item.Miembro.NombreCompleto el: @item.Fecha
-                                                    <span><a class="btn btn-warning btn-sm m-1 text-white">privado: Autorización pendiente</a></span>
-                                                </p>
-                                                <h2 class="post-title">@item.Titulo</h2>
-                                                <p>@item.Descripcion</p>
-                                            }
-                                            else if (item.MiembrosHabilitados.Any(am => am.MiembroId == Model.SesionUserId && am.EntradaId == item.Id && am.Habilitado) && (item.Privada ?? false) && item.MiembroId != Model.SesionUserId)
-                                            {
-                                                <p class="alert-info">
-                                                    Publicado por: @item.Miembro.NombreCompleto el: @item.Fecha
-                                                    <span><a class="btn btn-success btn-sm m-1 text-white">privado: autorizado</a></span>
-                                                </p>
-                                                <a asp-controller="Entradas" asp-action="Details" asp-route-id="@item.Id">
-                                                    <h2 class="post-title">@item.Titulo</h2>
-                                                </a>
-                                                <p>@item.Descripcion</p>
-                                            }
-                                            else if (User.IsInRole("Miembro") && item.MiembroId == Model.SesionUserId)
-                                            {
-                                                <p class="alert-info">
-                                                    Publicado por: @item.Miembro.NombreCompleto el: @item.Fecha
-                                                    <span><a class="btn btn-info btn-sm m-1 text-white">Mis entradas</a></span>
-                                                </p>
-                                                <a asp-controller="Entradas" asp-action="Details" asp-route-id="@item.Id">
-                                                    <h2 class="post-title">@item.Titulo</h2>
-                                                </a>
-                                                <p>@item.Descripcion</p>
-                                            }
-                                            else
-                                            {
-                                                if (User.IsInRole("Miembro") && item.MiembroId != Model.SesionUserId && !(item.Privada ?? false))
-                                                {
-                                                    <p class="alert-info">Publicado por: @item.Miembro.NombreCompleto el: @item.Fecha</p>
-                                                    <a asp-controller="Entradas" asp-action="Details" asp-route-id="@item.Id">
-                                                        <h2 class="post-title">@item.Titulo</h2>
-                                                    </a>
-                                                    <p>@item.Descripcion</p>
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (!(item.Privada ?? false))
-                                            {
-                                                <p class="alert-info">Publicado por: @item.Miembro.NombreCompleto el: @item.Fecha</p>
-                                                <a asp-controller="Entradas" asp-action="Details" asp-route-id="@item.Id">
-                                                    <h2 class="post-title">@item.Titulo</h2>
-                                                </a>
-                                                <p>@item.Descripcion</p>
-                                            }
-                                            else if (User.IsInRole("Usuario"))
-                                            {
-                                                <p class="alert-info">
-                                                    Publicado por: @item.Miembro.NombreCompleto el: @item.Fecha
-                                                    <a class="btn btn-danger btn-sm m-1 text-white">privado</a>
-                                                </p>
-                                                <a asp-controller="Entradas" asp-action="Details" asp-route-id="@item.Id">
-                                                    <h2 class="post-title">@item.Titulo</h2>
-                                                </a>
-                                                <p>@item.Descripcion</p>
-                                            }
-                                            else
-                                            {
-                                                <p class="alert-info">
-                                                    Publicado por: @item.Miembro.NombreCompleto el: @item.Fecha
-                                                    <a class="btn btn-danger btn-sm m-1 text-white" asp-controller="MiembrosHabilitados" asp-action="Create" asp-route-entradaId="@item.Id">privado</a>
-                                                </p>
-                                                <a asp-controller="Entradas" asp-action="Details" asp-route-id="@item.Id">
-                                                    <h2 class="post-title">@item.Titulo</h2>
-                                                </a>
-                                                <p>@item.Descripcion</p>
-                                            }
-                                        }
-                                    </td>
-                                </tr>
+                                <div class="card mb-3 peach-bg">
+                                    <!-- Agrega la clase peach-bg aquí también -->
+                                    <!-- Contenido de la tarjeta de entradas recientes -->
+                                    <h5 class="card-title">@item.Titulo</h5>
+                                    <p class="card-text">@item.Descripcion</p>
+                                </div>
                             }
                         </tbody>
                     </table>
@@ -234,10 +71,10 @@
             </div>
         </div>
 
-        <div class="container d-flex justify-content-center">
-            <div class="card">
-                <div class="card-header">
-                    <h1 class="btn-primary text-center text-white">@Html.DisplayNameFor(model => model.Top3MiembrosConMasEntradasUltimoMes)</h1>
+        <div class="col-md-12 mb-4">
+            <div class="card peach-bg">
+                <div class="card-header btn-primary">
+                    <h3 class="text-center text-white">Top 3 de miembros con más entradas en el último mes</h3>
                 </div>
                 <div class="card-body">
                     <table class="table">
@@ -246,20 +83,19 @@
                             {
                                 @foreach (var item in Model.Top3MiembrosConMasEntradasUltimoMes)
                                 {
-                                    <tr>
-                                        <th>
-                                            <p class="alert-info">@item.NombreCompleto</p>
-                                        </th>
-                                    </tr>
+                                    <div class="card mb-3 peach-bg">
+                                        <!-- Agrega la clase peach-bg aquí también -->
+                                        <!-- Contenido de la tarjeta de miembros con más entradas -->
+                                        <h5 class="card-title">@item.NombreCompleto</h5>
+                                    </div>
                                 }
                             }
                             else
                             {
-                                <tr>
-                                    <th>
-                                        <h3 class="alert-info">No hay registros dentro del ultimo mes</h3>
-                                    </th>
-                                </tr>
+                                <div class="card mb-3 peach-bg">
+                                    <!-- Agrega la clase peach-bg aquí también -->
+                                    <h5 class="card-title text-center">No hay registros dentro del último mes</h5>
+                                </div>
                             }
                         </tbody>
                     </table>
