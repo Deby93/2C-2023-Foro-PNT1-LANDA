@@ -9,55 +9,79 @@
     }
 }
 
+<style>
+    /* Elimina el subrayado de los títulos */
+    .card-title {
+        text-decoration: none !important;
+        color: inherit !important; /* Mantener el color de texto predeterminado */
+    }
+
+    /* Estilo para tarjetas con fondo durazno */
+    .peach-bg {
+        background-color: #FFDAB9; /* Código de color durazno */
+        border-radius: 10px; /* Ajusta la esquina redondeada de la tarjeta */
+        margin-bottom: 20px; /* Espacio entre las tarjetas */
+        padding: 10px; /* Espaciado interno de las tarjetas */
+    }
+
+    /* Elimina el fondo de la tabla */
+    .table {
+        background-color: transparent !important;
+    }
+
+    /* Estilo de los botones */
+    .btn-custom {
+        color: black; /* Color de texto */
+        text-decoration: none; /* Sin subrayado */
+        padding: 5px 10px; /* Espaciado interno del botón */
+        border: 1px solid black; /* Borde del botón */
+        border-radius: 5px; /* Bordes redondeados */
+        display: inline-block; /* Mostrar como bloque en línea */
+    }
+
+        .btn-custom:hover {
+            background-color: #f0f0f0; /* Color de fondo al pasar el ratón */
+        }
+</style>
+
 <h1 class="text-white">Entradas</h1>
 
 <p>
     @if (User.IsInRole("Miembro"))
     {
-        <a  asp-controller="Entradas" asp-action="Create">Crear Nueva Entrada</a>
+        <a class="btn-custom" asp-controller="Entradas" asp-action="Create">Crear Nueva Entrada</a>
     }
 </p>
 
 <table class="table">
     <thead class="text-black">
         <tr>
-            <th>
-                Categoría
-            </th>
-            <th>
-                Título
-            </th>
-          
+            <th>Categoría</th>
+            <th>Título</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+            <tr class="peach-bg">
                 <td>
                     @Html.DisplayFor(modelItem => item.Categoria.Nombre)
                 </td>
                 <td>
-                    <a href="@Url.Action("Details", "Entradas", new { id = item.Id })">@item.Titulo</a>
+                    <a class="card-title" href="@Url.Action("Details", "Entradas", new { id = item.Id })">@item.Titulo</a>
                 </td>
-                @if (User.IsInRole("Usuario"))
-                {
-                    <td>
-                        <a  href="@Url.Action("Details", "Entradas", new { id = item.Id })">Detalles</a>
+                <td>
+                    <a href="@Url.Action("Details", "Entradas", new { id = item.Id })">Detalles</a>
+                    @if (User.IsInRole("Usuario") || item.MiembroId == UsuarioId)
+                    {
                         <a  href="@Url.Action("Delete", "Entradas", new { id = item.Id })">Eliminar</a>
-                    </td>
-                }
-                else if (item.MiembroId == UsuarioId)
-                {
-                    <td>
-                        <a  href="@Url.Action("Details", "Entradas", new { id = item.Id })">Detalles</a>
-                        <a  href="@Url.Action("Delete", "Entradas", new { id = item.Id })">Eliminar</a>
-                    </td>
-                }
+                    }
+                </td>
             </tr>
         }
     </tbody>
 </table>
-<p class="">Se encontraron: @Model.Count() Entradas en esta categoría</p>
-<a asp-action="Index">Volver a la  lista</a>
+
+<p class="text-white">Se encontraron: @Model.Count() Entradas en esta categoría</p>
+<a  asp-action="Index">Volver a la lista</a>

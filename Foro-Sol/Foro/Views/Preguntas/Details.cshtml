@@ -4,22 +4,57 @@
     ViewData["Title"] = "Detalles";
 }
 
-<h1>Detalles</h1>
+<style>
+    /* Elimina el subrayado de los títulos */
+    .card-title {
+        text-decoration: none !important;
+        color: inherit !important; /* Mantener el color de texto predeterminado */
+    }
 
-<div>
-    <h4>Preguntas</h4>
+    /* Estilo para tarjetas con fondo durazno */
+    .peach-bg {
+        background-color: #FFDAB9; /* Código de color durazno */
+        border-radius: 10px; /* Ajusta la esquina redondeada de la tarjeta */
+        margin-bottom: 20px; /* Espacio entre las tarjetas */
+        padding: 10px; /* Espaciado interno de las tarjetas */
+    }
+
+    /* Elimina el fondo de la tabla */
+    .table {
+        background-color: transparent !important;
+    }
+
+    /* Estilo de los botones */
+    .btn-custom {
+        color: black; /* Color de texto */
+        text-decoration: none; /* Sin subrayado */
+        padding: 5px 10px; /* Espaciado interno del botón */
+        border: 1px solid black; /* Borde del botón */
+        border-radius: 5px; /* Bordes redondeados */
+        display: inline-block; /* Mostrar como bloque en línea */
+    }
+
+        .btn-custom:hover {
+            background-color: #f0f0f0; /* Color de fondo al pasar el ratón */
+        }
+</style>
+
+<h1 class="text-white">Detalles</h1>
+
+<div class="peach-bg">
+    <h4 class="card-title">Preguntas</h4>
     <hr />
     <table class="table">
         <thead>
             <tr>
-                <th>@Html.DisplayNameFor(model => model.Descripcion)</th>
+                <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Descripcion)</th>
                 <th>Cantidad de Respuestas</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var pregunta in Model)
             {
-                <tr>
+                <tr class="peach-bg">
                     <td>@pregunta.Descripcion</td>
                     <td>@pregunta.Respuestas.Count()</td> <!-- Aquí se cuenta la cantidad de respuestas -->
                 </tr>
@@ -30,8 +65,8 @@
 
 @foreach (var pregunta in Model)
 {
-    <div>
-        <h5>Respuestas</h5>
+    <div class="peach-bg">
+        <h5 class="card-title">Respuestas</h5>
         <ul>
             @foreach (var respuesta in pregunta.Respuestas.OrderBy(r => r.Fecha))
             {
