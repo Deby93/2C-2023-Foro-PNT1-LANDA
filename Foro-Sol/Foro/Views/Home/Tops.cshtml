@@ -22,6 +22,25 @@
         background-color: transparent !important;
     }
 </style>
+<style>
+
+/* Estilo para el botón de privacidad */
+    .privacy-btn {
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        color: white;
+        cursor: default;
+    }
+
+    .privacy-btn.privada {
+        background-color: #dc3545; /* Rojo para "Privada" */
+    }
+
+    .privacy-btn.publica {
+        background-color: #28a745; /* Verde para "Pública" */
+    }
+</style>
 
 <div class="container-fluid mt-3 p-3">
     <div class="row">
@@ -36,10 +55,26 @@
                             @foreach (var item in Model.Top5EntradasConMasPreguntaYRespuestas.Take(5))
                             {
                                 <div class="card mb-3 peach-bg">
-                                    <!-- Agrega la clase peach-bg aquí también -->
-                                    <!-- Tu contenido de la tarjeta aquí -->
                                     <h5 class="card-title">@item.Titulo</h5>
                                     <p class="card-text">@item.Descripcion</p>
+                                    @if (item.Privada.HasValue)
+                                    {
+                                        @if (!(bool)item.Privada)
+                                        {
+                                            <form asp-controller="Preguntas" asp-action="Index" method="get">
+                                                <button type="submit" class="privacy-btn publica">
+                                                    Pública
+                                                </button>
+                                            </form>
+                                        }
+                                        else
+                                        {
+                                            <button class="privacy-btn privada">
+                                                Privada
+                                            </button>
+                                        }
+                                    }
+                                    
                                 </div>
                             }
                         </tbody>
@@ -63,6 +98,23 @@
                                     <!-- Contenido de la tarjeta de entradas recientes -->
                                     <h5 class="card-title">@item.Titulo</h5>
                                     <p class="card-text">@item.Descripcion</p>
+                                    @if (item.Privada.HasValue)
+                                    {
+                                        @if (!(bool)item.Privada)
+                                        {
+                                            <form asp-controller="Preguntas" asp-action="Index" method="get">
+                                                <button type="submit" class="privacy-btn publica">
+                                                    Pública
+                                                </button>
+                                            </form>
+                                        }
+                                        else
+                                        {
+                                            <button class="privacy-btn privada">
+                                                Privada
+                                            </button>
+                                        }
+                                    }
                                 </div>
                             }
                         </tbody>
@@ -87,6 +139,7 @@
                                         <!-- Agrega la clase peach-bg aquí también -->
                                         <!-- Contenido de la tarjeta de miembros con más entradas -->
                                         <h5 class="card-title">@item.NombreCompleto</h5>
+                                      
                                     </div>
                                 }
                             }

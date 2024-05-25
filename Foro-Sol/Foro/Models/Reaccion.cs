@@ -1,7 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-
-
 namespace Foro
 {
     public class Reaccion

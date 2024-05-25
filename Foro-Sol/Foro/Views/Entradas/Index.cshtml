@@ -22,7 +22,12 @@
             <th>@Html.DisplayNameFor(model => model.Miembro)</th>
             <th>@Html.DisplayNameFor(model => model.Categoria)</th>
             <th>Me gustas</th>
-            <a asp-action="MisEntradas">Mis entradas</a>
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a asp-action="MisEntradas">Mis entradas</a>
+            }
+          
         </tr>
     </thead>
     <tbody>

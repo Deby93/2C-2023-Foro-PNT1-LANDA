@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -9,7 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 namespace Foro
 {
-    [Authorize(Roles = Config.Miembro)]
+    //[Authorize(Roles = Config.Miembro)]
 
     public class ReaccionesController : Controller
     {
@@ -23,70 +24,147 @@ namespace Foro
             _signinManager = signinManager;
         }
 
-        // Acción para dar like a una respuesta
-        public async Task<IActionResult> Like(int respuestaId)
+
+        [HttpPost]
+        public async Task<IActionResult> Like(int respuestaId, string reactionType)
         {
-            // Lógica para dar like a la respuesta con el ID proporcionado
-            // Por ejemplo:
-            var respuesta = await _contexto.Respuestas.FindAsync(respuestaId);
-            if (respuesta != null)
+            // Obtén el userId del usuario actual
+            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (int.TryParse(userIdString, out int userId))
             {
-                //respuesta.Likes++;
+                // Verifica si ya existe una reacción del usuario para la respuesta específica
+                var existeReaccion = await _contexto.Reacciones
+                    .FirstOrDefaultAsync(r => r.RespuestaId == respuestaId && r.MiembroId == userId);
+
+                if (existeReaccion != null)
+                {
+                    if (reactionType == "None")
+                    {
+                        existeReaccion.MeGusta = reactionType == "Like";
+                        _contexto.Reacciones.Update(existeReaccion);
+                    }
+                    else if ((bool)(existeReaccion.MeGusta = reactionType == "Dislike"))
+                    {
+                        existeReaccion.MeGusta = reactionType == "Like";
+                        _contexto.Reacciones.Update(existeReaccion);
+                    }
+                }
+                else
+                {
+                    // Crea una nueva reacción si no existe ninguna para la respuesta y el usuario
+                    var nuevaReaccion = new Reaccion
+                    {
+                        RespuestaId = respuestaId,
+                        MiembroId = userId,
+                        Fecha = DateTime.Now,
+                        MeGusta = reactionType == "Like"
+                    };
+                    _contexto.Reacciones.Add(nuevaReaccion);
+                }
+
                 await _contexto.SaveChangesAsync();
-                TempData["Mensaje"] = "Has dado like a la respuesta.";
+                return RedirectToAction("Details", "Respuestas", new { id = respuestaId });
             }
             else
             {
-                TempData["Mensaje"] = "La respuesta no se encontró.";
+                return BadRequest("El ID del miembro no es valido.");
             }
-
-            return RedirectToAction("Index", "Home"); // Redirige a la página principal u otra vista
         }
 
-        // Acción para dar dislike a una respuesta
-        public async Task<IActionResult> Dislike(int respuestaId)
+        [HttpPost]
+        public async Task<IActionResult> DisLike(int respuestaId, string reactionType)
         {
-            // Lógica para dar dislike a la respuesta con el ID proporcionado
-            // Por ejemplo:
-            var respuesta = await _contexto.Respuestas.FindAsync(respuestaId);
-            if (respuesta != null)
+            // Obtén el userId del usuario actual
+            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (int.TryParse(userIdString, out int userId))
             {
-               // respuesta.Dislikes++;
+                // Verifica si ya existe una reacción del usuario para la respuesta específica
+                var existeReaccion = await _contexto.Reacciones
+                    .FirstOrDefaultAsync(r => r.RespuestaId == respuestaId && r.MiembroId == userId);
+
+                if (existeReaccion != null)
+                {
+                    if (reactionType == "None")
+                    {
+                        existeReaccion.MeGusta = reactionType == "DisLike";
+                        _contexto.Reacciones.Update(existeReaccion);
+                    }
+                    else if ((bool)(existeReaccion.MeGusta = reactionType == "Like"))
+                    {
+                        existeReaccion.MeGusta = reactionType == "DisLike";
+                        _contexto.Reacciones.Update(existeReaccion);
+                    }
+                }
+                else
+                {
+                    // Crea una nueva reacción si no existe ninguna para la respuesta y el usuario
+                    var nuevaReaccion = new Reaccion
+                    {
+                        RespuestaId = respuestaId,
+                        MiembroId = userId,
+                        Fecha = DateTime.Now,
+                        MeGusta = reactionType == "DisLike"
+                    };
+                    _contexto.Reacciones.Add(nuevaReaccion);
+                }
+
                 await _contexto.SaveChangesAsync();
-                TempData["Mensaje"] = "Has dado dislike a la respuesta.";
+                return RedirectToAction("Details", "Respuestas", new { id = respuestaId });
             }
             else
             {
-                TempData["Mensaje"] = "La respuesta no se encontró.";
+                return BadRequest("El ID del miembro no es valido.");
             }
-
-            return RedirectToAction("Index", "Home"); // Redirige a la página principal u otra vista
         }
 
-        // Acción para resetear las reacciones de una respuesta
-        public async Task<IActionResult> ResetReactions(int respuestaId)
+        [HttpPost]
+        public async Task<IActionResult> Reset(int respuestaId, string reactionType)
         {
-            // Lógica para resetear las reacciones de la respuesta con el ID proporcionado
-            // Por ejemplo:
-            var respuesta = await _contexto.Respuestas.FindAsync(respuestaId);
-            if (respuesta != null)
+            // Obtén el userId del usuario actual
+            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (int.TryParse(userIdString, out int userId))
             {
-              //  respuesta.Likes = 0;
-               // respuesta.Dislikes = 0;
+                // Verifica si ya existe una reacción del usuario para la respuesta específica
+                var existeReaccion = await _contexto.Reacciones
+                    .FirstOrDefaultAsync(r => r.RespuestaId == respuestaId && r.MiembroId == userId);
+
+                if (existeReaccion != null)
+                {
+                    if (reactionType == "Like")
+                    {
+                        existeReaccion.MeGusta = reactionType == "None";
+                        _contexto.Reacciones.Update(existeReaccion);
+                    }
+                    else if ((bool)(existeReaccion.MeGusta = reactionType == "DisLike"))
+                    {
+                        existeReaccion.MeGusta = reactionType == "None";
+                        _contexto.Reacciones.Update(existeReaccion);
+                    }
+                }
+                else
+                {
+                    // Crea una nueva reacción si no existe ninguna para la respuesta y el usuario
+                    var nuevaReaccion = new Reaccion
+                    {
+                        RespuestaId = respuestaId,
+                        MiembroId = userId,
+                        Fecha = DateTime.Now,
+                        MeGusta = reactionType == "None"
+                    };
+                    _contexto.Reacciones.Add(nuevaReaccion);
+                }
+
                 await _contexto.SaveChangesAsync();
-                TempData["Mensaje"] = "Se han reseteado las reacciones de la respuesta.";
+                return RedirectToAction("Details", "Respuestas", new { id = respuestaId });
             }
             else
             {
-                TempData["Mensaje"] = "La respuesta no se encontró.";
+                return BadRequest("El ID del miembro no es valido.");
             }
-
-            return RedirectToAction("Index", "Home"); // Redirige a la página principal u otra vista
         }
-
-        // Otras acciones relacionadas con las reacciones
 
     }
 }
-
-

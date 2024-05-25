@@ -44,24 +44,24 @@ namespace Foro
                 .Include(p => p.Respuestas)
                 .FirstOrDefaultAsync(m => m.PreguntaId == id);
 
-            List<Respuesta> respuestas = new();
-            respuestas = await _contexto.Respuestas
-             .Include(p => p.Miembro)
-             .Include(p => p.Pregunta)
-             .Include(p => p.Reacciones)
-             .OrderBy(p => p.Fecha)
-             .Where(m => m.PreguntaId == id).ToListAsync();
-           _= respuestas.Count;
             if (pregunta == null)
             {
                 return NotFound();
             }
-            var preguntas = _contexto.Preguntas.Where(p => p.PreguntaId== id).ToList();
-            return View(preguntas);
-            // ViewBag.idMasLikes = ObtenerMasLikes(pregunta);
-            // ViewBag.idMasDisLikes = ObtenerMasDislike(pregunta);
 
-            
+            var respuestas = await _contexto.Respuestas
+                .Include(p => p.Miembro)
+                .Include(p => p.Pregunta)
+                .Include(p => p.Reacciones)
+                .OrderBy(p => p.Fecha)
+                .Where(m => m.PreguntaId == id)
+                .ToListAsync();
+
+            ViewBag.Pregunta = pregunta;
+            ViewBag.idMasLikes = respuestas.OrderByDescending(r => r.Reacciones.Count(re => (bool) re.MeGusta)).FirstOrDefault()?.RespuestaId;
+            ViewBag.idMasDisLikes = respuestas.OrderByDescending(r => r.Reacciones.Count(re => (bool)!re.MeGusta)).FirstOrDefault()?.RespuestaId;
+
+            return View(respuestas);  // Pasar las respuestas a la vista
         }
 
 
