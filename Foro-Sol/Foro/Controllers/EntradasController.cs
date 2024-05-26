@@ -50,7 +50,11 @@ namespace Foro
                 return NotFound();
             }
 
-            return View(entrada);
+            ViewBag.Entrada = entrada;
+
+            var preguntas = entrada.Preguntas.ToList();
+
+            return View(preguntas);
         }
 
       //  [Authorize(Roles = Config.Miembro)]

@@ -2,14 +2,16 @@
 
 @{
     ViewData["Title"] = "Details";
-    int respuestaMasLikes = ViewBag.idMasLikes;
-    int respuestaMasDislike = ViewBag.idMasDisLikes;
+   
     var pregunta = ViewBag.Pregunta as Foro.Pregunta;
     int UsuarioId = 0;
     if (User.Claims.Any())
     {
         UsuarioId = Int32.Parse(User.Claims.First().Value);
     }
+
+    int respuestaMasLikes = ViewBag.idMasLikes ?? 0;
+    int respuestaMasDislike = ViewBag.idMasDisLikes ?? 0;
 }
 
 <style>

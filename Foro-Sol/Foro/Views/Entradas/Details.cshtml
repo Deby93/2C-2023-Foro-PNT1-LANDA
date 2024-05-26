@@ -1,52 +1,133 @@
-﻿@model Foro.Entrada
+﻿@model IEnumerable<Foro.Pregunta>
 
 @{
-    ViewData["Title"] = "Detalles";
+    ViewData["Title"] = "Details";
+
+    var entrada = ViewBag.Entrada as Foro.Entrada;
+    int UsuarioId = 0;
+    if (User.Claims.Any())
+    {
+        UsuarioId = Int32.Parse(User.Claims.First().Value);
+    }
 }
 
-<h1>Detalles</h1>
+<style>
+    .highlighted {
+        font-weight: bold;
+    }
 
+    .question-card {
+        margin-bottom: 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .question-card-header {
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+
+    .question-card-body {
+        margin-top: 10px;
+    }
+
+    .question-actions i {
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+        .question-actions i.liked {
+            color: green;
+        }
+
+        .question-actions i.disliked {
+            color: red;
+        }
+</style>
+
+<h1 class="btn-primary text-center text-white">@entrada.Titulo</h1>
 <div>
-    <h4>Entrada</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Titulo)
+        <dt class="col-sm-2 highlighted">
+            @Html.DisplayNameFor(e => entrada.Fecha)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Titulo)
+        <dd class="col-sm-10">
+            @entrada.Fecha
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Fecha)
+        @if (User.Identity.IsAuthenticated)
+        {
+
+            <dt class="col-sm-2 highlighted">
+                @Html.DisplayNameFor(e => entrada.Miembro.NombreCompleto)
+            </dt>
+            <dd class="col-sm-10">
+                @entrada.Miembro.NombreCompleto
+            </dd>
+
+
+        }
+        
+        <dt class="col-sm-2 highlighted">
+            @Html.DisplayNameFor(e => entrada.Descripcion)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Fecha)
+        <dd class="col-sm-10">
+            @entrada.Descripcion
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Privada)
+        <dt class="col-sm-2 highlighted">
+            Estado
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Privada)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Miembro)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Miembro.Apellido)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Categoria)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Categoria.Nombre)
+        <dd class="col-sm-10">
+            @((bool)entrada.Privada ? "Privada" : "Pública")
         </dd>
     </dl>
-</div>
-<div>
-     @if (User.Identity.IsAuthenticated)
+    @if (!(bool)entrada.Privada && entrada.MiembroId != UsuarioId && User.IsInRole("Miembro"))
     {
-        <a asp-action="Edit" asp-route-id="@Model?.Id">Editar</a>
+        <a class="btn btn-success text-white" asp-controller="Preguntas" asp-action="Create" asp-route-id="@entrada.Id">Hacer Pregunta</a>
     }
-   
-    <a asp-action="Index">Volver a la lista</a>
+    <div align="right">
+        @if (User.IsInRole("Miembro") && entrada.MiembroId == UsuarioId)
+        {
+            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@entrada.Id">Editar</a>
+        }
+        else if (UsuarioId == 0)
+        {
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a class="btn btn-success text-white" asp-controller="Preguntas" asp-action="Create" asp-route-id="@entrada.Id">Hacer Pregunta</a>
+            }
+        }
+        <a class="btn btn-primary" asp-controller="Entradas" asp-action="Index">Atrás</a>
+    </div>
+    <br />
+    <h1 class="text-center">Preguntas</h1>
+    <div>
+        @foreach (var unaPregunta in Model.OrderBy(p => p.Fecha))
+        {
+            <div class="question-card">
+                <div class="question-card-header">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @unaPregunta.Miembro.UserName   @unaPregunta.Fecha.ToShortDateString()                    }
+                       
+                </div>
+                <div class="question-card-body">
+                    <p>@unaPregunta.Descripcion</p>
+                    <div class="question-actions">
+                    </div>
+                    @if (User.IsInRole("Miembro") && unaPregunta.MiembroId == UsuarioId)
+                    {
+                        <div class="mt-2">
+                            <a class="btn btn-danger text-white" asp-controller="Preguntas" asp-action="Delete" asp-route-id="@unaPregunta.PreguntaId">Eliminar</a>
+                            <a class="btn btn-info text-white" asp-controller="Preguntas" asp-action="Edit" asp-route-id="@unaPregunta.PreguntaId">Editar</a>
+                        </div>
+                    }
+                    <a class="btn btn-info text-white" asp-controller="Preguntas" asp-action="Details" asp-route-id="@unaPregunta.PreguntaId">Detalles</a>
+                </div>
+            </div>
+        }
+    </div>
+    <p>Se encontraron: @Model.Count() Preguntas en esta Entrada</p>
 </div>
