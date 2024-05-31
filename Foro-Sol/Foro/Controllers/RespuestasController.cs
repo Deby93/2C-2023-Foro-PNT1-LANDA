@@ -25,16 +25,21 @@ namespace Foro
         }
 
         // GET: Respuestas
-        public async Task<IActionResult> Index()
+
+        public IActionResult Index()
         {
-            var foroContexto = _contexto.Respuestas.Include(r => r.Miembro).Include(r => r.Pregunta);
-            return View(await foroContexto.ToListAsync());
+            // Obtener las respuestas desde tu contexto de datos (contexto.Respuestas)
+            var respuestas = _contexto.Respuestas.ToList();
+
+            // Pasar la lista de respuestas a la vista
+            return View(respuestas);
         }
+
 
         // GET: Respuestas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _contexto.Respuestas == null)
+            if (id == null)
             {
                 return NotFound();
             }

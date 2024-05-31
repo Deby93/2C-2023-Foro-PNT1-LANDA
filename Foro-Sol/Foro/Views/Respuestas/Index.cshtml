@@ -1,149 +1,51 @@
-﻿@model IEnumerable<Foro.Respuesta>
+﻿@model IEnumerable<Respuesta>
 
 @{
-    ViewData["Title"] = "Details";
-    int respuestaMasLikes = ViewBag.idMasLikes;
-    int respuestaMasDislike = ViewBag.idMasDisLikes;
-    var pregunta = ViewBag.Pregunta as Foro.Pregunta;
-    int UsuarioId = 0;
-    if (User.Claims.Any())
-    {
-        UsuarioId = Int32.Parse(User.Claims.First().Value);
-    }
+    ViewData["Title"] = "Index";
 }
 
-<style>
-    .highlighted {
-        font-weight: bold;
-    }
+<h1>Respuestas</h1>
 
-    .like-row {
-        background-color: #d4edda;
-        color: #155724;
-    }
-
-    .dislike-row {
-        background-color: #f8d7da;
-        color: #721c24;
-    }
-
-    .response-card {
-        margin-bottom: 20px;
-        padding: 15px;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .response-card-header {
-        font-size: 1.25rem;
-        font-weight: bold;
-    }
-
-    .response-card-body {
-        margin-top: 10px;
-    }
-
-    .response-actions i {
-        cursor: pointer;
-        margin-right: 10px;
-    }
-
-        .response-actions i.liked {
-            color: green;
-        }
-
-        .response-actions i.disliked {
-            color: red;
-        }
-</style>
-
-<h1 class="btn-primary text-center text-white">@pregunta.Descripcion</h1>
-<div>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2 highlighted">
-            @Html.DisplayNameFor(p => pregunta.Fecha)
-        </dt>
-        <dd class="col-sm-10">
-            @pregunta.Fecha
-        </dd>
-        <dt class="col-sm-2 highlighted">
-            @Html.DisplayNameFor(p => pregunta.Miembro.NombreCompleto)
-        </dt>
-        <dd class="col-sm-10">
-            @pregunta.Miembro.NombreCompleto
-        </dd>
-        <dt class="col-sm-2 highlighted">
-            @Html.DisplayNameFor(p => pregunta.Descripcion)
-        </dt>
-        <dd class="col-sm-10">
-            @pregunta.Descripcion
-        </dd>
-        <dt class="col-sm-2 highlighted">
-            Estado
-        </dt>
-        <dd class="col-sm-10">
-            @((bool)pregunta.Activa ? "Activa" : "Inactiva")
-        </dd>
-    </dl>
-    @if ((bool)pregunta.Activa && pregunta.MiembroId != UsuarioId && User.IsInRole("Miembro"))
+<p>
+    @if (User.Identity.IsAuthenticated)
     {
-        <a class="btn btn-success text-white" asp-controller="Respuestas" asp-action="Create" asp-route-id="@pregunta.PreguntaId">Responder</a>
+        <a asp-action="Create">Crear una nueva respuesta</a>
     }
-    <div align="right">
-        @if (User.IsInRole("Miembro") && pregunta.MiembroId == UsuarioId)
-        {
-            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@pregunta.PreguntaId">Editar</a>
-        }
-        else if (UsuarioId == 0)
-        {
-            <a class="btn btn-success text-white" asp-controller="Respuestas" asp-action="Create" asp-route-id="@pregunta.PreguntaId">Responder</a>
-        }
-        <a class="btn btn-primary" asp-controller="Entradas" asp-action="Details" asp-route-id="@pregunta.EntradaId">Atrás</a>
-    </div>
-    <br />
-    <h1 class="text-center">Respuestas</h1>
-    <div>
-        @foreach (var unaRespuesta in Model.OrderBy(p => p.Fecha))
-        {
-            var isDislikeRow = unaRespuesta.RespuestaId == respuestaMasDislike && unaRespuesta.Reacciones.Count(r => (bool)r.MeGusta) != unaRespuesta.Reacciones.Count(r => (bool)!r.MeGusta);
-            var isLikeRow = unaRespuesta.RespuestaId == respuestaMasLikes && unaRespuesta.Reacciones.Count(r => (bool)r.MeGusta) != unaRespuesta.Reacciones.Count(r => (bool)!r.MeGusta);
+</p>
 
-            <div class="response-card @(isDislikeRow ? "dislike-row" : isLikeRow ? "like-row" : "")">
-                <div class="response-card-header">
-                    @unaRespuesta.Miembro.UserName - @unaRespuesta.Fecha.ToShortDateString()
-                </div>
-                <div class="response-card-body">
-                    <p>@unaRespuesta.Descripcion</p>
-                    <div class="response-actions">
-                        <form method="post" asp-controller="Respuestas" asp-action="Like" style="display:inline;">
-                            <input type="hidden" name="respuestaId" value="@unaRespuesta.RespuestaId" />
-                            <button type="submit" class="btn btn-link">
-                                <i class="far fa-thumbs-up @(unaRespuesta.Reacciones.Any(r => r.MiembroId == UsuarioId && (bool) r.MeGusta) ? "liked" : "")"></i>
-                            </button>
-                        </form>
-                        <form method="post" asp-controller="Respuestas" asp-action="Dislike" style="display:inline;">
-                            <input type="hidden" name="respuestaId" value="@unaRespuesta.RespuestaId" />
-                            <button type="submit" class="btn btn-link">
-                                <i class="far fa-thumbs-down @(unaRespuesta.Reacciones.Any(r => r.MiembroId == UsuarioId && (bool) !r.MeGusta) ? "disliked" : "")"></i>
-                            </button>
-                        </form>
-                        <span>
-                            @unaRespuesta.Reacciones.Count(r =>(bool) r.MeGusta) Likes /
-                            @unaRespuesta.Reacciones.Count(r => (bool)!r.MeGusta) Dislikes
-                        </span>
-                    </div>
-                    @if (User.IsInRole("Miembro") && unaRespuesta.MiembroId == UsuarioId)
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+         
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fecha)
+                </td>
+            
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.RespuestaId">Detalles</a>
+                    @if (User.Identity.IsAuthenticated)
                     {
-                        <div class="mt-2">
-                            <a class="btn btn-danger text-white" asp-controller="Respuestas" asp-action="Delete" asp-route-id="@unaRespuesta.RespuestaId">Eliminar</a>
-                            <a class="btn btn-info text-white" asp-controller="Respuestas" asp-action="Edit" asp-route-id="@unaRespuesta.RespuestaId">Editar</a>
-                        </div>
+                        <a asp-action="Edit" asp-route-id="@item.RespuestaId">Editar</a>
+                        <a asp-action="Delete" asp-route-id="@item.RespuestaId">Borrar</a>
                     }
-                </div>
-            </div>
+                </td>
+            </tr>
         }
-    </div>
-    <p>Se encontraron: @Model.Count() Respuestas en esta Pregunta</p>
-</div>
+    </tbody>
+</table>

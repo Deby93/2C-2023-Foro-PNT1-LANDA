@@ -47,87 +47,94 @@
         }
 </style>
 
-<h1 class="btn-primary text-center text-white">@entrada.Titulo</h1>
-<div>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2 highlighted">
-            @Html.DisplayNameFor(e => entrada.Fecha)
-        </dt>
-        <dd class="col-sm-10">
-            @entrada.Fecha
-        </dd>
-        @if (User.Identity.IsAuthenticated)
-        {
-
+@if (entrada != null)
+{
+    <h1 class="btn-primary text-center text-white">@entrada.Titulo</h1>
+    <div>
+        <hr />
+        <dl class="row">
             <dt class="col-sm-2 highlighted">
-                @Html.DisplayNameFor(e => entrada.Miembro.NombreCompleto)
+                @Html.DisplayNameFor(e => entrada.Fecha)
             </dt>
             <dd class="col-sm-10">
-                @entrada.Miembro.NombreCompleto
+                @entrada.Fecha
             </dd>
-
-
-        }
-        
-        <dt class="col-sm-2 highlighted">
-            @Html.DisplayNameFor(e => entrada.Descripcion)
-        </dt>
-        <dd class="col-sm-10">
-            @entrada.Descripcion
-        </dd>
-        <dt class="col-sm-2 highlighted">
-            Estado
-        </dt>
-        <dd class="col-sm-10">
-            @((bool)entrada.Privada ? "Privada" : "Pública")
-        </dd>
-    </dl>
-    @if (!(bool)entrada.Privada && entrada.MiembroId != UsuarioId && User.IsInRole("Miembro"))
-    {
-        <a class="btn btn-success text-white" asp-controller="Preguntas" asp-action="Create" asp-route-id="@entrada.Id">Hacer Pregunta</a>
-    }
-    <div align="right">
-        @if (User.IsInRole("Miembro") && entrada.MiembroId == UsuarioId)
-        {
-            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@entrada.Id">Editar</a>
-        }
-        else if (UsuarioId == 0)
-        {
-            @if (User.Identity.IsAuthenticated)
+            @if (User.Identity.IsAuthenticated && entrada.Miembro != null)
             {
-                <a class="btn btn-success text-white" asp-controller="Preguntas" asp-action="Create" asp-route-id="@entrada.Id">Hacer Pregunta</a>
+                <dt class="col-sm-2 highlighted">
+                    @Html.DisplayNameFor(e => entrada.Miembro.NombreCompleto)
+                </dt>
+                <dd class="col-sm-10">
+                    @entrada.Miembro.NombreCompleto
+                </dd>
             }
-        }
-        <a class="btn btn-primary" asp-controller="Entradas" asp-action="Index">Atrás</a>
-    </div>
-    <br />
-    <h1 class="text-center">Preguntas</h1>
-    <div>
-        @foreach (var unaPregunta in Model.OrderBy(p => p.Fecha))
+            <dt class="col-sm-2 highlighted">
+                @Html.DisplayNameFor(e => entrada.Descripcion)
+            </dt>
+            <dd class="col-sm-10">
+                @entrada.Descripcion
+            </dd>
+            <dt class="col-sm-2 highlighted">
+                Estado
+            </dt>
+            <dd class="col-sm-10">
+                @((bool)entrada.Privada ? "Privada" : "Pública")
+            </dd>
+        </dl>
+        @if (!(bool)entrada.Privada && entrada.MiembroId != UsuarioId && User.IsInRole("Miembro"))
         {
-            <div class="question-card">
-                <div class="question-card-header">
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        @unaPregunta.Miembro.UserName   @unaPregunta.Fecha.ToShortDateString()                    }
-                       
-                </div>
-                <div class="question-card-body">
-                    <p>@unaPregunta.Descripcion</p>
-                    <div class="question-actions">
-                    </div>
-                    @if (User.IsInRole("Miembro") && unaPregunta.MiembroId == UsuarioId)
-                    {
-                        <div class="mt-2">
-                            <a class="btn btn-danger text-white" asp-controller="Preguntas" asp-action="Delete" asp-route-id="@unaPregunta.PreguntaId">Eliminar</a>
-                            <a class="btn  btn-primary text-white" asp-controller="Preguntas" asp-action="Edit" asp-route-id="@unaPregunta.PreguntaId">Editar</a>
-                        </div>
-                    }
-                    <a class="btn  btn-primary text-white" asp-controller="Preguntas" asp-action="Details" asp-route-id="@unaPregunta.PreguntaId">Detalles</a>
-                </div>
-            </div>
+            <a class="btn btn-success text-white" asp-controller="Preguntas" asp-action="Create" asp-route-id="@entrada.Id">Hacer Pregunta</a>
         }
+        <div align="right">
+            @if (User.IsInRole("Miembro") && entrada.MiembroId == UsuarioId)
+            {
+                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@entrada.Id">Editar</a>
+            }
+            else if (UsuarioId == 0)
+            {
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a class="btn btn-success text-white" asp-controller="Preguntas" asp-action="Create" asp-route-id="@entrada.Id">Hacer Pregunta</a>
+                }
+            }
+            <a class="btn btn-primary" asp-controller="Entradas" asp-action="Index">Atrás</a>
+        </div>
+        <br />
+        <h1 class="text-center">Preguntas</h1>
+        <div>
+            @foreach (var unaPregunta in Model.OrderBy(p => p.Fecha))
+            {
+                <div class="question-card">
+                    <div class="question-card-header">
+                        @if (User.Identity.IsAuthenticated && unaPregunta.Miembro != null)
+                        {
+                            @unaPregunta.Miembro.UserName @unaPregunta.Fecha.ToShortDateString()
+                        }
+                        else
+                        {
+                            @unaPregunta.Fecha.ToShortDateString()
+                        }
+                    </div>
+                    <div class="question-card-body">
+                        <p>@unaPregunta.Descripcion</p>
+                        <div class="question-actions">
+                        </div>
+                        @if (User.IsInRole("Miembro") && unaPregunta.MiembroId == UsuarioId)
+                        {
+                            <div class="mt-2">
+                                <a class="btn btn-danger text-white" asp-controller="Preguntas" asp-action="Delete" asp-route-id="@unaPregunta.PreguntaId">Eliminar</a>
+                                <a class="btn btn-primary text-white" asp-controller="Preguntas" asp-action="Edit" asp-route-id="@unaPregunta.PreguntaId">Editar</a>
+                            </div>
+                        }
+                        <a class="btn btn-primary text-white" asp-controller="Preguntas" asp-action="Details" asp-route-id="@unaPregunta.PreguntaId">Detalles</a>
+                    </div>
+                </div>
+            }
+        </div>
+        <p>Se encontraron: @Model.Count() Preguntas en esta Entrada</p>
     </div>
-    <p>Se encontraron: @Model.Count() Preguntas en esta Entrada</p>
-</div>
+}
+else
+{
+    <p>No se encontró la entrada.</p>
+}

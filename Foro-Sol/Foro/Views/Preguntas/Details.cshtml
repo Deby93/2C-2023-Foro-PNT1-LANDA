@@ -89,7 +89,7 @@
             @((bool)pregunta.Activa ? "Activa" : "Inactiva")
         </dd>
     </dl>
-    @if ((bool)pregunta.Activa && pregunta.MiembroId != UsuarioId && User.IsInRole("Miembro"))
+    @if ((bool)pregunta.Activa && pregunta.MiembroId != UsuarioId )
     {
         <a class="btn btn-success text-white" asp-controller="Respuestas" asp-action="Create" asp-route-id="@pregunta.PreguntaId">Responder</a>
     }
@@ -126,13 +126,13 @@
                 <div class="response-card-body">
                     <p>@unaRespuesta.Descripcion</p>
                     <div class="response-actions">
-                        <form method="post" asp-controller="Respuestas" asp-action="Like" style="display:inline;">
+                        <form method="post" asp-controller="Reacciones" asp-action="Like" style="display:inline;">
                             <input type="hidden" name="respuestaId" value="@unaRespuesta.RespuestaId" />
                             <button type="submit" class="btn btn-link">
                                 <i class="far fa-thumbs-up @(unaRespuesta.Reacciones.Any(r => r.MiembroId == UsuarioId && (bool) r.MeGusta) ? "liked" : "")"></i>
                             </button>
                         </form>
-                        <form method="post" asp-controller="Respuestas" asp-action="Dislike" style="display:inline;">
+                        <form method="post" asp-controller="Reacciones" asp-action="Dislike" style="display:inline;">
                             <input type="hidden" name="respuestaId" value="@unaRespuesta.RespuestaId" />
                             <button type="submit" class="btn btn-link">
                                 <i class="far fa-thumbs-down @(unaRespuesta.Reacciones.Any(r => r.MiembroId == UsuarioId && (bool)!r.MeGusta) ? "disliked" : "")"></i>
