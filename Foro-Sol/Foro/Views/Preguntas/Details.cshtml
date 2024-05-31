@@ -116,8 +116,11 @@
     <div>
         @foreach (var unaRespuesta in Model.OrderBy(p => p.Fecha))
         {
-            var isDislikeRow = unaRespuesta.RespuestaId == respuestaMasDislike && unaRespuesta.Reacciones.Count(r => r.MeGusta.HasValue && (bool)r.MeGusta) != unaRespuesta.Reacciones.Count(r => r.MeGusta.HasValue && !(bool)r.MeGusta);
-            var isLikeRow = unaRespuesta.RespuestaId == respuestaMasLikes && unaRespuesta.Reacciones.Count(r => r.MeGusta.HasValue && (bool)r.MeGusta) != unaRespuesta.Reacciones.Count(r => r.MeGusta.HasValue && !(bool)r.MeGusta);
+            var totalLikes = unaRespuesta.Reacciones.Count(r => r.MeGusta.HasValue && r.MeGusta.Value);
+            var totalDislikes = unaRespuesta.Reacciones.Count(r => r.MeGusta.HasValue && !r.MeGusta.Value);
+
+            var isDislikeRow = unaRespuesta.RespuestaId == respuestaMasDislike && totalLikes != totalDislikes;
+            var isLikeRow = unaRespuesta.RespuestaId == respuestaMasLikes && totalLikes != totalDislikes;
 
             <div class="response-card @(isDislikeRow ? "dislike-row" : isLikeRow ? "like-row" : "")">
                 <div class="response-card-header">
@@ -129,25 +132,23 @@
                         <form method="post" asp-controller="Reacciones" asp-action="Like" style="display:inline;">
                             <input type="hidden" name="respuestaId" value="@unaRespuesta.RespuestaId" />
                             <button type="submit" class="btn btn-link">
-                                <i class="far fa-thumbs-up @(unaRespuesta.Reacciones.Any(r => r.MiembroId == UsuarioId && r.MeGusta.HasValue && (bool) r.MeGusta) ? "liked" : "")"></i>
+                                Like <i class="far fa-thumbs-up @(unaRespuesta.Reacciones.Any(r => r.MiembroId == UsuarioId && r.MeGusta.HasValue && (bool)r.MeGusta) ? "liked" : "")"></i>
                             </button>
                         </form>
                         <form method="post" asp-controller="Reacciones" asp-action="Dislike" style="display:inline;">
                             <input type="hidden" name="respuestaId" value="@unaRespuesta.RespuestaId" />
                             <button type="submit" class="btn btn-link">
-                                <i class="far fa-thumbs-down @(unaRespuesta.Reacciones.Any(r => r.MiembroId == UsuarioId && r.MeGusta.HasValue && !(bool)r.MeGusta) ? "disliked" : "")"></i>
-                            </button>
+                                Dislike <i class="far fa-thumbs-down @(unaRespuesta.Reacciones.Any(r => r.MiembroId == UsuarioId && r.MeGusta.HasValue && !(bool)r.MeGusta) ? "disliked" : "")"></i>
+                            </button>>
                         </form>
                         <span>
-                            @unaRespuesta.Reacciones.Count(r => r.MeGusta.HasValue && (bool)r.MeGusta) Likes /
-                            @unaRespuesta.Reacciones.Count(r => r.MeGusta.HasValue && !(bool)r.MeGusta) Dislikes
+                            @totalLikes Likes / @totalDislikes Dislikes
                         </span>
                     </div>
                 </div>
             </div>
         }
 
-        }
     </div>
     <p>Se encontraron: @Model.Count() Respuestas en esta Pregunta</p>
 </div>
