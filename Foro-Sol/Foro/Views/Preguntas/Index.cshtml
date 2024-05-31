@@ -12,7 +12,7 @@
         <a asp-action="Create">Crear una nueva pregunta</a>
     }
 
-   
+
 </p>
 <table class="table">
     <thead>
@@ -27,47 +27,57 @@
                 Estado
             </th>
             <th>
-             @*    @Html.DisplayNameFor(model => model.Entrada)
-            </th>
-            <th>
+                @*    @Html.DisplayNameFor(model => model.Entrada)
+                </th>
+                <th>
                 @Html.DisplayNameFor(model => model.Miembro)
-            </th> *@
+                </th> *@
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fecha)
-            </td>
-            <td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fecha)
+                </td>
+                <td>
                     <p class="card-text">
-                        @((bool)item.Activa ? "Activa" : "Inactiva")
+                        @if (item.Activa.HasValue)
+                        {
+                            @((bool)item.Activa ? "Activa" : "Inactiva")
+                        }
+                        else
+                        {
+                            <span>No definido</span>
+                        }
                     </p>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Entrada.Titulo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Miembro.Apellido)
-            </td>
-            <td>
-                   
 
-               
-                <a asp-action="Details" asp-route-id="@item.PreguntaId">Detalles</a>
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Entrada.Titulo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Miembro.Apellido)
+                </td>
+                <td>
+
+
+
+                    <a asp-action="Details" asp-route-id="@item.PreguntaId">Detalles</a>
                     @if (User.Identity.IsAuthenticated)
                     {
                         <a asp-action="Edit" asp-route-id="@item.PreguntaId">Editar</a>
 
                         <a asp-action="Delete" asp-route-id="@item.PreguntaId">Borrar</a>
                     }
-            </td>
-        </tr>
-}
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

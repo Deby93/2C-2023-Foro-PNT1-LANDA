@@ -26,145 +26,94 @@ namespace Foro
 
 
         [HttpPost]
-        public async Task<IActionResult> Like(int respuestaId, string reactionType)
+        public async Task<IActionResult> Like(int respuestaId, int preguntaId)
         {
             // Obtén el userId del usuario actual
             var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            if (int.TryParse(userIdString, out int userId))
+            var reaccionador = _contexto.Respuestas.FirstOrDefault(p => p.RespuestaId == respuestaId);
+            if (!User.Identity.IsAuthenticated || reaccionador == null || userIdString[0] == reaccionador.MiembroId)
             {
-                // Verifica si ya existe una reacción del usuario para la respuesta específica
-                var existeReaccion = await _contexto.Reacciones
-                    .FirstOrDefaultAsync(r => r.RespuestaId == respuestaId && r.MiembroId == userId);
+                return NotFound();
 
-                if (existeReaccion != null)
-                {
-                    if (reactionType == "None")
-                    {
-                        existeReaccion.MeGusta = reactionType == "Like";
-                        _contexto.Reacciones.Update(existeReaccion);
-                    }
-                    else if ((bool)(existeReaccion.MeGusta = reactionType == "Dislike"))
-                    {
-                        existeReaccion.MeGusta = reactionType == "Like";
-                        _contexto.Reacciones.Update(existeReaccion);
-                    }
-                }
-                else
-                {
-                    // Crea una nueva reacción si no existe ninguna para la respuesta y el usuario
-                    var nuevaReaccion = new Reaccion
-                    {
-                        RespuestaId = respuestaId,
-                        MiembroId = userId,
-                        Fecha = DateTime.Now,
-                        MeGusta = reactionType == "Like"
-                    };
-                    _contexto.Reacciones.Add(nuevaReaccion);
-                }
-
-                await _contexto.SaveChangesAsync();
-                return RedirectToAction("Details", "Respuestas", new { id = respuestaId });
             }
             else
             {
-                return BadRequest("El ID del miembro no es valido.");
+                var existeReaccion = await _contexto.Reacciones
+                    .FirstOrDefaultAsync(r => r.RespuestaId == respuestaId && r.MiembroId == userIdString[0]);
+
+                if (existeReaccion == null)
+                {
+                    var nuevaReaccion = new Reaccion
+                    {
+                        RespuestaId = respuestaId,
+                        MiembroId = userIdString[0],
+                        Fecha = DateTime.Now,
+                        MeGusta = true,
+                    };
+                    _contexto.Reacciones.Add(nuevaReaccion);
+                    await _contexto.SaveChangesAsync();
+                }
+                else
+                {
+                    try
+                    {
+                        _contexto.Reacciones.Remove(existeReaccion);
+                        await _contexto.SaveChangesAsync();
+                    }
+                    catch
+                    {
+
+                    }
+                }
             }
+            return RedirectToAction("Details", "Respuestas", new { id = preguntaId });
         }
 
         [HttpPost]
-        public async Task<IActionResult> DisLike(int respuestaId, string reactionType)
+        public async Task<IActionResult> Dislike(int respuestaId, int preguntaId)
         {
             // Obtén el userId del usuario actual
             var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            if (int.TryParse(userIdString, out int userId))
+            var reaccionador = _contexto.Respuestas.FirstOrDefault(p => p.RespuestaId == respuestaId);
+            if (!User.Identity.IsAuthenticated || reaccionador == null || userIdString[0] == reaccionador.MiembroId)
             {
-                // Verifica si ya existe una reacción del usuario para la respuesta específica
-                var existeReaccion = await _contexto.Reacciones
-                    .FirstOrDefaultAsync(r => r.RespuestaId == respuestaId && r.MiembroId == userId);
+                return NotFound();
 
-                if (existeReaccion != null)
-                {
-                    if (reactionType == "None")
-                    {
-                        existeReaccion.MeGusta = reactionType == "DisLike";
-                        _contexto.Reacciones.Update(existeReaccion);
-                    }
-                    else if ((bool)(existeReaccion.MeGusta = reactionType == "Like"))
-                    {
-                        existeReaccion.MeGusta = reactionType == "DisLike";
-                        _contexto.Reacciones.Update(existeReaccion);
-                    }
-                }
-                else
-                {
-                    // Crea una nueva reacción si no existe ninguna para la respuesta y el usuario
-                    var nuevaReaccion = new Reaccion
-                    {
-                        RespuestaId = respuestaId,
-                        MiembroId = userId,
-                        Fecha = DateTime.Now,
-                        MeGusta = reactionType == "DisLike"
-                    };
-                    _contexto.Reacciones.Add(nuevaReaccion);
-                }
-
-                await _contexto.SaveChangesAsync();
-                return RedirectToAction("Details", "Respuestas", new { id = respuestaId });
             }
             else
             {
-                return BadRequest("El ID del miembro no es valido.");
-            }
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Reset(int respuestaId, string reactionType)
-        {
-            // Obtén el userId del usuario actual
-            var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            if (int.TryParse(userIdString, out int userId))
-            {
-                // Verifica si ya existe una reacción del usuario para la respuesta específica
                 var existeReaccion = await _contexto.Reacciones
-                    .FirstOrDefaultAsync(r => r.RespuestaId == respuestaId && r.MiembroId == userId);
+                    .FirstOrDefaultAsync(r => r.RespuestaId == respuestaId && r.MiembroId == userIdString[0]);
 
-                if (existeReaccion != null)
+                if (existeReaccion == null)
                 {
-                    if (reactionType == "Like")
-                    {
-                        existeReaccion.MeGusta = reactionType == "None";
-                        _contexto.Reacciones.Update(existeReaccion);
-                    }
-                    else if ((bool)(existeReaccion.MeGusta = reactionType == "DisLike"))
-                    {
-                        existeReaccion.MeGusta = reactionType == "None";
-                        _contexto.Reacciones.Update(existeReaccion);
-                    }
-                }
-                else
-                {
-                    // Crea una nueva reacción si no existe ninguna para la respuesta y el usuario
                     var nuevaReaccion = new Reaccion
                     {
                         RespuestaId = respuestaId,
-                        MiembroId = userId,
+                        MiembroId = userIdString[0],
                         Fecha = DateTime.Now,
-                        MeGusta = reactionType == "None"
+                        MeGusta = false,
                     };
                     _contexto.Reacciones.Add(nuevaReaccion);
+                    await _contexto.SaveChangesAsync();
                 }
+                else
+                {
+                    try
+                    {
+                        _contexto.Reacciones.Remove(existeReaccion);
+                        await _contexto.SaveChangesAsync();
+                    }
+                    catch
+                    {
 
-                await _contexto.SaveChangesAsync();
-                return RedirectToAction("Details", "Respuestas", new { id = respuestaId });
+                    }
+                }
             }
-            else
-            {
-                return BadRequest("El ID del miembro no es valido.");
-            }
+            return RedirectToAction("Details", "Respuestas", new { id = preguntaId });
         }
+
+
 
     }
 }
