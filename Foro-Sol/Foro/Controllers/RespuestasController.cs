@@ -66,44 +66,38 @@ namespace Foro
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RespuestaId,PreguntaId,Descripcion,Fecha")] Respuesta respuesta)
+        public async Task<IActionResult> Create([Bind("PreguntaId,Descripcion")] Respuesta respuesta)
         {
             // Obtiene el MiembroId del usuario autenticado
-            int MiembroIdEncontrado = 0;
             var userClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
-            if (userClaim != null)
-            {
-                MiembroIdEncontrado = Int32.Parse(userClaim.Value);
-            }
+            int MiembroIdEncontrado = userClaim != null ? Int32.Parse(userClaim.Value) : 0;
 
             if (ModelState.IsValid)
             {
-                {
-                    ModelState.AddModelError("respuesta.Descripcion", "Ya existe una respuesta con esa descripcion.");
-                    return View(respuesta);
-                }
-
                 if (MiembroIdEncontrado != 0)
                 {
                     var preguntaAsociada = await _contexto.Preguntas.FindAsync(respuesta.PreguntaId);
-                    if (preguntaAsociada == null || (bool)!preguntaAsociada.Activa)
+                    if (preguntaAsociada == null || (bool) !preguntaAsociada.Activa)
                     {
                         ModelState.AddModelError(string.Empty, "No se puede crear una respuesta para una pregunta inactiva.");
-                        ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "Id", "Apellido", MiembroIdEncontrado);
-                        ViewData["PreguntaId"] = new SelectList(_contexto.Preguntas, "PreguntaId", "Descripcion", respuesta.PreguntaId);
                         return View(respuesta);
                     }
 
                     // Verifica que el miembro que responde no sea el mismo que hizo la pregunta
                     if (preguntaAsociada.MiembroId != MiembroIdEncontrado)
                     {
-                        respuesta = new Respuesta
+                        // Verifica si ya existe una respuesta con la misma descripción
+                        bool existeRespuestaConMismaDescripcion = _contexto.Respuestas
+                            .Any(r => r.Descripcion == respuesta.Descripcion && r.PreguntaId == respuesta.PreguntaId);
+
+                        if (existeRespuestaConMismaDescripcion)
                         {
-                            PreguntaId = respuesta.PreguntaId,
-                            MiembroId = MiembroIdEncontrado,
-                            Descripcion = respuesta.Descripcion,
-                            Fecha = DateTime.Now,
-                        };
+                            ModelState.AddModelError("Descripcion", "Ya existe una respuesta con esa descripción.");
+                            return View(respuesta);
+                        }
+
+                        respuesta.MiembroId = MiembroIdEncontrado;
+                        respuesta.Fecha = DateTime.Now;
 
                         _contexto.Add(respuesta);
                         await _contexto.SaveChangesAsync();
@@ -120,7 +114,6 @@ namespace Foro
                 }
             }
 
-            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "Id", "Apellido", MiembroIdEncontrado);
             ViewData["PreguntaId"] = new SelectList(_contexto.Preguntas, "PreguntaId", "Descripcion", respuesta.PreguntaId);
             return View(respuesta);
         }
