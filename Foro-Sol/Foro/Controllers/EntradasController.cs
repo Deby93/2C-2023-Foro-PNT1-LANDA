@@ -49,8 +49,9 @@ namespace Foro
             {
                 return NotFound();
             }
-
+            var idEntradaconMasDislikes = EntradaConMasDislikes;
             ViewBag.Entrada = entrada;
+            ViewBag.EntradaConMasDislikesId = idEntradaconMasDislikes;
 
             var preguntas = entrada.Preguntas.ToList();
 
@@ -247,6 +248,26 @@ namespace Foro
         private bool EntradaExists(int id)
         {
           return (_contexto.Entradas?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+
+        public int EntradaConMasDislikes()
+        {
+            Console.WriteLine("Inicio");
+            var entradaConMasDislikes = _contexto.Entradas
+                .SelectMany(e => e.Preguntas.SelectMany(p => p.Respuestas.Select(r => new
+                {
+                    Entrada = e,
+                    Pregunta = p,
+                    Respuesta = r,
+                    Dislikes = r.Reacciones.Count(reaccion => (bool)!reaccion.MeGusta)
+                })))
+                .OrderByDescending(x => x.Dislikes)
+                .FirstOrDefault();
+
+
+            return (entradaConMasDislikes.Entrada.Id);
+
         }
     }
 }

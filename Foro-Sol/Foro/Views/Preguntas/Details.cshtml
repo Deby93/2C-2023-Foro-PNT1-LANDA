@@ -102,11 +102,7 @@
         {
             @if (User.Identity.IsAuthenticated)
             {
-
-
                 <a class="btn btn-success text-white" asp-controller="Respuestas" asp-action="Create" asp-route-id="@pregunta.PreguntaId">Responder</a>
-
-
             }
         }
         <a class="btn btn-primary" asp-controller="Entradas" asp-action="Details" asp-route-id="@pregunta.EntradaId">Atrás</a>

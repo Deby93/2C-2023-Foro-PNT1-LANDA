@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace Foro
@@ -30,5 +31,10 @@ namespace Foro
 
         public List<Reaccion>? Reacciones { get; set; }
         #endregion
+
+
+        [NotMapped]
+        public int ContadorDislikes => Reacciones.Count(r => r.MeGusta.HasValue && !r.MeGusta.Value);
+
     }
 }

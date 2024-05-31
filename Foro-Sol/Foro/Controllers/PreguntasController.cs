@@ -14,7 +14,6 @@ namespace Foro
         private readonly ForoContexto _contexto;
         private readonly UserManager<Usuario> _userManager;
         private readonly SignInManager<Usuario> _signinManager;
-
         public PreguntasController(ForoContexto context, UserManager<Usuario> userManager, SignInManager<Usuario> signinManager)
         {
             _contexto = context;
@@ -56,6 +55,7 @@ namespace Foro
                 .OrderBy(p => p.Fecha)
                 .Where(m => m.PreguntaId == id)
                 .ToListAsync();
+           
 
             ViewBag.Pregunta = pregunta;
             ViewBag.idMasLikes = respuestas.OrderByDescending(r => r.Reacciones.Count(re => (bool) re.MeGusta)).FirstOrDefault()?.RespuestaId;

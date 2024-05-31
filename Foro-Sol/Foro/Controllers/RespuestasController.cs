@@ -15,6 +15,8 @@ namespace Foro
         private readonly ForoContexto _contexto;
         private readonly UserManager<Usuario> _userManager;
         private readonly SignInManager<Usuario> _signinManager;
+        private const int UMBRAL_DISLIKES = 10; // Definir el umbral según tus necesidades
+
 
         public RespuestasController(ForoContexto context, UserManager<Usuario> userManager, SignInManager<Usuario> signinManager)
         {
@@ -117,9 +119,6 @@ namespace Foro
             ViewData["PreguntaId"] = new SelectList(_contexto.Preguntas, "PreguntaId", "Descripcion", respuesta.PreguntaId);
             return View(respuesta);
         }
-
-
-
 
         // GET: Respuestas/Edit/5
         public async Task<IActionResult> Edit(int? id)

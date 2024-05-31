@@ -49,6 +49,7 @@ namespace Foro
             if (!User.Identity.IsAuthenticated || reaccionador == null || reaccionador.MiembroId == userId)
             {
                 return NotFound();
+                //redireigir al preguntas detalles
             }
 
             var existeReaccion = await _contexto.Reacciones
@@ -83,6 +84,7 @@ namespace Foro
             if (preguntaId == 0)
             {
                 return NotFound("La pregunta no fue encontrada.");
+
             }
 
             return RedirectToAction("Details", "Respuestas", new { id = preguntaId });

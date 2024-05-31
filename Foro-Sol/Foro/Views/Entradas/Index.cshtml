@@ -2,8 +2,8 @@
 
 @{
     ViewData["Title"] = "Index";
-}
-
+    int idEntradaconMasDislikes = ViewBag.Entrada;
+    }
 <h1>Entradas</h1>
 
 <p>
@@ -21,7 +21,8 @@
             <th>@Html.DisplayNameFor(model => model.Privada)</th>
             <th>@Html.DisplayNameFor(model => model.Miembro)</th>
             <th>@Html.DisplayNameFor(model => model.Categoria)</th>
-            <th>Me gustas</th>
+            <th>Likes</th>
+            <th>Dilikes</th>
 
             @if (User.Identity.IsAuthenticated)
             {
