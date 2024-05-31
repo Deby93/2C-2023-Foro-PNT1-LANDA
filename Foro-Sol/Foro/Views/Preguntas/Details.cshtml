@@ -131,14 +131,12 @@
                     <div class="response-actions">
                         <form method="post" asp-controller="Reacciones" asp-action="Like" style="display:inline;">
                             <input type="hidden" name="respuestaId" value="@unaRespuesta.RespuestaId" />
-                            <button type="submit" class="btn btn-link">
-                                Like <i class="far fa-thumbs-up @(unaRespuesta.Reacciones.Any(r => r.MiembroId == UsuarioId && r.MeGusta.HasValue && (bool)r.MeGusta) ? "liked" : "")"></i>
+                            <button type="submit" class="btn btn-success">Like<i class="far fa-thumbs-up @(unaRespuesta.Reacciones.Any(r => r.MiembroId == UsuarioId && r.MeGusta.HasValue && (bool)r.MeGusta) ? "liked" : "")"></i>
                             </button>
                         </form>
                         <form method="post" asp-controller="Reacciones" asp-action="Dislike" style="display:inline;">
                             <input type="hidden" name="respuestaId" value="@unaRespuesta.RespuestaId" />
-                            <button type="submit" class="btn btn-link">
-                                Dislike <i class="far fa-thumbs-down @(unaRespuesta.Reacciones.Any(r => r.MiembroId == UsuarioId && r.MeGusta.HasValue && !(bool)r.MeGusta) ? "disliked" : "")"></i>
+                            <button type="submit" class="btn btn-danger">Dislike<i class="far fa-thumbs-down @(unaRespuesta.Reacciones.Any(r => r.MiembroId == UsuarioId && r.MeGusta.HasValue && !(bool)r.MeGusta) ? "disliked" : "")"></i>
                             </button>>
                         </form>
                         <span>
