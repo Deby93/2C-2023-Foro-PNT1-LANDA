@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,10 +9,15 @@ namespace Foro
     public class CategoriasController : Controller
     {
         private readonly ForoContexto _contexto;
+        private readonly UserManager<Usuario> _userManager;
+        private readonly SignInManager<Usuario> _signinManager;
 
-        public CategoriasController(ForoContexto context)
+
+        public CategoriasController(ForoContexto context, UserManager<Usuario> userManager, SignInManager<Usuario> signinManager)
         {
             _contexto = context;
+            _userManager = userManager;
+            _signinManager = signinManager;
         }
 
         // GET: Categorias
@@ -23,20 +29,29 @@ namespace Foro
         // GET: Categorias/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _contexto.Categorias == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
             var categoria = await _contexto.Categorias
-                .FirstOrDefaultAsync(m => m.CategoriaId == id);
+                .Include(c => c.Entradas) // Incluir las entradas relacionadas con la categoría
+                .FirstOrDefaultAsync(cate => cate.CategoriaId == id);
+
             if (categoria == null)
             {
                 return NotFound();
             }
 
+            // Obtener la cantidad de entradas para la categoría actual
+            int cantidadEntradas = categoria.Entradas.Count;
+
+            // Pasa la cantidad de entradas a la vista
+            ViewBag.CantidadEntradas = cantidadEntradas;
+
             return View(categoria);
         }
+
 
         // GET: Categorias/Create
 

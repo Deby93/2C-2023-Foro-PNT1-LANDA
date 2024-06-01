@@ -3,24 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|c:\\users\\twatd\\onedrive\\escritorio\\proyecto\\2c-2023-foro-pnt1-landa\\foro-sol\\foro\\controllers\\entradascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|solutionrelative:foro\\controllers\\entradascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|c:\\users\\twatd\\onedrive\\escritorio\\proyecto\\2c-2023-foro-pnt1-landa\\foro-sol\\foro\\controllers\\categoriascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|solutionrelative:foro\\controllers\\categoriascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|c:\\users\\twatd\\onedrive\\escritorio\\proyecto\\2c-2023-foro-pnt1-landa\\foro-sol\\foro\\views\\entradas\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|solutionrelative:foro\\views\\entradas\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|c:\\users\\twatd\\onedrive\\escritorio\\proyecto\\2c-2023-foro-pnt1-landa\\foro-sol\\foro\\views\\entradas\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|solutionrelative:foro\\views\\entradas\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|c:\\users\\twatd\\onedrive\\escritorio\\proyecto\\2c-2023-foro-pnt1-landa\\foro-sol\\foro\\wwwroot\\css\\misestilos.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|solutionrelative:foro\\wwwroot\\css\\misestilos.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|c:\\users\\twatd\\onedrive\\escritorio\\proyecto\\2c-2023-foro-pnt1-landa\\foro-sol\\foro\\views\\entradas\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|solutionrelative:foro\\views\\entradas\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|c:\\users\\twatd\\onedrive\\escritorio\\proyecto\\2c-2023-foro-pnt1-landa\\foro-sol\\foro\\views\\categorias\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{360DC488-C8EB-4C37-9D95-489AE3FD88EE}|Foro\\Foro.csproj|solutionrelative:foro\\views\\categorias\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,71 +18,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "MisEstilos.css",
-              "DocumentMoniker": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\css\\MisEstilos.css",
-              "RelativeDocumentMoniker": "Foro\\wwwroot\\css\\MisEstilos.css",
-              "ToolTip": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\wwwroot\\css\\MisEstilos.css",
-              "RelativeToolTip": "Foro\\wwwroot\\css\\MisEstilos.css",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2024-06-01T16:11:04.445Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Details.cshtml",
-              "DocumentMoniker": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Views\\Entradas\\Details.cshtml",
-              "RelativeDocumentMoniker": "Foro\\Views\\Entradas\\Details.cshtml",
-              "ToolTip": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Views\\Entradas\\Details.cshtml",
-              "RelativeToolTip": "Foro\\Views\\Entradas\\Details.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-05-31T22:45:59.156Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Views\\Entradas\\Create.cshtml",
-              "RelativeDocumentMoniker": "Foro\\Views\\Entradas\\Create.cshtml",
-              "ToolTip": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Views\\Entradas\\Create.cshtml",
-              "RelativeToolTip": "Foro\\Views\\Entradas\\Create.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-05-31T21:54:36.334Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Views\\Entradas\\Index.cshtml",
-              "RelativeDocumentMoniker": "Foro\\Views\\Entradas\\Index.cshtml",
-              "ToolTip": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Views\\Entradas\\Index.cshtml",
-              "RelativeToolTip": "Foro\\Views\\Entradas\\Index.cshtml",
-              "ViewState": "AQIAACcAAAAAAAAAAAAAACkAAAAAAAAA",
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Views\\Categorias\\Details.cshtml",
+              "RelativeDocumentMoniker": "Foro\\Views\\Categorias\\Details.cshtml",
+              "ToolTip": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Views\\Categorias\\Details.cshtml*",
+              "RelativeToolTip": "Foro\\Views\\Categorias\\Details.cshtml*",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACUAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-05-31T21:54:29.878Z",
+              "WhenOpened": "2024-06-01T17:13:07.662Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "EntradasController.cs",
-              "DocumentMoniker": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Controllers\\EntradasController.cs",
-              "RelativeDocumentMoniker": "Foro\\Controllers\\EntradasController.cs",
-              "ToolTip": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Controllers\\EntradasController.cs*",
-              "RelativeToolTip": "Foro\\Controllers\\EntradasController.cs*",
-              "ViewState": "AQIAAO4AAAAAAAAAAAAcwAMBAAAAAAAA",
+              "Title": "CategoriasController.cs",
+              "DocumentMoniker": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Controllers\\CategoriasController.cs",
+              "RelativeDocumentMoniker": "Foro\\Controllers\\CategoriasController.cs",
+              "ToolTip": "C:\\Users\\twatd\\OneDrive\\Escritorio\\proyecto\\2C-2023-Foro-PNT1-LANDA\\Foro-Sol\\Foro\\Controllers\\CategoriasController.cs*",
+              "RelativeToolTip": "Foro\\Controllers\\CategoriasController.cs*",
+              "ViewState": "AQIAABkAAAAAAAAAAAAiwCkAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-31T21:40:15.598Z",
+              "WhenOpened": "2024-06-01T16:58:25.885Z",
               "EditorCaption": ""
             }
           ]
