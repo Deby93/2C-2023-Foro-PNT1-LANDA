@@ -9,7 +9,10 @@
 }
 
 
-
+.table-danger {
+    background-color: #FF0000 !important; /* Cambia este color a un rojo más oscuro según tu preferencia */
+    color: black; /* Asegúrate de que el texto sea legible */
+}
 
 .navbar-brand {
     /*    background: url('../img/naranjaa-11.png') no-repeat;

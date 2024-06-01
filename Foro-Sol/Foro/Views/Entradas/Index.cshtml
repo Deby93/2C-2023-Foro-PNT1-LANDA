@@ -2,8 +2,9 @@
 
 @{
     ViewData["Title"] = "Index";
-    int idEntradaconMasDislikes = ViewBag.Entrada;
-    }
+    int? idEntradaConMasDislikes = ViewBag.EntradaConMasDislikesId as int?;
+}
+
 <h1>Entradas</h1>
 
 <p>
@@ -19,46 +20,47 @@
             <th>@Html.DisplayNameFor(model => model.Titulo)</th>
             <th>@Html.DisplayNameFor(model => model.Fecha)</th>
             <th>@Html.DisplayNameFor(model => model.Privada)</th>
-            <th>@Html.DisplayNameFor(model => model.Miembro)</th>
-            <th>@Html.DisplayNameFor(model => model.Categoria)</th>
+            <th>@Html.DisplayNameFor(model => model.Miembro.Apellido)</th>
+            <th>@Html.DisplayNameFor(model => model.Categoria.Nombre)</th>
             <th>Likes</th>
-            <th>Dilikes</th>
-
-            @if (User.Identity.IsAuthenticated)
-            {
-                <a asp-action="MisEntradas">Mis entradas</a>
-            }
-          
+            <th>Dislikes</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var entrada in Model)
         {
-            <tr>
+            var isDislikedEntry = idEntradaConMasDislikes.HasValue && entrada.Id == idEntradaConMasDislikes.Value;
+
+            int totalLikes = 0;
+            int totalDislikes = 0;
+            if (entrada.Preguntas != null && entrada.Preguntas.Any())
+            {
+                totalLikes = entrada.Preguntas.Sum(p => p.Respuestas.Sum(r => r.Reacciones.Count(re => re.MeGusta.HasValue && re.MeGusta.Value)));
+                totalDislikes = entrada.Preguntas.Sum(p => p.Respuestas.Sum(r => r.Reacciones.Count(re => re.MeGusta.HasValue && !re.MeGusta.Value)));
+            }
+
+            <tr class="@(isDislikedEntry ? "table-danger" : "")">
                 <td>@Html.DisplayFor(modelItem => entrada.Titulo)</td>
                 <td>@Html.DisplayFor(modelItem => entrada.Fecha)</td>
                 <td>@Html.DisplayFor(modelItem => entrada.Privada)</td>
                 <td>@Html.DisplayFor(modelItem => entrada.Miembro.Apellido)</td>
                 <td>@Html.DisplayFor(modelItem => entrada.Categoria.Nombre)</td>
-                <td>
-                    @{
-                        int totalLikes = 0;
-                        if (entrada.Preguntas != null && entrada.Preguntas.Any())
-                        {
-                            totalLikes = entrada.Preguntas.Sum(p => p.Respuestas.Sum(r => r.Reacciones.Count(re => re.MeGusta == true)));
-                        }
-                        @totalLikes
-                    }
-                </td>
-                <td>
-                </td>
+                <td>@totalLikes</td>
+                <td>@totalDislikes</td>
                 <td>
                     <a asp-action="Details" asp-route-id="@entrada.Id">Detalles</a>
 
                     @if (User.Identity.IsAuthenticated)
                     {
                         <a asp-action="Edit" asp-route-id="@entrada.Id">Editar</a>
-                        <a asp-action="Delete" asp-route-id="@entrada.Id">Borrar</a>
+
+                        @if (isDislikedEntry)
+                        {
+                            <form method="post" asp-action="Delete" asp-route-id="@entrada.Id" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta entrada?');">
+                                <button type="submit" class="btn btn-danger">Borrar</button>
+                            </form>
+                        }
                     }
                 </td>
             </tr>

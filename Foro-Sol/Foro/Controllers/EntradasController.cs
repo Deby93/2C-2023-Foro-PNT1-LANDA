@@ -22,52 +22,69 @@ namespace Foro
 
         }
         // GET: Entradas
-        public async Task<IActionResult> Index()
-        {
-            List<Entrada> listaDeEntradas = new();
+        //public async Task<IActionResult> Index()
+        //{
+        //    List<Entrada> listaDeEntradas = new();
 
-            listaDeEntradas = await _contexto.Entradas.
-               Include(e => e.Categoria).
-               Include(e => e.Miembro).
-               Include(e => e.MiembrosHabilitados).
-               OrderByDescending(e => e.Fecha).
-               ToListAsync();
+        //    listaDeEntradas = await _contexto.Entradas.
+        //       Include(e => e.Categoria).
+        //       Include(e => e.Miembro).
+        //       Include(e => e.MiembrosHabilitados).
+        //       OrderByDescending(e => e.Fecha).
+        //       ToListAsync();
 
-            return View(listaDeEntradas);
-        }
+        //    return View(listaDeEntradas);
+        //}
 
 
         // GET: Entradas/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public ActionResult Index()
         {
-            var entrada = await _contexto.Entradas
+            // Obtener la entrada con más dislikes
+            var entradaConMasDislikes = _contexto.Entradas
                 .Include(e => e.Preguntas)
                     .ThenInclude(p => p.Respuestas)
-                .FirstOrDefaultAsync(e => e.Id == id);
+                        .ThenInclude(r => r.Reacciones)
+                .SelectMany(e => e.Preguntas.SelectMany(p =>
+                    p.Respuestas.Select(r => new
+                    {
+                        Entrada = e,
+                        Dislikes = r.Reacciones.Count(re => re.MeGusta.HasValue && !re.MeGusta.Value)
+                    })
+                ))
+                .OrderByDescending(x => x.Dislikes)
+                .FirstOrDefault();
 
-            if (entrada == null)
+            // Obtener el ID de la entrada con más dislikes
+            int? idEntradaConMasDislikes = null;
+            if (entradaConMasDislikes != null)
             {
-                return NotFound();
+                idEntradaConMasDislikes = entradaConMasDislikes.Entrada.Id;
             }
-            var idEntradaconMasDislikes = EntradaConMasDislikes;
-            ViewBag.Entrada = entrada;
-            ViewBag.EntradaConMasDislikesId = idEntradaconMasDislikes;
 
-            var preguntas = entrada.Preguntas.ToList();
+            ViewBag.EntradaConMasDislikesId = idEntradaConMasDislikes;
 
-            return View(preguntas);
+            // Obtener las entradas para la vista, incluyendo las relaciones necesarias
+            var entradas = _contexto.Entradas
+                .Include(e => e.Preguntas)
+                    .ThenInclude(p => p.Respuestas)
+                        .ThenInclude(r => r.Reacciones)
+                .ToList();
+
+            return View(entradas);
         }
 
-      //  [Authorize(Roles = Config.Miembro)]
+
+        //  [Authorize(Roles = Config.Miembro)]
 
         [HttpGet]
         public IActionResult Create()
         {
-          
+
             ViewData["CategoriaId"] = new SelectList(_contexto.Categorias.OrderBy(p => p.Nombre), "CategoriaId", "Nombre");
             return View();
         }
-       // [Authorize(Roles = Config.Miembro)]
+        // [Authorize(Roles = Config.Miembro)]
 
         // GET: Entradas/Create
         public async Task<IActionResult> Create([Bind("EntradaId,Titulo,Descripcion,CategoriaId, Fecha,Privada,Categoria,")] Entrada entrada)
@@ -158,12 +175,12 @@ namespace Foro
                     entradaEnDb.Privada = entrada.Privada;
                     entradaEnDb.Descripcion = entrada.Descripcion;
                     entradaEnDb.Fecha = entrada.Fecha;
-                  
+
 
                     _contexto.Entradas.Update(entradaEnDb);
                     await _contexto.SaveChangesAsync();
 
-                    return RedirectToAction("Details", "Entradas", new { id = entradaEnDb.Id});
+                    return RedirectToAction("Details", "Entradas", new { id = entradaEnDb.Id });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -207,19 +224,44 @@ namespace Foro
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_contexto.Entradas == null)
-            {
-                return Problem("Entity set 'ForoContexto.Entradas'  is null.");
-            }
+            // Obtener la entrada principal que se va a eliminar
             var entrada = await _contexto.Entradas.FindAsync(id);
-            if (entrada != null)
+            if (entrada == null)
             {
-                _contexto.Entradas.Remove(entrada);
+                return NotFound();
             }
-            
-            await _contexto.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            try
+            {
+                // Eliminar las dependencias (preguntas, respuestas, reacciones) asociadas
+                var preguntas = _contexto.Preguntas.Where(p => p.EntradaId == id);
+                var respuestas = _contexto.Respuestas.Where(r => r.Pregunta.EntradaId == id);
+                var reacciones = _contexto.Reacciones.Where(re => re.Respuesta.Pregunta.EntradaId == id);
+
+                _contexto.Preguntas.RemoveRange(preguntas);
+                _contexto.Respuestas.RemoveRange(respuestas);
+                _contexto.Reacciones.RemoveRange(reacciones);
+
+                // Eliminar la entrada principal
+                _contexto.Entradas.Remove(entrada);
+
+                // Guardar los cambios en la base de datos
+                await _contexto.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                // Manejar cualquier error que pueda ocurrir al guardar los cambios
+                ModelState.AddModelError("", "Error al eliminar la entrada: " + ex.Message);
+                return View(entrada); // o redireccionar a una vista de error personalizada
+            }
         }
+
+
+
+
+
         public async Task<IActionResult> MisEntradas()
         {
             var idMiembro = Int32.Parse(_userManager.GetUserId(User));
@@ -247,7 +289,7 @@ namespace Foro
         }
         private bool EntradaExists(int id)
         {
-          return (_contexto.Entradas?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_contexto.Entradas?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
 
