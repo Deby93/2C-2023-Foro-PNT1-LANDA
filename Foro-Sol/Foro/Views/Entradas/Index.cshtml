@@ -39,12 +39,12 @@
             <th>@Html.DisplayNameFor(model => model.Titulo)</th>
             <th>@Html.DisplayNameFor(model => model.Fecha)</th>
             <th>@Html.DisplayNameFor(model => model.Privada)</th>
-            <th>@Html.DisplayNameFor(model => model.Miembro.Apellido)</th>
-            <th>@Html.DisplayNameFor(model => model.Categoria.Nombre)</th>
+          @*   <th>@Html.DisplayNameFor(model => model.Miembro.Apellido)</th>
+            <th>@Html.DisplayNameFor(model => model.Categoria.Nombre)</th> *@
             <th>Likes</th>
             <th>Dislikes</th>
-            <th>Acciones</th>
-        </tr>
+@*             <th>Acciones</th>
+ *@        </tr>
     </thead>
     <tbody>
         @foreach (var entrada in Model)
@@ -87,8 +87,8 @@
                         <span class="badge bg-secondary">No especificado</span>
                     }
                 </td>
-                <td>@Html.DisplayFor(modelItem => entrada.Miembro.Apellido)</td>
-                <td>@Html.DisplayFor(modelItem => entrada.Categoria.Nombre)</td>
+                @* <td>@Html.DisplayFor(modelItem => entrada.Miembro.Apellido)</td>
+                <td>@Html.DisplayFor(modelItem => entrada.Categoria.Nombre)</td> *@
                 <td>@totalLikes</td>
                 <td>@totalDislikes</td>
                 <td>
