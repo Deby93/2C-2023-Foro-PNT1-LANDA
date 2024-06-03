@@ -1,0 +1,42 @@
+﻿@model IEnumerable<MiembrosHabilitados>
+@{ ViewData["Title"] = "Index"; }
+
+<h1 class="btn-primary text-center text-white">Solicitudes pendientes</h1>
+
+
+<table class="table">
+    <thead class="alert-secondary text-black-50">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Miembro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Entrada)
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Miembro.NombreCompleto)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Entrada.Titulo)
+    </td>
+    <td>
+        <a class="btn btn-success btn-sm m-1 text-white" asp-controller="MiembrosHabilitados" asp-action="AceptarSolicitud" asp-route-entradaId="@item.EntradaId" asp-route-miembroId="@item.MiembroId">Aceptar</a>
+    </td>
+    <td>
+        <a class="btn btn-danger btn-sm m-1 text-white" asp-controller="MiembrosHabilitados" asp-action="RechazarSolicitud" asp-route-entradaId="@item.EntradaId" asp-route-miembroId="@item.MiembroId">Rechazar</a>
+    </td>
+
+</tr>}
+    </tbody>
+</table>
+<p class="">Se encontraron: @Model.Count() solicitudes pendientes</p>

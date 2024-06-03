@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Foro.Entrada>
+﻿@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@model IEnumerable<Foro.Entrada>
 
 @{
     ViewData["Title"] = "Index";
@@ -43,7 +44,31 @@
             <tr class="@(isDislikedEntry ? "table-danger" : "")">
                 <td>@Html.DisplayFor(modelItem => entrada.Titulo)</td>
                 <td>@Html.DisplayFor(modelItem => entrada.Fecha)</td>
-                <td>@Html.DisplayFor(modelItem => entrada.Privada)</td>
+                <td>
+                    @if (entrada.Privada.HasValue)
+                    {
+                        @if (entrada.Privada.Value)
+                        {
+                            <form asp-controller="Entradas" asp-action="SolicitudesPendientes" method="get">
+                                <button type="submit" class="privacy-btn privada">
+                                    Privada
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form asp-controller="Preguntas" asp-action="Index" method="get">
+                                <button type="submit" class="privacy-btn publica">
+                                    Pública
+                                </button>
+                            </form>
+                        }
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">No especificado</span>
+                    }
+                </td>
                 <td>@Html.DisplayFor(modelItem => entrada.Miembro.Apellido)</td>
                 <td>@Html.DisplayFor(modelItem => entrada.Categoria.Nombre)</td>
                 <td>@totalLikes</td>

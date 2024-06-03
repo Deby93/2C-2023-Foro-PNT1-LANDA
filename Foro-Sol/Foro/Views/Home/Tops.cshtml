@@ -24,7 +24,7 @@
 </style>
 <style>
 
-/* Estilo para el botón de privacidad */
+    /* Estilo para el botón de privacidad */
     .privacy-btn {
         border: none;
         padding: 5px 10px;
@@ -33,13 +33,13 @@
         cursor: default;
     }
 
-    .privacy-btn.privada {
-        background-color: #dc3545; /* Rojo para "Privada" */
-    }
+        .privacy-btn.privada {
+            background-color: #dc3545; /* Rojo para "Privada" */
+        }
 
-    .privacy-btn.publica {
-        background-color: #28a745; /* Verde para "Pública" */
-    }
+        .privacy-btn.publica {
+            background-color: #28a745; /* Verde para "Pública" */
+        }
 </style>
 
 <div class="container-fluid mt-3 p-3">
@@ -69,12 +69,15 @@
                                         }
                                         else
                                         {
-                                            <button class="privacy-btn privada">
-                                                Privada
-                                            </button>
+                                            <form asp-controller="Entradas" asp-action="SolicitudesPendientes" method="get">
+                                                <button type="submit" class="privacy-btn privada">
+                                                    Privada
+                                                </button>
+                                            </form>
+
                                         }
                                     }
-                                    
+
                                 </div>
                             }
                         </tbody>
@@ -139,7 +142,7 @@
                                         <!-- Agrega la clase peach-bg aquí también -->
                                         <!-- Contenido de la tarjeta de miembros con más entradas -->
                                         <h5 class="card-title">@item.NombreCompleto</h5>
-                                      
+
                                     </div>
                                 }
                             }

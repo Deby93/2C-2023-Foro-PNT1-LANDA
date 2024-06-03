@@ -78,10 +78,18 @@
                 Estado
             </dt>
             <dd class="col-sm-10">
-                @((bool)entrada.Privada ? "Privada" : "Pública")
+                @if (entrada.Privada.HasValue)
+                {
+                    @((bool)entrada.Privada ? "Privada" : "Pública")
+                }
+                else
+                {
+                    <span>No especificado</span>
+                }
+               
             </dd>
         </dl>
-        @if (!(bool)entrada.Privada && entrada.MiembroId != UsuarioId && User.IsInRole("Miembro"))
+        @if (!(bool)entrada.Privada && entrada.MiembroId != UsuarioId )
         {
             <a class="btn btn-success text-white" asp-controller="Preguntas" asp-action="Create" asp-route-id="@entrada.Id">Hacer Pregunta</a>
         }

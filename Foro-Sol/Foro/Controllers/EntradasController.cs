@@ -37,7 +37,6 @@ namespace Foro
         //}
 
 
-        // GET: Entradas/Details/5
         public ActionResult Index()
         {
             // Obtener la entrada con más dislikes
@@ -73,7 +72,50 @@ namespace Foro
 
             return View(entradas);
         }
+        public async Task<IActionResult> Details(int? id)
+        {
+            Entrada laEntrada = _contexto.Entradas.FirstOrDefault(p => p.Id == id);
+            if (_signinManager.IsSignedIn(User))
+            {
+                int miID = Int32.Parse(User.Claims.First().Value);
+                var estaPendienteDeAutorizacion = _contexto.MiembrosHabilitados.Any((mh => mh.MiembroId == miID && mh.EntradaId == id && !mh.Habilitado));
+                var hayRegistro = _contexto.MiembrosHabilitados.Any(mh => mh.EntradaId == id && mh.MiembroId == miID && mh.Habilitado);
+                if (User.IsInRole("Miembro") && (id == null || estaPendienteDeAutorizacion || (laEntrada.MiembroId != miID && !hayRegistro &&  (bool)laEntrada.Privada)))
+                {
+                    return NotFound();
+                }
+            }
 
+            if (!_signinManager.IsSignedIn(User) && (bool)laEntrada.Privada)
+            {
+                return NotFound();
+            }
+
+            var entrada = await _contexto.Entradas
+                .Include(e => e.Categoria)
+                .Include(e => e.Miembro)
+                .Include(e => e.Preguntas)
+                .ThenInclude(e => e.Respuestas)
+                .OrderBy(p => p.Fecha)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            List<Pregunta> listaDePreguntas = new();
+            listaDePreguntas = await _contexto.Preguntas
+              .Include(e => e.Miembro)
+              .Include(e => e.Entrada)
+              .OrderBy(p => p.Fecha)
+              .Where(m => m.EntradaId == id).ToListAsync();
+
+            if (entrada == null || listaDePreguntas == null)
+            {
+                return NotFound();
+            }
+
+
+            ViewBag.Entrada = entrada;
+            return View(listaDePreguntas);
+
+        }
 
         //  [Authorize(Roles = Config.Miembro)]
 
@@ -310,6 +352,19 @@ namespace Foro
 
             return (entradaConMasDislikes.Entrada.Id);
 
+        }
+
+        public async Task<IActionResult> SolicitudesPendientes()
+        {
+            List<MiembrosHabilitados> miembrosRelacionados;
+            int usuarioId = Int32.Parse(User.Claims.First().Value);
+            if (!User.IsInRole("Miembro"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            miembrosRelacionados = await _contexto.MiembrosHabilitados.Include(mh => mh.Miembro).Include(mh => mh.Entrada).Where(mh => !mh.Habilitado && mh.MiembroId != usuarioId && mh.Entrada.MiembroId == usuarioId).ToListAsync();
+
+            return View(miembrosRelacionados);
         }
     }
 }

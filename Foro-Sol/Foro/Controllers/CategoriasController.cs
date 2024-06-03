@@ -178,5 +178,6 @@ namespace Foro
         {
           return (_contexto.Categorias?.Any(e => e.CategoriaId == id)).GetValueOrDefault();
         }
+
     }
 }
