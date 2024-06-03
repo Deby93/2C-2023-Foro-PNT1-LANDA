@@ -20,14 +20,15 @@
     }
 
     .like-row {
-        background-color: #d4edda;
+        background-color: #d4edda !important;
         color: #155724;
     }
 
     .dislike-row {
-        background-color: #f8d7da;
+        background-color: #f8d7da !important;
         color: #721c24;
     }
+
 
     .response-card {
         margin-bottom: 20px;
@@ -115,10 +116,11 @@
             var totalLikes = unaRespuesta.Reacciones.Count(r => r.MeGusta.HasValue && r.MeGusta.Value);
             var totalDislikes = unaRespuesta.Reacciones.Count(r => r.MeGusta.HasValue && !r.MeGusta.Value);
 
-            var isDislikeRow = unaRespuesta.RespuestaId == respuestaMasDislike && totalLikes != totalDislikes;
-            var isLikeRow = unaRespuesta.RespuestaId == respuestaMasLikes && totalLikes != totalDislikes;
+            var isLikeRow = unaRespuesta.RespuestaId == respuestaMasLikes && totalLikes >= totalDislikes && totalLikes > 0;
+            var isDislikeRow = unaRespuesta.RespuestaId == respuestaMasDislike && totalDislikes > totalLikes && totalDislikes > 0;
 
-            <div class="response-card @(isDislikeRow ? "dislike-row" : isLikeRow ? "like-row" : "")">
+
+            <div class="response-card @(isLikeRow ? "like-row" : isDislikeRow ? "dislike-row" : "")">
                 <div class="response-card-header">
                     @unaRespuesta.Miembro.UserName - @unaRespuesta.Fecha.ToShortDateString()
                 </div>
@@ -127,13 +129,15 @@
                     <div class="response-actions">
                         <form method="post" asp-controller="Reacciones" asp-action="Like" style="display:inline;">
                             <input type="hidden" name="respuestaId" value="@unaRespuesta.RespuestaId" />
-                            <button type="submit" class="btn btn-success">Like<i class="far fa-thumbs-up @(unaRespuesta.Reacciones.Any(r => r.MiembroId == UsuarioId && r.MeGusta.HasValue && (bool)r.MeGusta) ? "liked" : "")"></i>
+                            <button type="submit" class="btn btn-success">
+                                Like <i class="far fa-thumbs-up @(unaRespuesta.Reacciones.Any(r => r.MiembroId == UsuarioId && r.MeGusta.HasValue && (bool)r.MeGusta) ? "liked" : "")"></i>
                             </button>
                         </form>
                         <form method="post" asp-controller="Reacciones" asp-action="Dislike" style="display:inline;">
                             <input type="hidden" name="respuestaId" value="@unaRespuesta.RespuestaId" />
-                            <button type="submit" class="btn btn-danger">Dislike<i class="far fa-thumbs-down @(unaRespuesta.Reacciones.Any(r => r.MiembroId == UsuarioId && r.MeGusta.HasValue && !(bool)r.MeGusta) ? "disliked" : "")"></i>
-                            </button>>
+                            <button type="submit" class="btn btn-danger">
+                                Dislike <i class="far fa-thumbs-down @(unaRespuesta.Reacciones.Any(r => r.MiembroId == UsuarioId && r.MeGusta.HasValue && !(bool)r.MeGusta) ? "disliked" : "")"></i>
+                            </button>
                         </form>
                         <span>
                             @totalLikes Likes / @totalDislikes Dislikes
