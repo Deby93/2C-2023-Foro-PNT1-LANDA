@@ -32,5 +32,7 @@
         public static readonly List<string>DescripcionesParaRta = new() { "Me interesa", "Exacto" };
         public static readonly List<string> DescripcionesParaPreg = new() { "Queres saber mas sobre el color Pantone?", "Es importante usar una paleta de colores para disenar?" };
 
+
+        public static readonly int UMBRAL_DISLIKES = 5;
     }
 }

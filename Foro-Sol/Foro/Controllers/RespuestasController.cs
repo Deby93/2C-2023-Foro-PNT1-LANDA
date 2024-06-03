@@ -8,7 +8,7 @@ using System.Security.Claims;
 
 namespace Foro
 {
-   // [Authorize(Roles = Config.Miembro)]
+    // [Authorize(Roles = Config.Miembro)]
 
     public class RespuestasController : Controller
     {
@@ -79,7 +79,7 @@ namespace Foro
                 if (MiembroIdEncontrado != 0)
                 {
                     var preguntaAsociada = await _contexto.Preguntas.FindAsync(respuesta.PreguntaId);
-                    if (preguntaAsociada == null || (bool) !preguntaAsociada.Activa)
+                    if (preguntaAsociada == null || (bool)!preguntaAsociada.Activa)
                     {
                         ModelState.AddModelError(string.Empty, "No se puede crear una respuesta para una pregunta inactiva.");
                         return View(respuesta);
@@ -166,7 +166,7 @@ namespace Foro
                     respuestaEnDb.Descripcion = respuesta.Descripcion;
                     respuestaEnDb.Fecha = respuesta.Fecha;
                     respuestaEnDb.Reacciones = respuesta.Reacciones;
-                     _contexto.Respuestas.Update(respuestaEnDb);
+                    _contexto.Respuestas.Update(respuestaEnDb);
                     await _contexto.SaveChangesAsync();
 
                     return RedirectToAction("Details", "Respuestas", new { id = respuesta.RespuestaId });
@@ -221,14 +221,14 @@ namespace Foro
             {
                 _contexto.Respuestas.Remove(respuesta);
             }
-            
+
             await _contexto.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool RespuestaExists(int id)
         {
-          return (_contexto.Respuestas?.Any(e => e.RespuestaId == id)).GetValueOrDefault();
+            return (_contexto.Respuestas?.Any(e => e.RespuestaId == id)).GetValueOrDefault();
         }
     }
 }

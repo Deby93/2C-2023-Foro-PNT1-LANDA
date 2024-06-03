@@ -7,7 +7,25 @@
 }
 
 <h1>Entradas</h1>
+<style>
 
+    /* Estilo para el botón de privacidad */
+    .privacy-btn {
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        color: white;
+        cursor: default;
+    }
+
+        .privacy-btn.privada {
+            background-color: #dc3545; /* Rojo para "Privada" */
+        }
+
+        .privacy-btn.publica {
+            background-color: #28a745; /* Verde para "Pública" */
+        }
+</style>
 <p>
     @if (User.Identity.IsAuthenticated)
     {
@@ -80,7 +98,7 @@
                     {
                         <a asp-action="Edit" asp-route-id="@entrada.Id">Editar</a>
 
-                        @if (isDislikedEntry)
+                        @if ((bool)isDislikedEntry && totalDislikes >=Config.UMBRAL_DISLIKES)
                         {
                             <form method="post" asp-action="Delete" asp-route-id="@entrada.Id" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta entrada?');">
                                 <button type="submit" class="btn btn-danger">Borrar</button>
