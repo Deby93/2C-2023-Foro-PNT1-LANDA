@@ -89,9 +89,12 @@
                
             </dd>
         </dl>
+        @if (User.Identity.IsAuthenticated)
+        {
         @if (!(bool)entrada.Privada && entrada.MiembroId != UsuarioId )
         {
-            <a class="btn btn-success text-white" asp-controller="Preguntas" asp-action="Create" asp-route-id="@entrada.Id">Hacer Pregunta</a>
+           <a class="btn btn-success text-white" asp-controller="Preguntas" asp-action="Create" asp-route-id="@entrada.Id">Preguntar</a>
+         }
         }
         <div align="right">
             @if (User.IsInRole("Miembro") && entrada.MiembroId == UsuarioId)
@@ -102,7 +105,7 @@
             {
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <a class="btn btn-success text-white" asp-controller="Preguntas" asp-action="Create" asp-route-id="@entrada.Id">Hacer Pregunta</a>
+                    <a class="btn btn-success text-white" asp-controller="Preguntas" asp-action="Create" asp-route-id="@entrada.Id">Preguntar</a>
                 }
             }
             <a class="btn btn-primary" asp-controller="Entradas" asp-action="Index">Atrás</a>

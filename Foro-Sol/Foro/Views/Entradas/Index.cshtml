@@ -39,12 +39,9 @@
             <th>@Html.DisplayNameFor(model => model.Titulo)</th>
             <th>@Html.DisplayNameFor(model => model.Fecha)</th>
             <th>@Html.DisplayNameFor(model => model.Privada)</th>
-          @*   <th>@Html.DisplayNameFor(model => model.Miembro.Apellido)</th>
-            <th>@Html.DisplayNameFor(model => model.Categoria.Nombre)</th> *@
             <th>Likes</th>
             <th>Dislikes</th>
-@*             <th>Acciones</th>
- *@        </tr>
+        </tr>
     </thead>
     <tbody>
         @foreach (var entrada in Model)
@@ -87,8 +84,6 @@
                         <span class="badge bg-secondary">No especificado</span>
                     }
                 </td>
-                @* <td>@Html.DisplayFor(modelItem => entrada.Miembro.Apellido)</td>
-                <td>@Html.DisplayFor(modelItem => entrada.Categoria.Nombre)</td> *@
                 <td>@totalLikes</td>
                 <td>@totalDislikes</td>
                 <td>
@@ -98,7 +93,7 @@
                     {
                         <a asp-action="Edit" asp-route-id="@entrada.Id">Editar</a>
 
-                        @if ((bool)isDislikedEntry && totalDislikes >=Config.UMBRAL_DISLIKES)
+                        @if ((bool)isDislikedEntry && totalDislikes >= Config.UMBRAL_DISLIKES)
                         {
                             <form method="post" asp-action="Delete" asp-route-id="@entrada.Id" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta entrada?');">
                                 <button type="submit" class="btn btn-danger">Borrar</button>

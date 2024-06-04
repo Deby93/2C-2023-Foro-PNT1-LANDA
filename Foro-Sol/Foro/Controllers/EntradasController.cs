@@ -21,22 +21,7 @@ namespace Foro
             _signinManager = signinManager;
 
         }
-        // GET: Entradas
-        //public async Task<IActionResult> Index()
-        //{
-        //    List<Entrada> listaDeEntradas = new();
-
-        //    listaDeEntradas = await _contexto.Entradas.
-        //       Include(e => e.Categoria).
-        //       Include(e => e.Miembro).
-        //       Include(e => e.MiembrosHabilitados).
-        //       OrderByDescending(e => e.Fecha).
-        //       ToListAsync();
-
-        //    return View(listaDeEntradas);
-        //}
-
-
+       
         public ActionResult Index()
         {
             // Obtener la entrada con más dislikes
