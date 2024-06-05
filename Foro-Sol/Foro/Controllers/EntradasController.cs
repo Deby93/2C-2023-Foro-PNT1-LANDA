@@ -60,16 +60,28 @@ namespace Foro
         public async Task<IActionResult> Details(int? id)
         {
             Entrada laEntrada = _contexto.Entradas.FirstOrDefault(p => p.Id == id);
-            if (_signinManager.IsSignedIn(User))
+
+            if(laEntrada!=null)
             {
-                int miID = Int32.Parse(User.Claims.First().Value);
-                var estaPendienteDeAutorizacion = _contexto.MiembrosHabilitados.Any((mh => mh.MiembroId == miID && mh.EntradaId == id && !mh.Habilitado));
-                var hayRegistro = _contexto.MiembrosHabilitados.Any(mh => mh.EntradaId == id && mh.MiembroId == miID && mh.Habilitado);
-                if (User.IsInRole("Miembro") && (id == null || estaPendienteDeAutorizacion || (laEntrada.MiembroId != miID && !hayRegistro &&  (bool)laEntrada.Privada)))
+                if (!(bool)laEntrada.Privada)
                 {
-                    return NotFound();
+
+                }
+                else
+                {
+                    if (_signinManager.IsSignedIn(User))
+                    {
+                        int miID = Int32.Parse(User.Claims.First().Value);
+                        var estaPendienteDeAutorizacion = _contexto.MiembrosHabilitados.Any((mh => mh.MiembroId == miID && mh.EntradaId == id && !mh.Habilitado));
+                        var hayRegistro = _contexto.MiembrosHabilitados.Any(mh => mh.EntradaId == id && mh.MiembroId == miID && mh.Habilitado);
+                        if (User.IsInRole("Miembro") && (id == null || estaPendienteDeAutorizacion || (laEntrada.MiembroId != miID && !hayRegistro && (bool)laEntrada.Privada)))
+                        {
+                            return NotFound();
+                        }
+                    }
                 }
             }
+           
 
             if (!_signinManager.IsSignedIn(User) && (bool)laEntrada.Privada)
             {
@@ -285,10 +297,6 @@ namespace Foro
             }
         }
 
-
-
-
-
         public async Task<IActionResult> MisEntradas()
         {
             var idMiembro = Int32.Parse(_userManager.GetUserId(User));
@@ -318,8 +326,7 @@ namespace Foro
         {
             return (_contexto.Entradas?.Any(e => e.Id == id)).GetValueOrDefault();
         }
-
-
+    
         public int EntradaConMasDislikes()
         {
             Console.WriteLine("Inicio");
@@ -338,18 +345,22 @@ namespace Foro
             return (entradaConMasDislikes.Entrada.Id);
 
         }
-
         public async Task<IActionResult> SolicitudesPendientes()
         {
-            List<MiembrosHabilitados> miembrosRelacionados;
+            List<MiembrosHabilitados> miembrosHabilitados;
             int usuarioId = Int32.Parse(User.Claims.First().Value);
             if (!User.IsInRole("Miembro"))
             {
                 return RedirectToAction("Index", "Home");
             }
-            miembrosRelacionados = await _contexto.MiembrosHabilitados.Include(mh => mh.Miembro).Include(mh => mh.Entrada).Where(mh => !mh.Habilitado && mh.MiembroId != usuarioId && mh.Entrada.MiembroId == usuarioId).ToListAsync();
+            miembrosHabilitados = await _contexto.MiembrosHabilitados
+                .Include(mh => mh.Miembro)
+                .Include(mh => mh.Entrada)
+                .Where(mh => !mh.Habilitado && mh.MiembroId != usuarioId && mh.Entrada.MiembroId == usuarioId)
+                .ToListAsync();
 
-            return View(miembrosRelacionados);
+            return View(miembrosHabilitados);
         }
+
     }
 }

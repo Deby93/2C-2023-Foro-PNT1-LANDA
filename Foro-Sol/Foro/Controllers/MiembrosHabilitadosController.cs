@@ -187,5 +187,36 @@ namespace Foro
         {
             return (_contexto.MiembrosHabilitados?.Any(e => e.MiembroId == id)).GetValueOrDefault();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AceptarSolicitud(int entradaId, int miembroId)
+        {
+            var miembroHabilitado = await _contexto.MiembrosHabilitados
+                .FirstOrDefaultAsync(mh => mh.EntradaId == entradaId && mh.MiembroId == miembroId);
+
+            if (miembroHabilitado != null)
+            {
+                miembroHabilitado.Habilitado = true;
+                await _contexto.SaveChangesAsync();
+            }
+
+            return RedirectToAction("SolicitudesPendientes", "Entradas");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RechazarSolicitud(int entradaId, int miembroId)
+        {
+            var miembroHabilitado = await _contexto.MiembrosHabilitados
+                .FirstOrDefaultAsync(mh => mh.EntradaId == entradaId && mh.MiembroId == miembroId);
+
+            if (miembroHabilitado != null)
+            {
+                _contexto.MiembrosHabilitados.Remove(miembroHabilitado);
+                await _contexto.SaveChangesAsync();
+            }
+
+            return RedirectToAction("SolicitudesPendientes", "Entradas");
+        }
+
     }
 }

@@ -65,6 +65,7 @@
                         @if (entrada.Privada.Value)
                         {
                             <form asp-controller="Entradas" asp-action="SolicitudesPendientes" method="get">
+                                <input type="hidden" name="entradaId" value="@entrada.Id" />
                                 <button type="submit" class="privacy-btn privada">
                                     Privada
                                 </button>
@@ -72,11 +73,7 @@
                         }
                         else
                         {
-                            <form asp-controller="Preguntas" asp-action="Index" method="get">
-                                <button type="submit" class="privacy-btn publica">
-                                    Pública
-                                </button>
-                            </form>
+                            <a asp-controller="Entradas" asp-action="details" asp-route-id="@entrada.Id" class="btn privacy-btn publica">Pública</a>
                         }
                     }
                     else
