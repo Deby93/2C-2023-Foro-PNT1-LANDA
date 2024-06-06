@@ -23,7 +23,7 @@
                     <ul class="navbar-nav flex-grow-1">
                         @if (singInManager.IsSignedIn(User))
                         {
-                   
+
                             if (!User.IsInRole(Config.Administrador))
                             {
                                 <li class="nav-item dropdown">
@@ -31,13 +31,14 @@
                                         <img src="~/img/azucar-logo-blanco-cuadrado.png" alt="Logo Azucar" style="width: 100px; height: 50px;" />
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: #A65341 ;">
-                                        <li><a class="dropdown-item text-white" asp-area="" asp-controller="Categorias" asp-action="Index">Categorías</a></li>
-                                        <li><a class="dropdown-item text-white" asp-area="" asp-controller="Entradas" asp-action="Index">Entradas</a></li>
+                                        <li><a class="dropdown-item text-white" asp-controller="Categorias" asp-action="Index">Categorías</a></li>
+                                        <li><a class="dropdown-item text-white" asp-controller="Entradas" asp-action="Index">Entradas</a></li>
                                         <li><a class="dropdown-item text-white" asp-area="" asp-controller="Miembros" asp-action="Index">Miembros</a></li>
-@*                                         <li><a class="dropdown-item text-white" asp-area="" asp-controller="MiembrosHabilitados" asp-action="Index">Miembros Habilitados</a></li>
- *@                                        <li><a class="dropdown-item text-white" asp-area="" asp-controller="Preguntas" asp-action="Index">Preguntas</a></li>
-                                        <li><a class="dropdown-item text-white" asp-area="" asp-controller="Respuestas" asp-action="Index">Respuestas</a></li>
-                                        <li><a class="dropdown-item text-white" asp-area="" asp-controller="Home" asp-action="Tops">Tops</a></li>
+                                        @*                                         <li><a class="dropdown-item text-white"  asp-controller="MiembrosHabilitados" asp-action="Index">Miembros Habilitados</a></li>
+                                *@
+                                        <li><a class="dropdown-item text-white" asp-controller="Preguntas" asp-action="Index">Preguntas</a></li>
+                                        <li><a class="dropdown-item text-white" asp-controller="Respuestas" asp-action="Index">Respuestas</a></li>
+                                        <li><a class="dropdown-item text-white" asp-controller="Home" asp-action="Tops">Tops</a></li>
 
                                     </ul>
                                 </li>
@@ -49,10 +50,10 @@
                                         <img src="~/img/azucar-logo-blanco-cuadrado.png" alt="Logo Azucar" style="width: 100px; height: 50px;" />
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: #A65341 ;">
-                                        <li><a class="dropdown-item text-white" asp-area="" asp-controller="Categorias" asp-action="Index">Categorías</a></li>
-                                        <li><a class="dropdown-item text-white" asp-area="" asp-controller="Entradas" asp-action="Index">Entradas</a></li>
-                                        <li><a class="dropdown-item text-white" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a></li>
-                                        <li><a class="dropdown-item text-white" asp-area="" asp-controller="Home" asp-action="Tops">Tops</a></li>
+                                        <li><a class="dropdown-item text-white" asp-controller="Categorias" asp-action="Index">Categorías</a></li>
+                                        <li><a class="dropdown-item text-white" asp-controller="Entradas" asp-action="Index">Entradas</a></li>
+                                        <li><a class="dropdown-item text-white" asp-controller="Usuarios" asp-action="Index">Usuarios</a></li>
+                                        <li><a class="dropdown-item text-white" asp-controller="Home" asp-action="Tops">Tops</a></li>
 
                                     </ul>
                                 </li>
@@ -85,9 +86,9 @@
                                     <img src="~/img/azucar-logo-blanco-cuadrado.png" alt="Logo Azucar" style="width: 100px; height: 50px;" />
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: #A65341 ;">
-                                    <li><a class="dropdown-item text-white" asp-area="" asp-controller="Categorias" asp-action="Index">Categorías</a></li>
-                                    <li><a class="dropdown-item text-white" asp-area="" asp-controller="Entradas" asp-action="Index">Entradas</a></li>
-                                    <li><a class="dropdown-item text-white" asp-area="" asp-controller="Home" asp-action="Tops">Tops</a></li>
+                                    <li><a class="dropdown-item text-white" asp-controller="Categorias" asp-action="Index">Categorías</a></li>
+                                    <li><a class="dropdown-item text-white" asp-controller="Entradas" asp-action="Index">Entradas</a></li>
+                                    <li><a class="dropdown-item text-white" asp-controller="Home" asp-action="Tops">Tops</a></li>
 
                                 </ul>
                             </li>
