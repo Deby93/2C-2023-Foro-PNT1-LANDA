@@ -2,46 +2,6 @@
 @{
     ViewData["Title"] = "Foro";
 }
-
-<style>
-    /* Elimina el subrayado de los títulos */
-    .card-title {
-        text-decoration: none !important;
-        color: inherit !important; /* Mantener el color de texto predeterminado */
-    }
-
-    /* Estilo para tarjetas con fondo durazno */
-    .peach-bg {
-        background-color: #FFDAB9; /* Código de color durazno */
-        border-radius: 10px; /* Ajusta la esquina redondeada de la tarjeta */
-        margin-bottom: 20px; /* Espacio entre las tarjetas */
-    }
-
-    /* Elimina el fondo de la tabla */
-    .table {
-        background-color: transparent !important;
-    }
-</style>
-<style>
-
-    /* Estilo para el botón de privacidad */
-    .privacy-btn {
-        border: none;
-        padding: 5px 10px;
-        border-radius: 5px;
-        color: white;
-        cursor: default;
-    }
-
-        .privacy-btn.privada {
-            background-color: #dc3545; /* Rojo para "Privada" */
-        }
-
-        .privacy-btn.publica {
-            background-color: #28a745; /* Verde para "Pública" */
-        }
-</style>
-
 <div class="container-fluid mt-3 p-3">
     <div class="row">
         <div class="col-md-6 mb-4">
@@ -61,7 +21,7 @@
                                     {
                                         @if (!(bool)item.Privada)
                                         {
-                                            <a asp-controller="Entradas" asp-action="details" asp-route-id="@item.Id" class="btn privacy-btn publica">Publica</a>
+                                            <a asp-controller="Entradas" asp-action="details" asp-route-id="@item.Id" class="btn privacy-btn publica">Pública</a>
                                            
                                         }
                                         else
@@ -102,7 +62,7 @@
                                     {
                                         @if (!(bool)item.Privada)
                                         {
-                                            <a asp-controller="Entradas" asp-action="details" asp-route-id="@item.Id" class="btn privacy-btn publica">Publica</a>
+                                            <a asp-controller="Entradas" asp-action="details" asp-route-id="@item.Id" class="btn privacy-btn publica">Pública</a>
 
                                         }
                                         else

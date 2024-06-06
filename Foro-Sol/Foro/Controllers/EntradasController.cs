@@ -21,7 +21,7 @@ namespace Foro
             _signinManager = signinManager;
 
         }
-       
+
         public ActionResult Index()
         {
             // Obtener la entrada con más dislikes
@@ -59,42 +59,37 @@ namespace Foro
         }
         public async Task<IActionResult> Details(int? id)
         {
-            Entrada laEntrada = _contexto.Entradas.FirstOrDefault(p => p.Id == id);
+            Entrada unaEntrada = _contexto.Entradas.FirstOrDefault(p => p.Id == id);
 
-            if(laEntrada!=null)
+            if (unaEntrada != null)
             {
-                if (!(bool)laEntrada.Privada)
-                {
-
-                }
-                else
+                if ((bool)unaEntrada.Privada)
                 {
                     if (_signinManager.IsSignedIn(User))
                     {
                         int miID = Int32.Parse(User.Claims.First().Value);
                         var estaPendienteDeAutorizacion = _contexto.MiembrosHabilitados.Any((mh => mh.MiembroId == miID && mh.EntradaId == id && !mh.Habilitado));
-                        var hayRegistro = _contexto.MiembrosHabilitados.Any(mh => mh.EntradaId == id && mh.MiembroId == miID && mh.Habilitado);
-                        if (User.IsInRole("Miembro") && (id == null || estaPendienteDeAutorizacion || (laEntrada.MiembroId != miID && !hayRegistro && (bool)laEntrada.Privada)))
+                        bool habilitado = _contexto.MiembrosHabilitados.Any(mh => mh.EntradaId == id && mh.MiembroId == miID && mh.Habilitado);
+                        if (User.IsInRole("Miembro") && (id == null || estaPendienteDeAutorizacion || (unaEntrada.MiembroId != miID && !habilitado && (bool)unaEntrada.Privada)))
                         {
                             return NotFound();
                         }
                     }
                 }
             }
-           
 
-            if (!_signinManager.IsSignedIn(User) && (bool)laEntrada.Privada)
-            {
-                return NotFound();
-            }
 
+            //if (!_signinManager.IsSignedIn(User) && (bool)unaEntrada.Privada)
+            //{
+            //    return NotFound();
+            //}
             var entrada = await _contexto.Entradas
-                .Include(e => e.Categoria)
-                .Include(e => e.Miembro)
-                .Include(e => e.Preguntas)
-                .ThenInclude(e => e.Respuestas)
-                .OrderBy(p => p.Fecha)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                        .Include(e => e.Categoria)
+                        .Include(e => e.Miembro)
+                        .Include(e => e.Preguntas)
+                        .ThenInclude(e => e.Respuestas)
+                        .OrderBy(p => p.Fecha)
+                        .FirstOrDefaultAsync(m => m.Id == id);
 
             List<Pregunta> listaDePreguntas = new();
             listaDePreguntas = await _contexto.Preguntas
@@ -326,7 +321,7 @@ namespace Foro
         {
             return (_contexto.Entradas?.Any(e => e.Id == id)).GetValueOrDefault();
         }
-    
+
         public int EntradaConMasDislikes()
         {
             Console.WriteLine("Inicio");

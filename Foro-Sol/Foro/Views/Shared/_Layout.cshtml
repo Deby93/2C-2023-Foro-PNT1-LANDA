@@ -23,29 +23,7 @@
                     <ul class="navbar-nav flex-grow-1">
                         @if (singInManager.IsSignedIn(User))
                         {
-                            <style>
-                                .nav-item.dropdown:hover .dropdown-menu,
-                                .nav-item.dropdown:focus .dropdown-menu {
-                                    display: block;
-                                }
-
-                                .nav-item.dropdown:hover .nav-link,
-                                .nav-item.dropdown:focus .nav-link {
-                                    background-color: #A65341; /* Cambia a tu color de fondo deseado */
-                                    border-color: #ffa07a; /* Cambia a tu color de borde deseado */
-                                }
-
-                                .nav-item.dropdown .dropdown-menu .dropdown-item:hover,
-                                .nav-item.dropdown .dropdown-menu .dropdown-item:focus {
-                                    background-color: #ffa07a; /* Cambia a tu color de fondo deseado */
-                                    border-color: #ffa07a0; /* Cambia a tu color de borde deseado */
-                                }
-
-                                .nav-item.dropdown .dropdown-menu .dropdown-item.active {
-                                    background-color: #ffa07a; /* Cambia a tu color de fondo deseado */
-                                    border-color: #ffa07a; /* Cambia a tu color de borde deseado */
-                                }
-                            </style>
+                   
                             if (!User.IsInRole(Config.Administrador))
                             {
                                 <li class="nav-item dropdown">

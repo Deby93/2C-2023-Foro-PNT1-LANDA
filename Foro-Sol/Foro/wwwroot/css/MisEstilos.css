@@ -162,3 +162,96 @@ body {
     white-space: nowrap;
     line-height: 60px; /* Vertically center the text there */
 }
+
+/* Estilo para el botón de privacidad */
+.privacy-btn {
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    cursor: default;
+}
+
+.privacy-btn.privada {
+    background-color: #dc3545; /* Rojo para "Privada" */
+}
+
+.privacy-btn.publica {
+    background-color: #28a745; /* Verde para "Pública" */
+}
+
+/* Elimina el subrayado de los títulos */
+.card-title {
+    text-decoration: none !important;
+    color: inherit !important; /* Mantener el color de texto predeterminado */
+}
+
+/* Estilo para tarjetas con fondo durazno */
+.peach-bg {
+    background-color: #FFDAB9; /* Código de color durazno */
+    border-radius: 10px; /* Ajusta la esquina redondeada de la tarjeta */
+    margin-bottom: 20px; /* Espacio entre las tarjetas */
+}
+
+/* Elimina el fondo de la tabla */
+.table {
+    background-color: transparent !important;
+}
+
+
+/* Estilo para el botón de privacidad */
+.privacy-btn {
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    cursor: default;
+}
+
+    .privacy-btn.privada {
+        background-color: #dc3545; /* Rojo para "Privada" */
+    }
+
+    .privacy-btn.publica {
+        background-color: #28a745; /* Verde para "Pública" */
+    }
+
+/* Estilo para el botón de privacidad */
+.privacy-btn {
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    cursor: default;
+}
+
+    .privacy-btn.privada {
+        background-color: #dc3545; /* Rojo para "Privada" */
+    }
+
+    .privacy-btn.publica {
+        background-color: #28a745; /* Verde para "Pública" */
+    }
+
+<style >
+.nav-item.dropdown:hover .dropdown-menu,
+.nav-item.dropdown:focus .dropdown-menu {
+    display: block;
+}
+
+.nav-item.dropdown:hover .nav-link,
+.nav-item.dropdown:focus .nav-link {
+    background-color: #A65341; /* Cambia a tu color de fondo deseado */
+    border-color: #ffa07a; /* Cambia a tu color de borde deseado */
+}
+
+.nav-item.dropdown .dropdown-menu .dropdown-item:hover,
+.nav-item.dropdown .dropdown-menu .dropdown-item:focus {
+    background-color: #ffa07a; /* Cambia a tu color de fondo deseado */
+    border-color: #ffa07a0; /* Cambia a tu color de borde deseado */
+}
+
+.nav-item.dropdown .dropdown-menu .dropdown-item.active {
+    background-color: #ffa07a; /* Cambia a tu color de fondo deseado */
+    border-color: #ffa07a; /* Cambia a tu color de borde deseado */
+}

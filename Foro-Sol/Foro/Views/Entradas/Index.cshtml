@@ -7,25 +7,7 @@
 }
 
 <h1>Entradas</h1>
-<style>
 
-    /* Estilo para el botón de privacidad */
-    .privacy-btn {
-        border: none;
-        padding: 5px 10px;
-        border-radius: 5px;
-        color: white;
-        cursor: default;
-    }
-
-        .privacy-btn.privada {
-            background-color: #dc3545; /* Rojo para "Privada" */
-        }
-
-        .privacy-btn.publica {
-            background-color: #28a745; /* Verde para "Pública" */
-        }
-</style>
 <p>
     @if (User.Identity.IsAuthenticated)
     {
@@ -64,6 +46,7 @@
                     {
                         @if (entrada.Privada.Value)
                         {
+                            ///hacerlo con un ancor
                             <form asp-controller="Entradas" asp-action="SolicitudesPendientes" method="get">
                                 <input type="hidden" name="entradaId" value="@entrada.Id" />
                                 <button type="submit" class="privacy-btn privada">
