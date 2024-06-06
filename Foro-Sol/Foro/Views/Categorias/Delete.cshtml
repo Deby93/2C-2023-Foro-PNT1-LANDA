@@ -4,9 +4,9 @@
     ViewData["Title"] = "Borrar";
 }
 
-<h1>Borrar</h1>
+<h1 style="color: #A65341">Borrar</h1>
 
-<h3>¿Quiere borrar esta categoría?</h3>
+<h3style="color: #A65341">¿Quiere borrar esta categoría?</h3style>
 <div>
     <h4>Categoría</h4>
     <hr />
@@ -21,7 +21,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="CategoriaId" />
-        <input type="submit" value="Borrar" class="btn btn-danger" /> |
+        <input type="submit" value="Borrar" class="btn btn-danger" /> 
         <a asp-action="Index">Volver a la lista</a>
     </form>
 </div>

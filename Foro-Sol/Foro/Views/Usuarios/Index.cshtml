@@ -5,7 +5,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Usuarios administradores</h1>
+<h1 style="color: #A65341">Usuarios administradores</h1>
 
 <p>
     <a asp-controller="Account" asp-action="CrearAdmin">Crear nuevo Administrador</a>
@@ -49,8 +49,8 @@
             <td>
         </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
+                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> 
+                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> 
                 <a asp-action="Delete" asp-route-id="@item.Id">Borrar</a>
             </td>
         </tr>
