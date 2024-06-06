@@ -54,9 +54,7 @@
                             @foreach (var item in Model.Top5EntradasMasRecientes)
                             {
                                 <div class="card mb-3 peach-bg">
-                                    <!-- Agrega la clase peach-bg aquí también -->
-                                    <!-- Contenido de la tarjeta de entradas recientes -->
-                                    <h5 class="card-title">@item.Titulo</h5>
+                                 <h5 class="card-title">@item.Titulo</h5>
                                     <p class="card-text">@item.Descripcion</p>
                                     @if (item.Privada.HasValue)
                                     {
