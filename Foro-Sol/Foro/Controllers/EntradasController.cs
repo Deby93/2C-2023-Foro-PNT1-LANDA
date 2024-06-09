@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System.Globalization;
+using System.Security.Claims;
+
 
 
 
@@ -70,13 +71,28 @@ namespace Foro
                         int miID = Int32.Parse(User.Claims.First().Value);
                         var estaPendienteDeAutorizacion = _contexto.MiembrosHabilitados.Any((mh => mh.MiembroId == miID && mh.EntradaId == id && !mh.Habilitado));
                         bool habilitado = _contexto.MiembrosHabilitados.Any(mh => mh.EntradaId == id && mh.MiembroId == miID && mh.Habilitado);
-                        if (User.IsInRole("Miembro") && (id == null || estaPendienteDeAutorizacion || (unaEntrada.MiembroId != miID && !habilitado && (bool)unaEntrada.Privada)))
+                        //var autorizado = _contexto.MiembrosHabilitados.Any((mh => mh.MiembroId == miID && mh.EntradaId == id && mh.Habilitado));
+                        //var aux = false;
+                        //if (unaEntrada.Id == id && habilitado)
+                        //{
+                        //    aux = autorizado;
+                        //}
+                        //else if (unaEntrada.Id == id && !habilitado)
+                        //{
+                        //    aux = estaPendienteDeAutorizacion;
+
+                        //}
+
+
+
+                        if (User.IsInRole(Config.MiembroRolName) && (id == null || estaPendienteDeAutorizacion || (unaEntrada.MiembroId != miID && !habilitado && (bool)unaEntrada.Privada)))
                         {
                             return NotFound();
                         }
                     }
                 }
             }
+
 
 
             //if (!_signinManager.IsSignedIn(User) && (bool)unaEntrada.Privada)
@@ -105,6 +121,9 @@ namespace Foro
 
 
             ViewBag.Entrada = entrada;
+            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            ViewBag.UserId = userId;
             return View(listaDePreguntas);
 
         }
@@ -183,7 +202,7 @@ namespace Foro
             return View(entrada);
         }
 
-        [Authorize(Roles = Config.Miembro)]
+        [Authorize(Roles = Config.MiembroRolName)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Titulo,Fecha,Descripcion,CategoriaId,Privada")] Entrada entrada)
@@ -340,22 +359,57 @@ namespace Foro
             return (entradaConMasDislikes.Entrada.Id);
 
         }
-        public async Task<IActionResult> SolicitudesPendientes()
+        public IActionResult SolicitudesPendientes()
         {
-            List<MiembrosHabilitados> miembrosHabilitados;
-            int usuarioId = Int32.Parse(User.Claims.First().Value);
-            if (!User.IsInRole("Miembro"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            miembrosHabilitados = await _contexto.MiembrosHabilitados
-                .Include(mh => mh.Miembro)
-                .Include(mh => mh.Entrada)
-                .Where(mh => !mh.Habilitado && mh.MiembroId != usuarioId && mh.Entrada.MiembroId == usuarioId)
-                .ToListAsync();
+            // Obtener el ID del usuario logueado
+            var userId = Int32.Parse(_userManager.GetUserId(User));
 
-            return View(miembrosHabilitados);
+            // Obtener las entradas del usuario
+            var entradasPropias = _contexto.Entradas
+                                          .Include(e => e.MiembrosHabilitados)
+                                          .Where(e => e.MiembroId == userId && (bool)e.Privada)
+                                          .ToList();
+
+            // Obtener las solicitudes pendientes de aprobación
+            var solicitudesPendientes = entradasPropias.SelectMany(e => e.MiembrosHabilitados)
+                                                       .Where(mh => !mh.Habilitado)
+                                                       .ToList();
+
+            return View(solicitudesPendientes);
         }
+        public IActionResult SolicitarAprobacion(int id)
+        {
+            // Obtener el ID del usuario logueado
+            var userId = Int32.Parse(_userManager.GetUserId(User));
 
+            // Verificar si la entrada existe y es privada
+            var entrada = _contexto.Entradas.Include(e => e.MiembrosHabilitados)
+                                           .FirstOrDefault(e => e.Id == id && (bool) e.Privada);
+
+            if (entrada == null)
+            {
+                return NotFound();
+            }
+
+            // Verificar si el usuario ya ha solicitado acceso
+            var solicitudExistente = entrada.MiembrosHabilitados
+                                            .FirstOrDefault(mh => mh.MiembroId == userId);
+
+            if (solicitudExistente == null)
+            {
+                // Crear una nueva solicitud de aprobación
+                var nuevaSolicitud = new MiembrosHabilitados
+                {
+                    EntradaId = id,
+                    MiembroId = userId,
+                    Habilitado = false // Estado pendiente de aprobación
+                };
+                _contexto.MiembrosHabilitados.Add(nuevaSolicitud);
+                _contexto.SaveChanges();
+            }
+
+            // Redirigir a la vista de solicitudes pendientes
+            return RedirectToAction("Index");
+        }
     }
 }

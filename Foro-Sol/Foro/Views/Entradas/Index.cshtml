@@ -11,7 +11,9 @@
 <p>
     @if (User.Identity.IsAuthenticated)
     {
-        <a asp-action="Create">Crear una entrada</a>
+        <a asp-action="Create" class="btn pink-button">Crear una entrada</a>
+
+        <a asp-controller="Entradas" asp-action="MisEntradas" class="btn btn-purple">Mis Entradas</a>
     }
 </p>
 
@@ -20,7 +22,7 @@
         <tr>
             <th>@Html.DisplayNameFor(model => model.Titulo)</th>
             <th>@Html.DisplayNameFor(model => model.Fecha)</th>
-            <th>@Html.DisplayNameFor(model => model.Privada)</th>
+            <th>Estado</th>
             <th>Likes</th>
             <th>Dislikes</th>
         </tr>
@@ -42,27 +44,41 @@
                 <td>@Html.DisplayFor(modelItem => entrada.Titulo)</td>
                 <td>@Html.DisplayFor(modelItem => entrada.Fecha)</td>
                 <td>
-                    @if (entrada.Privada.HasValue)
+                    @if ((bool)entrada.Privada)
                     {
-                        @if (entrada.Privada.Value)
+                        int userId = Int32.Parse(User.Claims.First().Value);
+                        var miembroHabilitadoEncontrado = entrada.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && mh.Habilitado) ?? false;
+                        var esMiEntrada = entrada.MiembroId == userId;
+
+                        if (esMiEntrada)
                         {
-                            ///hacerlo con un ancor
-                            <form asp-controller="Entradas" asp-action="SolicitudesPendientes" method="get">
-                                <input type="hidden" name="entradaId" value="@entrada.Id" />
-                                <button type="submit" class="privacy-btn privada">
-                                    Privada
-                                </button>
-                            </form>
+                            <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn btn-purple">Mi Entrada</a>
+                            <a asp-controller="Entradas" asp-action="SolicitudesPendientes" asp-route-id="@entrada.Id" class="btn btn-purple">Solicitudes pendientes</a>
+
                         }
                         else
                         {
-                            <a asp-controller="Entradas" asp-action="details" asp-route-id="@entrada.Id" class="btn privacy-btn publica">Pública</a>
+@*                             <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn peach-button">Privada</a>
+ *@
+                            if (miembroHabilitadoEncontrado)
+                            {
+                                <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn peach-button">Aprobada</a>
+
+                            }
+                            else
+                            {
+                                <a id="btnAprobacion" asp-controller="Entradas" asp-action="SolicitarAprobacion" asp-route-id="@entrada.Id" class="btn privacy-btn privada">Privada</a>
+
+                            }
+
                         }
                     }
                     else
                     {
-                        <span class="badge bg-secondary">No especificado</span>
+                        <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn privacy-btn publica">Pública</a>
                     }
+
+
                 </td>
                 <td>@totalLikes</td>
                 <td>@totalDislikes</td>

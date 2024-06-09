@@ -23,6 +23,15 @@ namespace Foro
             _signinManager = signinManager;
         }
 
+        public async Task<IActionResult> Index()
+        {
+            var reacciones = await _contexto.Reacciones
+                .Include(r => r.Miembro)
+                .Include(r => r.Respuesta)
+                .ToListAsync();
+            return View(reacciones);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Like(int respuestaId, int preguntaId)
         {

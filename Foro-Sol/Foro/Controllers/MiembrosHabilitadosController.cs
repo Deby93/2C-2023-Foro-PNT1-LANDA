@@ -89,60 +89,60 @@ namespace Foro
         
 
         // GET: MiembrosHabilitados/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            var MiembroIdEncontrado = Int32.Parse(_userManager.GetUserId(User));
-            if (id == null || _contexto.MiembrosHabilitados == null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> Edit(int? id)
+        //{
+        //    var MiembroIdEncontrado = Int32.Parse(_userManager.GetUserId(User));
+        //    if (id == null || _contexto.MiembrosHabilitados == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var miembrosHabilitados = await _contexto.MiembrosHabilitados.FindAsync(id);
-            if (miembrosHabilitados == null)
-            {
-                return NotFound();
-            }
-            ViewData["EntradaId"] = new SelectList(_contexto.Entradas, "Id", "Titulo", miembrosHabilitados.EntradaId);
-            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido",MiembroIdEncontrado);
-            return View(miembrosHabilitados);
-        }
+        //    var miembrosHabilitados = await _contexto.MiembrosHabilitados.FindAsync(id);
+        //    if (miembrosHabilitados == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    ViewData["EntradaId"] = new SelectList(_contexto.Entradas, "Id", "Titulo", miembrosHabilitados.EntradaId);
+        //    ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido",MiembroIdEncontrado);
+        //    return View(miembrosHabilitados);
+        //}
 
         // POST: MiembrosHabilitados/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EntradaId,Habilitado")] MiembrosHabilitados miembrosHabilitados)
-        {
-            if (id != miembrosHabilitados.MiembroId)
-            {
-                return NotFound();
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(int id, [Bind("EntradaId,Habilitado")] MiembrosHabilitados miembrosHabilitados)
+        //{
+        //    if (id != miembrosHabilitados.MiembroId)
+        //    {
+        //        return NotFound();
+        //    }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _contexto.Update(miembrosHabilitados);
-                    await _contexto.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!MiembrosHabilitadosExists(miembrosHabilitados.MiembroId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["EntradaId"] = new SelectList(_contexto.Entradas, "Id", "Titulo", miembrosHabilitados.EntradaId);
-            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido", miembrosHabilitados.MiembroId);
-            return View(miembrosHabilitados);
-        }
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            _contexto.Update(miembrosHabilitados);
+        //            await _contexto.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!MiembrosHabilitadosExists(miembrosHabilitados.MiembroId))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    ViewData["EntradaId"] = new SelectList(_contexto.Entradas, "Id", "Titulo", miembrosHabilitados.EntradaId);
+        //    ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido", miembrosHabilitados.MiembroId);
+        //    return View(miembrosHabilitados);
+        //}
 
         // GET: MiembrosHabilitados/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -197,6 +197,7 @@ namespace Foro
             if (miembroHabilitado != null)
             {
                 miembroHabilitado.Habilitado = true;
+                _contexto.Update(miembroHabilitado);
                 await _contexto.SaveChangesAsync();
             }
 
@@ -209,7 +210,7 @@ namespace Foro
             var miembroHabilitado = await _contexto.MiembrosHabilitados
                 .FirstOrDefaultAsync(mh => mh.EntradaId == entradaId && mh.MiembroId == miembroId);
 
-            if (miembroHabilitado != null)
+            if (miembroHabilitado != null && miembroHabilitado.Habilitado == false)
             {
                 _contexto.MiembrosHabilitados.Remove(miembroHabilitado);
                 await _contexto.SaveChangesAsync();
