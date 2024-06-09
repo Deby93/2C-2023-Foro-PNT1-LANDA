@@ -337,3 +337,38 @@ body {
         color: red;
     }
 
+<style >
+/* Elimina el subrayado de los títulos */
+.card-title {
+    text-decoration: none !important;
+    color: inherit !important; /* Mantener el color de texto predeterminado */
+}
+
+/* Estilo para tarjetas con fondo durazno */
+.peach-bg {
+    background-color: #FFDAB9; /* Código de color durazno */
+    border-radius: 10px; /* Ajusta la esquina redondeada de la tarjeta */
+    margin-bottom: 20px; /* Espacio entre las tarjetas */
+    padding: 10px; /* Espaciado interno de las tarjetas */
+}
+
+/* Elimina el fondo de la tabla */
+.table {
+    background-color: transparent !important;
+}
+
+/* Estilo de los botones */
+.btn-custom {
+    color: black; /* Color de texto */
+    text-decoration: none; /* Sin subrayado */
+    padding: 5px 10px; /* Espaciado interno del botón */
+    border: 1px solid black; /* Borde del botón */
+    border-radius: 5px; /* Bordes redondeados */
+    display: inline-block; /* Mostrar como bloque en línea */
+}
+
+    .btn-custom:hover {
+        background-color: #f0f0f0; /* Color de fondo al pasar el ratón */
+    }
+
+</style >

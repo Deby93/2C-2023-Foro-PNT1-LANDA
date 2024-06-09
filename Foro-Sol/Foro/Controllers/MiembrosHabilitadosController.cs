@@ -57,7 +57,7 @@ namespace Foro
             return View();
         }
 
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("EntradaId,Habilitado")] MiembrosHabilitados miembrosHabilitados)
@@ -82,11 +82,11 @@ namespace Foro
                 await _contexto.SaveChangesAsync();
                 return RedirectToAction("Index", "Miembros");
             }
-                ViewData["EntradaId"] = new SelectList(_contexto.Entradas, "Id", "Titulo", miembrosHabilitados.EntradaId);
-                ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido", MiembroIdEncontrado);
-                return View(miembrosHabilitados);
+            ViewData["EntradaId"] = new SelectList(_contexto.Entradas, "Id", "Titulo", miembrosHabilitados.EntradaId);
+            ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido", MiembroIdEncontrado);
+            return View(miembrosHabilitados);
         }
-        
+
 
         // GET: MiembrosHabilitados/Edit/5
         //public async Task<IActionResult> Edit(int? id)
@@ -191,15 +191,22 @@ namespace Foro
         [HttpPost]
         public async Task<IActionResult> AceptarSolicitud(int entradaId, int miembroId)
         {
+            if (entradaId <= 0 || miembroId <= 0)
+            {
+                return BadRequest("Parámetros inválidos.");
+            }
+
             var miembroHabilitado = await _contexto.MiembrosHabilitados
                 .FirstOrDefaultAsync(mh => mh.EntradaId == entradaId && mh.MiembroId == miembroId);
 
-            if (miembroHabilitado != null)
+            if (miembroHabilitado == null)
             {
-                miembroHabilitado.Habilitado = true;
-                _contexto.Update(miembroHabilitado);
-                await _contexto.SaveChangesAsync();
+                return NotFound("Solicitud no encontrada.");
             }
+
+            miembroHabilitado.Habilitado = true;
+            _contexto.Update(miembroHabilitado);
+            await _contexto.SaveChangesAsync();
 
             return RedirectToAction("SolicitudesPendientes", "Entradas");
         }
@@ -207,14 +214,21 @@ namespace Foro
         [HttpPost]
         public async Task<IActionResult> RechazarSolicitud(int entradaId, int miembroId)
         {
+            if (entradaId <= 0 || miembroId <= 0)
+            {
+                return BadRequest("Parámetros inválidos.");
+            }
+
             var miembroHabilitado = await _contexto.MiembrosHabilitados
                 .FirstOrDefaultAsync(mh => mh.EntradaId == entradaId && mh.MiembroId == miembroId);
 
-            if (miembroHabilitado != null && miembroHabilitado.Habilitado == false)
+            if (miembroHabilitado == null)
             {
-                _contexto.MiembrosHabilitados.Remove(miembroHabilitado);
-                await _contexto.SaveChangesAsync();
+                return NotFound("Solicitud no encontrada.");
             }
+
+            _contexto.MiembrosHabilitados.Remove(miembroHabilitado);
+            await _contexto.SaveChangesAsync();
 
             return RedirectToAction("SolicitudesPendientes", "Entradas");
         }

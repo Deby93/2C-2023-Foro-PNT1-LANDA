@@ -2,9 +2,10 @@
 
 @{
     ViewData["Title"] = "Solicitudes Pendientes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Solicitudes Pendientes</h1>
+<h1 style="color: #A65341">Solicitudes Pendientes</h1>
 
 <table class="table">
     <thead>
@@ -17,14 +18,15 @@
     <tbody>
         @foreach (var solicitud in Model)
         {
-            <tr>
+            <tr class="peach-bg">
                 <td>@solicitud.Entrada.Titulo</td>
                 <td>@solicitud.MiembroId</td>
                 <td>
-                    <a asp-controller="Entradas" asp-action="AprobarSolicitud" asp-route-id="@solicitud.EntradaId" class="btn btn-success">Aprobar</a>
-                    <a asp-controller="Entradas" asp-action="RechazarSolicitud" asp-route-id="@solicitud.EntradaId" class="btn btn-danger">Rechazar</a>
+                    <a asp-controller="MiembrosHabilitados" asp-action="AceptarSolicitud" asp-route-id="@solicitud.EntradaId" asp-route-id="@solicitud.MiembroId" class="btn btn-success">Aprobar</a>
+                    <a asp-controller="MiembrosHabilitados" asp-action="RechazarSolicitud" asp-route-id="@solicitud.EntradaId" asp-route-id="@solicitud.MiembroId" class="btn btn-danger">Rechazar</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
