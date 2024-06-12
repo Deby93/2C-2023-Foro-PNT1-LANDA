@@ -371,4 +371,8 @@ body {
         background-color: #f0f0f0; /* Color de fondo al pasar el ratón */
     }
 
-</style >
+.table-centered th, .table-centered td {
+    text-align: center;
+    vertical-align: middle;
+}
+

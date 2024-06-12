@@ -4,6 +4,7 @@
 @{
     ViewData["Title"] = "Index";
     int? idEntradaConMasDislikes = ViewBag.EntradaConMasDislikesId as int?;
+   
 }
 
 <h1 style="color: #A65341">Entradas</h1>
@@ -48,6 +49,7 @@
                     {
                         int userId = Int32.Parse(User.Claims.First().Value);
                         var miembroHabilitadoEncontrado = entrada.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && mh.Habilitado) ?? false;
+                        bool miembroHabilitado = miembroHabilitadoEncontrado != null;
                         var esMiEntrada = entrada.MiembroId == userId;
 
                         if (esMiEntrada)

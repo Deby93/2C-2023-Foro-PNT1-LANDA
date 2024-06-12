@@ -208,8 +208,16 @@ namespace Foro
             _contexto.Update(miembroHabilitado);
             await _contexto.SaveChangesAsync();
 
-            return RedirectToAction("SolicitudesPendientes", "Entradas");
+            // Recargar las solicitudes pendientes para actualizar la vista
+            var solicitudesPendientes = _contexto.MiembrosHabilitados
+                .Include(mh => mh.Entrada)
+                .Include(mh => mh.Miembro)
+                .Where(mh => !mh.Habilitado)
+                .ToList();
+
+            return View("SolicitudesPendientes", solicitudesPendientes);
         }
+
 
         [HttpPost]
         public async Task<IActionResult> RechazarSolicitud(int entradaId, int miembroId)

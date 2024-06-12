@@ -54,7 +54,8 @@ namespace Foro
                 .Include(e => e.Preguntas)
                     .ThenInclude(p => p.Respuestas)
                         .ThenInclude(r => r.Reacciones)
-                .ToList();
+                .Include(e => e.MiembrosHabilitados) // Incluir MiembrosHabilitados
+        .ToList();
 
             return View(entradas);
         }
@@ -361,26 +362,42 @@ namespace Foro
         }
         public IActionResult SolicitudesPendientes()
         {
-            // Obtener el ID del usuario logueado
-            var userId = Int32.Parse(_userManager.GetUserId(User));
+            try
+            {
+                // Obtener el ID del usuario logueado de manera segura
+                var userId = Int32.Parse(_userManager.GetUserId(User));
+                if (userId == 0)
+                {
+                    throw new InvalidOperationException("No se pudo obtener el ID del usuario.");
+                }
 
-            // Obtener las entradas del usuario
-            var entradasPropias = _contexto.Entradas
-                                          .Include(e => e.MiembrosHabilitados)
-                                          .Where(e => e.MiembroId == userId && (bool)e.Privada)
-                                          .ToList();
+                // Obtener las entradas del usuario
+                var entradasPropias = _contexto.Entradas
+                                              .Include(e => e.MiembrosHabilitados)
+                                  .ThenInclude(mh => mh.Miembro)
+                                   .Include(e => e.Miembro)
+                                              .Where(e => e.MiembroId == userId && (bool)e.Privada)
+                                              .ToList();
 
-            // Obtener las solicitudes pendientes de aprobación
-            var solicitudesPendientes = entradasPropias.SelectMany(e => e.MiembrosHabilitados)
-                                                       .Where(mh => !mh.Habilitado)
-                                                       .ToList();
+                // Obtener las solicitudes pendientes de aprobación
+                var solicitudesPendientes = entradasPropias.SelectMany(e => e.MiembrosHabilitados)
+                                                           .Where(mh => !mh.Habilitado)
+                                                           .ToList();
 
-            return View(solicitudesPendientes);
+                return View(solicitudesPendientes);
+            }
+            catch (Exception ex)
+            {
+                // Manejar la excepción de manera apropiada (por ejemplo, registrarla y mostrar un mensaje de error amigable)
+                ViewBag.ErrorMessage = "Ocurrió un error al procesar la solicitud: " + ex.Message;
+                return View("Error"); // Asegúrate de tener una vista de Error para mostrar mensajes amigables
+            }
         }
+
         public IActionResult SolicitarAprobacion(int id)
         {
             // Obtener el ID del usuario logueado
-            var userId = Int32.Parse(_userManager.GetUserId(User));
+            int userId = Int32.Parse(_userManager.GetUserId(User));
 
             // Verificar si la entrada existe y es privada
             var entrada = _contexto.Entradas.Include(e => e.MiembrosHabilitados)
