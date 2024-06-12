@@ -87,7 +87,7 @@ namespace Foro
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, "Ocurrió un error al procesar la reacción. Inténtalo de nuevo.");
-                return RedirectToAction("Details", "Respuestas", new { id = preguntaId });
+                return RedirectToAction("Details", "Preguntas", new { id = preguntaId });
             }
 
             if (preguntaId == 0)
@@ -96,7 +96,7 @@ namespace Foro
 
             }
 
-            return RedirectToAction("Details", "Respuestas", new { id = preguntaId });
+            return RedirectToAction("Details", "Preguntas", new { id = preguntaId });
         }
     }
 }

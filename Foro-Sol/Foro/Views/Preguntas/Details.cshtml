@@ -85,6 +85,7 @@
                     <div class="response-actions">
                         <form method="post" asp-controller="Reacciones" asp-action="Like" style="display:inline;">
                             <input type="hidden" name="respuestaId" value="@unaRespuesta.RespuestaId" />
+                            <input type="hidden" name="preguntaId" value="@unaRespuesta.PreguntaId" />
                             <button type="submit" class="btn btn-success">
                                 Like <span class="@(unaRespuesta.Reacciones.Any(r => r.MiembroId == UsuarioId && r.MeGusta.HasValue && (bool)r.MeGusta) ? "liked" : "")"></span>
                             </button>
@@ -92,6 +93,7 @@
                        
                         <form method="post" asp-controller="Reacciones" asp-action="Dislike" style="display:inline;">
                             <input type="hidden" name="respuestaId" value="@unaRespuesta.RespuestaId" />
+                            <input type="hidden" name="preguntaId" value="@unaRespuesta.PreguntaId" />
                             <button type="submit" class="btn btn-danger">
                                 Dislike <span class="@(unaRespuesta.Reacciones.Any(r => r.MiembroId == UsuarioId && r.MeGusta.HasValue && !(bool)r.MeGusta) ? "disliked" : "")"></span>
                             </button>

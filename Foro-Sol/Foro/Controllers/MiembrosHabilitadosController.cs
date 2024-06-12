@@ -88,63 +88,6 @@ namespace Foro
         }
 
 
-        // GET: MiembrosHabilitados/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    var MiembroIdEncontrado = Int32.Parse(_userManager.GetUserId(User));
-        //    if (id == null || _contexto.MiembrosHabilitados == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var miembrosHabilitados = await _contexto.MiembrosHabilitados.FindAsync(id);
-        //    if (miembrosHabilitados == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    ViewData["EntradaId"] = new SelectList(_contexto.Entradas, "Id", "Titulo", miembrosHabilitados.EntradaId);
-        //    ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido",MiembroIdEncontrado);
-        //    return View(miembrosHabilitados);
-        //}
-
-        // POST: MiembrosHabilitados/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("EntradaId,Habilitado")] MiembrosHabilitados miembrosHabilitados)
-        //{
-        //    if (id != miembrosHabilitados.MiembroId)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _contexto.Update(miembrosHabilitados);
-        //            await _contexto.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!MiembrosHabilitadosExists(miembrosHabilitados.MiembroId))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["EntradaId"] = new SelectList(_contexto.Entradas, "Id", "Titulo", miembrosHabilitados.EntradaId);
-        //    ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido", miembrosHabilitados.MiembroId);
-        //    return View(miembrosHabilitados);
-        //}
-
-        // GET: MiembrosHabilitados/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _contexto.MiembrosHabilitados == null)
@@ -208,14 +151,8 @@ namespace Foro
             _contexto.Update(miembroHabilitado);
             await _contexto.SaveChangesAsync();
 
-            // Recargar las solicitudes pendientes para actualizar la vista
-            var solicitudesPendientes = _contexto.MiembrosHabilitados
-                .Include(mh => mh.Entrada)
-                .Include(mh => mh.Miembro)
-                .Where(mh => !mh.Habilitado)
-                .ToList();
-
-            return View("SolicitudesPendientes", solicitudesPendientes);
+  
+            return RedirectToAction("SolicitudesPendientes", "Entradas");
         }
 
 

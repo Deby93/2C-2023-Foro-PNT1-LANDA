@@ -48,8 +48,9 @@
                     @if ((bool)entrada.Privada)
                     {
                         int userId = Int32.Parse(User.Claims.First().Value);
-                        var miembroHabilitadoEncontrado = entrada.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && mh.Habilitado) ?? false;
-                        bool miembroHabilitado = miembroHabilitadoEncontrado != null;
+                        var miembroHabilitado = entrada.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && mh.Habilitado);
+                        var miembroNoHabilitado = entrada.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && !mh.Habilitado);
+
                         var esMiEntrada = entrada.MiembroId == userId;
 
                         if (esMiEntrada)
@@ -62,9 +63,14 @@
                         {
 @*                             <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn peach-button">Privada</a>
  *@
-                            if (miembroHabilitadoEncontrado)
+                            if (miembroHabilitado ==true )
                             {
                                 <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn peach-button">Aprobada</a>
+
+                            }
+                            else if (miembroNoHabilitado == true)
+                            {
+                                <a  class="btn privacy-btn privada">Pendiente de aprobacion</a>
 
                             }
                             else
