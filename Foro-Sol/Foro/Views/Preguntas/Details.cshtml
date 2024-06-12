@@ -15,7 +15,7 @@
 }
 
 
-<h1 style="color: #A65341">Detalles</h1>
+<h1 style="color: #A65341">Detalles de la pregunta</h1>
 
 <h1 class="btn-primary text-center text-white">@pregunta.Descripcion</h1>
 <div>
@@ -28,10 +28,10 @@
             @pregunta.Fecha
         </dd>
         <dt class="col-sm-2 highlighted">
-            @Html.DisplayNameFor(p => pregunta.Miembro.NombreCompleto)
+            @Html.DisplayNameFor(p => pregunta.Miembro.Email)
         </dt>
         <dd class="col-sm-10">
-            @pregunta.Miembro.NombreCompleto
+            @pregunta.Miembro.Email
         </dd>
         <dt class="col-sm-2 highlighted">
             @Html.DisplayNameFor(p => pregunta.Descripcion)
@@ -65,7 +65,7 @@
         <a class="btn btn-primary" asp-controller="Entradas" asp-action="Details" asp-route-id="@pregunta.EntradaId">Atrás</a>
     </div>
     <br />
-    <h1 class="text-center">Respuestas</h1>
+    <h2 style="color: white" class="text-center">Respuestas</h2>
     <div>
         @foreach (var unaRespuesta in Model.OrderBy(p => p.Fecha))
         {

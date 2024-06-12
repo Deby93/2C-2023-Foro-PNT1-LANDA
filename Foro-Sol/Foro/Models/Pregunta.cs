@@ -52,17 +52,7 @@ namespace Foro
         #endregion
     }
 
-    //public int CantidadDeDislikes
-    //{   
-       
-    //    get
-    //    {
-    //        int resultado = 0;
-
-
-    //        return resultado;
-    //    }
-    //}
+    
 
 }
 

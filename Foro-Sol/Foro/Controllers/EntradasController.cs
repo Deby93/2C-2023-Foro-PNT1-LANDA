@@ -72,20 +72,6 @@ namespace Foro
                         int miID = Int32.Parse(User.Claims.First().Value);
                         var estaPendienteDeAutorizacion = _contexto.MiembrosHabilitados.Any((mh => mh.MiembroId == miID && mh.EntradaId == id && !mh.Habilitado));
                         bool habilitado = _contexto.MiembrosHabilitados.Any(mh => mh.EntradaId == id && mh.MiembroId == miID && mh.Habilitado);
-                        //var autorizado = _contexto.MiembrosHabilitados.Any((mh => mh.MiembroId == miID && mh.EntradaId == id && mh.Habilitado));
-                        //var aux = false;
-                        //if (unaEntrada.Id == id && habilitado)
-                        //{
-                        //    aux = autorizado;
-                        //}
-                        //else if (unaEntrada.Id == id && !habilitado)
-                        //{
-                        //    aux = estaPendienteDeAutorizacion;
-
-                        //}
-
-
-
                         if (User.IsInRole(Config.MiembroRolName) && (id == null || estaPendienteDeAutorizacion || (unaEntrada.MiembroId != miID && !habilitado && (bool)unaEntrada.Privada)))
                         {
                             return NotFound();
@@ -93,20 +79,18 @@ namespace Foro
                     }
                 }
             }
-
-
-
-            //if (!_signinManager.IsSignedIn(User) && (bool)unaEntrada.Privada)
-            //{
-            //    return NotFound();
-            //}
             var entrada = await _contexto.Entradas
-                        .Include(e => e.Categoria)
-                        .Include(e => e.Miembro)
-                        .Include(e => e.Preguntas)
-                        .ThenInclude(e => e.Respuestas)
-                        .OrderBy(p => p.Fecha)
-                        .FirstOrDefaultAsync(m => m.Id == id);
+                                  .Include(e => e.Categoria)
+                                  .Include(e => e.Miembro)
+                                  .Include(e => e.Preguntas)
+                                      .ThenInclude(p => p.Respuestas)
+                                          .ThenInclude(r => r.Reacciones)
+                                  .Include(e => e.Preguntas)
+                                      .ThenInclude(p => p.Miembro) 
+                                  .OrderBy(p => p.Fecha)
+                                  .FirstOrDefaultAsync(m => m.Id == id);
+
+            var preguntasOrdenadas = entrada.Preguntas.OrderByDescending(p => p.Respuestas.Sum(r => r.Reacciones.Count(reaccion => (bool)reaccion.MeGusta))).ToList();
 
             List<Pregunta> listaDePreguntas = new();
             listaDePreguntas = await _contexto.Preguntas
@@ -120,10 +104,9 @@ namespace Foro
                 return NotFound();
             }
 
-
             ViewBag.Entrada = entrada;
             int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-
+            ViewBag.Preguntas = preguntasOrdenadas;
             ViewBag.UserId = userId;
             return View(listaDePreguntas);
 

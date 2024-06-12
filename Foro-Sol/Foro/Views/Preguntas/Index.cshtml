@@ -26,17 +26,12 @@
             <th>
                 Estado
             </th>
-            <th>
-                @*    @Html.DisplayNameFor(model => model.Entrada)
-                </th>
-                <th>
-                @Html.DisplayNameFor(model => model.Miembro)
-                </th> *@
+           
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.OrderBy(e => e.Fecha))
         {
             <tr>
                 <td>

@@ -60,8 +60,8 @@ namespace Foro
             ViewBag.Pregunta = pregunta;
             ViewBag.idMasLikes = respuestas.OrderByDescending(r => r.Reacciones.Count(re => (bool) re.MeGusta)).FirstOrDefault()?.RespuestaId;
             ViewBag.idMasDisLikes = respuestas.OrderByDescending(r => r.Reacciones.Count(re => (bool)!re.MeGusta)).FirstOrDefault()?.RespuestaId;
-
-            return View(respuestas);  // Pasar las respuestas a la vista
+     
+            return View(respuestas);
         }
 
 

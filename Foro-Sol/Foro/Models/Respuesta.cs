@@ -35,6 +35,8 @@ namespace Foro
 
         [NotMapped]
         public int ContadorDislikes => Reacciones?.Count(r => r.MeGusta.HasValue && !r.MeGusta.Value) ?? 0;
+        [NotMapped]
+        public int ContadorLikes => Reacciones?.Count(r => r.MeGusta.HasValue && r.MeGusta.Value) ?? 0;
 
     }
 }

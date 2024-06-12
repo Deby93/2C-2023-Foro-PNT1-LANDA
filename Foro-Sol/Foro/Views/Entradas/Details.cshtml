@@ -5,13 +5,14 @@
 
     var entrada = ViewBag.Entrada as Foro.Entrada;
     int UsuarioId = 0;
+    var pregorden = ViewBag.Preguntas;
     if (User.Claims.Any())
     {
         UsuarioId = Int32.Parse(User.Claims.First().Value);
     }
 }
 
-<h1 style="color: #A65341">Detalles</h1>
+<h1 style="color: #A65341">Detalles de la entrada</h1>
 
 @if (entrada != null)
 {
@@ -28,10 +29,10 @@
             @if (User.Identity.IsAuthenticated && entrada.Miembro != null)
             {
                 <dt class="col-sm-2 highlighted">
-                    @Html.DisplayNameFor(e => entrada.Miembro.NombreCompleto)
+                    @Html.DisplayNameFor(e => entrada.Miembro.Email)
                 </dt>
                 <dd class="col-sm-10">
-                    @entrada.Miembro.NombreCompleto
+                    @entrada.Miembro.Email
                 </dd>
             }
             <dt class="col-sm-2 highlighted">
@@ -63,7 +64,7 @@
          }
         }
         <div align="right">
-            @if (User.IsInRole("Miembro") && entrada.MiembroId == UsuarioId)
+            @if (User.IsInRole(Config.MiembroRolName) && entrada.MiembroId == UsuarioId)
             {
                 <a class="btn btn-primary" asp-action="Edit" asp-route-id="@entrada.Id">Editar</a>
             }
@@ -77,15 +78,17 @@
             <a class="btn btn-primary" asp-controller="Entradas" asp-action="Index">Atrás</a>
         </div>
         <br />
-        <h1 class="text-center">Preguntas</h1>
+        <h3 style="color: white" class="text-center">Preguntas en orden cronologico ascendente</h3>
         <div>
-            @foreach (var unaPregunta in Model.OrderBy(p => p.Fecha))
+            @foreach (var unaPregunta in Model.OrderBy( p=>p.Fecha))
             {
                 <div class="question-card">
                     <div class="question-card-header">
                         @if (User.Identity.IsAuthenticated && unaPregunta.Miembro != null)
                         {
-                            @unaPregunta.Miembro.UserName @unaPregunta.Fecha.ToShortDateString()
+                            <p>@unaPregunta.Descripcion</p>
+                            <h6> Pregunta realizada por: @unaPregunta.Miembro.UserName</h6>
+                            <h6> Publicada: @unaPregunta.Fecha.ToShortDateString()</h6>
                         }
                         else
                         {
@@ -93,7 +96,7 @@
                         }
                     </div>
                     <div class="question-card-body">
-                        <p>@unaPregunta.Descripcion</p>
+                
                         <div class="question-actions">
                         </div>
                         @if (User.IsInRole("Miembro") && unaPregunta.MiembroId == UsuarioId)
@@ -107,6 +110,53 @@
                     </div>
                 </div>
             }
+
+            @{
+                var preguntasConLikes = Model.Select(p => new
+                {
+                    Pregunta = p,
+                    Likes = p.Respuestas?.Sum(r => r.Reacciones?.Count(re => re.MeGusta.HasValue && re.MeGusta.Value) ?? 0) ?? 0
+                })
+                .OrderByDescending(p => p.Likes)
+                .ToList();
+            }
+
+            <h3 style="color: white" class="text-center">Preguntas ordenadas por cantidad de likes</h3>
+            <div>
+                @foreach (var item in preguntasConLikes)
+                {
+                    var unaPregunta = item.Pregunta;
+                    var likes = item.Likes;
+                    <div class="question-card">
+                        <div class="question-card-header">
+                            @if (User.Identity.IsAuthenticated && unaPregunta.Miembro != null)
+                            {
+                                <p>@unaPregunta.Descripcion</p>
+                                <h6> Pregunta realizada por: @unaPregunta.Miembro.UserName</h6>
+                                <h6> Publicada: @unaPregunta.Fecha.ToShortDateString()</h6>
+                                <h6> Likes: @likes</h6>
+                            }
+                            else
+                            {
+                                @unaPregunta.Fecha.ToShortDateString()
+                            }
+                        </div>
+                        <div class="question-card-body">
+                            <div class="question-actions">
+                            </div>
+                            @if (User.IsInRole("Miembro") && unaPregunta.MiembroId == UsuarioId)
+                            {
+                                <div class="mt-2">
+                                    <a class="btn btn-danger text-white" asp-controller="Preguntas" asp-action="Delete" asp-route-id="@unaPregunta.PreguntaId">Eliminar</a>
+                                    <a class="btn btn-primary text-white" asp-controller="Preguntas" asp-action="Edit" asp-route-id="@unaPregunta.PreguntaId">Editar</a>
+                                </div>
+                            }
+                            <a class="btn btn-primary text-white" asp-controller="Preguntas" asp-action="Details" asp-route-id="@unaPregunta.PreguntaId">Detalles</a>
+                        </div>
+                    </div>
+                }
+            </div>
+
         </div>
         <p>Se encontraron: @Model.Count() Preguntas en esta Entrada</p>
     </div>
@@ -115,3 +165,4 @@ else
 {
     <p>No se encontró la entrada.</p>
 }
+<h3 style="color: white" class="text-center">Preguntas ordenadas por cantidad de likes</h3>

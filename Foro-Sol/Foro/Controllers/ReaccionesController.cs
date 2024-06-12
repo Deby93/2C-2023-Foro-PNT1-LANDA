@@ -35,16 +35,16 @@ namespace Foro
         [HttpPost]
         public async Task<IActionResult> Like(int respuestaId, int preguntaId)
         {
-            return await HandleReaction(respuestaId, preguntaId, true);
+            return await Reaccionar(respuestaId, preguntaId, true);
         }
 
         [HttpPost]
         public async Task<IActionResult> Dislike(int respuestaId, int preguntaId)
         {
-            return await HandleReaction(respuestaId, preguntaId, false);
+            return await Reaccionar(respuestaId, preguntaId, false);
         }
 
-        private async Task<IActionResult> HandleReaction(int respuestaId, int preguntaId, bool meGusta)
+        private async Task<IActionResult> Reaccionar(int respuestaId, int preguntaId, bool meGusta)
         {
             var userIdString = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userIdString == null)
@@ -57,8 +57,9 @@ namespace Foro
 
             if (!User.Identity.IsAuthenticated || reaccionador == null || reaccionador.MiembroId == userId)
             {
-                return NotFound();
-                //redireigir al preguntas detalles
+                Console.WriteLine("no se puede reaccionar a la respuesta que es de uno");
+                return RedirectToAction("Details", "Preguntas", new { id = preguntaId });
+
             }
 
             var existeReaccion = await _contexto.Reacciones
