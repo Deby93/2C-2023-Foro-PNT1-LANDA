@@ -45,38 +45,46 @@
                 <td>@Html.DisplayFor(modelItem => entrada.Titulo)</td>
                 <td>@Html.DisplayFor(modelItem => entrada.Fecha)</td>
                 <td>
-                    @if ((User.IsInRole(Config.MiembroRolName) && (bool)entrada.Privada))
+                    @if ((bool)entrada.Privada)
                     {
-                        int userId = Int32.Parse(User.Claims.First().Value);
-                        var miembroHabilitado = entrada.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && mh.Habilitado);
-                        var miembroNoHabilitado = entrada.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && !mh.Habilitado);
-
-                        var esMiEntrada = entrada.MiembroId == userId;
-
-                        if (esMiEntrada)
+                        @if (User.IsInRole(Config.MiembroRolName))
                         {
-                            <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn btn-purple">Mi Entrada</a>
-                            <a asp-controller="Entradas" asp-action="SolicitudesPendientes" asp-route-id="@entrada.Id" class="btn btn-purple">Solicitudes pendientes</a>
+                            int userId = Int32.Parse(User.Claims.First().Value);
+                            var miembroHabilitado = entrada.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && mh.Habilitado);
+                            var miembroNoHabilitado = entrada.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && !mh.Habilitado);
 
-                        }
-                        else
-                        {
+                            var esMiEntrada = entrada.MiembroId == userId;
 
-                            if (miembroHabilitado ==true )
+                            if (esMiEntrada)
                             {
-                                <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn peach-button">Aprobada</a>
-
-                            }
-                            else if (miembroNoHabilitado == true)
-                            {
-                                <a class="btn privacy-btn privada">Pendiente de aprobación</a>
+                                <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn btn-purple">Mi Entrada</a>
+                                <a asp-controller="Entradas" asp-action="SolicitudesPendientes" asp-route-id="@entrada.Id" class="btn btn-purple">Solicitudes pendientes</a>
 
                             }
                             else
                             {
-                                <a id="btnAprobacion" asp-controller="Entradas" asp-action="SolicitarAprobacion" asp-route-id="@entrada.Id" class="btn privacy-btn privada">Privada</a>
+
+                                if (miembroHabilitado == true)
+                                {
+                                    <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn peach-button">Aprobada</a>
+
+                                }
+                                else if (miembroNoHabilitado == true)
+                                {
+                                    <a class="btn privacy-btn privada">Pendiente de aprobación</a>
+
+                                }
+                                else
+                                {
+                                    <a id="btnAprobacion" asp-controller="Entradas" asp-action="SolicitarAprobacion" asp-route-id="@entrada.Id" class="btn privacy-btn privada">Privada</a>
+
+                                }
 
                             }
+                        }
+                        else
+                        {
+                            <a id="btnAprobacion" asp-route-id="@entrada.Id" class="btn privacy-btn privada">Privada</a>
 
                         }
                     }

@@ -17,23 +17,50 @@
                                 <div class="card mb-3 peach-bg">
                                     <h5 class="card-title">@item.Titulo</h5>
                                     <p class="card-text">@item.Descripcion</p>
-                                    @if (item.Privada.HasValue)
+                                    @if ((bool)item.Privada)
                                     {
-                                        @if (!(bool)item.Privada)
+                                        if (User.IsInRole(Config.MiembroRolName))
                                         {
-                                            <a asp-controller="Entradas" asp-action="details" asp-route-id="@item.Id" class="btn privacy-btn publica">Pública</a>
-                                           
-                                        }
-                                        else
-                                        {
-                                            <form asp-controller="Entradas" asp-action="SolicitudesPendientes" method="get">
-                                                <input type="hidden" name="entradaId" value="@item.Id" />
-                                                <button type="submit" class="privacy-btn privada">
-                                                    Privada
-                                                </button>
-                                            </form>
+                                            int userId = Int32.Parse(User.Claims.First().Value);
+                                            var miembroHabilitado = item.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && mh.Habilitado);
+                                            var miembroNoHabilitado = item.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && !mh.Habilitado);
+
+                                            var esMiEntrada = item.MiembroId == userId;
+
+                                            if (esMiEntrada)
+                                            {
+                                                <a asp-controller="Entradas" asp-action="Details" asp-route-id="@item.Id" class="btn btn-purple">Mi Entrada</a>
+                                                <a asp-controller="Entradas" asp-action="SolicitudesPendientes" asp-route-id="@item.Id" class="btn btn-purple">Solicitudes pendientes</a>
+
+                                            }
+                                            else
+                                            {
+
+                                                if (miembroHabilitado == true)
+                                                {
+                                                    <a asp-controller="Entradas" asp-action="Details" asp-route-id="@item.Id" class="btn peach-button">Aprobada</a>
+
+                                                }
+                                                else if (miembroNoHabilitado == true)
+                                                {
+                                                    <a class="btn privacy-btn privada">Pendiente de aprobación</a>
+
+                                                }
+                                                else
+                                                {
+                                                    <a id="btnAprobacion" asp-controller="Entradas" asp-action="SolicitarAprobacion" asp-route-id="@item.Id" class="btn privacy-btn privada">Privada</a>
+
+                                                }
+
+                                            }
                                         }
                                     }
+                                    else
+                                    {
+                                        <a asp-controller="Entradas" asp-action="Details" asp-route-id="@item.Id" class="btn privacy-btn publica">Pública</a>
+
+                                    }
+
 
                                 </div>
                             }
@@ -54,25 +81,58 @@
                             @foreach (var item in Model.Top5EntradasMasRecientes)
                             {
                                 <div class="card mb-3 peach-bg">
-                                 <h5 class="card-title">@item.Titulo</h5>
+                                    <h5 class="card-title">@item.Titulo</h5>
                                     <p class="card-text">@item.Descripcion</p>
                                     @if (item.Privada.HasValue)
                                     {
-                                        @if (!(bool)item.Privada)
+                                        if (User.IsInRole(Config.MiembroRolName))
                                         {
-                                            <a asp-controller="Entradas" asp-action="details" asp-route-id="@item.Id" class="btn privacy-btn publica">Pública</a>
+                                            int userId = Int32.Parse(User.Claims.First().Value);
+                                            var miembroHabilitado = item.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && mh.Habilitado);
+                                            var miembroNoHabilitado = item.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && !mh.Habilitado);
 
+                                            var esMiEntrada = item.MiembroId == userId;
+
+                                            if (esMiEntrada)
+                                            {
+                                                <a asp-controller="Entradas" asp-action="Details" asp-route-id="@item.Id" class="btn btn-purple">Mi Entrada</a>
+                                                <a asp-controller="Entradas" asp-action="SolicitudesPendientes" asp-route-id="@item.Id" class="btn btn-purple">Solicitudes pendientes</a>
+
+                                            }
+                                            else
+                                            {
+
+                                                if (miembroHabilitado == true)
+                                                {
+                                                    <a asp-controller="Entradas" asp-action="Details" asp-route-id="@item.Id" class="btn peach-button">Aprobada</a>
+
+                                                }
+                                                else if (miembroNoHabilitado == true)
+                                                {
+                                                    <a class="btn privacy-btn privada">Pendiente de aprobación</a>
+
+                                                }
+                                                else
+                                                {
+                                                    <a id="btnAprobacion" asp-controller="Entradas" asp-action="SolicitarAprobacion" asp-route-id="@item.Id" class="btn privacy-btn privada">Privada</a>
+
+                                                }
+
+                                            }
                                         }
                                         else
                                         {
-                                            <form asp-controller="Entradas" asp-action="SolicitudesPendientes" method="get">
-                                                <input type="hidden" name="entradaId" value="@item.Id" />
-                                                <button type="submit" class="privacy-btn privada">
-                                                    Privada
-                                                </button>
-                                            </form>
+                                            <a class="btn privacy-btn privada">Privada</a>
+
                                         }
+
                                     }
+                                    else
+                                    {
+                                        <a asp-controller="Entradas" asp-action="Details" asp-route-id="@item.Id" class="btn privacy-btn publica">Pública</a>
+
+                                    }
+                                    
                                 </div>
                             }
                         </tbody>
