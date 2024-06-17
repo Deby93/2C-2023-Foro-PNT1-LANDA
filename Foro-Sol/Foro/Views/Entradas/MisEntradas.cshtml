@@ -9,47 +9,51 @@
         UsuarioId = Int32.Parse(User.Claims.First().Value);
     }
 }
-<h1 style="color: #A65341">Mis entradas</h1>
 
-
-<h1 class="text-white">Entradas</h1>
-
-<p>
-    @if (User.IsInRole("Miembro"))
+  @if (User.IsInRole(Config.MiembroRolName))
     {
+    <h1 style="color: #A65341">Mis entradas</h1>
+
+
+    <h1 class="text-white">Entradas</h1>
+
+    <p>
+
         <a class="btn-custom" asp-controller="Entradas" asp-action="Create">Crear Nueva Entrada</a>
-    }
-</p>
+        
+    </p>
 
-<table class="table">
-    <thead class="text-black">
-        <tr>
-            <th>Categoría</th>
-            <th>Título</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr class="peach-bg">
-                <td>
-                    @Html.DisplayFor(modelItem => item.Categoria.Nombre)
-                </td>
-                <td>
-                    <a class="card-title" href="@Url.Action("Details", "Entradas", new { id = item.Id })">@item.Titulo</a>
-                </td>
-                <td>
-                    <a href="@Url.Action("Details", "Entradas", new { id = item.Id })">Detalles</a>
-                    @if (User.IsInRole("Usuario") || item.MiembroId == UsuarioId)
-                    {
-                        <a href="@Url.Action("Delete", "Entradas", new { id = item.Id })">Eliminar</a>
-                    }
-                </td>
+    <table class="table">
+        <thead class="text-black">
+            <tr>
+                <th>Categoría</th>
+                <th>Título</th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="peach-bg">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Categoria.Nombre)
+                    </td>
+                    <td>
+                        <a class="card-title" href="@Url.Action("Details", "Entradas", new { id = item.Id })">@item.Titulo</a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Details", "Entradas", new { id = item.Id })">Detalles</a>
+                        @if (User.IsInRole("Usuario") || item.MiembroId == UsuarioId)
+                        {
+                            <a href="@Url.Action("Delete", "Entradas", new { id = item.Id })">Eliminar</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-<p class="text-white">Se encontraron: @Model.Count() Entradas en esta categoría</p>
-<a asp-action="Index">Volver a la lista</a>
+    <p class="text-white">Se encontraron: @Model.Count() Entradas en esta categoría</p>
+    <a asp-action="Index">Volver a la lista</a>
+
+    }

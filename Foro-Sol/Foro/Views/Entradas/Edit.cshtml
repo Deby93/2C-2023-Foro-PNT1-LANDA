@@ -4,7 +4,10 @@
     ViewData["Title"] = "Editar";
 }
 
-<h1 style ="color: #A65341">Editar</h>
+@if (User.IsInRole(Config.MiembroRolName))
+{
+    
+    <h1 style ="color: #A65341">Editar</h1>
 
 <h4>Entrada</h4>
 <hr />
@@ -50,4 +53,6 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
 }

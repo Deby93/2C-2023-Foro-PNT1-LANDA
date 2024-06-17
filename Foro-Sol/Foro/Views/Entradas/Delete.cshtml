@@ -4,48 +4,54 @@
     ViewData["Title"] = "Borrar";
 }
 
-<h1 style="color: #A65341">Borrar</h1>
+@if (User.IsInRole(Config.AdministradorRolName))
+{
+    <h1 style="color: #A65341">Borrar</h1>
 
-<h3>¿Quiere borrar esta entrada?</h3>
-<div>
-    <h4>Entrada</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Titulo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Titulo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Fecha)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Fecha)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Privada)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Privada)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Miembro)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Miembro.Apellido)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Categoria)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Categoria.Nombre)
-        </dd>
-    </dl>
+    <h3>¿Quiere borrar esta entrada?</h3>
+    <div>
+        <h4>Entrada</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Titulo)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Titulo)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Fecha)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Fecha)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Privada)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Privada)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Miembro)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Miembro.Apellido)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Categoria)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Categoria.Nombre)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            <input type="submit" value="Borrar" class="btn btn-danger" />
+            <a asp-action="Index">Volver a la  lista</a>
+        </form>
+    </div>
+
     
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Borrar" class="btn btn-danger" /> 
-        <a asp-action="Index">Volver a la  lista</a>
-    </form>
-</div>
+}
+

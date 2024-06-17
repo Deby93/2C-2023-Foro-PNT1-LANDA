@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Foro
 {
-    //[Authorize(Roles = Config.Miembro)]
+    [Authorize(Roles = Config.MiembroRolName)]
     public class ReaccionesController : Controller
     {
         private readonly ForoContexto _contexto;

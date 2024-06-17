@@ -5,45 +5,52 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 style="color: #A65341">Solicitudes Pendientes</h1>
+@if (User.IsInRole(Config.MiembroRolName))
+{
+    <h1 style="color: #A65341">Solicitudes Pendientes</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Tu e-mail</th>
-            <th>Nombre de entrada</th>
-            <th>Número de entrada</th>
-            <th>Miembro e-mail que realizó la solicitud</th>
-            <th>Habilitado</th>
-            <th>Dar acceso</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var solicitud in Model)
-        {
-            <tr class="peach-bg">
-                <td>@solicitud.Entrada.Miembro.Email</td>
-                <td>@solicitud.Entrada.Titulo</td>
-                <td>@solicitud.EntradaId</td>
-                <td>@solicitud.Miembro.Email</td>
-                <td>@solicitud.Habilitado</td>
-                <td>
-                    <form asp-controller="MiembrosHabilitados" asp-action="AceptarSolicitud" method="post">
-                        <input type="hidden" name="entradaId" value="@solicitud.EntradaId" />
-                        <input type="hidden" name="miembroId" value="@solicitud.MiembroId" />
-                        <button type="submit" class="btn btn-success">Aceptar</button>
-                    </form>
-
-                    <form asp-controller="MiembrosHabilitados" asp-action="RechazarSolicitud" method="post">
-                        <input type="hidden" name="entradaId" value="@solicitud.EntradaId" />
-                        <input type="hidden" name="miembroId" value="@solicitud.MiembroId" />
-                        <button type="submit" class="btn btn-danger">Rechazar</button>
-                    </form>
-                  @*   <a asp-controller="MiembrosHabilitados" asp-action="AceptarSolicitud" asp-route-id="@solicitud.EntradaId" asp-route-id="@solicitud.MiembroId" class="btn btn-success">Aprobar</a> *@
-                   @*  <a asp-controller="MiembrosHabilitados" asp-action="RechazarSolicitud" asp-route-id="@solicitud.EntradaId" asp-route-id="@solicitud.MiembroId" class="btn btn-danger">Rechazar</a> *@
-                </td>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Tu e-mail</th>
+                <th>Nombre de entrada</th>
+                <th>Número de entrada</th>
+                <th>Miembro e-mail que realizó la solicitud</th>
+                <th>Habilitado</th>
+                <th>Dar acceso</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var solicitud in Model)
+            {
+                <tr class="peach-bg">
+                    <td>@solicitud.Entrada.Miembro.Email</td>
+                    <td>@solicitud.Entrada.Titulo</td>
+                    <td>@solicitud.EntradaId</td>
+                    <td>@solicitud.Miembro.Email</td>
+                    <td>@solicitud.Habilitado</td>
+                    <td>
+                        <form asp-controller="MiembrosHabilitados" asp-action="AceptarSolicitud" method="post">
+                            <input type="hidden" name="entradaId" value="@solicitud.EntradaId" />
+                            <input type="hidden" name="miembroId" value="@solicitud.MiembroId" />
+                            <button type="submit" class="btn btn-success">Aceptar</button>
+                        </form>
+
+                        <form asp-controller="MiembrosHabilitados" asp-action="RechazarSolicitud" method="post">
+                            <input type="hidden" name="entradaId" value="@solicitud.EntradaId" />
+                            <input type="hidden" name="miembroId" value="@solicitud.MiembroId" />
+                            <button type="submit" class="btn btn-danger">Rechazar</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-danger" role="alert">
+        No tienes permiso para ver esta página.
+    </div>
+}
 
