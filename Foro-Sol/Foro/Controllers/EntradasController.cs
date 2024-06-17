@@ -67,12 +67,12 @@ namespace Foro
             {
                 if ((bool)unaEntrada.Privada)
                 {
-                    if (_signinManager.IsSignedIn(User))
+                    if ((User.IsInRole(Config.MiembroRolName)))
                     {
                         int miID = Int32.Parse(User.Claims.First().Value);
                         var estaPendienteDeAutorizacion = _contexto.MiembrosHabilitados.Any((mh => mh.MiembroId == miID && mh.EntradaId == id && !mh.Habilitado));
                         bool habilitado = _contexto.MiembrosHabilitados.Any(mh => mh.EntradaId == id && mh.MiembroId == miID && mh.Habilitado);
-                        if (User.IsInRole(Config.MiembroRolName) && (id == null || estaPendienteDeAutorizacion || (unaEntrada.MiembroId != miID && !habilitado && (bool)unaEntrada.Privada)))
+                        if ((id == null || estaPendienteDeAutorizacion || (unaEntrada.MiembroId != miID && !habilitado && (bool)unaEntrada.Privada)))
                         {
                             return NotFound();
                         }
@@ -105,14 +105,18 @@ namespace Foro
             }
 
             ViewBag.Entrada = entrada;
-            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            if ((User.IsInRole(Config.MiembroRolName)))
+            {
+                int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                ViewBag.UserId = userId;
+            }
             ViewBag.Preguntas = preguntasOrdenadas;
-            ViewBag.UserId = userId;
+           
             return View(listaDePreguntas);
 
         }
 
-        //  [Authorize(Roles = Config.Miembro)]
+         [Authorize(Roles = Config.MiembroRolName)]
 
         [HttpGet]
         public IActionResult Create()
@@ -166,7 +170,7 @@ namespace Foro
             return View(entrada);
         }
 
-        [Authorize(Roles = Config.Miembro)]
+        [Authorize(Roles = Config.MiembroRolName)]
 
         public async Task<IActionResult> Edit(int? id)
         {
@@ -236,6 +240,7 @@ namespace Foro
             return View(entrada);
         }
 
+        [Authorize(Roles = Config.AdministradorRolName)]
         // GET: Entradas/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -256,7 +261,7 @@ namespace Foro
             return View(entrada);
         }
 
-        // POST: Entradas/Delete/5
+        [Authorize(Roles = Config.AdministradorRolName)]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -295,6 +300,8 @@ namespace Foro
             }
         }
 
+        [Authorize(Roles = Config.MiembroRolName)]
+
         public async Task<IActionResult> MisEntradas()
         {
             var idMiembro = Int32.Parse(_userManager.GetUserId(User));
@@ -325,6 +332,8 @@ namespace Foro
             return (_contexto.Entradas?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
+        [Authorize(Roles = Config.MiembroRolName)]
+
         public int EntradaConMasDislikes()
         {
             Console.WriteLine("Inicio");
@@ -343,6 +352,8 @@ namespace Foro
             return (entradaConMasDislikes.Entrada.Id);
 
         }
+        [Authorize(Roles = Config.MiembroRolName)]
+
         public IActionResult SolicitudesPendientes()
         {
             try
@@ -376,6 +387,7 @@ namespace Foro
                 return View("Error"); // Asegúrate de tener una vista de Error para mostrar mensajes amigables
             }
         }
+        [Authorize(Roles = Config.MiembroRolName)]
 
         public IActionResult SolicitarAprobacion(int id)
         {

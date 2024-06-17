@@ -233,12 +233,10 @@ body {
         background-color: #28a745; /* Verde para "Pública" */
     }
 
-<style >
 .nav-item.dropdown:hover .dropdown-menu,
 .nav-item.dropdown:focus .dropdown-menu {
     display: block;
 }
-
 .nav-item.dropdown:hover .nav-link,
 .nav-item.dropdown:focus .nav-link {
     background-color: #A65341; /* Cambia a tu color de fondo deseado */
@@ -291,7 +289,6 @@ body {
         color: red;
     }
 
-<style >
 .highlighted {
     font-weight: bold;
 }
@@ -337,12 +334,8 @@ body {
         color: red;
     }
 
-<style >
-/* Elimina el subrayado de los títulos */
-.card-title {
-    text-decoration: none !important;
-    color: inherit !important; /* Mantener el color de texto predeterminado */
-}
+
+
 
 /* Estilo para tarjetas con fondo durazno */
 .peach-bg {

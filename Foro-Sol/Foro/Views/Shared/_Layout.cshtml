@@ -128,19 +128,21 @@
     <footer class="border-top footer text-muted">
         <div class="container">
             <span id="mensaje" style="color: #A65341; display: none;">Clickea el botón para cargar la base de datos.</span>
-            <a id="botonPrecarga" asp-action="Seed" asp-controller="PreCarga" class="btn btn-stm btn-bordo">PRECARGA</a>
+            <span id="mensajeClic" style="color: #A65341; display: none;">Cargando la base de datos, por favor espera...</span>
+            <button id="botonPrecarga" class="btn btn-stm btn-bordo">PRECARGA</button>
         </div>
 
         <script>
             // Obtener referencia al botón de precarga
             var botonPrecarga = document.getElementById("botonPrecarga");
-            // Obtener referencia al mensaje
+            // Obtener referencia a los mensajes
             var mensaje = document.getElementById("mensaje");
+            var mensajeClic = document.getElementById("mensajeClic");
 
             // Agregar un evento mouseover al botón de precarga
             botonPrecarga.addEventListener("mouseover", function () {
                 // Mostrar el mensaje
-                mensaje.style.display = "block"; // "block" es para bloquear el mensaje mientras se pasa por arriba del boton
+                mensaje.style.display = "block"; // "block" es para mostrar el mensaje mientras se pasa por arriba del boton
             });
 
             // Agregar un evento mouseout al botón de precarga
@@ -149,8 +151,24 @@
                 mensaje.style.display = "none";
             });
 
-        </script>
+            // Agregar un evento click al botón de precarga
+            botonPrecarga.addEventListener("click", function (event) {
+                // Deshabilitar el botón
+                botonPrecarga.disabled = true;
+                // Mostrar mensaje de carga
+                mensaje.style.display = "none";
+                mensajeClic.style.display = "block";
 
+                // Simular una solicitud asincrónica
+                setTimeout(function () {
+                    // Redirigir a la acción de precarga
+                    window.location.href = '@Url.Action("Seed", "PreCarga")';
+                }, 1000); // 1000ms = 1 segundo, puede ajustarse si es necesario
+
+                // Prevenir la acción predeterminada del botón
+                event.preventDefault();
+            });
+        </script>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

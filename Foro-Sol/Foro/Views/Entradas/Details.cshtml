@@ -6,7 +6,7 @@
     var entrada = ViewBag.Entrada as Foro.Entrada;
     int UsuarioId = 0;
     var pregorden = ViewBag.Preguntas;
-    if (User.Claims.Any())
+    if (User.IsInRole( Config.MiembroRolName) && User.Claims.Any() )
     {
         UsuarioId = Int32.Parse(User.Claims.First().Value);
     }
@@ -56,13 +56,12 @@
                
             </dd>
         </dl>
-        @if (User.Identity.IsAuthenticated)
-        {
-        @if (!(bool)entrada.Privada && entrada.MiembroId != UsuarioId )
+        
+            @if ((User.IsInRole(Config.MiembroRolName) && !(bool)entrada.Privada && entrada.MiembroId != UsuarioId ))
         {
            <a class="btn btn-success text-white" asp-controller="Preguntas" asp-action="Create" asp-route-id="@entrada.Id">Preguntar</a>
          }
-        }
+        
         <div align="right">
             @if (User.IsInRole(Config.MiembroRolName) && entrada.MiembroId == UsuarioId)
             {
@@ -70,10 +69,7 @@
             }
             else if (UsuarioId == 0)
             {
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <a class="btn btn-success text-white" asp-controller="Preguntas" asp-action="Create" asp-route-id="@entrada.Id">Preguntar</a>
-                }
+               
             }
             <a class="btn btn-primary" asp-controller="Entradas" asp-action="Index">Atrás</a>
         </div>
@@ -84,14 +80,17 @@
             {
                 <div class="question-card">
                     <div class="question-card-header">
+                        
                         @if (User.Identity.IsAuthenticated && unaPregunta.Miembro != null)
                         {
                             <p>@unaPregunta.Descripcion</p>
                             <h6> Pregunta realizada por: @unaPregunta.Miembro.UserName</h6>
-                            <h6> Publicada: @unaPregunta.Fecha.ToShortDateString()</h6>
+                            @unaPregunta.Fecha.ToShortDateString()
+                           
                         }
                         else
                         {
+                            <p>@unaPregunta.Descripcion</p>
                             @unaPregunta.Fecha.ToShortDateString()
                         }
                     </div>
@@ -99,7 +98,7 @@
                 
                         <div class="question-actions">
                         </div>
-                        @if (User.IsInRole("Miembro") && unaPregunta.MiembroId == UsuarioId)
+                        @if (User.IsInRole(Config.MiembroRolName) && unaPregunta.MiembroId == UsuarioId)
                         {
                             <div class="mt-2">
                                 <a class="btn btn-danger text-white" asp-controller="Preguntas" asp-action="Delete" asp-route-id="@unaPregunta.PreguntaId">Eliminar</a>
@@ -138,13 +137,14 @@
                             }
                             else
                             {
+                                <p>@unaPregunta.Descripcion</p>
                                 @unaPregunta.Fecha.ToShortDateString()
                             }
                         </div>
                         <div class="question-card-body">
                             <div class="question-actions">
                             </div>
-                            @if (User.IsInRole("Miembro") && unaPregunta.MiembroId == UsuarioId)
+                            @if (User.IsInRole(Config.MiembroRolName) && unaPregunta.MiembroId == UsuarioId)
                             {
                                 <div class="mt-2">
                                     <a class="btn btn-danger text-white" asp-controller="Preguntas" asp-action="Delete" asp-route-id="@unaPregunta.PreguntaId">Eliminar</a>
@@ -165,4 +165,3 @@ else
 {
     <p>No se encontró la entrada.</p>
 }
-<h3 style="color: white" class="text-center">Preguntas ordenadas por cantidad de likes</h3>

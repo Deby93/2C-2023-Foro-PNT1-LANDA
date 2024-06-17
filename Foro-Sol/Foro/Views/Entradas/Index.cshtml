@@ -7,13 +7,10 @@
    
 }
 
-
-
-
 <h1 style="color: #A65341">Entradas</h1>
 
 <p>
-    @if (User.Identity.IsAuthenticated)
+    @if (User.IsInRole(Config.MiembroRolName))
     {
         <a asp-action="Create" class="btn pink-button">Crear una entrada</a>
 
@@ -48,7 +45,7 @@
                 <td>@Html.DisplayFor(modelItem => entrada.Titulo)</td>
                 <td>@Html.DisplayFor(modelItem => entrada.Fecha)</td>
                 <td>
-                    @if ((bool)entrada.Privada)
+                    @if ((User.IsInRole(Config.MiembroRolName) && (bool)entrada.Privada))
                     {
                         int userId = Int32.Parse(User.Claims.First().Value);
                         var miembroHabilitado = entrada.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && mh.Habilitado);
@@ -64,8 +61,7 @@
                         }
                         else
                         {
-@*                             <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn peach-button">Privada</a>
- *@
+
                             if (miembroHabilitado ==true )
                             {
                                 <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn peach-button">Aprobada</a>
@@ -94,13 +90,10 @@
                 <td>@totalLikes</td>
                 <td>@totalDislikes</td>
                 <td>
-                
-
-                    @if (User.IsInRole(Config.AdministradorRolName) && (bool)!entrada.Privada)
+                    
+                    
+                    @if (User.IsInRole(Config.AdministradorRolName))
                     {
-                        <a asp-action="Details" asp-route-id="@entrada.Id">Detalles</a>
-                        <a asp-action="Edit" asp-route-id="@entrada.Id">Editar</a>
-                     
                         @if ((bool)isDislikedEntry && totalDislikes >= Config.UMBRAL_DISLIKES)
                         {
                             <form method="post" asp-action="Delete" asp-route-id="@entrada.Id" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta entrada?');">
@@ -111,28 +104,6 @@
                     
                 </td>
             </tr>
- @*            <tr>
-            <tr>
-                <td colspan="6">
-                    <button type="button" data-bs-toggle="collapse" data-bs-target="#collapse-@entrada.Id" aria-expanded="false" aria-controls="collapse-@entrada.Id">
-                        Ver Preguntas
-                    </button>
-                    <div class="collapse" id="collapse-@entrada.Id">
-                        <div class="card card-body">
-                                @foreach (var unaPregunta in entrada.Preguntas.OrderBy(e => e.Fecha))
-                                {
-                                    @if (unaPregunta.EntradaId == entrada.Id)
-                                    {
-                                    <p>@unaPregunta.Descripcion  Fecha de publicación: @unaPregunta.Fecha</p>
-                                   
-                                    }
-                                }
-                        </div>
-                    </div>
-                </td>
-            </tr>
- *@
-        @*     </tr> *@
-        }
+      }
     </tbody>
 </table>
