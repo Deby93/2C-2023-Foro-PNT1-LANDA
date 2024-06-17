@@ -6,7 +6,7 @@
 
 <h1 style="color: #A65341">Categoría</h1>
 
-@if (User.Identity.IsAuthenticated)
+@if (User.IsInRole(Config.MiembroRolName))
 {
     <a asp-action="Create" class="btn pink-button">Crear una categoría</a>
 }
@@ -30,11 +30,11 @@
                 </td>
                 <td>
                     <a asp-action="Details" asp-route-id="@item.CategoriaId">Detalles</a>
-                    @if (User.Identity.IsAuthenticated)
+                    @if (User.IsInRole(Config.MiembroRolName))
                     {
                         <a asp-action="Edit" asp-route-id="@item.CategoriaId">Editar</a>
-                        <a asp-action="Delete" asp-route-id="@item.CategoriaId">Borrar</a>
-                    }
+@*                         <a asp-action="Delete" asp-route-id="@item.CategoriaId">Borrar</a>
+ *@                    }
 
 
 

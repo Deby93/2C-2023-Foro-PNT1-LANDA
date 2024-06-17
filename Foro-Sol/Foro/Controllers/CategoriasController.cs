@@ -52,7 +52,7 @@ namespace Foro
             return View(categoria);
         }
 
-
+        [Authorize(Roles = Config.MiembroRolName)]
         // GET: Categorias/Create
 
         public IActionResult Create()
@@ -61,10 +61,10 @@ namespace Foro
         }
 
       
-       // [Authorize(Roles = Config.Miembro)]
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Config.MiembroRolName)]
         public async Task<IActionResult> Create([Bind("CategoriaId,Nombre")] Categoria categoria)
         {
             if (ModelState.IsValid)
@@ -85,7 +85,7 @@ namespace Foro
         }
 
         // GET: Categorias/Edit/5
-       // [Authorize(Roles = Config.Miembro)]
+        [Authorize(Roles = Config.MiembroRolName)]
 
         public async Task<IActionResult> Edit(int? id)
         {
@@ -106,6 +106,7 @@ namespace Foro
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Config.MiembroRolName)]
         public async Task<IActionResult> Edit(int id, [Bind("CategoriaId,Nombre")] Categoria categoria)
         {
             if (id != categoria.CategoriaId)
@@ -137,42 +138,42 @@ namespace Foro
             return View(categoria);
         }
 
-      //  [Authorize(Roles = Config.Miembro)]
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _contexto.Categorias == null)
-            {
-                return NotFound();
-            }
+       // [Authorize(Roles = Config.MiembroRolName)]
+       // public async Task<IActionResult> Delete(int? id)
+       // {
+       //     if (id == null || _contexto.Categorias == null)
+       //     {
+       //         return NotFound();
+       //     }
 
-            var categoria = await _contexto.Categorias
-                .FirstOrDefaultAsync(m => m.CategoriaId == id);
-            if (categoria == null)
-            {
-                return NotFound();
-            }
+       //     var categoria = await _contexto.Categorias
+       //         .FirstOrDefaultAsync(m => m.CategoriaId == id);
+       //     if (categoria == null)
+       //     {
+       //         return NotFound();
+       //     }
 
-            return View(categoria);
-        }
+       //     return View(categoria);
+       // }
 
-     //   [Authorize(Roles = Config.Miembro)]
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_contexto.Categorias == null)
-            {
-                return Problem("Entity set 'ForoContexto.Categorias'  is null.");
-            }
-            var categoria = await _contexto.Categorias.FindAsync(id);
-            if (categoria != null)
-            {
-                _contexto.Categorias.Remove(categoria);
-            }
+       //[Authorize(Roles = Config.MiembroRolName)]
+       // [HttpPost, ActionName("Delete")]
+       // [ValidateAntiForgeryToken]
+       // public async Task<IActionResult> DeleteConfirmed(int id)
+       // {
+       //     if (_contexto.Categorias == null)
+       //     {
+       //         return Problem("Entity set 'ForoContexto.Categorias'  is null.");
+       //     }
+       //     var categoria = await _contexto.Categorias.FindAsync(id);
+       //     if (categoria != null)
+       //     {
+       //         _contexto.Categorias.Remove(categoria);
+       //     }
             
-            await _contexto.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+       //     await _contexto.SaveChangesAsync();
+       //     return RedirectToAction(nameof(Index));
+       // }
 
         private bool CategoriaExists(int id)
         {
