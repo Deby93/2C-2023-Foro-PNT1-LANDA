@@ -565,7 +565,6 @@ C:\Users\twatd\Source\Repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\obj\Debug\net6
 C:\Users\twatd\Source\Repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\obj\Debug\net6.0\Foro.pdb
 C:\Users\twatd\Source\Repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\obj\Debug\net6.0\Foro.genruntimeconfig.cache
 C:\Users\twatd\Source\Repos\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\obj\Debug\net6.0\ref\Foro.dll
-C:\Users\twatd\OneDrive\Escritorio\proyecto\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\obj\Debug\net6.0\Foro.AssemblyInfo.cs
 C:\Users\twatd\OneDrive\Escritorio\proyecto\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\twatd\OneDrive\Escritorio\proyecto\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\appsettings.json
 C:\Users\twatd\OneDrive\Escritorio\proyecto\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\bin\Debug\net6.0\Foro.staticwebassets.runtime.json
@@ -828,6 +827,7 @@ C:\Users\twatd\OneDrive\Escritorio\proyecto\2C-2023-Foro-PNT1-LANDA\Foro-Sol\For
 C:\Users\twatd\OneDrive\Escritorio\proyecto\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\obj\Debug\net6.0\Foro.csproj.AssemblyReference.cache
 C:\Users\twatd\OneDrive\Escritorio\proyecto\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\obj\Debug\net6.0\Foro.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\twatd\OneDrive\Escritorio\proyecto\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\obj\Debug\net6.0\Foro.AssemblyInfoInputs.cache
+C:\Users\twatd\OneDrive\Escritorio\proyecto\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\obj\Debug\net6.0\Foro.AssemblyInfo.cs
 C:\Users\twatd\OneDrive\Escritorio\proyecto\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\obj\Debug\net6.0\Foro.csproj.CoreCompileInputs.cache
 C:\Users\twatd\OneDrive\Escritorio\proyecto\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\obj\Debug\net6.0\Foro.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\twatd\OneDrive\Escritorio\proyecto\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro\obj\Debug\net6.0\Foro.RazorAssemblyInfo.cache

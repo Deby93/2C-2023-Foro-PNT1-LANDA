@@ -33,12 +33,23 @@ namespace Foro
             {
                 return NotFound();
             }
-
+            else { 
+            Categoria unaCategoria= _contexto.Categorias.FirstOrDefault(c => c.CategoriaId == id);
+            }
             var categoria = await _contexto.Categorias
                 .Include(c => c.Entradas) // Incluir las entradas relacionadas con la categoría
                 .FirstOrDefaultAsync(cate => cate.CategoriaId == id);
+          
 
-            if (categoria == null)
+            List<Entrada> listaDeEntradas = new();
+            listaDeEntradas = await _contexto.Entradas
+              .Include(e => e.Categoria)
+           .Include(e => e.Miembro)
+              .Include(e => e.Preguntas)
+              .OrderBy(c => c.Fecha)
+              .Where(m => m.CategoriaId == id).ToListAsync();
+
+            if (categoria == null && listaDeEntradas==null)
             {
                 return NotFound();
             }
@@ -46,10 +57,14 @@ namespace Foro
             // Obtener la cantidad de entradas para la categoría actual
             int cantidadEntradas = categoria.Entradas.Count;
 
-            // Pasa la cantidad de entradas a la vista
+            ViewBag.unaCategoria = categoria;            // Pasa la cantidad de entradas a la vista
             ViewBag.CantidadEntradas = cantidadEntradas;
-
-            return View(categoria);
+            if (User.IsInRole(Config.MiembroRolName) && User.Claims.Any())
+            {
+                int UsuarioId = 0;
+                UsuarioId = Int32.Parse(User.Claims.First().Value);
+            }
+            return View(listaDeEntradas);
         }
 
         [Authorize(Roles = Config.MiembroRolName)]

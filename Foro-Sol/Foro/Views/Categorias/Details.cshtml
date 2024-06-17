@@ -1,37 +1,97 @@
-﻿@model Categoria
+﻿@model IEnumerable<Foro.Entrada>
 
 @{
     ViewData["Title"] = "Detalles";
+    var categoria = ViewBag.unaCategoria as Foro.Categoria;
+    var cantidadEntradas = ViewBag.CantidadEntradas;
+    int UsuarioId = 0;
+    if (User.IsInRole(Config.MiembroRolName) && User.Claims.Any())
+    {
+        UsuarioId = Int32.Parse(User.Claims.First().Value);
+    }
 }
 
-<h1 style="color: #A65341">Detalles</h1>
+<h1 style="color: #A65341">Detalles de categorías</h1>
 
 <div>
     <h4>Categoría</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-        <dt class="col-sm-2">
-            Cantidad de Entradas
-        </dt>
-        <dd class="col-sm-10">
-            @ViewBag.CantidadEntradas
-        </dd>
-    </dl>
-</div>
 
-@if (User.IsInRole(Config.MiembroRolName))
-{
-    <div>
-        <a asp-action="Edit" asp-route-id="@Model?.CategoriaId">Editar</a>
-    </div>
+    @if (categoria != null)
+    {
+        <h1 class="btn-primary text-center text-white">@categoria.Nombre</h1>
+        <div>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">
+                    Cantidad de Entradas
+                </dt>
+                <dd class="col-sm-10">
+                    @ViewBag.CantidadEntradas
+                </dd>
+
+                <h3 style ="color: white" class="text-center">Entradas</h3>
+                @foreach (var entrada in Model)
+                {
+                    
+                        <p> Descripción de la entrada : @entrada.Titulo </p>
+                        <p> Descripción de la entrada : @entrada.Descripcion</p>
+
+                    @if ((bool)entrada.Privada)
+                    {
+                        if (User.IsInRole(Config.MiembroRolName))
+                        {
+                            int userId = Int32.Parse(User.Claims.First().Value);
+                            var miembroHabilitado = entrada.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && mh.Habilitado);
+                            var miembroNoHabilitado = entrada.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && !mh.Habilitado);
+
+                            var esMiEntrada = entrada.MiembroId == userId;
+
+                            if (esMiEntrada)
+                            {
+                                <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn btn-purple">Mi Entrada</a>
+                                <a asp-controller="Entradas" asp-action="SolicitudesPendientes" asp-route-id="@entrada.Id" class="btn btn-purple">Solicitudes pendientes</a>
+
+                            }
+                            else
+                            {
+
+                                if (miembroHabilitado == true)
+                                {
+                                    <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn peach-button">Aprobada</a>
+
+                                }
+                                else if (miembroNoHabilitado == true)
+                                {
+                                    <a class="btn privacy-btn privada">Pendiente de aprobación</a>
+
+                                }
+                                else
+                                {
+                                    <a id="btnAprobacion" asp-controller="Entradas" asp-action="SolicitarAprobacion" asp-route-id="@entrada.Id" class="btn privacy-btn privada">Privada</a>
+
+                                }
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn privacy-btn publica">Pública</a>
+                    }
+
+            }
+                
+            </dl>
+        </div>
+
+        @if (User.IsInRole(Config.MiembroRolName))
+        {
+            <div>
+                <a asp-action="Edit" asp-route-id="@categoria.CategoriaId">Editar</a>
+            </div>
+        }
+
+        <div>
+            <a asp-action="Index">Volver a la lista</a>
+        </div>
 }
-
-<div>
-    <a asp-action="Index">Volver a la lista</a>
-</div>
