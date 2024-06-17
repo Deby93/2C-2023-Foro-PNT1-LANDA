@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Foro.Controllers
 {
-  //  [Authorize(Roles = Config.Miembro)]
+   [Authorize(Roles = Config.MiembroRolName)]
     public class MiembrosController : Controller
     {
         private readonly ForoContexto _contexto;
@@ -112,8 +112,7 @@ namespace Foro.Controllers
             }
             return View(miembro);
         }
-
-
+        
         private bool MiembroExists(int id)
         {
             return _contexto.Miembros.Any(e => e.Id == id);

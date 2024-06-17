@@ -66,6 +66,8 @@ namespace Foro
 
 
         [HttpGet]
+        [Authorize(Roles = Config.MiembroRolName)]
+
         public IActionResult Create()
         {
 
@@ -108,6 +110,8 @@ namespace Foro
         }
 
         // GET: Preguntas/Edit/5
+        [Authorize(Roles = Config.MiembroRolName)]
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _contexto.Preguntas == null)
@@ -128,6 +132,8 @@ namespace Foro
         [HttpPost]
         [ValidateAntiForgeryToken]
         [HttpPost]
+        [Authorize(Roles = Config.MiembroRolName)]
+
         public async Task<IActionResult> Edit(int id, [Bind("PreguntaId,EntradaId,Descripcion,Fecha,Activa")] Pregunta pregunta)
         {
 
@@ -175,10 +181,12 @@ namespace Foro
             ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "Id", "Apellido", MiembroIdEncontrado);
             return View(pregunta);
         }
-    
 
-        
+
+
         // GET: Preguntas/Delete/5
+        [Authorize(Roles = Config.MiembroRolName)]
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _contexto.Preguntas == null)
@@ -215,6 +223,7 @@ namespace Foro
             await _contexto.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        [Authorize(Roles = Config.MiembroRolName)]
 
         private bool PreguntaExists(int id)
         {

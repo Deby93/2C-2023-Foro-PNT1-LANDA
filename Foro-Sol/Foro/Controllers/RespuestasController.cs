@@ -59,6 +59,8 @@ namespace Foro
         }
 
         // GET: Respuestas/Create
+        [Authorize(Roles = Config.MiembroRolName)]
+
         public IActionResult Create()
         {
             ViewData["MiembroId"] = new SelectList(_contexto.Miembros, "id", "Apellido");
@@ -68,6 +70,8 @@ namespace Foro
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Config.MiembroRolName)]
+
         public async Task<IActionResult> Create([Bind("PreguntaId,Descripcion")] Respuesta respuesta)
         {
             // Obtiene el MiembroId del usuario autenticado
@@ -121,6 +125,8 @@ namespace Foro
         }
 
         // GET: Respuestas/Edit/5
+        [Authorize(Roles = Config.MiembroRolName)]
+
         public async Task<IActionResult> Edit(int? id)
         {
             var MiembroIdEncontrado = Int32.Parse(_userManager.GetUserId(User));
@@ -142,6 +148,8 @@ namespace Foro
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Config.MiembroRolName)]
+
         public async Task<IActionResult> Edit(int id, [Bind("RespuestaId,PreguntaId,Descripcion,Fecha")] Respuesta respuesta)
         {
             var MiembroIdEncontrado = Int32.Parse(_userManager.GetUserId(User));
@@ -189,6 +197,8 @@ namespace Foro
         }
 
         // GET: Respuestas/Delete/5
+        [Authorize(Roles = Config.MiembroRolName)]
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _contexto.Respuestas == null)
@@ -210,6 +220,8 @@ namespace Foro
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Config.MiembroRolName)]
+
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_contexto.Respuestas == null)
@@ -225,6 +237,7 @@ namespace Foro
             await _contexto.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        [Authorize(Roles = Config.MiembroRolName)]
 
         private bool RespuestaExists(int id)
         {

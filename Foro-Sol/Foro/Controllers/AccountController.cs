@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Foro.Controllers
@@ -82,7 +83,7 @@ namespace Foro.Controllers
             return View();
         }
 
-        //[Authorize(Roles = "Miembro,Administrador")]
+        [Authorize(Roles = Config.AdministradorRolName)]
 
         [HttpPost]
         public async Task<ActionResult> CrearAdmin(CrearAdmin viewModel)

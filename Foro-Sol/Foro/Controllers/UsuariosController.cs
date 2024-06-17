@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Foro
 {
+    [Authorize(Roles = Config.AdministradorRolName)]
+
     public class UsuariosController : Controller
     {
         private readonly ForoContexto _context;
@@ -19,7 +21,6 @@ namespace Foro
         }
 
 
-        [AllowAnonymous] // Permite que los usuarios no autenticados puedan ver la lista de usuarios.
         // GET: Usuarios
         public async Task<IActionResult> Index()
         {
@@ -28,7 +29,7 @@ namespace Foro
         }
 
         // GET: Usuarios/Details/5
-        [Authorize(Roles = Config.Administrador)]
+        [Authorize(Roles = Config.AdministradorRolName)]
 
         public async Task<IActionResult> Details(int? id)
         {
@@ -47,7 +48,7 @@ namespace Foro
             return View(usuario);
         }
 
-      //  [Authorize(Roles = Config.Administrador)]
+        
 
         // GET: Usuarios/Create
         [HttpGet]
@@ -113,7 +114,6 @@ namespace Foro
             return View(usuario);
         }
 
-       // [Authorize(Roles = Config.Administrador)]
         // POST: Usuarios/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -168,7 +168,6 @@ namespace Foro
             return View(usuario);
         }
 
-        //[Authorize(Roles = Config.Administrador)]
         // POST: Usuarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
