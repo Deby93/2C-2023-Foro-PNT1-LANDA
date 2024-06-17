@@ -32,13 +32,13 @@
                 <h3 style ="color: white" class="text-center">Entradas</h3>
                 @foreach (var entrada in Model)
                 {
-                    
-                        <p> Descripción de la entrada : @entrada.Titulo </p>
-                        <p> Descripción de la entrada : @entrada.Descripcion</p>
+
+                    <p> Descripción de la entrada : @entrada.Titulo </p>
+                    <p> Descripción de la entrada : @entrada.Descripcion</p>
 
                     @if ((bool)entrada.Privada)
                     {
-                        if (User.IsInRole(Config.MiembroRolName))
+                        @if (User.IsInRole(Config.MiembroRolName))
                         {
                             int userId = Int32.Parse(User.Claims.First().Value);
                             var miembroHabilitado = entrada.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && mh.Habilitado);
@@ -73,17 +73,22 @@
 
                             }
                         }
+                        else
+                        {
+                            <a class="btn privacy-btn privada">Privada</a>
+
+                        }
                     }
                     else
                     {
                         <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn privacy-btn publica">Pública</a>
                     }
-
-            }
+                
+                }
                 
             </dl>
         </div>
-
+        }
         @if (User.IsInRole(Config.MiembroRolName))
         {
             <div>
@@ -94,4 +99,3 @@
         <div>
             <a asp-action="Index">Volver a la lista</a>
         </div>
-}

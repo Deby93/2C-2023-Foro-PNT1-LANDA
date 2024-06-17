@@ -12,25 +12,25 @@
                 <div class="card-body">
                     <table class="table">
                         <tbody>
-                            @foreach (var item in Model.Top5EntradasConMasPreguntaYRespuestas.Take(5))
+                            @foreach (var entrada in Model.Top5EntradasConMasPreguntaYRespuestas.Take(5))
                             {
                                 <div class="card mb-3 peach-bg">
-                                    <h5 class="card-title">@item.Titulo</h5>
-                                    <p class="card-text">@item.Descripcion</p>
-                                    @if ((bool)item.Privada)
+                                    <h5 class="card-title">@entrada.Titulo</h5>
+                                    <p class="card-text">@entrada.Descripcion</p>
+                                    @if ((bool)entrada.Privada)
                                     {
-                                        if (User.IsInRole(Config.MiembroRolName))
+                                        @if (User.IsInRole(Config.MiembroRolName))
                                         {
                                             int userId = Int32.Parse(User.Claims.First().Value);
-                                            var miembroHabilitado = item.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && mh.Habilitado);
-                                            var miembroNoHabilitado = item.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && !mh.Habilitado);
+                                            var miembroHabilitado = entrada.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && mh.Habilitado);
+                                            var miembroNoHabilitado = entrada.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && !mh.Habilitado);
 
-                                            var esMiEntrada = item.MiembroId == userId;
+                                            var esMiEntrada = entrada.MiembroId == userId;
 
                                             if (esMiEntrada)
                                             {
-                                                <a asp-controller="Entradas" asp-action="Details" asp-route-id="@item.Id" class="btn btn-purple">Mi Entrada</a>
-                                                <a asp-controller="Entradas" asp-action="SolicitudesPendientes" asp-route-id="@item.Id" class="btn btn-purple">Solicitudes pendientes</a>
+                                                <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn btn-purple">Mi Entrada</a>
+                                                <a asp-controller="Entradas" asp-action="SolicitudesPendientes" asp-route-id="@entrada.Id" class="btn btn-purple">Solicitudes pendientes</a>
 
                                             }
                                             else
@@ -38,7 +38,7 @@
 
                                                 if (miembroHabilitado == true)
                                                 {
-                                                    <a asp-controller="Entradas" asp-action="Details" asp-route-id="@item.Id" class="btn peach-button">Aprobada</a>
+                                                    <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn peach-button">Aprobada</a>
 
                                                 }
                                                 else if (miembroNoHabilitado == true)
@@ -48,19 +48,24 @@
                                                 }
                                                 else
                                                 {
-                                                    <a id="btnAprobacion" asp-controller="Entradas" asp-action="SolicitarAprobacion" asp-route-id="@item.Id" class="btn privacy-btn privada">Privada</a>
+                                                    <a id="btnAprobacion" asp-controller="Entradas" asp-action="SolicitarAprobacion" asp-route-id="@entrada.Id" class="btn privacy-btn privada">Privada</a>
 
                                                 }
 
                                             }
                                         }
+                                        else
+                                        {
+                                            <a class="btn privacy-btn privada">Privada</a>
+
+                                        }
                                     }
                                     else
                                     {
-                                        <a asp-controller="Entradas" asp-action="Details" asp-route-id="@item.Id" class="btn privacy-btn publica">Pública</a>
-
+                                        <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn privacy-btn publica">Pública</a>
                                     }
 
+                                    
 
                                 </div>
                             }
@@ -78,25 +83,25 @@
                 <div class="card-body">
                     <table class="table">
                         <tbody>
-                            @foreach (var item in Model.Top5EntradasMasRecientes)
+                            @foreach (var entrada in Model.Top5EntradasMasRecientes)
                             {
                                 <div class="card mb-3 peach-bg">
-                                    <h5 class="card-title">@item.Titulo</h5>
-                                    <p class="card-text">@item.Descripcion</p>
-                                    @if (item.Privada.HasValue)
+                                    <h5 class="card-title">@entrada.Titulo</h5>
+                                    <p class="card-text">@entrada.Descripcion</p>
+                                    @if ((bool)entrada.Privada)
                                     {
-                                        if (User.IsInRole(Config.MiembroRolName))
+                                        @if (User.IsInRole(Config.MiembroRolName))
                                         {
                                             int userId = Int32.Parse(User.Claims.First().Value);
-                                            var miembroHabilitado = item.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && mh.Habilitado);
-                                            var miembroNoHabilitado = item.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && !mh.Habilitado);
+                                            var miembroHabilitado = entrada.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && mh.Habilitado);
+                                            var miembroNoHabilitado = entrada.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && !mh.Habilitado);
 
-                                            var esMiEntrada = item.MiembroId == userId;
+                                            var esMiEntrada = entrada.MiembroId == userId;
 
                                             if (esMiEntrada)
                                             {
-                                                <a asp-controller="Entradas" asp-action="Details" asp-route-id="@item.Id" class="btn btn-purple">Mi Entrada</a>
-                                                <a asp-controller="Entradas" asp-action="SolicitudesPendientes" asp-route-id="@item.Id" class="btn btn-purple">Solicitudes pendientes</a>
+                                                <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn btn-purple">Mi Entrada</a>
+                                                <a asp-controller="Entradas" asp-action="SolicitudesPendientes" asp-route-id="@entrada.Id" class="btn btn-purple">Solicitudes pendientes</a>
 
                                             }
                                             else
@@ -104,7 +109,7 @@
 
                                                 if (miembroHabilitado == true)
                                                 {
-                                                    <a asp-controller="Entradas" asp-action="Details" asp-route-id="@item.Id" class="btn peach-button">Aprobada</a>
+                                                    <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn peach-button">Aprobada</a>
 
                                                 }
                                                 else if (miembroNoHabilitado == true)
@@ -114,7 +119,7 @@
                                                 }
                                                 else
                                                 {
-                                                    <a id="btnAprobacion" asp-controller="Entradas" asp-action="SolicitarAprobacion" asp-route-id="@item.Id" class="btn privacy-btn privada">Privada</a>
+                                                    <a id="btnAprobacion" asp-controller="Entradas" asp-action="SolicitarAprobacion" asp-route-id="@entrada.Id" class="btn privacy-btn privada">Privada</a>
 
                                                 }
 
@@ -125,13 +130,13 @@
                                             <a class="btn privacy-btn privada">Privada</a>
 
                                         }
-
                                     }
                                     else
                                     {
-                                        <a asp-controller="Entradas" asp-action="Details" asp-route-id="@item.Id" class="btn privacy-btn publica">Pública</a>
-
+                                        <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn privacy-btn publica">Pública</a>
                                     }
+
+                                    
                                     
                                 </div>
                             }
@@ -151,12 +156,12 @@
                         <tbody>
                             @if (Model.Top3MiembrosConMasEntradasUltimoMes != null)
                             {
-                                @foreach (var item in Model.Top3MiembrosConMasEntradasUltimoMes)
+                                @foreach (var entrada in Model.Top3MiembrosConMasEntradasUltimoMes)
                                 {
                                     <div class="card mb-3 peach-bg">
                                         <!-- Agrega la clase peach-bg aquí también -->
                                         <!-- Contenido de la tarjeta de miembros con más entradas -->
-                                        <h5 class="card-title">@item.NombreCompleto</h5>
+                                        <h5 class="card-title">@entrada.NombreCompleto</h5>
 
                                     </div>
                                 }
