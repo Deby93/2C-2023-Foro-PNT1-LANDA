@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Foro.Controllers
 {
@@ -24,14 +25,14 @@ namespace Foro.Controllers
             this._rolManager = rolManager;
         }
 
-        public ActionResult Registrar()
+        public ActionResult CrearMiembro()
         {
             return View();
         }
 
         //[Authorize(Roles = "Miembro,Administrador")]
         [HttpPost]
-        public async Task<ActionResult> Registrar(Registrar viewModel)
+        public async Task<ActionResult> CrearMiembro(CrearMiembro viewModel)
         {
             //Hago con model lo que necesito.
 
@@ -43,7 +44,7 @@ namespace Foro.Controllers
                     Nombre = viewModel.Nombre,
                     Apellido = viewModel.Apellido,
                     UserName = viewModel.UserName,
-                    Email = viewModel.Email,
+                    Email = (viewModel.Email).ToLower(),
                     FechaAlta = DateTime.Now
 
                 };
@@ -119,32 +120,35 @@ namespace Foro.Controllers
             return View(viewModel);
         }
 
-        [HttpGet]
+        [AcceptVerbs("Get", "Post")]
         public async Task<IActionResult> EmailDisponible(string email)
         {
-            var usuarioExistente = await _userManager.FindByEmailAsync(email);
-
-            if (usuarioExistente == null)
+            var user = await _context.Usuarios.FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null)
             {
-                //No hay un Persona existente con ese email
-                return Json(true);
+                return Json(true); // Email disponible
             }
             else
             {
-                //El mail ya está en uso
-                return Json($"El correo {email} ya está en uso.");
+                return Json($"El correo electrónico {email} ya está en uso.");
             }
-            //Utilizo JSON, Jquery Validate method, espera una respuesta de este tipo.
-            //Para que esto funcione desde luego, tienen que estar como siempre las librerias de Jquery disponibles.
-            //Importante, que estén en el siguiente ORDEN!!!!!
-            //jquery.js
-            //jquery.validate.js
-            //jquery.validate.unobtrisive.js
-
-            //Jquery está en el Layout, y luego las otras dos, están definidas en el archivo _ValidationScriptsPartial.cshtml. 
-            //Si incluyen el render de la sección de script esa, estará entonces disponible.
         }
-        private async Task CrearRolesBase()
+
+        [AcceptVerbs("Get", "Post")]
+        public async Task<IActionResult> UsuarioDisponible(string userName)
+        {
+            var user = await _context.Usuarios.FirstOrDefaultAsync(u => u.UserName == userName);
+            if (user == null)
+            {
+                return Json(true); // Nombre de usuario disponible
+            }
+            else
+            {
+                return Json($"El nombre de usuario {userName} ya está en uso.");
+            }
+        }
+    
+    private async Task CrearRolesBase()
         {
             List<string> roles = new() {"Miembro", "Administrador"};
 

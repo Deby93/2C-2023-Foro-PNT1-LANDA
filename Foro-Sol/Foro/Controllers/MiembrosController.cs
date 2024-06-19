@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Foro.Controllers
 {
-   [Authorize(Roles = Config.MiembroRolName)]
+    [Authorize(Roles = Config.MiembroRolName)]
+
     public class MiembrosController : Controller
     {
         private readonly ForoContexto _contexto;

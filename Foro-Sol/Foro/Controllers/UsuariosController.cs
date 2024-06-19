@@ -117,7 +117,7 @@ namespace Foro
         // POST: Usuarios/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,Email")] Usuario usuario)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,Email, UserName")] Usuario usuario)
         {
             if (id != usuario.Id)
             {
@@ -131,6 +131,8 @@ namespace Foro
                     Usuario usuarioEnDb = _context.Usuarios.Find(usuario.Id);
                     usuarioEnDb.Nombre = usuario.Nombre;
                     usuarioEnDb.Apellido = usuario.Apellido;
+                    usuarioEnDb.Email = usuario.Email;
+                    usuarioEnDb.UserName = usuario.UserName;
                     _context.Update(usuarioEnDb);
                     await _context.SaveChangesAsync();
                 }

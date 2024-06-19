@@ -12,6 +12,9 @@
 </head>
 <body>
     <header>
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"></script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.0/jquery.validate.min.js"></script>
+        <script src="https://ajax.aspnetcdn.com/ajax/mvc/5.2.7/jquery.validate.unobtrusive.min.js"></script>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid" style="background-color:#ffa07a">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"></a>
@@ -102,7 +105,7 @@
 
                                         <div class="btn-group" role="group" aria-label="Botones de registro e inicio de sesión">
                                             <!-- Botón de registro -->
-                                            <form asp-area="" asp-controller="Account" asp-action="Registrar" method="get">
+                                            <form asp-area="" asp-controller="Account" asp-action="CrearMiembro" method="get">
                                                 <button type="submit" class="btn peach-button btn-sm">Registrate</button>
                                             </form>
                                             <!-- Botón de inicio de sesión -->
@@ -133,15 +136,11 @@
         </div>
 
         <script>
-            // Obtener referencia al botón de precarga
             var botonPrecarga = document.getElementById("botonPrecarga");
-            // Obtener referencia a los mensajes
             var mensaje = document.getElementById("mensaje");
             var mensajeClic = document.getElementById("mensajeClic");
 
-            // Agregar un evento mouseover al botón de precarga
             botonPrecarga.addEventListener("mouseover", function () {
-                // Mostrar el mensaje
                 mensaje.style.display = "block"; // "block" es para mostrar el mensaje mientras se pasa por arriba del boton
             });
 

@@ -4,9 +4,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Foro
 {
-    public class Registrar
+    public class CrearMiembro
     {
-
+        [Display(Name = Alias.Telefono)]
+        [Required(ErrorMessage = ErrMsgs.Requerido)]
+        [RegularExpression(@"[0-9]{2}[0-9]{4}[0-9]{4}", ErrorMessage = ErrorMsg.FormatoCelularInvalido)]
+        [StringLength(15, MinimumLength = 8, ErrorMessage = ErrMsgs.StrMaxMin)]
+        [DataType(DataType.PhoneNumber, ErrorMessage = ErrMsgs.NoValido)]
         public string? Telefono { get; set; }
 
         [Display(Name = Alias.Nombre)]

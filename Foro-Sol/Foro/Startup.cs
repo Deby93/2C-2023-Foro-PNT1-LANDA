@@ -43,9 +43,10 @@ namespace Foro
                    opciones.Cookie.Name = "IdentidadForoApp";
                });
             builder.Services.AddControllersWithViews();
+
+
         }
         
-        //Password por defecto en pre-carga: Password1!
 
         private static void Configure(WebApplication app)
         {

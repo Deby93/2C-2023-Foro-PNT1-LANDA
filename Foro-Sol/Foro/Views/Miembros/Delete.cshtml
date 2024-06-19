@@ -1,10 +1,11 @@
-﻿@model Foro.Miembro
+﻿@* @model Foro.Miembro
 
 @{
     ViewData["Title"] = "Borrar";
 }
-
-<h1 style="color: #A65341">Borrar</h1>
+@if (User.IsInRole(Config.MiembroRolName))
+{
+    <h1 style="color: #A65341">Borrar</h1>
 
 <h3>¿Quiere borrar este miembro?</h3>
 <div>
@@ -42,10 +43,10 @@
             @Html.DisplayFor(model => model.Email)
         </dd>
         <dt class = "col-sm-2">
-       @*      @Html.DisplayNameFor(model => model.Password)
+           @Html.DisplayNameFor(model => model.Password)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Password) *@
+            @Html.DisplayFor(model => model.Password)
         </dd>
     </dl>
     
@@ -55,3 +56,6 @@
         <a asp-action="Index">Volver a la lista</a>
     </form>
 </div>
+}
+ *@
+ 

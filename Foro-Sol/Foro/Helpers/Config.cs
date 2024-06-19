@@ -8,6 +8,7 @@
         public const string Titulo = "Foro Azucar";
         public const string AdministradorEmail = "administrador";
         public const string Dominio = "@ort.edu.ar";
+        public const string DominioMiembro= "@miembro.com";
         public const string MiembroEmail = "miembro";
         public const string GenericPass = "Password1!";
         public const string Administrador = "ADMINISTRADOR";
