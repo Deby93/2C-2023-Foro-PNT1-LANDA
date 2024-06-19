@@ -3,76 +3,76 @@
 @{
     ViewData["Title"] = "Index";
 }
+@if (User.IsInRole(Config.MiembroRolName))
+{
+    <h1 style="color: #A65341">Pregunta</h1>
 
-<h1 style="color: #A65341">Pregunta</h1>
-
-<p>
-    @if (User.Identity.IsAuthenticated)
-    {
+    <p>
         <a asp-action="Create" class="btn pink-button">Crear una nueva pregunta</a>
-    }
 
-
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Descripcion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Fecha)
-            </th>
-            <th>
-                Estado
-            </th>
-           
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.OrderBy(e => e.Fecha))
-        {
+    </p>
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Descripcion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Fecha)
-                </td>
-                <td>
-                    <p class="card-text">
-                        @if (item.Activa.HasValue)
-                        {
-                            @((bool)item.Activa ? "Activa" : "Inactiva")
-                        }
-                        else
-                        {
-                            <span>No definido</span>
-                        }
-                    </p>
+                <th>
+                    @Html.DisplayNameFor(model => model.Descripcion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Fecha)
+                </th>
+                <th>
+                    Estado
+                </th>
 
-
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Entrada.Titulo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Miembro.Apellido)
-                </td>
-                <td>
-
-
-
-                    <a asp-action="Details" asp-route-id="@item.PreguntaId">Detalles</a>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <a asp-action="Edit" asp-route-id="@item.PreguntaId">Editar</a>
-
-                        <a asp-action="Delete" asp-route-id="@item.PreguntaId">Borrar</a>
-                    }
-                </td>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OrderBy(e => e.Fecha))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descripcion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fecha)
+                    </td>
+                    <td>
+                        <p class="card-text">
+                            @if (item.Activa.HasValue)
+                            {
+                                @((bool)item.Activa ? "Activa" : "Inactiva")
+                            }
+                            else
+                            {
+                                <span>No definido</span>
+                            }
+                        </p>
+
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Entrada.Titulo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Miembro.Apellido)
+                    </td>
+                    <td>
+
+
+
+                        <a asp-action="Details" asp-route-id="@item.PreguntaId">Detalles</a>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.PreguntaId">Editar</a>
+
+                            <a asp-action="Delete" asp-route-id="@item.PreguntaId">Borrar</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+}

@@ -4,48 +4,54 @@
     ViewData["Title"] = "Index";
 }
 
-<h1 style="color: #A65341">Reacción</h1>
+@if (User.IsInRole(Config.MiembroRolName))
+{
+
+    <h1 style="color: #A65341">Reacción</h1>
 
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Respuesta)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Miembro)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Fecha)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MeGusta)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Respuesta.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Miembro.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fecha)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MeGusta)
-            </td>
-            <td>
-            @*     @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }) *@
-            </td>
-        </tr>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Respuesta)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Miembro)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Fecha)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MeGusta)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Respuesta.Descripcion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Miembro.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fecha)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MeGusta)
+                    </td>
+                  
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
 }
-    </tbody>
-</table>
+
+
+

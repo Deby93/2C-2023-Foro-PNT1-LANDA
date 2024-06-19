@@ -40,7 +40,7 @@ namespace Foro.Controllers
                 CrearRespuestas(miembros); 
                 CrearReacciones(miembros); 
 
-                TempData["Mensaje"] = $"Puede iniciar sesión con {Config.MiembroEmail}{Config.DominioMiembro}, o {Config.AdministradorEmail}{Config.Dominio}, siempre todos con la pass {Config.LoginPath}";
+                TempData["Mensaje"] = $"Puede iniciar sesión con {Config.MiembroEmail}{Config.Dominio}, o {Config.AdministradorEmail}{Config.Dominio}, siempre todos con la pass {Config.LoginPath}";
             }
             catch (Exception e)
             {
@@ -61,6 +61,7 @@ namespace Foro.Controllers
             }
         }
         private static readonly Random random = new Random();
+
         private async Task CrearAdministrador()
         {
             var hayAdministrador = _contexto.Usuarios.IgnoreQueryFilters().Any(p => p.NormalizedEmail == Config.AdministradorEmail.ToUpper());
@@ -116,8 +117,8 @@ namespace Foro.Controllers
 
                     Miembro miembro = new()
                     {
-                        Email = $"{Config.MiembroEmail}{i}{Config.DominioMiembro}".ToLower(),
-                        UserName = $"{Config.MiembroEmail}{i}{Config.DominioMiembro}",
+                        Email = $"{Config.MiembroEmail}{i}{Config.Dominio}".ToLower(),
+                        UserName = $"{Config.MiembroEmail}{i}{Config.Dominio}",
                         Apellido = apellidoAleatorio.ToUpper(),
                         Nombre = nombreAleatorio.ToUpper(),
                         FechaAlta = DateTime.Now,

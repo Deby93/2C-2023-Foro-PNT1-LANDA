@@ -4,47 +4,58 @@
     ViewData["Title"] = "Index";
 }
 
-<h1 style="color: #A65341">Respuestas</h1>
 
-<p>
-    @if (User.Identity.IsAuthenticated)
-    {
+@if (User.IsInRole(Config.MiembroRolName))
+{
+    <h1 style="color: #A65341">Respuestas</h1>
+
+    <p>
+
         <a asp-action="Create" class="btn pink-button">Crear una nueva respuesta</a>
-    }
-</p>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Descripcion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Fecha)
-            </th>
-         
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.OrderBy(e => e.Fecha))
-        {
+    </p>
+
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Descripcion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Fecha)
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.RespuestaId">Detalles</a>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <a asp-action="Edit" asp-route-id="@item.RespuestaId">Editar</a>
-                        <a asp-action="Delete" asp-route-id="@item.RespuestaId">Borrar</a>
-                    }
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Descripcion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Fecha)
+                </th>
+
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OrderBy(e => e.Fecha))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descripcion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fecha)
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.RespuestaId">Detalles</a>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.RespuestaId">Editar</a>
+                            <a asp-action="Delete" asp-route-id="@item.RespuestaId">Borrar</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+
+
+
+}
+
+
+

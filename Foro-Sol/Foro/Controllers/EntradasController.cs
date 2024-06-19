@@ -125,8 +125,8 @@ namespace Foro
             ViewData["CategoriaId"] = new SelectList(_contexto.Categorias.OrderBy(p => p.Nombre), "CategoriaId", "Nombre");
             return View();
         }
-        // [Authorize(Roles = Config.Miembro)]
 
+        [Authorize(Roles = Config.MiembroRolName)]
         // GET: Entradas/Create
         public async Task<IActionResult> Create([Bind("EntradaId,Titulo,Descripcion,CategoriaId, Fecha,Privada,Categoria,")] Entrada entrada)
         {
@@ -267,7 +267,12 @@ namespace Foro
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             // Obtener la entrada principal que se va a eliminar
-            var entrada = await _contexto.Entradas.FindAsync(id);
+            var entrada = await _contexto.Entradas
+            .Include(e => e.Preguntas)
+                .ThenInclude(p => p.Respuestas)
+                 .ThenInclude(r => r.Reacciones)
+            .FirstOrDefaultAsync(e => e.Id == id);
+
             if (entrada == null)
             {
                 return NotFound();
@@ -275,20 +280,35 @@ namespace Foro
 
             try
             {
-                // Eliminar las dependencias (preguntas, respuestas, reacciones) asociadas
-                var preguntas = _contexto.Preguntas.Where(p => p.EntradaId == id);
-                var respuestas = _contexto.Respuestas.Where(r => r.Pregunta.EntradaId == id);
-                var reacciones = _contexto.Reacciones.Where(re => re.Respuesta.Pregunta.EntradaId == id);
 
-                _contexto.Preguntas.RemoveRange(preguntas);
-                _contexto.Respuestas.RemoveRange(respuestas);
-                _contexto.Reacciones.RemoveRange(reacciones);
+                bool puedeBorrarse = entrada.Preguntas.Any(p => p.Respuestas.Any(r => r.ContadorDislikes >= Config.UMBRAL_DISLIKES));
 
-                // Eliminar la entrada principal
-                _contexto.Entradas.Remove(entrada);
+                if (puedeBorrarse)
+                {
 
-                // Guardar los cambios en la base de datos
-                await _contexto.SaveChangesAsync();
+                    // Eliminar las dependencias (preguntas, respuestas, reacciones) asociadas
+                    var preguntas = _contexto.Preguntas.Where(p => p.EntradaId == id);
+                    var respuestas = _contexto.Respuestas.Where(r => r.Pregunta.EntradaId == id);
+                    var reacciones = _contexto.Reacciones.Where(re => re.Respuesta.Pregunta.EntradaId == id);
+
+                    _contexto.Preguntas.RemoveRange(preguntas);
+                    _contexto.Respuestas.RemoveRange(respuestas);
+                    _contexto.Reacciones.RemoveRange(reacciones);
+
+                    // Eliminar la entrada principal
+                    _contexto.Entradas.Remove(entrada);
+
+                    // Guardar los cambios en la base de datos
+                    await _contexto.SaveChangesAsync();
+                }
+                else
+                {
+
+                    // No se puede borrar la entrada porque ninguna respuesta tiene suficientes dislikes
+                    TempData["ErrorMessage"] = "La entrada no puede ser borrada porque ninguna respuesta tiene suficientes dislikes.";
+                    return RedirectToAction(nameof(Index));
+
+                }
 
                 return RedirectToAction(nameof(Index));
             }
