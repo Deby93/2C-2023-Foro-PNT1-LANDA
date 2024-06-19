@@ -65,8 +65,9 @@ namespace Foro.Controllers
         private async Task CrearAdministrador()
         {
             var hayAdministrador = _contexto.Usuarios.IgnoreQueryFilters().Any(p => p.NormalizedEmail == Config.AdministradorEmail.ToUpper());
-            string[] nombres = { "Dario", "Camila" };
-            string[] apellidos = { "Hernadez", "Torres" };
+            string[] nombres = { "Dario", "Camila", "Luis", "Marina", "Carlos", "Andrea", "Jorge" };
+            string[] apellidos = { "Hernadez", "Torres", "Batalla", "Ramirez", "Estevez", "Araujo", "Juarez" };
+
             if (!hayAdministrador)
             {
                 if (!_contexto.Miembros.Any())
@@ -246,7 +247,7 @@ namespace Foro.Controllers
             new Pregunta() { Descripcion = "¿Qué opinas sobre la IA?",Fecha = dateTime1, Activa=true, EntradaId = entradas.First(e => e.Titulo == "Últimos avances en IA").Id, MiembroId = miembros[0].Id },
             new Pregunta() { Descripcion = "¿Quién fue el mejor jugador?",Fecha = dateTime2,Activa=true, EntradaId = entradas.First(e => e.Titulo == "Resumen del partido").Id, MiembroId = miembros[1].Id },
             new Pregunta() { Descripcion = "¿Cuál es el impacto de este descubrimiento?",Fecha = dateTime3,Activa=false, EntradaId = entradas.First(e => e.Titulo == "Descubrimientos recientes").Id, MiembroId = miembros[2].Id },
-            new Pregunta() { Descripcion = "¿Cuál es tu álbum favorito?",Fecha = dateTime4,Activa=false, EntradaId = entradas.First(e => e.Titulo == "Nuevos álbumes de música").Id, MiembroId = miembros[3].Id },
+            new Pregunta() { Descripcion = "¿Cuál es tu álbum favorito?",Fecha = dateTime4,Activa=true, EntradaId = entradas.First(e => e.Titulo == "Nuevos álbumes de música").Id, MiembroId = miembros[3].Id },
             new Pregunta() { Descripcion = "¿Cuál película esperas más?",Fecha = dateTime5,Activa=true, EntradaId = entradas.First(e => e.Titulo == "Estrenos de cine").Id, MiembroId = miembros[4].Id },
             new Pregunta() { Descripcion = "¿Qué libro recomendarías?", Fecha = dateTime6,Activa=true,EntradaId = entradas.First(e => e.Titulo == "Novedades literarias").Id, MiembroId = miembros[0].Id }
         };
@@ -292,7 +293,14 @@ namespace Foro.Controllers
             new Reaccion() { MeGusta = false, RespuestaId = respuestas.First(r => r.Descripcion == "Espero la nueva película de Marvel.").RespuestaId, MiembroId = miembros[3].Id },
             new Reaccion() { MeGusta = false, RespuestaId = respuestas.First(r => r.Descripcion == "Espero la nueva película de Marvel.").RespuestaId, MiembroId = miembros[0].Id },
             new Reaccion() { MeGusta = false, RespuestaId = respuestas.First(r => r.Descripcion == "Espero la nueva película de Marvel.").RespuestaId, MiembroId = miembros[5].Id },
-            // Agrega más reacciones aquí asignando un MiembroId válido a cada una
+            new Reaccion() { MeGusta = false, RespuestaId = respuestas.First(r => r.Descripcion == "Me encanta el nuevo álbum de Maria Becerra.").RespuestaId, MiembroId = miembros[4].Id },
+            new Reaccion() { MeGusta = false, RespuestaId = respuestas.First(r => r.Descripcion == "Me encanta el nuevo álbum de Maria Becerra.").RespuestaId, MiembroId = miembros[5].Id },
+            new Reaccion() { MeGusta = false, RespuestaId = respuestas.First(r => r.Descripcion == "Me encanta el nuevo álbum de Maria Becerra.").RespuestaId, MiembroId = miembros[6].Id },
+            new Reaccion() { MeGusta = false, RespuestaId = respuestas.First(r => r.Descripcion == "Me encanta el nuevo álbum de Maria Becerra.").RespuestaId, MiembroId = miembros[1].Id },
+            new Reaccion() { MeGusta = false, RespuestaId = respuestas.First(r => r.Descripcion == "Me encanta el nuevo álbum de Maria Becerra.").RespuestaId, MiembroId = miembros[2].Id },
+            new Reaccion() { MeGusta = false, RespuestaId = respuestas.First(r => r.Descripcion == "Me encanta el nuevo álbum de Maria Becerra.").RespuestaId, MiembroId = miembros[7].Id },
+            new Reaccion() { MeGusta = false, RespuestaId = respuestas.First(r => r.Descripcion == "Me encanta el nuevo álbum de Maria Becerra.").RespuestaId, MiembroId = miembros[8].Id },
+
         };
 
                 _contexto.Reacciones.AddRange(reacciones);

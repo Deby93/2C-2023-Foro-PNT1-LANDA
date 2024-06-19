@@ -271,6 +271,7 @@ namespace Foro
             .Include(e => e.Preguntas)
                 .ThenInclude(p => p.Respuestas)
                  .ThenInclude(r => r.Reacciones)
+                 .Include(e => e.MiembrosHabilitados)
             .FirstOrDefaultAsync(e => e.Id == id);
 
             if (entrada == null)
@@ -290,7 +291,10 @@ namespace Foro
                     var preguntas = _contexto.Preguntas.Where(p => p.EntradaId == id);
                     var respuestas = _contexto.Respuestas.Where(r => r.Pregunta.EntradaId == id);
                     var reacciones = _contexto.Reacciones.Where(re => re.Respuesta.Pregunta.EntradaId == id);
+                    
 
+
+                    _contexto.MiembrosHabilitados.RemoveRange(entrada.MiembrosHabilitados);
                     _contexto.Preguntas.RemoveRange(preguntas);
                     _contexto.Respuestas.RemoveRange(respuestas);
                     _contexto.Reacciones.RemoveRange(reacciones);
