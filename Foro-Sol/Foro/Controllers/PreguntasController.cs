@@ -214,9 +214,27 @@ namespace Foro
             {
                 return Problem("Entity set 'ForoContexto.Pregunta'  is null.");
             }
-            var pregunta = await _contexto.Preguntas.FindAsync(id);
+            var pregunta = await _contexto.Preguntas
+             .Include(r => r.Miembro).
+                Include(r => r.Respuestas).
+                ThenInclude(r => r.Reacciones)
+                .FirstOrDefaultAsync(m => m.PreguntaId == id);
+
+
+
+        
             if (pregunta != null)
             {
+
+                var respuestas = _contexto.Respuestas.Where(r => r.Pregunta.PreguntaId == id);
+                var reacciones = _contexto.Reacciones.Where(re => re.Respuesta.Pregunta.PreguntaId == id);
+
+
+
+                _contexto.Miembros.RemoveRange(pregunta.Miembro);
+                 _contexto.Respuestas.RemoveRange(respuestas);
+                _contexto.Reacciones.RemoveRange(reacciones);
+
                 _contexto.Preguntas.Remove(pregunta);
             }
             

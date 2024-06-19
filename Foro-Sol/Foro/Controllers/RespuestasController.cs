@@ -207,6 +207,7 @@ namespace Foro
             }
 
             var respuesta = await _contexto.Respuestas
+                .Include(r => r.Reacciones)
                 .Include(r => r.Miembro)
                 .Include(r => r.Pregunta)
                 .FirstOrDefaultAsync(m => m.RespuestaId == id);
@@ -228,13 +229,24 @@ namespace Foro
             {
                 return Problem("Entity set 'ForoContexto.Respuestas'  is null.");
             }
-            var respuesta = await _contexto.Respuestas.FindAsync(id);
+            var respuesta = await _contexto.Respuestas
+                .Include(r => r.Reacciones)
+                .Include(r => r.Miembro)
+                .Include(r => r.Pregunta)
+                .FirstOrDefaultAsync(m => m.RespuestaId == id);
+
+            
             if (respuesta != null)
             {
+                _contexto.Reacciones.RemoveRange(respuesta.Reacciones);
                 _contexto.Respuestas.Remove(respuesta);
-            }
 
-            await _contexto.SaveChangesAsync();
+                await _contexto.SaveChangesAsync();
+            }
+      
+           
+
+
             return RedirectToAction(nameof(Index));
         }
         [Authorize(Roles = Config.MiembroRolName)]
