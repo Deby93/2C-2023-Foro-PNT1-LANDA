@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Foro
 {
-    //[Authorize(Roles = Config.Miembro)]
+
 
     public class PreguntasController : Controller
     {
@@ -23,6 +23,8 @@ namespace Foro
         }
 
         // GET: Preguntas
+        [Authorize(Roles = Config.MiembroRolName)]
+
         public async Task<IActionResult> Index()
         {
             var preguntas = await _contexto.Preguntas.ToListAsync();
@@ -55,12 +57,12 @@ namespace Foro
                 .OrderBy(p => p.Fecha)
                 .Where(m => m.PreguntaId == id)
                 .ToListAsync();
-           
+
 
             ViewBag.Pregunta = pregunta;
-            ViewBag.idMasLikes = respuestas.OrderByDescending(r => r.Reacciones.Count(re => (bool) re.MeGusta)).FirstOrDefault()?.RespuestaId;
+            ViewBag.idMasLikes = respuestas.OrderByDescending(r => r.Reacciones.Count(re => (bool)re.MeGusta)).FirstOrDefault()?.RespuestaId;
             ViewBag.idMasDisLikes = respuestas.OrderByDescending(r => r.Reacciones.Count(re => (bool)!re.MeGusta)).FirstOrDefault()?.RespuestaId;
-     
+
             return View(respuestas);
         }
 
@@ -78,6 +80,7 @@ namespace Foro
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Config.MiembroRolName)]
         public async Task<IActionResult> Create([Bind("PreguntaId,EntradaId,Descripcion,Fecha,Activa")] Pregunta pregunta)
         {
 
@@ -215,37 +218,44 @@ namespace Foro
                 return Problem("Entity set 'ForoContexto.Pregunta'  is null.");
             }
             var pregunta = await _contexto.Preguntas
-             .Include(r => r.Miembro).
-                Include(r => r.Respuestas).
-                ThenInclude(r => r.Reacciones)
-                .FirstOrDefaultAsync(m => m.PreguntaId == id);
+         .Include(p => p.Respuestas)
+         .ThenInclude(r => r.Reacciones)
+         .Include(p => p.Miembro)
+         .FirstOrDefaultAsync(m => m.PreguntaId == id);
 
 
+            try
+            {
+                if (pregunta != null)
+                {
+                    foreach (var respuesta in pregunta.Respuestas)
+                    {
+                        _contexto.Reacciones.RemoveRange(respuesta.Reacciones);
+                    }
 
-        
-            if (pregunta != null)
+                    _contexto.Respuestas.RemoveRange(pregunta.Respuestas);
+
+                    _contexto.Preguntas.Remove(pregunta);
+
+                }
+
+                await _contexto.SaveChangesAsync();
+
+            }
+            catch (Exception ex)
             {
 
-                var respuestas = _contexto.Respuestas.Where(r => r.Pregunta.PreguntaId == id);
-                var reacciones = _contexto.Reacciones.Where(re => re.Respuesta.Pregunta.PreguntaId == id);
-
-
-
-                _contexto.Miembros.RemoveRange(pregunta.Miembro);
-                 _contexto.Respuestas.RemoveRange(respuestas);
-                _contexto.Reacciones.RemoveRange(reacciones);
-
-                _contexto.Preguntas.Remove(pregunta);
+                ModelState.AddModelError("", "Error al eliminar la pregunta: " + ex.Message);
+                return View(pregunta);
             }
-            
-            await _contexto.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
         [Authorize(Roles = Config.MiembroRolName)]
 
         private bool PreguntaExists(int id)
         {
-          return (_contexto.Preguntas?.Any(e => e.PreguntaId == id)).GetValueOrDefault();
+            return (_contexto.Preguntas?.Any(e => e.PreguntaId == id)).GetValueOrDefault();
         }
 
 

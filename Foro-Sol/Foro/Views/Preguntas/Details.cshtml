@@ -81,7 +81,7 @@
                 <div class="response-card-body">
                     <p>@unaRespuesta.Descripcion</p>
 
-                    @if (User.IsInRole(Config.MiembroRolName) && User.Claims.Any())
+                    @if (User.IsInRole(Config.MiembroRolName) && User.Claims.Any() && (bool) pregunta.Activa)
                     {
                         int userId = Int32.Parse(User.Claims.First().Value);
 
@@ -106,6 +106,10 @@
                                 @totalLikes Likes / @totalDislikes Dislikes
                             </span>
                         </div>
+                    }
+                    else
+                    {
+                        Console.WriteLine("No se puede reaccionar a esta respuesta");
                     }
                 </div>
             </div>

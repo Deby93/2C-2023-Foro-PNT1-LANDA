@@ -266,7 +266,7 @@ namespace Foro
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            // Obtener la entrada principal que se va a eliminar
+           
             var entrada = await _contexto.Entradas
             .Include(e => e.Preguntas)
                 .ThenInclude(p => p.Respuestas)
@@ -287,7 +287,6 @@ namespace Foro
                 if (puedeBorrarse)
                 {
 
-                    // Eliminar las dependencias (preguntas, respuestas, reacciones) asociadas
                     var preguntas = _contexto.Preguntas.Where(p => p.EntradaId == id);
                     var respuestas = _contexto.Respuestas.Where(r => r.Pregunta.EntradaId == id);
                     var reacciones = _contexto.Reacciones.Where(re => re.Respuesta.Pregunta.EntradaId == id);
@@ -299,16 +298,13 @@ namespace Foro
                     _contexto.Respuestas.RemoveRange(respuestas);
                     _contexto.Reacciones.RemoveRange(reacciones);
 
-                    // Eliminar la entrada principal
                     _contexto.Entradas.Remove(entrada);
 
-                    // Guardar los cambios en la base de datos
                     await _contexto.SaveChangesAsync();
                 }
                 else
                 {
 
-                    // No se puede borrar la entrada porque ninguna respuesta tiene suficientes dislikes
                     TempData["ErrorMessage"] = "La entrada no puede ser borrada porque ninguna respuesta tiene suficientes dislikes.";
                     return RedirectToAction(nameof(Index));
 
@@ -318,9 +314,8 @@ namespace Foro
             }
             catch (Exception ex)
             {
-                // Manejar cualquier error que pueda ocurrir al guardar los cambios
                 ModelState.AddModelError("", "Error al eliminar la entrada: " + ex.Message);
-                return View(entrada); // o redireccionar a una vista de error personalizada
+                return View(entrada); 
             }
         }
 
@@ -382,14 +377,12 @@ namespace Foro
         {
             try
             {
-                // Obtener el ID del usuario logueado de manera segura
                 var userId = Int32.Parse(_userManager.GetUserId(User));
                 if (userId == 0)
                 {
                     throw new InvalidOperationException("No se pudo obtener el ID del usuario.");
                 }
 
-                // Obtener las entradas del usuario
                 var entradasPropias = _contexto.Entradas
                                               .Include(e => e.MiembrosHabilitados)
                                   .ThenInclude(mh => mh.Miembro)
@@ -397,28 +390,24 @@ namespace Foro
                                               .Where(e => e.MiembroId == userId && (bool)e.Privada)
                                               .ToList();
 
-                // Obtener las solicitudes pendientes de aprobación
                 var solicitudesPendientes = entradasPropias.SelectMany(e => e.MiembrosHabilitados)
                                                            .Where(mh => !mh.Habilitado)
                                                            .ToList();
 
                 return View(solicitudesPendientes);
             }
-            catch (Exception ex)
+            catch (DbUpdateException ex)
             {
-                // Manejar la excepción de manera apropiada (por ejemplo, registrarla y mostrar un mensaje de error amigable)
                 ViewBag.ErrorMessage = "Ocurrió un error al procesar la solicitud: " + ex.Message;
-                return View("Error"); // Asegúrate de tener una vista de Error para mostrar mensajes amigables
+                return View("Error"); 
             }
         }
         [Authorize(Roles = Config.MiembroRolName)]
 
         public IActionResult SolicitarAprobacion(int id)
         {
-            // Obtener el ID del usuario logueado
             int userId = Int32.Parse(_userManager.GetUserId(User));
 
-            // Verificar si la entrada existe y es privada
             var entrada = _contexto.Entradas.Include(e => e.MiembrosHabilitados)
                                            .FirstOrDefault(e => e.Id == id && (bool) e.Privada);
 
@@ -427,24 +416,21 @@ namespace Foro
                 return NotFound();
             }
 
-            // Verificar si el usuario ya ha solicitado acceso
             var solicitudExistente = entrada.MiembrosHabilitados
                                             .FirstOrDefault(mh => mh.MiembroId == userId);
 
             if (solicitudExistente == null)
             {
-                // Crear una nueva solicitud de aprobación
                 var nuevaSolicitud = new MiembrosHabilitados
                 {
                     EntradaId = id,
                     MiembroId = userId,
-                    Habilitado = false // Estado pendiente de aprobación
+                    Habilitado = false 
                 };
                 _contexto.MiembrosHabilitados.Add(nuevaSolicitud);
                 _contexto.SaveChanges();
             }
 
-            // Redirigir a la vista de solicitudes pendientes
             return RedirectToAction("Index");
         }
     }

@@ -15,7 +15,7 @@ namespace Foro
         private readonly ForoContexto _contexto;
         private readonly UserManager<Usuario> _userManager;
         private readonly SignInManager<Usuario> _signinManager;
-        private const int UMBRAL_DISLIKES = 10; // Definir el umbral según tus necesidades
+        private const int UMBRAL_DISLIKES = 10; 
 
 
         public RespuestasController(ForoContexto context, UserManager<Usuario> userManager, SignInManager<Usuario> signinManager)
@@ -30,10 +30,8 @@ namespace Foro
 
         public IActionResult Index()
         {
-            // Obtener las respuestas desde tu contexto de datos (contexto.Respuestas)
             var respuestas = _contexto.Respuestas.ToList();
 
-            // Pasar la lista de respuestas a la vista
             return View(respuestas);
         }
 
@@ -74,7 +72,6 @@ namespace Foro
 
         public async Task<IActionResult> Create([Bind("PreguntaId,Descripcion")] Respuesta respuesta)
         {
-            // Obtiene el MiembroId del usuario autenticado
             var userClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
             int MiembroIdEncontrado = userClaim != null ? Int32.Parse(userClaim.Value) : 0;
 
@@ -89,10 +86,8 @@ namespace Foro
                         return View(respuesta);
                     }
 
-                    // Verifica que el miembro que responde no sea el mismo que hizo la pregunta
                     if (preguntaAsociada.MiembroId != MiembroIdEncontrado)
                     {
-                        // Verifica si ya existe una respuesta con la misma descripción
                         bool existeRespuestaConMismaDescripcion = _contexto.Respuestas
                             .Any(r => r.Descripcion == respuesta.Descripcion && r.PreguntaId == respuesta.PreguntaId);
 
@@ -234,7 +229,6 @@ namespace Foro
                 .Include(r => r.Miembro)
                 .Include(r => r.Pregunta)
                 .FirstOrDefaultAsync(m => m.RespuestaId == id);
-
             
             if (respuesta != null)
             {
@@ -243,8 +237,6 @@ namespace Foro
 
                 await _contexto.SaveChangesAsync();
             }
-      
-           
 
 
             return RedirectToAction(nameof(Index));
