@@ -16,7 +16,6 @@ namespace Foro
         public string? Apellido { get; set; }
 
         [Required(ErrorMessage = ErrMsgs.Requerido)]
-        [StringLength(Restrictions.MaxNomUser, MinimumLength = Restrictions.MinNomUser, ErrorMessage = ErrMsgs.StrMaxMin)]
         [Display(Name = Alias.UserName)]
         public string? UserName { get; set; }
 

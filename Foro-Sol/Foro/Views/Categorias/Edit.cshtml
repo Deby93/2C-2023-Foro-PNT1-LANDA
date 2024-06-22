@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Editar";
 }
-@if (User.IsInRole(Config.MiembroRolName))
+@if (User.IsInRole(Config.MiembroRolName) || User.IsInRole(Config.AdministradorRolName))
 {
     <h1 style="color: #A65341">Editar</h1>
 

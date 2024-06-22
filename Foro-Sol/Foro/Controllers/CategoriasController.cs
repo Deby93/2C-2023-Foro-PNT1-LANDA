@@ -54,11 +54,14 @@ namespace Foro
                 return NotFound();
             }
 
-            // Obtener la cantidad de entradas para la categoría actual
+            var listaDeCategorias = await _contexto.Categorias.
+                 OrderBy(c => c.Nombre).
+                 ToListAsync();
             int cantidadEntradas = categoria.Entradas.Count;
 
-            ViewBag.unaCategoria = categoria;            // Pasa la cantidad de entradas a la vista
+            ViewBag.unaCategoria = categoria;           
             ViewBag.CantidadEntradas = cantidadEntradas;
+            ViewBag.Categorias = listaDeCategorias;
             if (User.IsInRole(Config.MiembroRolName) && User.Claims.Any())
             {
                 int UsuarioId = 0;
@@ -79,6 +82,7 @@ namespace Foro
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Config.AdministradorRolName)]
         [Authorize(Roles = Config.MiembroRolName)]
         public async Task<IActionResult> Create([Bind("CategoriaId,Nombre")] Categoria categoria)
         {
@@ -100,6 +104,7 @@ namespace Foro
         }
 
         // GET: Categorias/Edit/5
+        [Authorize(Roles = Config.AdministradorRolName)]
         [Authorize(Roles = Config.MiembroRolName)]
 
         public async Task<IActionResult> Edit(int? id)
@@ -121,6 +126,7 @@ namespace Foro
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Config.AdministradorRolName)]
         [Authorize(Roles = Config.MiembroRolName)]
         public async Task<IActionResult> Edit(int id, [Bind("CategoriaId,Nombre")] Categoria categoria)
         {
@@ -153,42 +159,7 @@ namespace Foro
             return View(categoria);
         }
 
-       // [Authorize(Roles = Config.MiembroRolName)]
-       // public async Task<IActionResult> Delete(int? id)
-       // {
-       //     if (id == null || _contexto.Categorias == null)
-       //     {
-       //         return NotFound();
-       //     }
-
-       //     var categoria = await _contexto.Categorias
-       //         .FirstOrDefaultAsync(m => m.CategoriaId == id);
-       //     if (categoria == null)
-       //     {
-       //         return NotFound();
-       //     }
-
-       //     return View(categoria);
-       // }
-
-       //[Authorize(Roles = Config.MiembroRolName)]
-       // [HttpPost, ActionName("Delete")]
-       // [ValidateAntiForgeryToken]
-       // public async Task<IActionResult> DeleteConfirmed(int id)
-       // {
-       //     if (_contexto.Categorias == null)
-       //     {
-       //         return Problem("Entity set 'ForoContexto.Categorias'  is null.");
-       //     }
-       //     var categoria = await _contexto.Categorias.FindAsync(id);
-       //     if (categoria != null)
-       //     {
-       //         _contexto.Categorias.Remove(categoria);
-       //     }
-            
-       //     await _contexto.SaveChangesAsync();
-       //     return RedirectToAction(nameof(Index));
-       // }
+      
 
         private bool CategoriaExists(int id)
         {

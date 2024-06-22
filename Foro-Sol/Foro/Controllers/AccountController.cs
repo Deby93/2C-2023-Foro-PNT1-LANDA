@@ -54,7 +54,7 @@ namespace Foro.Controllers
                     Email = email,  
                     FechaAlta = DateTime.Now
                 };
-
+                miembroACrear.UserName = Config.AdministradorEmail;
                 var resultadoCreacion = await _userManager.CreateAsync(miembroACrear, viewModel.Password);
 
                 if (resultadoCreacion.Succeeded)
@@ -102,14 +102,28 @@ namespace Foro.Controllers
             }
             if (ModelState.IsValid)
             {
+
+                int i = 3;
+                string baseUserName = "Administrador";
+                string userName = baseUserName;
+               
+
+                while (await _userManager.FindByNameAsync(userName) != null)
+                {
+                    userName = baseUserName + i;
+                    i++;
+                }
                 Usuario administradorACrear =  new()
                 {
                     Nombre = viewModel.Nombre,
                     Apellido = viewModel.Apellido,
                     UserName = viewModel.UserName,
-                    Email = (viewModel.UserName + Config.Dominio).ToLower(),
+                    Email = email,
                     FechaAlta = DateTime.Now,
                 };
+                administradorACrear.UserName = userName.ToUpper();
+
+
                     var resultadoCreacion = await _userManager.CreateAsync(administradorACrear, Config.GenericPass);
 
                 if (resultadoCreacion.Succeeded)
@@ -144,19 +158,19 @@ namespace Foro.Controllers
             }
         }
 
-        [AcceptVerbs("Get", "Post")]
-        public async Task<IActionResult> UsuarioDisponible(string userName)
-        {
-            var user = await _contexto.Usuarios.FirstOrDefaultAsync(u => u.UserName == userName);
-            if (user == null)
-            {
-                return Json(true); // Nombre de usuario disponible
-            }
-            else
-            {
-                return Json($"El nombre de usuario {userName} ya está en uso.");
-            }
-        }
+        //[AcceptVerbs("Get", "Post")]
+        //public async Task<IActionResult> UsuarioDisponible(string userName)
+        //{
+        //    var user = await _contexto.Usuarios.FirstOrDefaultAsync(u => u.UserName == userName);
+        //    if (user == null)
+        //    {
+        //        return Json(true); // Nombre de usuario disponible
+        //    }
+        //    else
+        //    {
+        //        return Json($"El nombre de usuario {userName} ya está en uso.");
+        //    }
+        //}
     
     private async Task CrearRolesBase()
         {

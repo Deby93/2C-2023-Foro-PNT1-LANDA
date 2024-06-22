@@ -4,6 +4,7 @@
     ViewData["Title"] = "Detalles";
     var categoria = ViewBag.unaCategoria as Foro.Categoria;
     var cantidadEntradas = ViewBag.CantidadEntradas;
+    var listaDeCategorias = ViewBag.Categorias;
     int UsuarioId = 0;
     if (User.IsInRole(Config.MiembroRolName) && User.Claims.Any())
     {
@@ -99,3 +100,4 @@
         <div>
             <a asp-action="Index">Volver a la lista</a>
         </div>
+    <p class="">Se encontraron: @Model.Count() Entradas en esta categoría</p>
