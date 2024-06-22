@@ -7,7 +7,7 @@ namespace Foro.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly ForoContexto _context;
+        private readonly ForoContexto _contexto;
         private readonly UserManager<Usuario> _userManager;
         private readonly SignInManager<Usuario> _signinManager;
         private readonly RoleManager<Rol> _rolManager;
@@ -19,7 +19,7 @@ namespace Foro.Controllers
             RoleManager<Rol> rolManager
             )
         {
-            this._context = context;
+            this._contexto = context;
             this._userManager = userManager;
             this._signinManager = signinManager;
             this._rolManager = rolManager;
@@ -34,19 +34,25 @@ namespace Foro.Controllers
         [HttpPost]
         public async Task<ActionResult> CrearMiembro(CrearMiembro viewModel)
         {
-            //Hago con model lo que necesito.
+            string email = viewModel.Email.ToLower();
+
+            bool emailExists = await _contexto.Usuarios.AnyAsync(u => u.Email == email);
+            if (emailExists)
+            {
+                ModelState.AddModelError("Email", "El correo electrónico ya está en uso.");
+                return View(viewModel);
+            }
 
             if (ModelState.IsValid)
             {
-                Miembro miembroACrear = new ()
+                Miembro miembroACrear = new()
                 {
                     Telefono = viewModel.Telefono,
                     Nombre = viewModel.Nombre,
                     Apellido = viewModel.Apellido,
                     UserName = viewModel.UserName,
-                    Email = (viewModel.Email).ToLower(),
+                    Email = email,  
                     FechaAlta = DateTime.Now
-
                 };
 
                 var resultadoCreacion = await _userManager.CreateAsync(miembroACrear, viewModel.Password);
@@ -57,18 +63,13 @@ namespace Foro.Controllers
 
                     if (resultado.Succeeded)
                     {
-                        //pudo crear - le hago sign-in directamente.
                         await _signinManager.SignInAsync(miembroACrear, isPersistent: false);
-                        //TODO - Actualizar los models y vistas para sacar password por consigna
-
 
                         return RedirectToAction("Index", "Home");
                     }
-
                 }
 
-                //no pudo
-                //tratamiento de errores
+               
                 foreach (var error in resultadoCreacion.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
@@ -77,6 +78,7 @@ namespace Foro.Controllers
 
             return View(viewModel);
         }
+
 
         [HttpGet]
         public ActionResult CrearAdmin()
@@ -89,6 +91,15 @@ namespace Foro.Controllers
         [HttpPost]
         public async Task<ActionResult> CrearAdmin(CrearAdmin viewModel)
         {
+
+            string email = viewModel.Email.ToLower();
+
+            bool emailExists = await _contexto.Usuarios.AnyAsync(u => u.Email == email);
+            if (emailExists)
+            {
+                ModelState.AddModelError("Email", "El correo electrónico ya está en uso.");
+                return View(viewModel);
+            }
             if (ModelState.IsValid)
             {
                 Usuario administradorACrear =  new()
@@ -111,7 +122,6 @@ namespace Foro.Controllers
                         return RedirectToAction("Index", "Home");
                     }
                 }
-                //tratamiento de errores
                 foreach (var error in resultadoCreacion.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
@@ -123,7 +133,7 @@ namespace Foro.Controllers
         [AcceptVerbs("Get", "Post")]
         public async Task<IActionResult> EmailDisponible(string email)
         {
-            var user = await _context.Usuarios.FirstOrDefaultAsync(u => u.Email == email);
+            var user = await _contexto.Usuarios.FirstOrDefaultAsync(u => u.Email == email);
             if (user == null)
             {
                 return Json(true); // Email disponible
@@ -137,7 +147,7 @@ namespace Foro.Controllers
         [AcceptVerbs("Get", "Post")]
         public async Task<IActionResult> UsuarioDisponible(string userName)
         {
-            var user = await _context.Usuarios.FirstOrDefaultAsync(u => u.UserName == userName);
+            var user = await _contexto.Usuarios.FirstOrDefaultAsync(u => u.UserName == userName);
             if (user == null)
             {
                 return Json(true); // Nombre de usuario disponible
@@ -179,7 +189,7 @@ namespace Foro.Controllers
             if (ModelState.IsValid)
             {
                 //var user = await _signinManager.PasswordSignInAsync(ViewModel.Email, ViewModel.Password, ViewModel.RememberMe, false);
-                var usuario = _context.Usuarios.FirstOrDefault(p => p.Email == ViewModel.Email || p.UserName == ViewModel.Email);
+                var usuario = _contexto.Usuarios.FirstOrDefault(p => p.Email == ViewModel.Email || p.UserName == ViewModel.Email);
        
                 if (usuario == null)
                 {
