@@ -70,7 +70,7 @@ namespace Foro
             return View(listaDeEntradas);
         }
 
-        [Authorize(Roles = Config.MiembroRolName)]
+        [Authorize(Roles = Config.AdministradorRolName + "," + Config.MiembroRolName)]
         // GET: Categorias/Create
 
         public IActionResult Create()
@@ -82,8 +82,7 @@ namespace Foro
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = Config.AdministradorRolName)]
-        [Authorize(Roles = Config.MiembroRolName)]
+        [Authorize(Roles = Config.AdministradorRolName + "," + Config.MiembroRolName)]
         public async Task<IActionResult> Create([Bind("CategoriaId,Nombre")] Categoria categoria)
         {
             if (ModelState.IsValid)
@@ -104,8 +103,7 @@ namespace Foro
         }
 
         // GET: Categorias/Edit/5
-        [Authorize(Roles = Config.AdministradorRolName)]
-        [Authorize(Roles = Config.MiembroRolName)]
+        [Authorize(Roles = Config.AdministradorRolName + "," + Config.MiembroRolName)]
 
         public async Task<IActionResult> Edit(int? id)
         {
@@ -122,12 +120,11 @@ namespace Foro
             return View(categoria);
         }
 
-       // [Authorize(Roles = Config.Miembro)]
+    
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = Config.AdministradorRolName)]
-        [Authorize(Roles = Config.MiembroRolName)]
+        [Authorize(Roles = Config.AdministradorRolName + "," + Config.MiembroRolName)]
         public async Task<IActionResult> Edit(int id, [Bind("CategoriaId,Nombre")] Categoria categoria)
         {
             if (id != categoria.CategoriaId)

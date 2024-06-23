@@ -90,7 +90,7 @@
             </dl>
         </div>
         }
-        @if (User.IsInRole(Config.MiembroRolName))
+    @if (User.IsInRole(Config.MiembroRolName) || User.IsInRole(Config.AdministradorRolName))
         {
             <div>
                 <a asp-action="Edit" asp-route-id="@categoria.CategoriaId">Editar</a>
