@@ -1,8 +1,8 @@
-﻿@* 
-@model Foro.Models.Entrada
+﻿
 @using Microsoft.AspNetCore.Identity
 @inject UserManager<Miembro> UserManager
 
+@model Entrada
 
 @{
     bool isPrivada = (bool)Model.Privada;
@@ -46,4 +46,3 @@ else
 {
     <a asp-controller="Entradas" asp-action="Details" asp-route-id="@Model.Id" class="btn privacy-btn publica">Pública</a>
 }
- *@

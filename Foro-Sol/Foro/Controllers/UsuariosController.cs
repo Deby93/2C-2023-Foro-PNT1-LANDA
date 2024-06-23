@@ -153,41 +153,41 @@ namespace Foro
         }
 
 
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.Usuarios == null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null || _context.Usuarios == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var usuario = await _context.Usuarios
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
+        //    var usuario = await _context.Usuarios
+        //        .FirstOrDefaultAsync(m => m.Id == id);
+        //    if (usuario == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(usuario);
-        }
+        //    return View(usuario);
+        //}
 
-        // POST: Usuarios/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.Usuarios == null)
-            {
-                return Problem("Entity set 'ForoContexto.Usuarios'  is null.");
-            }
-            var usuario = await _context.Usuarios.FindAsync(id);
-            if (usuario != null )
-            {
-                _context.Usuarios.Remove(usuario);
-            }
+        //// POST: Usuarios/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(int id)
+        //{
+        //    if (_context.Usuarios == null)
+        //    {
+        //        return Problem("Entity set 'ForoContexto.Usuarios'  is null.");
+        //    }
+        //    var usuario = await _context.Usuarios.FindAsync(id);
+        //    if (usuario != null )
+        //    {
+        //        _context.Usuarios.Remove(usuario);
+        //    }
             
-            _context.SaveChanges();
-            return RedirectToAction(nameof(Index));
-        }
+        //    _context.SaveChanges();
+        //    return RedirectToAction(nameof(Index));
+        //}
 
         private bool UsuarioExists(int id)
         {

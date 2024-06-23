@@ -18,10 +18,6 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\twatd\OneDrive\Escritorio\proyecto\2C-2023-Foro-PNT1-LANDA\Foro-Sol\Foro
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/twatd/OneDrive/Escritorio/proyecto/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Componentes/EntradaComponente.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50ZXNcRW50cmFkYUNvbXBvbmVudGUucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/twatd/OneDrive/Escritorio/proyecto/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Account/AccesoDenegado.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxBY2Nlc29EZW5lZ2Fkby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -190,6 +186,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzcHVlc3Rhc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/twatd/OneDrive/Escritorio/proyecto/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Shared/EntradaEstados.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVudHJhZGFFc3RhZG9zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/twatd/OneDrive/Escritorio/proyecto/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -200,10 +200,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/twatd/OneDrive/Escritorio/proyecto/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Usuarios/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcQ3JlYXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/twatd/OneDrive/Escritorio/proyecto/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Usuarios/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/twatd/OneDrive/Escritorio/proyecto/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Usuarios/Details.cshtml]
