@@ -51,7 +51,7 @@ namespace Foro.Controllers
                     Nombre = viewModel.Nombre,
                     Apellido = viewModel.Apellido,
                     UserName = viewModel.UserName,
-                    Email = email,  
+                    Email =  $"{email}{Config.Dominio}".ToLower(),
                     FechaAlta = DateTime.Now
                 };
                 miembroACrear.UserName = Config.AdministradorEmail;
@@ -91,8 +91,7 @@ namespace Foro.Controllers
         [HttpPost]
         public async Task<ActionResult> CrearAdmin(CrearAdmin viewModel)
         {
-
-            string email = viewModel.Email.ToLower();
+            string email = viewModel.Nombre.ToLower();
 
             bool emailExists = await _contexto.Usuarios.AnyAsync(u => u.Email == email);
             if (emailExists)
@@ -100,47 +99,53 @@ namespace Foro.Controllers
                 ModelState.AddModelError("Email", "El correo electrónico ya está en uso.");
                 return View(viewModel);
             }
+
             if (ModelState.IsValid)
             {
-
                 int i = 3;
                 string baseUserName = "Administrador";
                 string userName = baseUserName;
-               
 
+                // Generar un nombre de usuario único
                 while (await _userManager.FindByNameAsync(userName) != null)
                 {
                     userName = baseUserName + i;
                     i++;
                 }
-                Usuario administradorACrear =  new()
+
+                // Crear el nuevo usuario administrador
+                Usuario administradorACrear = new()
                 {
                     Nombre = viewModel.Nombre,
                     Apellido = viewModel.Apellido,
                     UserName = viewModel.UserName,
-                    Email = email,
+                    Email = $"{email }{ Config.Dominio }".ToLower(),
                     FechaAlta = DateTime.Now,
                 };
                 administradorACrear.UserName = userName.ToUpper();
 
-
-                    var resultadoCreacion = await _userManager.CreateAsync(administradorACrear, Config.GenericPass);
+                // Guardar el nuevo usuario en la base de datos
+                var resultadoCreacion = await _userManager.CreateAsync(administradorACrear, Config.GenericPass);
 
                 if (resultadoCreacion.Succeeded)
                 {
+                    // Agregar el nuevo administrador al rol correspondiente
                     var resultado = await _userManager.AddToRoleAsync(administradorACrear, Config.AdministradorRolName);
 
                     if (resultado.Succeeded)
                     {
-                        await _signinManager.SignInAsync(administradorACrear, isPersistent: false);
+                        // Opcionalmente, podrías redirigir a otra página aquí
                         return RedirectToAction("Index", "Home");
                     }
                 }
+
                 foreach (var error in resultadoCreacion.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
+
+            // Si hay errores de validación o el proceso de creación no tuvo éxito, retornar la vista con el modelo
             return View(viewModel);
         }
 
