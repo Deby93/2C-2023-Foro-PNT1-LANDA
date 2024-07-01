@@ -4,7 +4,6 @@
 @{
     ViewData["Title"] = "Index";
     int? idEntradaConMasDislikes = ViewBag.EntradaConMasDislikesId as int?;
-   
 }
 
 <h1 style="color: #A65341">Entradas</h1>
@@ -13,7 +12,6 @@
     @if (User.IsInRole(Config.MiembroRolName))
     {
         <a asp-action="Create" class="btn pink-button">Crear una entrada</a>
-
         <a asp-controller="Entradas" asp-action="MisEntradas" class="btn btn-purple">Mis Entradas</a>
     }
 </p>
@@ -24,8 +22,8 @@
             <th>@Html.DisplayNameFor(model => model.Titulo)</th>
             <th>@Html.DisplayNameFor(model => model.Fecha)</th>
             <th>Estado</th>
-            <th>Likes</th>
-            <th>Dislikes</th>
+            <th>Me gusta</th>
+            <th>No me gusta</th>
         </tr>
     </thead>
     <tbody>
@@ -45,73 +43,79 @@
                 <td>@Html.DisplayFor(modelItem => entrada.Titulo)</td>
                 <td>@Html.DisplayFor(modelItem => entrada.Fecha)</td>
                 <td>
-                    @if ((bool)entrada.Privada)
+                    @if (User.IsInRole(Config.MiembroRolName))
                     {
-                        @if (User.IsInRole(Config.MiembroRolName))
+                        int userId = 0;
+                        if (User.Identity.IsAuthenticated)
                         {
-                            int userId = Int32.Parse(User.Claims.First().Value);
-                            var miembroHabilitado = entrada.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && mh.Habilitado);
-                            var miembroNoHabilitado = entrada.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && !mh.Habilitado);
+                             userId = Int32.Parse(User.Claims.First().Value);
+                        }
 
-                            var esMiEntrada = entrada.MiembroId == userId;
+                        var miembroHabilitado = entrada.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && mh.Habilitado);
+                        var miembroNoHabilitado = entrada.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && !mh.Habilitado);
+                        var esMiEntrada = entrada.MiembroId == userId;
 
-                            if (esMiEntrada)
+                        if (esMiEntrada)
+                        {
+                            if ((bool)entrada.Privada)
                             {
                                 <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn btn-purple">Mi Entrada</a>
                                 <a asp-controller="Entradas" asp-action="SolicitudesPendientes" asp-route-id="@entrada.Id" class="btn btn-purple">Solicitudes pendientes</a>
-
                             }
                             else
                             {
-
-                                if (miembroHabilitado == true)
-                                {
-                                    <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn peach-button">Aprobada</a>
-
-                                }
-                                else if (miembroNoHabilitado == true)
-                                {
-                                    <a class="btn privacy-btn privada">Pendiente de aprobación</a>
-
-                                }
-                                else
-                                {
-                                    <a id="btnAprobacion" asp-controller="Entradas" asp-action="SolicitarAprobacion" asp-route-id="@entrada.Id" class="btn privacy-btn privada">Privada</a>
-
-                                }
-
+                                <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn btn-purple">Mi Entrada</a>
                             }
                         }
                         else
                         {
-                            <a id="btnAprobacion" asp-route-id="@entrada.Id" class="btn privacy-btn privada">Privada</a>
-
+                            if ((bool)entrada.Privada)
+                            {
+                                if (miembroHabilitado == true)
+                                {
+                                    <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn peach-button">Aprobada</a>
+                                }
+                                else if (miembroNoHabilitado == true)
+                                {
+                                    <a class="btn privacy-btn privada">Pendiente de aprobación</a>
+                                }
+                                else
+                                {
+                                    <a id="btnAprobacion" asp-controller="Entradas" asp-action="SolicitarAprobacion" asp-route-id="@entrada.Id" class="btn privacy-btn privada">Privada</a>
+                                }
+                            }
+                            else
+                            {
+                                <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn privacy-btn publica">Pública</a>
+                            }
                         }
                     }
                     else
                     {
-                        <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn privacy-btn publica">Pública</a>
+                        if ((bool)entrada.Privada)
+                        {
+                            <a id="btnAprobacion" asp-route-id="@entrada.Id" class="btn privacy-btn privada">Privada</a>
+                        }
+                        else
+                        {
+                            <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn privacy-btn publica">Pública</a>
+                        }
                     }
-
-
                 </td>
                 <td>@totalLikes</td>
                 <td>@totalDislikes</td>
                 <td>
-                    
-                    
                     @if (User.IsInRole(Config.AdministradorRolName))
                     {
-                        @if ((bool)isDislikedEntry && totalDislikes >= Config.UMBRAL_DISLIKES)
+                        @if (isDislikedEntry && totalDislikes >= Config.UMBRAL_DISLIKES)
                         {
                             <form method="post" asp-action="Delete" asp-route-id="@entrada.Id" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta entrada?');">
                                 <button type="submit" class="btn btn-danger">Borrar</button>
                             </form>
                         }
                     }
-                    
                 </td>
             </tr>
-      }
+        }
     </tbody>
 </table>

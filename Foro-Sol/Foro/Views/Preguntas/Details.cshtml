@@ -90,7 +90,7 @@
                                 <input type="hidden" name="respuestaId" value="@unaRespuesta.RespuestaId" />
                                 <input type="hidden" name="preguntaId" value="@unaRespuesta.PreguntaId" />
                                 <button type="submit" class="btn btn-success">
-                                    Like <span class="@(unaRespuesta.Reacciones.Any(r => r.MiembroId == userId && r.MeGusta.HasValue && (bool)r.MeGusta) ? "liked" : "")"></span>
+                                    Me gusta <span class="@(unaRespuesta.Reacciones.Any(r => r.MiembroId == userId && r.MeGusta.HasValue && (bool)r.MeGusta) ? "liked" : "")"></span>
                                 </button>
                             </form>
 
@@ -98,12 +98,12 @@
                                 <input type="hidden" name="respuestaId" value="@unaRespuesta.RespuestaId" />
                                 <input type="hidden" name="preguntaId" value="@unaRespuesta.PreguntaId" />
                                 <button type="submit" class="btn btn-danger">
-                                    Dislike <span class="@(unaRespuesta.Reacciones.Any(r => r.MiembroId == userId && r.MeGusta.HasValue && !(bool)r.MeGusta) ? "disliked" : "")"></span>
+                                    No me gusta <span class="@(unaRespuesta.Reacciones.Any(r => r.MiembroId == userId && r.MeGusta.HasValue && !(bool)r.MeGusta) ? "disliked" : "")"></span>
                                 </button>
                             </form>
 
                             <span>
-                                @totalLikes Likes / @totalDislikes Dislikes
+                                @totalLikes Me gusta / @totalDislikes No me gusta
                             </span>
                         </div>
                     }

@@ -74,7 +74,7 @@
             <a class="btn btn-primary" asp-controller="Entradas" asp-action="Index">Atrás</a>
         </div>
         <br />
-        <h3 style="color: white" class="text-center">Preguntas en orden cronologico ascendente</h3>
+        <h3 style="color: white" class="text-center">Preguntas en orden cronológico ascendente</h3>
         <div>
             @foreach (var unaPregunta in Model.OrderBy( p=>p.Fecha))
             {
@@ -120,7 +120,7 @@
                 .ToList();
             }
 
-            <h3 style="color: white" class="text-center">Preguntas ordenadas por cantidad de likes</h3>
+            <h3 style="color: white" class="text-center">Preguntas ordenadas por cantidad de me gusta</h3>
             <div>
                 @foreach (var item in preguntasConLikes)
                 {
@@ -133,7 +133,7 @@
                                 <p>@unaPregunta.Descripcion</p>
                                 <h6> Pregunta realizada por: @unaPregunta.Miembro.UserName</h6>
                                 <h6> Publicada: @unaPregunta.Fecha.ToShortDateString()</h6>
-                                <h6> Likes: @likes</h6>
+                                <h6> Me gusta: @likes</h6>
 
                                 <a class="btn btn-primary text-white" asp-controller="Preguntas" asp-action="Details" asp-route-id="@unaPregunta.PreguntaId">Detalles</a>
 
@@ -147,7 +147,7 @@
                         <div class="question-card-body">
                             <div class="question-actions">
                             </div>
-                            @if (User.IsInRole(Config.MiembroRolName) && unaPregunta.MiembroId == UsuarioId)
+                            @if (User.IsInRole(Config.MiembroRolName) && unaPregunta.MiembroId == UsuarioId && likes > 0)
                             {
                                 <div class="mt-2">
                                     <a class="btn btn-danger text-white" asp-controller="Preguntas" asp-action="Delete" asp-route-id="@unaPregunta.PreguntaId">Eliminar</a>

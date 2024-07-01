@@ -30,74 +30,85 @@
                     @ViewBag.CantidadEntradas
                 </dd>
 
-                <h3 style ="color: white" class="text-center">Entradas</h3>
+                <h3 style="color: white" class="text-center">Entradas</h3>
                 @foreach (var entrada in Model)
                 {
+                    <p>Título de la entrada: @entrada.Titulo</p>
+                    <p>Descripción de la entrada: @entrada.Descripcion</p>
 
-                    <p> Título de la entrada : @entrada.Titulo </p>
-                    <p> Descripción de la entrada : @entrada.Descripcion</p>
-
-                    @if ((bool)entrada.Privada)
+                    @if (User.IsInRole(Config.MiembroRolName))
                     {
-                        @if (User.IsInRole(Config.MiembroRolName))
+                        int userId = 0;
+                        if (User.Identity.IsAuthenticated)
                         {
-                            int userId = Int32.Parse(User.Claims.First().Value);
-                            var miembroHabilitado = entrada.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && mh.Habilitado);
-                            var miembroNoHabilitado = entrada.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && !mh.Habilitado);
+                            userId = Int32.Parse(User.Claims.First().Value);
+                        }
 
-                            var esMiEntrada = entrada.MiembroId == userId;
+                        var miembroHabilitado = entrada.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && mh.Habilitado);
+                        var miembroNoHabilitado = entrada.MiembrosHabilitados?.Any(mh => mh.MiembroId == userId && !mh.Habilitado);
+                        var esMiEntrada = entrada.MiembroId == userId;
 
-                            if (esMiEntrada)
+                        if (esMiEntrada)
+                        {
+                            if ((bool)entrada.Privada)
                             {
                                 <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn btn-purple">Mi Entrada</a>
                                 <a asp-controller="Entradas" asp-action="SolicitudesPendientes" asp-route-id="@entrada.Id" class="btn btn-purple">Solicitudes pendientes</a>
-
                             }
                             else
                             {
-
-                                if (miembroHabilitado == true)
-                                {
-                                    <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn peach-button">Aprobada</a>
-
-                                }
-                                else if (miembroNoHabilitado == true)
-                                {
-                                    <a class="btn privacy-btn privada">Pendiente de aprobación</a>
-
-                                }
-                                else
-                                {
-                                    <a id="btnAprobacion" asp-controller="Entradas" asp-action="SolicitarAprobacion" asp-route-id="@entrada.Id" class="btn privacy-btn privada">Privada</a>
-
-                                }
-
+                                <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn btn-purple">Mi Entrada</a>
                             }
                         }
                         else
                         {
-                            <a class="btn privacy-btn privada">Privada</a>
-
+                            if ((bool)entrada.Privada)
+                            {
+                                if (miembroHabilitado == true)
+                                {
+                                    <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn peach-button">Aprobada</a>
+                                }
+                                else if (miembroNoHabilitado == true)
+                                {
+                                    <a class="btn privacy-btn privada">Pendiente de aprobación</a>
+                                }
+                                else
+                                {
+                                    <a id="btnAprobacion" asp-controller="Entradas" asp-action="SolicitarAprobacion" asp-route-id="@entrada.Id" class="btn privacy-btn privada">Privada</a>
+                                }
+                            }
+                            else
+                            {
+                                <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn privacy-btn publica">Pública</a>
+                            }
                         }
                     }
                     else
                     {
-                        <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn privacy-btn publica">Pública</a>
+                        if ((bool)entrada.Privada)
+                        {
+                            <a id="btnAprobacion" asp-route-id="@entrada.Id" class="btn privacy-btn privada">Privada</a>
+                        }
+                        else
+                        {
+                            <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn privacy-btn publica">Pública</a>
+                        }
                     }
-                
                 }
-                
             </dl>
         </div>
-        }
-    @if (User.IsInRole(Config.MiembroRolName) || User.IsInRole(Config.AdministradorRolName))
-        {
-            <div>
-                <a asp-action="Edit" asp-route-id="@categoria.CategoriaId">Editar</a>
-            </div>
-        }
+    }
 
+    @if (User.IsInRole(Config.MiembroRolName) || User.IsInRole(Config.AdministradorRolName))
+    {
         <div>
-            <a asp-action="Index">Volver a la lista</a>
+            <a asp-action="Edit" asp-route-id="@categoria.CategoriaId">Editar</a>
         </div>
-    <p class="">Se encontraron: @Model.Count() Entradas en esta categoría</p>
+    }
+
+    <div>
+        <a asp-action="Index">Volver a la lista</a>
+    </div>
+
+    <p class="">Se encontraron: @Model.Count() Entrada/s en esta categoría</p>
+</div>
