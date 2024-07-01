@@ -2,6 +2,11 @@
 
 @{
     ViewData["Title"] = "Miembro";
+    int UsuarioId = 0;
+    if (User.IsInRole(Config.MiembroRolName) && User.Claims.Any())
+    {
+        UsuarioId = Int32.Parse(User.Claims.First().Value);
+    }
 }
 @if(User.IsInRole(Config.MiembroRolName)){
     <h1 style="color: #A65341">Miembro</h1>
@@ -52,7 +57,10 @@
                     <td>
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                        @if (item.Id == UsuarioId)
+                        {
+                            <a asp-action = "Edit" asp-route-id = "@item.Id"> Editar </a>
+                        }
                         <a asp-action="Details" asp-route-id="@item.Id">Detalles</a>
                     </td>
                 </tr>

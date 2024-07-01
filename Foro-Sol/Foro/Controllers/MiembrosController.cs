@@ -75,10 +75,10 @@ namespace Foro.Controllers
         {
             var MiembroIdEncontrado = Int32.Parse(_userManager.GetUserId(User));
 
-
             if (id != MiembroIdEncontrado)
             {
-                return NotFound();
+                TempData["ErrorEditarMiembro"] = "No tienes permiso para editar este miembro.";
+                return RedirectToAction("Index", "Miembros");
             }
 
             if (ModelState.IsValid)
@@ -92,7 +92,6 @@ namespace Foro.Controllers
                     }
 
                     miembroEnDb.Telefono = miembro.Telefono;
-                   
 
                     _contexto.Miembros.Update(miembroEnDb);
                     await _contexto.SaveChangesAsync();
@@ -111,9 +110,10 @@ namespace Foro.Controllers
                     }
                 }
             }
+
             return View(miembro);
         }
-        
+
         private bool MiembroExists(int id)
         {
             return _contexto.Miembros.Any(e => e.Id == id);
