@@ -128,17 +128,20 @@
                     var likes = item.Likes;
                     <div class="question-card">
                         <div class="question-card-header">
-                            @if (User.Identity.IsAuthenticated && unaPregunta.Miembro != null)
+                            @if (User.Identity.IsAuthenticated && unaPregunta.Miembro != null && likes>0)
                             {
                                 <p>@unaPregunta.Descripcion</p>
                                 <h6> Pregunta realizada por: @unaPregunta.Miembro.UserName</h6>
                                 <h6> Publicada: @unaPregunta.Fecha.ToShortDateString()</h6>
                                 <h6> Likes: @likes</h6>
+
+                                <a class="btn btn-primary text-white" asp-controller="Preguntas" asp-action="Details" asp-route-id="@unaPregunta.PreguntaId">Detalles</a>
+
                             }
                             else
                             {
-                                <p>@unaPregunta.Descripcion</p>
-                                @unaPregunta.Fecha.ToShortDateString()
+                           @*      <p>@unaPregunta.Descripcion</p>
+                                @unaPregunta.Fecha.ToShortDateString() *@
                             }
                         </div>
                         <div class="question-card-body">
@@ -151,14 +154,13 @@
                                     <a class="btn btn-primary text-white" asp-controller="Preguntas" asp-action="Edit" asp-route-id="@unaPregunta.PreguntaId">Editar</a>
                                 </div>
                             }
-                            <a class="btn btn-primary text-white" asp-controller="Preguntas" asp-action="Details" asp-route-id="@unaPregunta.PreguntaId">Detalles</a>
                         </div>
                     </div>
                 }
             </div>
 
         </div>
-        <p>Se encontraron: @Model.Count() Preguntas en esta Entrada</p>
+        <p>Se encontraron: @Model.Count() Pregunta/s en esta Entrada</p>
     </div>
 }
 else
