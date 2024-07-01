@@ -18,7 +18,6 @@
                     <select asp-for="CategoriaId" class="form-control" asp-items="ViewBag.CategoriaId"></select>
                     <span asp-validation-for="CategoriaId" class="text-danger"></span>
                     @Html.ActionLink("Crear nueva categoría", "Create", "Categorias")
-
                 </div>
 
                 <div class="form-group">
@@ -26,16 +25,22 @@
                     <input asp-for="Titulo" class="form-control" />
                     <span asp-validation-for="Titulo" class="text-danger"></span>
                 </div>
+
                 <div class="form-group">
                     <label asp-for="Descripcion" class="control-label"></label>
                     <textarea asp-for="Descripcion" class="form-control"></textarea>
                     <span asp-validation-for="Descripcion" class="text-danger"></span>
                 </div>
-                <div class="form-group form-check">
-                    <label class="form-check-label">
-                        <input class="form-check-input" asp-for="Privada" /> @Html.DisplayNameFor(model => model.Privada)
-                    </label>
+
+                <div class="form-group">
+                    <label asp-for="Privada" class="control-label"></label>
+                    <select asp-for="Privada" class="form-control">
+                        <option value="true">Privada</option>
+                        <option value="false">Pública</option>
+                    </select>
+                    <span asp-validation-for="Privada" class="text-danger"></span>
                 </div>
+
                 <div class="form-group">
                     <input type="submit" value="Crear" class="btn btn-primary" />
                 </div>
