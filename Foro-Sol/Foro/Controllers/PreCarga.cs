@@ -234,7 +234,7 @@ namespace Foro.Controllers
                 DateTime dateTime4 = new(2024, 07, 02, 18, 18, 18);
                 DateTime dateTime5 = new(2024, 06, 17, 22, 59, 30);
                 DateTime dateTime6 = new(2024, 07, 08, 14, 12, 44);
-                DateTime dateTime7 = new(2021, 07, 07, 18, 50, 33);
+                DateTime dateTime7 = new(2025, 07, 07, 18, 50, 33);
                 DateTime dateTime8 = new(2022, 03, 28, 03, 50, 50);
                 DateTime dateTime9 = new(2022, 01, 30, 02, 50, 50);
                 DateTime dateTime10 = new(2022, 02, 12, 06, 52, 14);
@@ -249,7 +249,13 @@ namespace Foro.Controllers
             new Pregunta() { Descripcion = "¿Cuál es el impacto de este descubrimiento?",Fecha = dateTime3,Activa=false, EntradaId = entradas.First(e => e.Titulo == "Descubrimientos recientes").Id, MiembroId = miembros[2].Id },
             new Pregunta() { Descripcion = "¿Cuál es tu álbum favorito?",Fecha = dateTime4,Activa=true, EntradaId = entradas.First(e => e.Titulo == "Nuevos álbumes de música").Id, MiembroId = miembros[3].Id },
             new Pregunta() { Descripcion = "¿Cuál película esperas más?",Fecha = dateTime5,Activa=true, EntradaId = entradas.First(e => e.Titulo == "Estrenos de cine").Id, MiembroId = miembros[4].Id },
-            new Pregunta() { Descripcion = "¿Qué libro recomendarías?", Fecha = dateTime6,Activa=true,EntradaId = entradas.First(e => e.Titulo == "Novedades literarias").Id, MiembroId = miembros[0].Id }
+            new Pregunta() { Descripcion = "¿Qué libro recomendarías?", Fecha = dateTime6,Activa=true,EntradaId = entradas.First(e => e.Titulo == "Novedades literarias").Id, MiembroId = miembros[0].Id },
+            new Pregunta() { Descripcion = "¿Qué opinas sobre el trabajo remoto?",Fecha = dateTime2, Activa=true, EntradaId = entradas.First(e => e.Titulo == "Últimos avances en IA").Id, MiembroId = miembros[0].Id },
+            new Pregunta() { Descripcion = "¿Quién fue el mejor entrenador?",Fecha = dateTime3,Activa=true, EntradaId = entradas.First(e => e.Titulo == "Resumen del partido").Id, MiembroId = miembros[1].Id },
+            new Pregunta() { Descripcion = "¿Cuál es el descubrimiento?",Fecha = dateTime4,Activa=false, EntradaId = entradas.First(e => e.Titulo == "Descubrimientos recientes").Id, MiembroId = miembros[2].Id },
+            new Pregunta() { Descripcion = "¿Cuál es tu artista favorito?",Fecha = dateTime5,Activa=true, EntradaId = entradas.First(e => e.Titulo == "Nuevos álbumes de música").Id, MiembroId = miembros[3].Id },
+            new Pregunta() { Descripcion = "¿Cuál película te gusto más?",Fecha = dateTime6,Activa=true, EntradaId = entradas.First(e => e.Titulo == "Estrenos de cine").Id, MiembroId = miembros[4].Id },
+            new Pregunta() { Descripcion = "¿Qué libro te gusto?", Fecha = dateTime7,Activa=true,EntradaId = entradas.First(e => e.Titulo == "Novedades literarias").Id, MiembroId = miembros[0].Id }
         };
 
                 _contexto.Preguntas.AddRange(preguntas);
@@ -270,8 +276,14 @@ namespace Foro.Controllers
             new Respuesta() { Descripcion = "El impacto es significativo.", PreguntaId = preguntas.First(p => p.Descripcion == "¿Cuál es el impacto de este descubrimiento?").PreguntaId, MiembroId = miembros[2].Id, Fecha = new DateTime(2024, 02, 09, 06, 15, 50) },
             new Respuesta() { Descripcion = "Me encanta el nuevo álbum de Maria Becerra.", PreguntaId = preguntas.First(p => p.Descripcion == "¿Cuál es tu álbum favorito?").PreguntaId, MiembroId = miembros[3].Id, Fecha = new DateTime(2024, 02, 09, 06, 16, 50) },
             new Respuesta() { Descripcion = "Espero la nueva película de Marvel.", PreguntaId = preguntas.First(p => p.Descripcion == "¿Cuál película esperas más?").PreguntaId, MiembroId = miembros[4].Id, Fecha = new DateTime(2024, 02, 09, 06, 17, 50) },
-            new Respuesta() { Descripcion = "Recomiendo 'Cien Años de Soledad'.", PreguntaId = preguntas.First(p => p.Descripcion == "¿Qué libro recomendarías?").PreguntaId, MiembroId = miembros[0].Id, Fecha = new DateTime(2024, 02, 09, 06, 18, 50) }
-        };
+            new Respuesta() { Descripcion = "Recomiendo 'Cien Años de Soledad'.", PreguntaId = preguntas.First(p => p.Descripcion == "¿Qué libro recomendarías?").PreguntaId, MiembroId = miembros[0].Id, Fecha = new DateTime(2024, 02, 09, 06, 18, 50) },
+            new Respuesta() { Descripcion = "La IA es lo mejor.", PreguntaId = preguntas.First(p => p.Descripcion == "¿Qué opinas sobre la IA?").PreguntaId, MiembroId = miembros[0].Id, Fecha = new DateTime(2024, 01, 09, 06, 14, 50) },
+            new Respuesta() { Descripcion = "El mejor jugador fue Angelito.", PreguntaId = preguntas.First(p => p.Descripcion == "¿Quién fue el mejor jugador?").PreguntaId, MiembroId = miembros[1].Id, Fecha = new DateTime(2024, 01, 09, 06, 12, 50) },
+            new Respuesta() { Descripcion = "El impacto es significativo.", PreguntaId = preguntas.First(p => p.Descripcion == "¿Cuál es el impacto de este descubrimiento?").PreguntaId, MiembroId = miembros[2].Id, Fecha = new DateTime(2024, 01, 09, 06, 15, 50) },
+            new Respuesta() { Descripcion = "Me encanta el nuevo álbum de Sam Smith.", PreguntaId = preguntas.First(p => p.Descripcion == "¿Cuál es tu álbum favorito?").PreguntaId, MiembroId = miembros[3].Id, Fecha = new DateTime(2024, 03, 09, 06, 15, 50) },
+            new Respuesta() { Descripcion = "Espero la nueva película de Intensamente.", PreguntaId = preguntas.First(p => p.Descripcion == "¿Cuál película te gusto más?").PreguntaId, MiembroId = miembros[4].Id, Fecha = new DateTime(2024, 08, 10, 06, 16, 50) },
+            new Respuesta() { Descripcion = "Recomiendo 'Rebecca'.", PreguntaId = preguntas.First(p => p.Descripcion == "¿Qué libro te gusto?").PreguntaId, MiembroId = miembros[0].Id, Fecha = new DateTime(2024, 12, 12, 06, 12, 50) }
+                };
 
                 _contexto.Respuestas.AddRange(respuestas);
                 _contexto.SaveChanges();
@@ -299,9 +311,12 @@ namespace Foro.Controllers
             new Reaccion() { MeGusta = false, RespuestaId = respuestas.First(r => r.Descripcion == "Me encanta el nuevo álbum de Maria Becerra.").RespuestaId, MiembroId = miembros[1].Id },
             new Reaccion() { MeGusta = false, RespuestaId = respuestas.First(r => r.Descripcion == "Me encanta el nuevo álbum de Maria Becerra.").RespuestaId, MiembroId = miembros[2].Id },
             new Reaccion() { MeGusta = false, RespuestaId = respuestas.First(r => r.Descripcion == "Me encanta el nuevo álbum de Maria Becerra.").RespuestaId, MiembroId = miembros[7].Id },
-            new Reaccion() { MeGusta = false, RespuestaId = respuestas.First(r => r.Descripcion == "Me encanta el nuevo álbum de Maria Becerra.").RespuestaId, MiembroId = miembros[8].Id },
+            new Reaccion() { MeGusta = true, RespuestaId = respuestas.First(r => r.Descripcion == "Me encanta el nuevo álbum de Sam Smith.").RespuestaId, MiembroId = miembros[8].Id },
+            new Reaccion() { MeGusta = true, RespuestaId = respuestas.First(r => r.Descripcion == "El mejor jugador fue Messi.").RespuestaId, MiembroId = miembros[3].Id },
+            new Reaccion() { MeGusta = true, RespuestaId = respuestas.First(r => r.Descripcion == "Recomiendo 'Rebecca'.").RespuestaId, MiembroId = miembros[4].Id },
 
-        };
+                    
+                };
 
                 _contexto.Reacciones.AddRange(reacciones);
                 _contexto.SaveChanges();
