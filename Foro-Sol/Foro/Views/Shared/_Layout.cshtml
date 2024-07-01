@@ -130,10 +130,15 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            <span id="mensaje" style="color: #A65341; display: none;">Clickea el botón para cargar la base de datos.</span>
-            <span id="mensajeClic" style="color: #A65341; display: none;">Cargando la base de datos, por favor espera...</span>
-            <button id="botonPrecarga" class="btn btn-stm btn-bordo">PRECARGA</button>
-            Copyright 2000/2024| Azúcar - Derechos reservados.
+
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <span id="mensaje" style="color: #A65341; display: none;">Clickea el botón para cargar la base de datos.</span>
+                <span id="mensajeClic" style="color: #A65341; display: none;">Cargando la base de datos, por favor espera...</span>
+                <button id="botonPrecarga" class="btn btn-stm btn-bordo">PRECARGA</button>
+            }
+            
+            Copyright 2020/2024 | Azúcar - Derechos reservados.
         </div>
 
       
