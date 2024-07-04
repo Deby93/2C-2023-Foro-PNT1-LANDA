@@ -1,9 +1,17 @@
-﻿@model IEnumerable<Foro.Respuesta>
+﻿@using Foro.Helpers
+@using Foro.Models
+@using Foro.Controllers
+@using Foro.ViewModels
+
+
+
+
+@model IEnumerable<Foro.Models.Respuesta>
 
 @{
     ViewData["Title"] = "Details";
 
-    var pregunta = ViewBag.Pregunta as Foro.Pregunta;
+    var pregunta = ViewBag.Pregunta as Foro.Models.Pregunta;
     int respuestaMasLikes = ViewBag.idMasLikes ?? 0;
     int respuestaMasDislike = ViewBag.idMasDisLikes ?? 0;
 }

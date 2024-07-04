@@ -1,7 +1,11 @@
 ﻿
+
+using Foro.Helpers;
+using Foro.Models;
+
 using System.ComponentModel.DataAnnotations;
 
-namespace Foro
+namespace Foro.ViewModels
 {
     public class CrearAdmin
     {

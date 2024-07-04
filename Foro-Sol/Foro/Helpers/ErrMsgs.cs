@@ -1,4 +1,4 @@
-﻿namespace Foro
+﻿namespace Foro.Helpers
 {
     public static class ErrMsgs
     {

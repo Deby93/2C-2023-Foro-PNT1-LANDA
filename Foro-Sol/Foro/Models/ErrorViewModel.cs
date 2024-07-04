@@ -1,5 +1,5 @@
 
-namespace Foro
+namespace Foro.Models
 {
     public class ErrorViewModel
     {

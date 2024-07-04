@@ -2,12 +2,15 @@
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Foro.Data;
+using Foro.Helpers;
+using Foro.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Foro
+namespace Foro.Controllers
 {
     [Authorize(Roles = Config.MiembroRolName)]
     public class ReaccionesController : Controller

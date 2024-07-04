@@ -1,4 +1,6 @@
 ﻿
+using Foro.Models;
+
 namespace Foro.ViewModels
 {
     public class Home

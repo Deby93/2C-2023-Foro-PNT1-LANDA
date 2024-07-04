@@ -2,6 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Foro.Data;
+using Foro.Models;
+using Foro.Helpers;
 
 namespace Foro.Controllers
 {

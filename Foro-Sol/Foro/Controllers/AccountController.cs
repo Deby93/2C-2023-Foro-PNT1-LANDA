@@ -2,6 +2,12 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
+using Foro.Data;
+using System.Linq;
+using Foro.ViewModels;
+using Foro.Models;
+using Foro.Helpers;
 
 namespace Foro.Controllers
 {
@@ -24,58 +30,63 @@ namespace Foro.Controllers
             this._signinManager = signinManager;
             this._rolManager = rolManager;
         }
-
+        [HttpGet]
         public ActionResult CrearMiembro()
         {
             return View();
         }
 
-        //[Authorize(Roles = "Miembro,Administrador")]
+         
         [HttpPost]
         public async Task<ActionResult> CrearMiembro(CrearMiembro viewModel)
         {
-            string email = viewModel.Email.ToLower();
 
-            bool emailExists = await _contexto.Usuarios.AnyAsync(u => u.Email == email);
-            if (emailExists)
+            //string email = viewModel.Email.ToLower();
+
+            //           bool emailExists = await _contexto.Usuarios.AnyAsync(u => u.Email == email);
+            var emailExists = _contexto.Usuarios.IgnoreQueryFilters().Any(u => u.NormalizedEmail == viewModel.Email);
+            if (!emailExists)
             {
-                ModelState.AddModelError("Email", "El correo electrónico ya está en uso.");
-                return View(viewModel);
-            }
-
-            if (ModelState.IsValid)
-            {
-                Miembro miembroACrear = new()
+                if (ModelState.IsValid)
                 {
-                    Telefono = viewModel.Telefono,
-                    Nombre = viewModel.Nombre,
-                    Apellido = viewModel.Apellido,
-                    UserName = viewModel.UserName,
-                    Email =  $"{email}{Config.Dominio}".ToLower(),
-                    FechaAlta = DateTime.Now
-                };
-                miembroACrear.UserName = Config.AdministradorEmail;
-                var resultadoCreacion = await _userManager.CreateAsync(miembroACrear, viewModel.Password);
-
-                if (resultadoCreacion.Succeeded)
-                {
-                    var resultado = await _userManager.AddToRoleAsync(miembroACrear, Config.MiembroRolName);
-
-                    if (resultado.Succeeded)
+                    Miembro miembroACrear = new()
                     {
-                        await _signinManager.SignInAsync(miembroACrear, isPersistent: false);
+                        Telefono = viewModel.Telefono,
+                        Nombre = viewModel.Nombre,
+                        Apellido = viewModel.Apellido,
+                        UserName = viewModel.UserName,
+                        Email = $"{viewModel.Email}{Config.Dominio}".ToLower(),
+                        FechaAlta = DateTime.Now
+                    };
+                    miembroACrear.UserName = Config.AdministradorEmail;
+                    var resultadoCreacion = await _userManager.CreateAsync(miembroACrear, viewModel.Password);
 
-                        return RedirectToAction("Index", "Home");
+                    if (resultadoCreacion.Succeeded)
+                    {
+                        var resultado = await _userManager.AddToRoleAsync(miembroACrear, Config.MiembroRolName);
+
+                        if (resultado.Succeeded)
+                        {
+                            await _signinManager.SignInAsync(miembroACrear, isPersistent: false);
+
+                            return RedirectToAction("Index", "Home");
+                        }
+                    }
+
+
+                    foreach (var error in resultadoCreacion.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
                     }
                 }
-
-               
-                foreach (var error in resultadoCreacion.Errors)
+                else
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    ModelState.AddModelError("Email", "El correo electrónico ya está en uso.");
+                    return View(viewModel);
                 }
-            }
 
+
+            }
             return View(viewModel);
         }
 
@@ -119,7 +130,7 @@ namespace Foro.Controllers
                     Nombre = viewModel.Nombre,
                     Apellido = viewModel.Apellido,
                     UserName = viewModel.UserName,
-                    Email = $"{email }{ Config.Dominio }".ToLower(),
+                    Email = $"{email}{Config.Dominio}".ToLower(),
                     FechaAlta = DateTime.Now,
                 };
                 administradorACrear.UserName = userName.ToUpper();
@@ -152,7 +163,12 @@ namespace Foro.Controllers
         [AcceptVerbs("Get", "Post")]
         public async Task<IActionResult> EmailDisponible(string email)
         {
-            var user = await _contexto.Usuarios.FirstOrDefaultAsync(u => u.Email == email);
+            Usuario user = null;
+            if (_contexto.Usuarios.Count() > 0)
+            {
+                user = await _contexto.Usuarios.FirstOrDefaultAsync(u => u.Email == email);
+            }
+
             if (user == null)
             {
                 return Json(true); // Email disponible
@@ -176,10 +192,10 @@ namespace Foro.Controllers
         //        return Json($"El nombre de usuario {userName} ya está en uso.");
         //    }
         //}
-    
-    private async Task CrearRolesBase()
+
+        private async Task CrearRolesBase()
         {
-            List<string> roles = new() {"Miembro", "Administrador"};
+            List<string> roles = new() { "Miembro", "Administrador" };
 
             foreach (string rol in roles)
             {
@@ -209,7 +225,7 @@ namespace Foro.Controllers
             {
                 //var user = await _signinManager.PasswordSignInAsync(ViewModel.Email, ViewModel.Password, ViewModel.RememberMe, false);
                 var usuario = _contexto.Usuarios.FirstOrDefault(p => p.Email == ViewModel.Email || p.UserName == ViewModel.Email);
-       
+
                 if (usuario == null)
                 {
                     ModelState.AddModelError(string.Empty, "Inicio de sesión inválido");

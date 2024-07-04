@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Foro.Data;
+using Foro.Helpers;
+using Foro.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -60,7 +63,7 @@ namespace Foro.Controllers
                 }
             }
         }
-        private static readonly Random random = new Random();
+        private static readonly Random random = new();
 
         private async Task CrearAdministrador()
         {
@@ -72,7 +75,7 @@ namespace Foro.Controllers
             {
                 if (!_contexto.Miembros.Any())
                 {
-                    Random random = new Random();
+                    Random random = new();
                     for (int i = 1; i <= 2; i++) // Cambiado a <= 2 para dos iteraciones
                     {
                         string nombreAleatorio = nombres[random.Next(nombres.Length)];

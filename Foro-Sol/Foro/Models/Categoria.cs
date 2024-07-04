@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Foro.Models;
 
-namespace Foro
+namespace Foro.Models
 {
     public class Categoria
     {

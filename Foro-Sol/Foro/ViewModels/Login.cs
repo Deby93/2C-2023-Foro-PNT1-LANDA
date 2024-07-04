@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Foro.Models;
+using Foro.Helpers;
 
-namespace Foro
+namespace Foro.ViewModels
 {
     
     public class Login

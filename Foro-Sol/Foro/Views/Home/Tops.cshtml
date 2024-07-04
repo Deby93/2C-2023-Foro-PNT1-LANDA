@@ -1,4 +1,8 @@
-﻿@model Foro.ViewModels.Home
+﻿@using Foro.Helpers
+@using Foro.Models
+@using Foro.Controllers
+@using Foro.ViewModels
+@model Foro.ViewModels.Home
 @{
     ViewData["Title"] = "Foro";
     int UsuarioId = 0;
@@ -7,10 +11,10 @@
         UsuarioId = Int32.Parse(User.Claims.First().Value);
     }
 
-    bool EsMiEntrada(Foro.Entrada entrada) => entrada.MiembroId == UsuarioId;
-    bool EstaPrivada(Foro.Entrada entrada) => entrada.Privada ?? false;
-    bool MiembroHabilitado(Foro.Entrada entrada) => entrada.MiembrosHabilitados?.Any(mh => mh.MiembroId == UsuarioId && mh.Habilitado) ?? false;
-    bool MiembroNoHabilitado(Foro.Entrada entrada) => entrada.MiembrosHabilitados?.Any(mh => mh.MiembroId == UsuarioId && !mh.Habilitado) ?? false;
+    bool EsMiEntrada(Foro.Models.Entrada entrada) => entrada.MiembroId == UsuarioId;
+    bool EstaPrivada(Foro.Models.Entrada entrada) => entrada.Privada ?? false;
+    bool MiembroHabilitado(Foro.Models.Entrada entrada) => entrada.MiembrosHabilitados?.Any(mh => mh.MiembroId == UsuarioId && mh.Habilitado) ?? false;
+    bool MiembroNoHabilitado(Foro.Models.Entrada entrada) => entrada.MiembrosHabilitados?.Any(mh => mh.MiembroId == UsuarioId && !mh.Habilitado) ?? false;
 }
 
 <div class="container-fluid mt-3 p-3">

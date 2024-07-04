@@ -1,11 +1,13 @@
-﻿using Foro.ViewModels;
+﻿using Foro.Data;
+using Foro.Models;
+using Foro.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Security.Claims;
 
-namespace Foro
+namespace Foro.Controllers
 {
 
     public class HomeController : Controller

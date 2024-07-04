@@ -1,6 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Foro.Data;
+using Foro.Models;
+using Foro.Migrations;
+using Foro.ViewModels;
+
 
 namespace Foro
 {

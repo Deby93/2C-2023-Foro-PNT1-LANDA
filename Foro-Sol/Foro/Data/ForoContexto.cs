@@ -1,12 +1,17 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Foro.Data;
+using Foro.Models;
+using Foro.Controllers;
+using Foro.Migrations;
+using Foro.ViewModels;
 
-namespace Foro
+namespace Foro.Data
 {
     public class ForoContexto : IdentityDbContext<IdentityUser<int>, IdentityRole<int>, int>
     {
-        public ForoContexto(DbContextOptions options) : base(options)
+        public ForoContexto(DbContextOptions <ForoContexto> options) : base(options)
         {
         }
 

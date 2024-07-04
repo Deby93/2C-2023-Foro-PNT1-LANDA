@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Foro.Helpers;
+using System.ComponentModel.DataAnnotations;
 
-namespace Foro
+namespace Foro.Models
 {
     public class Reaccion
     {

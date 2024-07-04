@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Foro.Helpers;
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
-namespace Foro
+namespace Foro.Models
 {
     public class Rol : IdentityRole<int>
     {

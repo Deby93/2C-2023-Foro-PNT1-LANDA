@@ -1,8 +1,13 @@
-﻿@model IEnumerable<Foro.Entrada>
+﻿@using Foro.Helpers
+@using Foro.Models
+@using Foro.Controllers
+@using Foro.ViewModels
+
+@model IEnumerable<Foro.Models.Entrada>
 
 @{
     ViewData["Title"] = "Detalles";
-    var categoria = ViewBag.unaCategoria as Foro.Categoria;
+    var categoria = ViewBag.unaCategoria as Foro.Models.Categoria;
     var cantidadEntradas = ViewBag.CantidadEntradas;
     var listaDeCategorias = ViewBag.Categorias;
     int UsuarioId = 0;

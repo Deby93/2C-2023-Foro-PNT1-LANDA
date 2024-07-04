@@ -1,10 +1,11 @@
-﻿using Humanizer;
+﻿using Foro.Helpers;
+using Humanizer;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
 
 
-namespace Foro
+namespace Foro.Models
 {
     public class Usuario : IdentityUser<int>
     {

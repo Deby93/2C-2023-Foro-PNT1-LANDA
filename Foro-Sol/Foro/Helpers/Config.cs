@@ -1,4 +1,4 @@
-﻿namespace Foro
+﻿namespace Foro.Helpers
 {
     public class Config
     {
