@@ -28,61 +28,66 @@
                 <div class="card-body">
                     <table class="table">
                         <tbody>
-                            @foreach (var entrada in Model.Top5EntradasConMasPreguntaYRespuestas.Take(5))
+                            @if (Model.Top5EntradasConMasPreguntaYRespuestas != null && Model.Top5EntradasConMasPreguntaYRespuestas.Count() >= 5)
                             {
-                                <div class="card mb-3 peach-bg">
-                                    <h5 class="card-title">@entrada.Titulo</h5>
-                                    <p class="card-text">@entrada.Descripcion</p>
-                                    @if (User.IsInRole(Config.MiembroRolName))
-                                    {
-                                        if (EsMiEntrada(entrada))
+                                @foreach (var entrada in Model.Top5EntradasConMasPreguntaYRespuestas.Take(5))
+                                {
+                                    <div class="card mb-3 peach-bg">
+                                        <h5 class="card-title">@entrada.Titulo</h5>
+                                        <p class="card-text">@entrada.Descripcion</p>
+                                        @if (User.IsInRole(Config.MiembroRolName))
                                         {
-                                            if (EstaPrivada(entrada))
+                                            if (EsMiEntrada(entrada))
                                             {
-                                                <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn btn-purple">Mi Entrada</a>
-                                                <a asp-controller="Entradas" asp-action="SolicitudesPendientes" asp-route-id="@entrada.Id" class="btn btn-purple">Solicitudes pendientes</a>
+                                                if (EstaPrivada(entrada))
+                                                {
+                                                    <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn btn-purple">Mi Entrada</a>
+                                                    <a asp-controller="Entradas" asp-action="SolicitudesPendientes" asp-route-id="@entrada.Id" class="btn btn-purple">Solicitudes pendientes</a>
+                                                }
+                                                else
+                                                {
+                                                    <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn btn-purple">Mi Entrada</a>
+                                                }
                                             }
                                             else
                                             {
-                                                <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn btn-purple">Mi Entrada</a>
+                                                if (EstaPrivada(entrada))
+                                                {
+                                                    if (MiembroHabilitado(entrada))
+                                                    {
+                                                        <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn peach-button">Aprobada</a>
+                                                    }
+                                                    else if (MiembroNoHabilitado(entrada))
+                                                    {
+                                                        <a class="btn privacy-btn privada">Pendiente de aprobación</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a id="btnAprobacion" asp-controller="Entradas" asp-action="SolicitarAprobacion" asp-route-id="@entrada.Id" class="btn privacy-btn privada">Privada</a>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn privacy-btn publica">Pública</a>
+                                                }
                                             }
                                         }
                                         else
                                         {
                                             if (EstaPrivada(entrada))
                                             {
-                                                if (MiembroHabilitado(entrada))
-                                                {
-                                                    <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn peach-button">Aprobada</a>
-                                                }
-                                                else if (MiembroNoHabilitado(entrada))
-                                                {
-                                                    <a class="btn privacy-btn privada">Pendiente de aprobación</a>
-                                                }
-                                                else
-                                                {
-                                                    <a id="btnAprobacion" asp-controller="Entradas" asp-action="SolicitarAprobacion" asp-route-id="@entrada.Id" class="btn privacy-btn privada">Privada</a>
-                                                }
+                                                <a id="btnAprobacion" asp-route-id="@entrada.Id" class="btn privacy-btn privada">Privada</a>
                                             }
                                             else
                                             {
                                                 <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn privacy-btn publica">Pública</a>
                                             }
                                         }
-                                    }
-                                    else
-                                    {
-                                        if (EstaPrivada(entrada))
-                                        {
-                                            <a id="btnAprobacion" asp-route-id="@entrada.Id" class="btn privacy-btn privada">Privada</a>
-                                        }
-                                        else
-                                        {
-                                            <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn privacy-btn publica">Pública</a>
-                                        }
-                                    }
-                                </div>
+                                    </div>
+                                }
                             }
+
+
                         </tbody>
                     </table>
                 </div>
@@ -97,61 +102,67 @@
                 <div class="card-body">
                     <table class="table">
                         <tbody>
-                            @foreach (var entrada in Model.Top5EntradasMasRecientes)
+
+                            @if (Model.Top5EntradasMasRecientes != null && Model.Top5EntradasMasRecientes.Count() >= 5)
                             {
-                                <div class="card mb-3 peach-bg">
-                                    <h5 class="card-title">@entrada.Titulo</h5>
-                                    <p class="card-text">@entrada.Descripcion</p>
-                                    @if (User.IsInRole(Config.MiembroRolName))
-                                    {
-                                        if (EsMiEntrada(entrada))
+                                @foreach (var entrada in Model.Top5EntradasMasRecientes)
+                                {
+                                    <div class="card mb-3 peach-bg">
+                                        <h5 class="card-title">@entrada.Titulo</h5>
+                                        <p class="card-text">@entrada.Descripcion</p>
+                                        @if (User.IsInRole(Config.MiembroRolName))
                                         {
-                                            if (EstaPrivada(entrada))
+                                            if (EsMiEntrada(entrada))
                                             {
-                                                <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn btn-purple">Mi Entrada</a>
-                                                <a asp-controller="Entradas" asp-action="SolicitudesPendientes" asp-route-id="@entrada.Id" class="btn btn-purple">Solicitudes pendientes</a>
+                                                if (EstaPrivada(entrada))
+                                                {
+                                                    <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn btn-purple">Mi Entrada</a>
+                                                    <a asp-controller="Entradas" asp-action="SolicitudesPendientes" asp-route-id="@entrada.Id" class="btn btn-purple">Solicitudes pendientes</a>
+                                                }
+                                                else
+                                                {
+                                                    <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn btn-purple">Mi Entrada</a>
+                                                }
                                             }
                                             else
                                             {
-                                                <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn btn-purple">Mi Entrada</a>
+                                                if (EstaPrivada(entrada))
+                                                {
+                                                    if (MiembroHabilitado(entrada))
+                                                    {
+                                                        <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn peach-button">Aprobada</a>
+                                                    }
+                                                    else if (MiembroNoHabilitado(entrada))
+                                                    {
+                                                        <a class="btn privacy-btn privada">Pendiente de aprobación</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a id="btnAprobacion" asp-controller="Entradas" asp-action="SolicitarAprobacion" asp-route-id="@entrada.Id" class="btn privacy-btn privada">Privada</a>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn privacy-btn publica">Pública</a>
+                                                }
                                             }
                                         }
                                         else
                                         {
                                             if (EstaPrivada(entrada))
                                             {
-                                                if (MiembroHabilitado(entrada))
-                                                {
-                                                    <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn peach-button">Aprobada</a>
-                                                }
-                                                else if (MiembroNoHabilitado(entrada))
-                                                {
-                                                    <a class="btn privacy-btn privada">Pendiente de aprobación</a>
-                                                }
-                                                else
-                                                {
-                                                    <a id="btnAprobacion" asp-controller="Entradas" asp-action="SolicitarAprobacion" asp-route-id="@entrada.Id" class="btn privacy-btn privada">Privada</a>
-                                                }
+                                                <a id="btnAprobacion" asp-route-id="@entrada.Id" class="btn privacy-btn privada">Privada</a>
                                             }
                                             else
                                             {
                                                 <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn privacy-btn publica">Pública</a>
                                             }
                                         }
-                                    }
-                                    else
-                                    {
-                                        if (EstaPrivada(entrada))
-                                        {
-                                            <a id="btnAprobacion" asp-route-id="@entrada.Id" class="btn privacy-btn privada">Privada</a>
-                                        }
-                                        else
-                                        {
-                                            <a asp-controller="Entradas" asp-action="Details" asp-route-id="@entrada.Id" class="btn privacy-btn publica">Pública</a>
-                                        }
-                                    }
-                                </div>
+                                    </div>
+                                }
+
                             }
+
                         </tbody>
                     </table>
                 </div>

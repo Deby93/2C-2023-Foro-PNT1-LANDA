@@ -65,8 +65,13 @@ namespace Foro.Controllers
         }
         private List<Miembro> ObtenerTop3(IQueryable<Entrada> entradasUltimoMesAux)
         {
-            int cant = _contexto.Usuarios.Count();
-            int[] cantidadDeEntradasPorMiembro = new int[cant];
+            int maxMiembroId = entradasUltimoMesAux.Max(e => e.MiembroId);
+
+            int[] cantidadDeEntradasPorMiembro = new int[maxMiembroId];
+
+
+            //int cant = _contexto.Usuarios.Count();
+            //int[] cantidadDeEntradasPorMiembro = new int[cant];
             foreach (Entrada e in entradasUltimoMesAux)
             {
                 cantidadDeEntradasPorMiembro[e.MiembroId - 1]++;

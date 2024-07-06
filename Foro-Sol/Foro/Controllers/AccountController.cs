@@ -41,9 +41,7 @@ namespace Foro.Controllers
         public async Task<ActionResult> CrearMiembro(CrearMiembro viewModel)
         {
 
-            //string email = viewModel.Email.ToLower();
-
-            //           bool emailExists = await _contexto.Usuarios.AnyAsync(u => u.Email == email);
+           
             var emailExists = _contexto.Usuarios.IgnoreQueryFilters().Any(u => u.NormalizedEmail == viewModel.Email);
             if (!emailExists)
             {
@@ -55,10 +53,10 @@ namespace Foro.Controllers
                         Nombre = viewModel.Nombre,
                         Apellido = viewModel.Apellido,
                         UserName = viewModel.UserName,
-                        Email = $"{viewModel.Email}{Config.Dominio}".ToLower(),
+                        Email = $"{viewModel.Email}".ToLower(),
                         FechaAlta = DateTime.Now
                     };
-                    miembroACrear.UserName = Config.AdministradorEmail;
+                    //miembroACrear.UserName = Config.AdministradorEmail;
                     var resultadoCreacion = await _userManager.CreateAsync(miembroACrear, viewModel.Password);
 
                     if (resultadoCreacion.Succeeded)
