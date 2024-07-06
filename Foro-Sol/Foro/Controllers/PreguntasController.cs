@@ -1,5 +1,4 @@
-﻿using Foro.Data;
-using Foro.Helpers;
+﻿using Foro.Helpers;
 using Foro.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -25,7 +24,6 @@ namespace Foro.Controllers
 
         }
 
-        // GET: Preguntas
         [Authorize(Roles = Config.MiembroRolName)]
 
         public async Task<IActionResult> Index()
@@ -34,7 +32,6 @@ namespace Foro.Controllers
             return View(preguntas);
         }
 
-        // GET: Preguntas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -115,7 +112,7 @@ namespace Foro.Controllers
             return View(pregunta);
         }
 
-        // GET: Preguntas/Edit/5
+        [HttpGet]
         [Authorize(Roles = Config.MiembroRolName)]
 
         public async Task<IActionResult> Edit(int? id)
@@ -135,7 +132,7 @@ namespace Foro.Controllers
             return View(pregunta);
         }
 
-        [HttpPost]
+    
         [ValidateAntiForgeryToken]
         [HttpPost]
         [Authorize(Roles = Config.MiembroRolName)]
@@ -190,7 +187,7 @@ namespace Foro.Controllers
 
 
 
-        // GET: Preguntas/Delete/5
+        [HttpGet]
         [Authorize(Roles = Config.MiembroRolName)]
 
         public async Task<IActionResult> Delete(int? id)

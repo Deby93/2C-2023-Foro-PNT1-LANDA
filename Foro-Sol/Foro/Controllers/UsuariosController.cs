@@ -1,4 +1,4 @@
-﻿using Foro.Data;
+﻿
 using Foro.Helpers;
 using Foro.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -24,14 +24,12 @@ namespace Foro.Controllers
         }
 
 
-        // GET: Usuarios
         public async Task<IActionResult> Index()
         {
             var administradores = _userManager.GetUsersInRoleAsync("ADMINISTRADOR").Result;
             return View(administradores);
         }
 
-        // GET: Usuarios/Details/5
         [Authorize(Roles = Config.AdministradorRolName)]
 
         public async Task<IActionResult> Details(int? id)
@@ -53,7 +51,6 @@ namespace Foro.Controllers
 
         
 
-        // GET: Usuarios/Create
         [HttpGet]
         public IActionResult Create()
         {
@@ -74,13 +71,12 @@ namespace Foro.Controllers
                 usuario.FechaAlta = DateTime.Now;
                 
                 var resultadoCreacionUsuario = await _userManager.CreateAsync(usuario, Config.GenericPass);
-                // se pone Usuarios para que la variable sea del mismo tipo la que viene x parametro
                 if (resultadoCreacionUsuario.Succeeded)
                 {
                     IdentityResult resultadoAddRol;
                     string rolDefinido;
 
-                        rolDefinido = Config.Administrador;
+                        rolDefinido = Config.AdministradorRolName;
                    
                    
                     resultadoAddRol = await _userManager.AddToRoleAsync(usuario, rolDefinido);
@@ -117,7 +113,6 @@ namespace Foro.Controllers
             return View(usuario);
         }
 
-        // POST: Usuarios/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Apellido,Email, UserName")] Usuario usuario)
@@ -154,43 +149,6 @@ namespace Foro.Controllers
             }
             return View(usuario);
         }
-
-
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id == null || _context.Usuarios == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var usuario = await _context.Usuarios
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (usuario == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(usuario);
-        //}
-
-        //// POST: Usuarios/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    if (_context.Usuarios == null)
-        //    {
-        //        return Problem("Entity set 'ForoContexto.Usuarios'  is null.");
-        //    }
-        //    var usuario = await _context.Usuarios.FindAsync(id);
-        //    if (usuario != null )
-        //    {
-        //        _context.Usuarios.Remove(usuario);
-        //    }
-            
-        //    _context.SaveChanges();
-        //    return RedirectToAction(nameof(Index));
-        //}
 
         private bool UsuarioExists(int id)
         {

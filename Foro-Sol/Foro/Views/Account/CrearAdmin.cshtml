@@ -1,8 +1,6 @@
 ﻿@using Foro.Helpers
-@using Foro.Models
-@using Foro.ViewModels
 
-@model Foro.ViewModels.CrearAdmin
+@model CrearAdmin
 
 @{
     ViewData["Title"] = "Crear Administrador";
@@ -49,3 +47,8 @@
 }
 
 
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

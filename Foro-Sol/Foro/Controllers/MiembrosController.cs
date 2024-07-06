@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Foro.Data;
 using Foro.Models;
 using Foro.Helpers;
 
@@ -23,7 +22,8 @@ namespace Foro.Controllers
             _userManager = userManager;
             _signinManager = signinManager;
         }
-        // GET: Miembros
+
+
         public async Task<IActionResult> Index()
         {
 

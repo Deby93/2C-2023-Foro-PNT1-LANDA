@@ -1,5 +1,4 @@
-﻿using Foro.Data;
-using Foro.Helpers;
+﻿using Foro.Helpers;
 using Foro.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -23,13 +22,11 @@ namespace Foro
             _signinManager = signinManager;
         }
 
-        // GET: Categorias
         public async Task<IActionResult> Index()
         {
             return View(await _contexto.Categorias.OrderBy(c => c.Nombre).ToListAsync());
         }
 
-        // GET: Categorias/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -40,7 +37,7 @@ namespace Foro
             Categoria unaCategoria= _contexto.Categorias.FirstOrDefault(c => c.CategoriaId == id);
             }
             var categoria = await _contexto.Categorias
-                .Include(c => c.Entradas) // Incluir las entradas relacionadas con la categoría
+                .Include(c => c.Entradas)
                 .FirstOrDefaultAsync(cate => cate.CategoriaId == id);
           
 
@@ -72,9 +69,8 @@ namespace Foro
             }
             return View(listaDeEntradas);
         }
-
+        [HttpGet]
         [Authorize(Roles = Config.AdministradorRolName + "," + Config.MiembroRolName)]
-        // GET: Categorias/Create
 
         public IActionResult Create()
         {
@@ -105,7 +101,7 @@ namespace Foro
             return View(categoria);
         }
 
-        // GET: Categorias/Edit/5
+        [HttpGet]
         [Authorize(Roles = Config.AdministradorRolName + "," + Config.MiembroRolName)]
 
         public async Task<IActionResult> Edit(int? id)

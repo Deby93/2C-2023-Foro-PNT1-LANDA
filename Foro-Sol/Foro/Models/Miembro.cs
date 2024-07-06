@@ -24,7 +24,6 @@ namespace Foro.Models
 
         public List<MiembrosHabilitados>? MiembrosHabilitados { get; set; }
 
-        //listas inicializadas
         public Miembro()
         {
             PreguntasYRespuestasQueMeGustan = new List<Reaccion>();

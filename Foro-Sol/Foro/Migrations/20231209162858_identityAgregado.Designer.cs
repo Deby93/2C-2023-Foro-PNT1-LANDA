@@ -1,6 +1,5 @@
 ﻿using System;
 using Foro;
-using Foro.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;

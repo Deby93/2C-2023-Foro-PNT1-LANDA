@@ -42,5 +42,10 @@
     <a id="botonRegistrar" asp-controller="Account" asp-action="CrearMiembro" style="color: #A65341; text-align: right;">Registrate ahora</a>
 
 </div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
 
 

@@ -19,7 +19,6 @@ namespace Foro.ViewModels
         [Display(Name = Alias.Contraseña)]
         [Required(ErrorMessage = ErrMsgs.Requerido)]
         [DataType(DataType.Password)]
-        //[MinLength(9, ErrorMessage = ErrMsgs.StrMaxMin)]
         public string? Password { get; set; }
 
         [Display(Name = "Recordarme")]

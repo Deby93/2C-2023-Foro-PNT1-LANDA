@@ -11,7 +11,6 @@ namespace Foro.Models
     {
         #region Propiedades
   
-    //    public int Id { get; set; }
 
         [Display(Name = Alias.Nombre)]
         [Required(ErrorMessage = ErrMsgs.Requerido)]

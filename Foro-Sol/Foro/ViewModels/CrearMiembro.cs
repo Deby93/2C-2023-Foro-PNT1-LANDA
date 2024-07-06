@@ -1,9 +1,8 @@
 ﻿using Foro.Helpers;
-using Foro.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
-namespace Foro.ViewModels
+namespace Foro
 {
     public class CrearMiembro
     {
@@ -48,7 +47,7 @@ namespace Foro.ViewModels
         public string? ConfirmPassword { get; set; }
 
 
-     
+
 
     }
 }

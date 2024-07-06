@@ -1,5 +1,4 @@
-﻿using Foro.Data;
-using Foro.Helpers;
+﻿using Foro.Helpers;
 using Foro.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -25,7 +24,6 @@ namespace Foro.Controllers
             _signinManager = signinManager;
         }
 
-        // GET: MiembrosHabilitados
         public async Task<IActionResult> Index()
         {
             var foroContexto = _contexto.MiembrosHabilitados.Include(m => m.Entrada).Include(m => m.Miembro);

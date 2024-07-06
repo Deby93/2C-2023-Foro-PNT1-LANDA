@@ -10,7 +10,6 @@ namespace Foro.Models
         #region Propiedades
         public int CategoriaId { get; set; }
         [Required(ErrorMessage = "El nombre de la categoría es requerido.")]
-       // [Remote("ValidateCategoriaNombre", "Categoria", HttpMethod = "POST", ErrorMessage = "Ya existe una categoría con este nombre.")]
         public string Nombre { get; set; }
 
         

@@ -1,85 +1,112 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Foro.Data;
+﻿using Foro.Controllers;
 using Foro.Models;
-using Foro.Migrations;
-using Foro.ViewModels;
-
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Foro
 {
-    public static class Startup
-
-
+    public class Startup
     {
-        public static WebApplication InicializarApp(string[]args)
+        public Startup(IConfiguration configuration)
         {
-            var builder= WebApplication.CreateBuilder(args);
-            ConfigureServices(builder);
-            var app= builder.Build();
-            Configure(app);
-            return app;
-        }
-        private static void ConfigureServices(WebApplicationBuilder builder)
-        {
-            // builder.Services.AddDbContext<ForoContexto>(options => options.UseInMemoryDatabase("ForoDb"));
-            builder.Services.AddDbContext<ForoContexto>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ForoDBCS")));
+            Configuration = configuration;
 
-            #region Identity
-
-           builder.Services.AddIdentity<Usuario, Rol>().AddEntityFrameworkStores<ForoContexto>();
-            builder.Services.Configure<IdentityOptions>(options =>
+            #region Tipo de DB Provider a usar
+            try
             {
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireDigit = false;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequiredLength = 5;
-            });
-
+                _dbInMemory = Configuration.GetValue<bool>("DbInMem");
+            }
+            catch
+            {
+                _dbInMemory = true;
+            }
             #endregion
 
-            builder.Services.PostConfigure<CookieAuthenticationOptions>(IdentityConstants.ApplicationScheme,
-               opciones =>
-               {
-                   opciones.LoginPath = "/Account/IniciarSesion";
-                   opciones.AccessDeniedPath = "/Account/AccesoDenegado";
-                   opciones.Cookie.Name = "IdentidadForoApp";
-               });
-            builder.Services.AddControllersWithViews();
-
 
         }
-        
 
-        private static void Configure(WebApplication app)
+        public IConfiguration Configuration { get; }
+
+        public bool _dbInMemory = false;
+
+        public void ConfigureServices(IServiceCollection services)
         {
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
+            #region Tipo de DB provider a usar
+            if (_dbInMemory)
+            {
+                services.AddDbContext<ForoContexto>(options => options.UseInMemoryDatabase("ForoDB-Landa-2A"));
+            }
+            else
+            {
+                services.AddDbContext<ForoContexto>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("ForoDBCS"))
+                );
+            }
+            #endregion
+
+            services.AddScoped<PreCarga>();
+
+            #region Identity
+            services.AddIdentity<Usuario, Rol>().AddEntityFrameworkStores<ForoContexto>();
+
+            services.Configure<IdentityOptions>(
+                opciones =>
+                {
+                    opciones.Password.RequiredLength = 8;
+                }
+                );
+            #endregion
+
+            services.PostConfigure<CookieAuthenticationOptions>(IdentityConstants.ApplicationScheme,
+                opciones =>
+                {
+                    opciones.LoginPath = "/Account/IniciarSesion";
+                    opciones.AccessDeniedPath = "/Account/AccesoDenegado";
+                });
+
+            services.AddControllersWithViews();
+        }
+
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ForoContexto foroContext)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
             {
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
-                {
-                    throw new NotImplementedException();
-                }
             }
-
-
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var contexto = serviceScope.ServiceProvider.GetRequiredService<ForoContexto>();
+
+                if (!_dbInMemory)
+                {
+                    foroContext.Database.Migrate();
+
+                }
+                serviceScope.ServiceProvider.GetService<PreCarga>().Seed().Wait();
+            }
 
             app.UseRouting();
 
             app.UseAuthentication();
-
             app.UseAuthorization();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+            }
+            );
         }
-           }
+    }
 }

@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Foro.Data;
 using Foro.Helpers;
 using Foro.Models;
 using Microsoft.AspNetCore.Authorization;

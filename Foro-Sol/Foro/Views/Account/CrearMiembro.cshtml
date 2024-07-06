@@ -1,6 +1,4 @@
-﻿@using Foro.Models
-@using Foro.ViewModels
-@model Foro.ViewModels.CrearMiembro
+﻿@model CrearMiembro
 
 @{
     ViewData["Title"] = "CrearMiembro";
@@ -34,12 +32,13 @@
                 <input asp-for="UserName" class="form-control" />
                 <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
-           
+
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
                 <div class="input-group">
@@ -65,4 +64,8 @@
     </div>
 </div>
 
-
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

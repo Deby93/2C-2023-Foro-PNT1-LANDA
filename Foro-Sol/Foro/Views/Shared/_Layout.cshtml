@@ -1,5 +1,4 @@
-﻿@using Foro.Helpers
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -28,7 +27,7 @@
                         @if (singInManager.IsSignedIn(User))
                         {
 
-                            if (!User.IsInRole(Config.Administrador))
+                            if (!User.IsInRole(Foro.Helpers.Config.AdministradorRolName))
                             {
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -132,12 +131,12 @@
     <footer class="border-top footer text-muted">
         <div class="container">
 
-            @if (!User.Identity.IsAuthenticated)
+          @*   @if (!User.Identity.IsAuthenticated)
             {
                 <span id="mensaje" style="color: #A65341; display: none;">Clickea el botón para cargar la base de datos.</span>
                 <span id="mensajeClic" style="color: #A65341; display: none;">Cargando la base de datos, por favor espera...</span>
                 <button id="botonPrecarga" class="btn btn-stm btn-bordo">PRECARGA</button>
-            }
+            } *@
             
             Copyright 2020/2024 | Azúcar - Derechos reservados.
         </div>
@@ -148,38 +147,34 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
-    <script>
+   @*  <script>
         var botonPrecarga = document.getElementById("botonPrecarga");
         var mensaje = document.getElementById("mensaje");
         var mensajeClic = document.getElementById("mensajeClic");
 
         botonPrecarga.addEventListener("mouseover", function () {
-            mensaje.style.display = "block"; // "block" es para mostrar el mensaje mientras se pasa por arriba del boton
+            mensaje.style.display = "block";
         });
 
-        // Agregar un evento mouseout al botón de precarga
+        
         botonPrecarga.addEventListener("mouseout", function () {
-            // Ocultar el mensaje cuando el cursor sale del botón
+       
             mensaje.style.display = "none";
         });
 
-        // Agregar un evento click al botón de precarga
+        
         botonPrecarga.addEventListener("click", function (event) {
-            // Deshabilitar el botón
-            botonPrecarga.disabled = true;
-            // Mostrar mensaje de carga
+                     botonPrecarga.disabled = true;
+            
             mensaje.style.display = "none";
             mensajeClic.style.display = "block";
 
-            // Simular una solicitud asincrónica
             setTimeout(function () {
-                // Redirigir a la acción de precarga
                 window.location.href = '@Url.Action("Seed", "PreCarga")';
-            }, 1000); // 1000ms = 1 segundo, puede ajustarse si es necesario
-
-            // Prevenir la acción predeterminada del botón
+            }, 1000); 
+       
             event.preventDefault();
-        });
-    </script>
+        }); 
+    </script>*@
 </body>
 </html>

@@ -1,5 +1,4 @@
-﻿using Foro.Data;
-using Foro.Models;
+﻿using Foro.Models;
 using Foro.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -70,8 +69,7 @@ namespace Foro.Controllers
             int[] cantidadDeEntradasPorMiembro = new int[maxMiembroId];
 
 
-            //int cant = _contexto.Usuarios.Count();
-            //int[] cantidadDeEntradasPorMiembro = new int[cant];
+           
             foreach (Entrada e in entradasUltimoMesAux)
             {
                 cantidadDeEntradasPorMiembro[e.MiembroId - 1]++;

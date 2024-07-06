@@ -38,10 +38,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmlhc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/twatd/OneDrive/Escritorio/proyecto/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Categorias/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmlhc1xEZWxldGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/twatd/OneDrive/Escritorio/proyecto/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Categorias/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmlhc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -98,32 +94,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxUb3BzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/twatd/OneDrive/Escritorio/proyecto/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/MiembrosHabilitados/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWllbWJyb3NIYWJpbGl0YWRvc1xDcmVhdGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/twatd/OneDrive/Escritorio/proyecto/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/MiembrosHabilitados/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWllbWJyb3NIYWJpbGl0YWRvc1xEZWxldGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/twatd/OneDrive/Escritorio/proyecto/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/MiembrosHabilitados/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWllbWJyb3NIYWJpbGl0YWRvc1xEZXRhaWxzLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/twatd/OneDrive/Escritorio/proyecto/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/MiembrosHabilitados/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWllbWJyb3NIYWJpbGl0YWRvc1xFZGl0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/twatd/OneDrive/Escritorio/proyecto/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/MiembrosHabilitados/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWllbWJyb3NIYWJpbGl0YWRvc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/twatd/OneDrive/Escritorio/proyecto/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Miembros/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWllbWJyb3NcQ3JlYXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/twatd/OneDrive/Escritorio/proyecto/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Miembros/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWllbWJyb3NcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/twatd/OneDrive/Escritorio/proyecto/2C-2023-Foro-PNT1-LANDA/Foro-Sol/Foro/Views/Miembros/Details.cshtml]

@@ -1,5 +1,4 @@
-﻿using Foro.Data;
-using Foro.Helpers;
+﻿using Foro.Helpers;
 using Foro.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -28,7 +27,6 @@ namespace Foro.Controllers
 
         public ActionResult Index()
         {
-            // Obtener la entrada con más dislikes
             var entradaConMasDislikes = _contexto.Entradas
                 .Include(e => e.Preguntas)
                     .ThenInclude(p => p.Respuestas)
@@ -43,7 +41,6 @@ namespace Foro.Controllers
                 .OrderByDescending(x => x.Dislikes)
                 .FirstOrDefault();
 
-            // Obtener el ID de la entrada con más dislikes
             int? idEntradaConMasDislikes = null;
             if (entradaConMasDislikes != null)
             {
@@ -52,12 +49,11 @@ namespace Foro.Controllers
 
             ViewBag.EntradaConMasDislikesId = idEntradaConMasDislikes;
 
-            // Obtener las entradas para la vista, incluyendo las relaciones necesarias
             var entradas = _contexto.Entradas
                 .Include(e => e.Preguntas)
                     .ThenInclude(p => p.Respuestas)
                         .ThenInclude(r => r.Reacciones)
-                .Include(e => e.MiembrosHabilitados) // Incluir MiembrosHabilitados
+                .Include(e => e.MiembrosHabilitados) 
         .ToList();
 
             return View(entradas);
@@ -129,8 +125,9 @@ namespace Foro.Controllers
             return View();
         }
 
+        [HttpPost]
+
         [Authorize(Roles = Config.MiembroRolName)]
-        // GET: Entradas/Create
         public async Task<IActionResult> Create([Bind("EntradaId,Titulo,Descripcion,CategoriaId, Fecha,Privada,Categoria,")] Entrada entrada)
         {
             var MiembroIdEncontrado = Int32.Parse(_userManager.GetUserId(User));
@@ -244,7 +241,6 @@ namespace Foro.Controllers
         }
 
         [Authorize(Roles = Config.AdministradorRolName)]
-        // GET: Entradas/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _contexto.Entradas == null)

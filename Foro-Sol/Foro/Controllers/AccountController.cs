@@ -1,13 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Foro.Helpers;
+using Foro.Models;
+using Foro.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using Foro.Data;
-using System.Linq;
-using Foro.ViewModels;
-using Foro.Models;
-using Foro.Helpers;
 
 namespace Foro.Controllers
 {
@@ -30,61 +27,53 @@ namespace Foro.Controllers
             this._signinManager = signinManager;
             this._rolManager = rolManager;
         }
-        [HttpGet]
+
         public ActionResult CrearMiembro()
         {
             return View();
         }
 
-         
         [HttpPost]
         public async Task<ActionResult> CrearMiembro(CrearMiembro viewModel)
         {
-
-           
-            var emailExists = _contexto.Usuarios.IgnoreQueryFilters().Any(u => u.NormalizedEmail == viewModel.Email);
-            if (!emailExists)
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                Miembro miembroACrear = new();
+                miembroACrear.Nombre = viewModel.Nombre;
+                miembroACrear.Telefono = viewModel.Telefono;
+                miembroACrear.Apellido = viewModel.Apellido;
+                miembroACrear.UserName = viewModel.UserName;
+                miembroACrear.Email = viewModel.Email;
+                miembroACrear.FechaAlta = DateTime.Now;
+
+
+                var resultadoCreacion = await _userManager.CreateAsync(miembroACrear, viewModel.Password);
+
+                if (resultadoCreacion.Succeeded)
                 {
-                    Miembro miembroACrear = new()
+
+
+                    if (!_rolManager.Roles.Any())
                     {
-                        Telefono = viewModel.Telefono,
-                        Nombre = viewModel.Nombre,
-                        Apellido = viewModel.Apellido,
-                        UserName = viewModel.UserName,
-                        Email = $"{viewModel.Email}".ToLower(),
-                        FechaAlta = DateTime.Now
-                    };
-                    //miembroACrear.UserName = Config.AdministradorEmail;
-                    var resultadoCreacion = await _userManager.CreateAsync(miembroACrear, viewModel.Password);
-
-                    if (resultadoCreacion.Succeeded)
-                    {
-                        var resultado = await _userManager.AddToRoleAsync(miembroACrear, Config.MiembroRolName);
-
-                        if (resultado.Succeeded)
-                        {
-                            await _signinManager.SignInAsync(miembroACrear, isPersistent: false);
-
-                            return RedirectToAction("Index", "Home");
-                        }
+                        await CrearRolesBase();
                     }
 
+                    var resultado = await _userManager.AddToRoleAsync(miembroACrear, Config.MiembroRolName);
 
-                    foreach (var error in resultadoCreacion.Errors)
+                    if (resultado.Succeeded)
                     {
-                        ModelState.AddModelError(string.Empty, error.Description);
+                        await _signinManager.SignInAsync(miembroACrear, isPersistent: false);
+                        return RedirectToAction("Index", "Home");
                     }
+
                 }
-                else
+
+                foreach (var error in resultadoCreacion.Errors)
                 {
-                    ModelState.AddModelError("Email", "El correo electrónico ya está en uso.");
-                    return View(viewModel);
+                    ModelState.AddModelError(string.Empty, error.Description);
                 }
-
-
             }
+
             return View(viewModel);
         }
 
@@ -115,35 +104,30 @@ namespace Foro.Controllers
                 string baseUserName = "Administrador";
                 string userName = baseUserName;
 
-                // Generar un nombre de usuario único
                 while (await _userManager.FindByNameAsync(userName) != null)
                 {
                     userName = baseUserName + i;
                     i++;
                 }
 
-                // Crear el nuevo usuario administrador
                 Usuario administradorACrear = new()
                 {
                     Nombre = viewModel.Nombre,
                     Apellido = viewModel.Apellido,
                     UserName = viewModel.UserName,
-                    Email = $"{email}{Config.Dominio}".ToLower(),
+                    Email = $"{userName}{Config.Dominio}".ToLower(),
                     FechaAlta = DateTime.Now,
                 };
                 administradorACrear.UserName = userName.ToUpper();
 
-                // Guardar el nuevo usuario en la base de datos
                 var resultadoCreacion = await _userManager.CreateAsync(administradorACrear, Config.GenericPass);
 
                 if (resultadoCreacion.Succeeded)
                 {
-                    // Agregar el nuevo administrador al rol correspondiente
                     var resultado = await _userManager.AddToRoleAsync(administradorACrear, Config.AdministradorRolName);
 
                     if (resultado.Succeeded)
                     {
-                        // Opcionalmente, podrías redirigir a otra página aquí
                         return RedirectToAction("Index", "Home");
                     }
                 }
@@ -154,42 +138,61 @@ namespace Foro.Controllers
                 }
             }
 
-            // Si hay errores de validación o el proceso de creación no tuvo éxito, retornar la vista con el modelo
             return View(viewModel);
         }
 
-        [AcceptVerbs("Get", "Post")]
+
+        [HttpGet]
         public async Task<IActionResult> EmailDisponible(string email)
         {
-            Usuario user = null;
-            if (_contexto.Usuarios.Count() > 0)
+            if (_signinManager.IsSignedIn(User) && User.IsInRole("Usuario"))
             {
-                user = await _contexto.Usuarios.FirstOrDefaultAsync(u => u.Email == email);
-            }
-
-            if (user == null)
-            {
-                return Json(true); // Email disponible
+                var emailUsado = await _userManager.FindByIdAsync(email);
+                if (email.Length > 10 && (email.Substring(email.Length - 10) == "@admin.com"))
+                {
+                    if (emailUsado == null)
+                    {
+                        return Json(true);
+                    }
+                    else
+                    {
+                        return Json($"El correo {email} ya está en uso!");
+                    }
+                }
+                else
+                {
+                    return Json($"El correo {email} es invalido, Ingrese en el siguiente formato: Example@admin.com");
+                }
             }
             else
             {
-                return Json($"El correo electrónico {email} ya está en uso.");
+                var emailUsado = _contexto.Usuarios.Any(p => p.Email == email);
+
+                if (email.Length > 10 && !(email.Substring(email.Length - 10) == "@admin.com") && !emailUsado)
+                {
+                    return Json(true);
+                }
+                else
+                {
+                    return Json($"El correo {email} ya está en uso o no corresponde al tipo de mail valido ");
+                }
             }
+
         }
 
-        //[AcceptVerbs("Get", "Post")]
-        //public async Task<IActionResult> UsuarioDisponible(string userName)
-        //{
-        //    var user = await _contexto.Usuarios.FirstOrDefaultAsync(u => u.UserName == userName);
-        //    if (user == null)
-        //    {
-        //        return Json(true); // Nombre de usuario disponible
-        //    }
-        //    else
-        //    {
-        //        return Json($"El nombre de usuario {userName} ya está en uso.");
-        //    }
-        //}
+        [HttpGet]
+        public IActionResult UsuarioDisponible(string username)
+        {
+            var usuarioUsado = _contexto.Usuarios.FirstOrDefault(p => p.UserName == username);
+            if (usuarioUsado == null)
+            {
+                return Json(true);
+            }
+            else
+            {
+                return Json($"El Usuario {username} ya está en uso.");
+            }
+        }
 
         private async Task CrearRolesBase()
         {
@@ -221,7 +224,6 @@ namespace Foro.Controllers
             string returnUrl = TempData["returnUrl"] as string;
             if (ModelState.IsValid)
             {
-                //var user = await _signinManager.PasswordSignInAsync(ViewModel.Email, ViewModel.Password, ViewModel.RememberMe, false);
                 var usuario = _contexto.Usuarios.FirstOrDefault(p => p.Email == ViewModel.Email || p.UserName == ViewModel.Email);
 
                 if (usuario == null)

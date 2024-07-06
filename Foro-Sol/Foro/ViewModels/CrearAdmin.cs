@@ -1,11 +1,8 @@
-﻿
-
-using Foro.Helpers;
-using Foro.Models;
-
+﻿using Foro.Helpers;
+using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
-namespace Foro.ViewModels
+namespace Foro
 {
     public class CrearAdmin
     {
@@ -20,11 +17,13 @@ namespace Foro.ViewModels
         public string? Apellido { get; set; }
 
         [Required(ErrorMessage = ErrMsgs.Requerido)]
+        [Remote(action: "UsuarioDisponible", controller: "Account")]
         [Display(Name = Alias.UserName)]
         public string? UserName { get; set; }
 
         [Required(ErrorMessage = ErrMsgs.Requerido)]
         [EmailAddress(ErrorMessage = ErrMsgs.NoValido)]
+        [Remote(action: "EmailDisponible", controller: "Account")]
         [Display(Name = "Correo Electronico")]
         public string? Email { get; set; }
 
