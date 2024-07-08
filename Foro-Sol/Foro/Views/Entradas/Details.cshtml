@@ -154,7 +154,7 @@
                         <div class="question-card-body">
                             <div class="question-actions">
                             </div>
-                            @if (User.IsInRole(Config.MiembroRolName) && unaPregunta.MiembroId == UsuarioId && likes > 0)
+                            @if (User.IsInRole(Config.MiembroRolName) && unaPregunta.MiembroId == UsuarioId )
                             {
                                 <div class="mt-2">
                                     <a class="btn btn-danger text-white" asp-controller="Preguntas" asp-action="Delete" asp-route-id="@unaPregunta.PreguntaId">Eliminar</a>

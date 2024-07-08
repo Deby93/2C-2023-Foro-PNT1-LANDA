@@ -44,9 +44,8 @@ namespace Foro.Controllers
             }
 
             var respuesta = await _contexto.Respuestas
-                .Include(r => r.Miembro)
-                .Include(r => r.Pregunta)
-                .FirstOrDefaultAsync(m => m.RespuestaId == id);
+                .FirstOrDefaultAsync(r => r.RespuestaId == id);
+
             if (respuesta == null)
             {
                 return NotFound();
@@ -54,6 +53,8 @@ namespace Foro.Controllers
 
             return View(respuesta);
         }
+
+
 
         [Authorize(Roles = Config.MiembroRolName)]
 

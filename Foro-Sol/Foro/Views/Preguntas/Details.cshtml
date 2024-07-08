@@ -125,3 +125,8 @@
     </div>
     <p>Se encontraron: @Model.Count() Respuesta/s en esta Pregunta</p>
 </div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
